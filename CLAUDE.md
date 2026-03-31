@@ -1,7 +1,7 @@
 # Project Overview
-This project is Enduro AI Coach.
+This project is RideMind.
 
-Enduro AI Coach is an AI-powered coaching platform for off-road motorcycle riders.
+RideMind is an AI-powered coaching platform for off-road motorcycle riders.
 
 The purpose of the product is to help riders improve performance by analysing ride/session information and short action-camera footage, then returning useful coaching feedback.
 
@@ -10,9 +10,11 @@ The user building this product is not a professional software engineer, so all d
 ---
 
 # Current Phase
-The project is currently in the MVP definition and early build preparation phase.
+The project is currently in the early MVP build phase.
 
-The immediate goal is to build the smallest useful version of the product that proves real value.
+The Next.js application has been scaffolded with TypeScript, Tailwind CSS, and App Router.
+
+The immediate goal is to build the core MVP flow: session input → video upload → analysis → coaching feedback.
 
 Do not assume the full long-term vision should be built now.
 
@@ -89,6 +91,23 @@ Prefer the following unless there is a strong reason not to:
 
 Ask before introducing major new dependencies or architectural complexity.
 
+
+# Project Structure
+The current project structure is:
+
+- `/app` → Next.js App Router pages and API routes
+- `/public` → static assets
+- `/docs` → product, planning, and architecture documents
+- `.claude/` → Claude skills and behaviour configuration
+- `.env.local` → environment variables (not committed to git)
+
+Do not create new top-level folders without discussing first.
+
+# Tech Stack (MVP)
+- Next.js 16 with App Router
+- TypeScript
+- Tailwind CSS
+- OpenAI API (for video/image analysis)
 ---
 
 # Working Style
@@ -164,3 +183,15 @@ If unsure what to do next, prefer the option that:
 2. keeps the system simpler
 3. improves feedback quality
 4. helps validate real user value quickly
+
+---
+
+## Knowledge Base Build
+- Topic template: knowledge-base/TOPIC-TEMPLATE.md
+- Each topic follows the exact template structure — no sections skipped
+- Output files go in knowledge-base/[domain-folder]/
+- File naming: domain-XX_topic-name.md
+- All content must be expert-level, technically accurate, and specific enough for an AI coaching engine to generate actionable feedback
+- When researching topics, prioritise sources from professional enduro/motocross coaches, pro rider techniques, and established riding schools
+- Every topic document must include all 10 sections from the template
+- Coaching language must sound like a real riding coach — direct, encouraging, physical cues

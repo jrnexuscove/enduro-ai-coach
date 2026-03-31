@@ -1,7 +1,7 @@
 # Architecture Principles
 
 ## Purpose
-These principles define how Enduro AI Coach should be built during the MVP and early product stages.
+These principles define how RideMind should be built during the MVP and early product stages.
 
 The goal is to keep the system simple, maintainable, and focused on validation.
 

@@ -10,3 +10,8 @@ coverage
 .DS_Store
 Thumbs.db
 .vscode-test
+.vercel
+.env.production.local
+out/
+scripts/temp-frames/
+scripts/coaching-output-*.txt

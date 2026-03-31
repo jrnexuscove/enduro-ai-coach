@@ -1,8 +1,8 @@
-# Enduro AI Coach
+# RideMind
 
 ## Overview
 
-Enduro AI Coach is an AI-powered coaching platform designed for off-road motorcycle riders.
+RideMind is an AI-powered coaching platform designed for off-road motorcycle riders.
 
 The goal is to help riders improve performance by analysing ride data and visual footage, and providing actionable feedback — similar to how a professional coach would review technique.
 
@@ -23,7 +23,7 @@ There is no simple, scalable system that turns ride data and riding footage into
 
 ## Solution (MVP)
 
-The initial version of Enduro AI Coach will:
+The initial version of RideMind will:
 
 1. Allow a rider to input ride/session data
 2. Accept a short video clip (e.g. 30–60 seconds from an action camera such as GoPro or DJI)
@@ -67,9 +67,21 @@ Including controlled video input early allows us to:
 ## Project Structure
 
 * `/docs` → product, planning, and architecture documents
-* `/app` → application code (to be created)
+* `/app` → application code (Next.js App Router)
+* `/public` → static assets
 * `.claude/` → Claude skills and behaviour configuration
 * `CLAUDE.md` → instructions for AI-assisted development
+```
+
+**Step 2 — Commit everything**
+```
+git add .
+```
+```
+git commit -m "Scaffold Next.js project with TypeScript and App Router"
+```
+```
+git push
 
 ---
 

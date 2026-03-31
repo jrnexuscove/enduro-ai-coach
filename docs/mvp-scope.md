@@ -1,7 +1,7 @@
 # MVP Scope
 
 ## Purpose
-The purpose of the MVP is to validate whether Enduro AI Coach can provide useful coaching feedback from short-form rider input and short action-camera footage.
+The purpose of the MVP is to validate whether RideMind can provide useful coaching feedback from short-form rider input and short action-camera footage.
 
 The MVP is not intended to prove scale, real-time performance, advanced sensor fusion, or a complete end-state architecture.
 

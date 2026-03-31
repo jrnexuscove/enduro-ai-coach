@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wc -l c:/Projects/Enduro-AI-Coach/knowledge-base/03-bike-dynamics-traction/*.md)",
+      "Bash(wc -l c:/Projects/Enduro-AI-Coach/knowledge-base/08-error-patterns-diagnostics/*.md)",
+      "Bash(wc -l c:/Projects/Enduro-AI-Coach/knowledge-base/06-hill-technical-terrain/*.md c:/Projects/Enduro-AI-Coach/knowledge-base/07-riding-intelligence/*.md)",
+      "Bash(wc -l c:/Projects/Enduro-AI-Coach/knowledge-base/09-performance-metrics/*.md c:/Projects/Enduro-AI-Coach/knowledge-base/10-training-skill-development/*.md)",
+      "Bash(wc -l c:/Projects/Enduro-AI-Coach/knowledge-base/11-mental-performance/*.md c:/Projects/Enduro-AI-Coach/knowledge-base/12-bike-setup-environment/*.md)",
+      "Bash(git add:*)"
+    ]
+  }
+}
