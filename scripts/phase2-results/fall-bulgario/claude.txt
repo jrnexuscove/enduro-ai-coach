@@ -1,0 +1,170 @@
+=== GROUND TRUTH ===
+Clip: Fall bulgario muddy hill 1
+Camera: POV
+Expected Scenario: Muddy hill climb
+Expected Outcome: Falls near top, momentum loss
+Expected Body Position: N/A (POV)
+Key Test: Momentum/crash detection
+Runtime: 75.7s
+=== MODEL OUTPUT (Claude) ===
+[dotenv@17.3.1] injecting env (4) from .env.local -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
+=== RideMind - Claude Coaching Test ===
+
+Video: C:\Users\rigge\OneDrive\Videos\Enduro ai coach test clips\Fall bulgario muddy hill 1.mp4
+
+Loading knowledge base...
+
+Knowledge base trimmed: 72k characters dropped to stay under 20k cap
+Knowledge base loaded: 4/20 files, 20k characters
+
+Extracting frames from video...
+
+Video duration: 32.4 seconds
+Extracted frame 1/16 at 1.9s
+Extracted frame 2/16 at 3.8s
+Extracted frame 3/16 at 5.7s
+Extracted frame 4/16 at 7.6s
+Extracted frame 5/16 at 9.5s
+Extracted frame 6/16 at 11.4s
+Extracted frame 7/16 at 13.3s
+Extracted frame 8/16 at 15.2s
+Extracted frame 9/16 at 17.2s
+Extracted frame 10/16 at 19.1s
+Extracted frame 11/16 at 21.0s
+Extracted frame 12/16 at 22.9s
+Extracted frame 13/16 at 24.8s
+Extracted frame 14/16 at 26.7s
+Extracted frame 15/16 at 28.6s
+Extracted frame 16/16 at 30.5s
+
+Extracting audio from video...
+
+Audio extracted successfully
+
+Starting analysis pipeline...
+
+Step 1: Visual observation (no KB)...
+
+[Step 1 visual] 3647 chars, 818 output tokens, stop: end_turn
+Visual observation complete.
+
+
+--- RAW VISUAL OBSERVATION ---
+Looking at these 16 frames from the motorcycle riding sequence:
+
+**Frame 1**: Rider is SITTING on the seat with body weight clearly resting on the bike. Feet are on the foot pegs. The rider is wearing a white/red/black helmet and dark jacket, leaning slightly forward with head looking ahead. The red GAS GAS bike is upright on rocky, mixed dirt terrain with trees in background. Speed appears slow/stopped.
+
+**Frame 2**: Rider is SITTING on the seat with body weight still on the bike. Feet remain on the foot pegs. Rider maintains forward lean posture with head positioned looking ahead. Bike remains upright on the same rocky dirt terrain. Speed appears slow.
+
+**Frame 3**: Rider is SITTING on the seat with body weight supported by the bike. Feet are on the foot pegs. Rider is leaning more forward now with head angled down slightly, appearing to look at the terrain ahead. Bike is upright on rocky dirt with scattered stones. Speed appears slow.
+
+**Frame 4**: This frame shows only terrain - a dirt trail winding upward through forested hills with mixed vegetation, autumn colors visible, and scattered rocks on the path. No rider visible.
+
+**Frame 5**: Terrain-only frame showing the continuation of the dirt trail curving through the hillside with dense forest, autumn foliage, and rocky ground. No rider visible.
+
+**Frame 6**: Terrain-only frame displaying the dirt trail continuing uphill with forested slopes, mixed vegetation, and scattered rocks and debris on the path. No rider visible.
+
+**Frame 7**: Terrain-only frame showing more of the winding dirt trail through forested terrain with autumn colors, fallen leaves, and natural debris scattered on the path. No rider visible.
+
+**Frame 8**: Only the front fender of the red bike is visible at bottom of frame. Rest shows dirt trail with leaves, grass, and forest vegetation. No clear rider position visible.
+
+**Frame 9**: Shows handlebars and front portion of bike from rider's perspective. A gloved hand (bright yellow/green glove) is visible on the right handlebar. The terrain shows dirt path with fallen leaves and vegetation. Cannot determine if rider is sitting or standing from this angle.
+
+**Frame 10**: Similar cockpit view showing handlebars, instrument cluster, and bright yellow/green gloved hands gripping the handlebars. Terrain shows dirt path with fallen leaves. Cannot definitively determine sitting vs standing position from this viewing angle.
+
+**Frame 11**: Cockpit view with handlebars and gloved hands visible on grips. Shows dirt trail with fallen leaves and vegetation ahead. Cannot clearly determine if rider is sitting or standing from this perspective.
+
+**Frame 12**: Cockpit view showing handlebars and bright yellow/green gloved hand on right grip. Terrain shows dirt path with scattered leaves and grass. Cannot determine rider's sitting/standing position from this angle.
+
+**Frame 13**: Cockpit view with handlebars and gloved hands on grips. Path shows dirt surface with leaves and vegetation. Cannot determine if rider is sitting or standing from this viewpoint.
+
+**Frame 14**: Similar cockpit perspective showing handlebars and gloved hands. Dirt trail with fallen leaves visible ahead. Cannot determine sitting vs standing position from this frame.
+
+**Frame 15**: Cockpit view with handlebars and yellow/green gloved hands on grips. Shows dirt path with autumn leaves and vegetation. Cannot clearly see rider position from this angle.
+
+**Frame 16**: Final cockpit view showing handlebars, gloved hands on grips, and dirt trail ahead with fallen leaves and forest vegetation. Cannot determine if rider is sitting or standing from this perspective.
+--- END RAW VISUAL ---
+
+Step 2: Audio observation (no KB, GPT-4o audio)...
+
+[Step 2 audio] 1093 chars, 233 output tokens, finish: stop
+Audio observation complete.
+
+
+--- RAW AUDIO OBSERVATION ---
+At the start, I hear the motorcycle engine revving up with rapidly increasing RPMs. The throttle sounds a bit jerky with sudden bursts of power as the rider likely adjusts to the terrain. 
+
+Shortly after, the engine RPMs rise and fall in a fluctuating pattern, suggesting either uneven terrain or frequent throttle modulation. There are some subtle sounds of what could be the clutch engaging or disengaging, as the RPMs drop briefly then pick up again.
+
+Then there’s a sudden change in sound, a sort of crunching or impact noise, likely the bike hitting or going over a rough obstacle like a rock or log. The engine sound quickly drops here, indicating the rider either slowed down or lost momentum.
+
+Following this impact, I hear the rider making a sound—maybe a groan—showing a pause or a sudden stop. The RPMs completely drop to idle or even stop, and you can faintly hear what could be the rider dismounting or the bike settling on the ground.
+
+Finally, there's some background noise of the rider talking or reacting, but no more engine sounds at that point. The bike seems to be at rest.
+--- END RAW AUDIO ---
+
+Step 3: Scenario classification...
+
+[Step 3 classification] 276 chars, 70 output tokens, stop: end_turn
+Scenario classification complete.
+
+SCENARIO: Obstacle crossing (log, rock, step)
+SURFACE: Mixed dirt with rocks and fallen leaves
+DIFFICULTY: Moderate
+OUTCOME: Failed
+SUMMARY: Rider attempted to cross a rocky obstacle on a forest trail but lost momentum and came to a stop, likely requiring dismount or restart.
+
+Step 4: Coaching (with knowledge base)...
+
+[Step 4 coaching] 3514 chars, 748 output tokens, stop: end_turn
+=== COACHING FEEDBACK ===
+
+## What I Saw
+
+The rider attempted to cross a rocky obstacle on a forest trail with mixed dirt, rocks, and fallen leaves. The approach was slow and deliberate, but momentum was lost during the obstacle crossing, resulting in a complete stop with engine sound dropping to idle and what appears to be a dismount or restart situation.
+
+## What You Did Well
+
+Based on the observations provided, I cannot identify any correctly executed techniques. The rider was sitting throughout the visible portion of the attempt, which is fundamentally incorrect for obstacle crossing, and the audio indicates a loss of momentum and failed crossing.
+
+## What Needs Work
+
+**1. Body Position - Sitting Instead of Standing**
+- What I observed: "Rider is SITTING on the seat with body weight clearly resting on the bike" (Frames 1-3)
+- Why it matters: When sitting, the rider cannot effectively shift weight or use their body as suspension. This loads the bike's suspension system rather than allowing the rider's legs to absorb impacts and maintain control over obstacles.
+- What correct technique looks like: The rider should be standing with weight off the seat, allowing the legs to act as active suspension and enabling quick weight shifts fore and aft as needed for the obstacle.
+
+**2. Speed and Momentum Management**
+- What I observed: "Speed appears slow/stopped" and "Speed appears slow" (Frames 1-3), followed by "The engine sound quickly drops here, indicating the rider either slowed down or lost momentum"
+- Why it matters: From the knowledge base on momentum management: "Entry momentum, built on traction-rich flat terrain before the slope begins, is pre-loaded kinetic energy that carries the bike uphill without demanding more traction than the surface can provide."
+- What correct technique looks like: The rider should carry appropriate entry speed to maintain momentum through the obstacle, rather than approaching too slowly and relying on throttle mid-obstacle.
+
+**3. Throttle Control During Obstacle**
+- What I observed: "The throttle sounds a bit jerky with sudden bursts of power" and "RPMs rise and fall in a fluctuating pattern"
+- Why it matters: Erratic throttle inputs during obstacle crossing can cause wheel spin, loss of traction, or abrupt weight transfers that destabilize the bike.
+- What correct technique looks like: Smooth, consistent throttle application with any necessary adjustments made gradually rather than in sudden bursts.
+
+## Your Coaching Plan
+
+**1. Static Standing Position Practice**
+Setup: On flat ground, practice mounting the bike and immediately standing with weight off the seat
+Focus: Get comfortable with the standing position, proper foot placement on pegs, and maintaining balance without sitting
+
+**2. Slow Speed Momentum Crosses**
+Setup: Find a small log or rock step, approach at walking speed while standing
+Focus: Maintain momentum through the obstacle without adding throttle mid-cross, letting entry speed carry you through
+
+**3. Throttle Smoothness Drill**
+Setup: Practice riding figure-8s on flat terrain while standing, focusing only on throttle control
+Focus: Eliminate jerky throttle inputs - aim for smooth, progressive changes only
+
+## Confidence Note
+
+**Confidence: High**
+
+The visual and audio observations clearly show the fundamental issues. Additional helmet cam or side-angle footage during the actual obstacle impact would help analyze the specific moment of failure, but the approach technique problems are clearly evident from the current observations.
+
+=== END ===
+
+Output saved to: scripts\coaching-output-claude-2026-03-31T19-25-46.txt
+

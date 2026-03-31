@@ -1,0 +1,17 @@
+# perception_avg = avg(audio_quality + scenario + outcome). coaching_capped = coaching score but max 2 if perception_avg < 2.5
+clip_id,clip_name,model,runtime_seconds,audio_quality,scenario,outcome,terrain_line,pov_awareness,perception_avg,coaching,coaching_capped,hallucination,confidence,chronology,specificity,consistency,failure_tags,verdict,production_usability,notes
+clutch-scream-hill,clutch scream hill,GPT-4o,63.2,,,,,,,,,,,,,,,,,
+clutch-scream-hill,clutch scream hill,Gemini,351.7,,,,,,,,,,,,,,,,,
+clutch-scream-hill,clutch scream hill,Claude,68.4,,,,,,,,,,,,,,,,,
+fall-bulgario,Fall bulgario muddy hill 1,GPT-4o,69.5,,,,,,,,,,,,,,,,,
+fall-bulgario,Fall bulgario muddy hill 1,Gemini,232.8,,,,,,,,,,,,,,,,,
+fall-bulgario,Fall bulgario muddy hill 1,Claude,75.7,,,,,,,,,,,,,,,,,
+jimbo-crash,jimbo crash,GPT-4o,36.9,,,,,,,,,,,,,,,,,
+jimbo-crash,jimbo crash,Gemini,49.7,,,,,,,,,,,,,,,,,
+jimbo-crash,jimbo crash,Claude,50.8,,,,,,,,,,,,,,,,,
+long-hill,long hill,GPT-4o,68.8,,,,,,,,,,,,,,,,,
+long-hill,long hill,Gemini,110.3,,,,,,,,,,,,,,,,,
+long-hill,long hill,Claude,62.6,,,,,,,,,,,,,,,,,
+steep-hill-bail,steep hill bail in trees,GPT-4o,43.1,,,,,,,,,,,,,,,,,
+steep-hill-bail,steep hill bail in trees,Gemini,287.2,,,,,,,,,,,,,,,,,
+steep-hill-bail,steep hill bail in trees,Claude,104.9,,,,,,,,,,,,,,,,,

@@ -1,0 +1,148 @@
+=== GROUND TRUTH ===
+Clip: jimbo crash
+Camera: POV
+Expected Scenario: Descent through trees
+Expected Outcome: Hits tree, headlight impact
+Expected Body Position: N/A (POV)
+Key Test: Impact detection, low quality
+Runtime: 50.8s
+=== MODEL OUTPUT (Claude) ===
+[dotenv@17.3.1] injecting env (4) from .env.local -- tip: ⚡️ secrets for agents: https://dotenvx.com/as2
+=== RideMind - Claude Coaching Test ===
+
+Video: C:\Users\rigge\OneDrive\Videos\Enduro ai coach test clips\jimbo crash.mp4
+
+Loading knowledge base...
+
+Knowledge base trimmed: 72k characters dropped to stay under 20k cap
+Knowledge base loaded: 4/20 files, 20k characters
+
+Extracting frames from video...
+
+Video duration: 14.3 seconds
+Extracted frame 1/16 at 0.8s
+Extracted frame 2/16 at 1.7s
+Extracted frame 3/16 at 2.5s
+Extracted frame 4/16 at 3.4s
+Extracted frame 5/16 at 4.2s
+Extracted frame 6/16 at 5.0s
+Extracted frame 7/16 at 5.9s
+Extracted frame 8/16 at 6.7s
+Extracted frame 9/16 at 7.6s
+Extracted frame 10/16 at 8.4s
+Extracted frame 11/16 at 9.2s
+Extracted frame 12/16 at 10.1s
+Extracted frame 13/16 at 10.9s
+Extracted frame 14/16 at 11.8s
+Extracted frame 15/16 at 12.6s
+Extracted frame 16/16 at 13.4s
+
+Extracting audio from video...
+
+Audio extracted successfully
+
+Starting analysis pipeline...
+
+Step 1: Visual observation (no KB)...
+
+[Step 1 visual] 2010 chars, 451 output tokens, stop: end_turn
+Visual observation complete.
+
+
+--- RAW VISUAL OBSERVATION ---
+Looking at these 16 frames, I can only see 4 distinct images that appear to repeat multiple times. The images show a first-person view from someone on a motorcycle in a wooded, hilly terrain. Here's what I observe frame by frame:
+
+**Frame 1:** The rider appears to be SITTING on the seat. Their body position shows them in an upright posture with arms reaching forward to the handlebars. The helmet-mounted camera view shows a dirt trail winding upward through bare trees. Feet appear to be on the foot pegs. The bike is upright and following a path that curves to the right through brown, leafy forest floor. Speed appears slow to moderate.
+
+**Frame 2:** The rider appears to be SITTING on the seat. Similar seated position as frame 1, with the rider maintaining an upright posture. The trail continues upward through the same wooded terrain with bare trees on both sides. Feet remain on the pegs. The bike maintains an upright angle following the established trail. Speed appears consistent and moderate.
+
+**Frame 3:** The rider appears to be SITTING on the seat. The camera shows the rider continuing along the dirt trail in the same seated position. The terrain shows scattered leaves and patches of green moss among the brown forest floor. Trees frame both sides of the narrow trail. Bike remains upright with feet on pegs. Speed appears steady.
+
+**Frame 4:** The rider appears to be SITTING on the seat. The view shows the continuation of the forest trail with the rider maintaining the same seated posture. The path shows some rocks and varied terrain texture. Bare trees continue to line the trail on both sides. Feet remain on foot pegs, bike upright, speed consistent.
+
+**Frames 5-16:** These appear to be repetitions of the same 4 images shown above, so the observations would be identical - the rider consistently appears to be SITTING on the seat throughout all frames, maintaining an upright riding position with feet on the pegs, following a dirt trail through wooded terrain at a moderate pace.
+--- END RAW VISUAL ---
+
+Step 2: Audio observation (no KB, GPT-4o audio)...
+
+[Step 2 audio] 936 chars, 177 output tokens, finish: stop
+Audio observation complete.
+
+
+--- RAW AUDIO OBSERVATION ---
+At the beginning, there's a high-revving engine sound, suggesting that the motorcycle is accelerating or climbing over a challenging surface. The RPMs increase quickly and there's a sense of sudden throttle application. 
+
+Shortly after, there's a sharp impact sound, possibly the rider hitting an obstacle or the bike making contact with the ground. The engine noise cuts out quickly right after this impact, showing the bike has stopped moving. 
+
+Then you hear the rider expressing discomfort or surprise, potentially from falling or losing control. This is followed by some shuffling or rustling sounds, likely the rider adjusting positions or handling the bike after the mishap. 
+
+The engine is silent during this time, indicating the motorcycle is not running. There are no noticeable clutch or throttle sounds after the impact. The sequence suggests a brief attempt at riding that ended in a sudden stop due to an obstacle or fall.
+--- END RAW AUDIO ---
+
+Step 3: Scenario classification...
+
+[Step 3 classification] 559 chars, 126 output tokens, stop: end_turn
+Scenario classification complete.
+
+SCENARIO: Obstacle crossing (log, rock, step)
+SURFACE: loose/leafy forest floor with rocks
+DIFFICULTY: moderate
+OUTCOME: failed
+SUMMARY: Rider attempted to navigate over an obstacle on a forest trail but hit it hard, resulting in an immediate stop and likely fall.
+
+The audio clearly indicates a sudden high-rev acceleration followed by a sharp impact and immediate engine cutout, which combined with the visual of rocky, uneven forest terrain suggests the rider was trying to power over an obstacle (likely a rock or log) but failed to clear it successfully.
+
+Step 4: Coaching (with knowledge base)...
+
+[Step 4 coaching] 3707 chars, 739 output tokens, stop: end_turn
+=== COACHING FEEDBACK ===
+
+## What I Saw
+
+The rider was attempting to cross an obstacle (likely a rock or log) on a forest trail with loose, leafy terrain. The audio indicates they approached with high revs and sudden throttle application, hit the obstacle hard, and immediately stopped with the engine cutting out, suggesting a failed obstacle crossing that likely resulted in a fall.
+
+## What You Did Well
+
+Looking at the visual and audio evidence, I cannot identify any specific techniques that were executed well. The seated position throughout the approach and the sudden high-rev throttle application followed by immediate failure suggest fundamental technique errors rather than partial success.
+
+## What Needs Work
+
+**1. Body Position - Seated Instead of Standing**
+- What I observed: "The rider appears to be SITTING on the seat" consistently across all frames, "maintaining an upright posture with arms reaching forward to the handlebars"
+- Why it matters: From the knowledge base, correct obstacle technique requires the rider to be standing to allow the bike to move independently beneath them and to shift weight dynamically
+- What correct technique looks like: Rider should be standing with weight centered over the bike, allowing suspension to work and enabling quick weight shifts for obstacle clearance
+
+**2. Throttle Application - Sudden High-Rev Instead of Smooth Power**
+- What I observed: Audio shows "high-revving engine sound" and "sudden throttle application" followed immediately by impact
+- Why it matters: Sudden high-rev throttle application typically causes wheel spin or launches the bike uncontrollably into obstacles rather than providing smooth, controlled power
+- What correct technique looks like: Smooth, progressive throttle application with clutch feathering to maintain traction and control through the obstacle
+
+**3. Approach Strategy - Reactive Rather Than Planned**
+- What I observed: The sequence of "high RPMs increase quickly" followed by "sharp impact sound" and "engine cuts out quickly" suggests a reactive attempt rather than planned execution
+- Why it matters: Successful obstacle crossing requires pre-planning the approach speed, gear selection, and technique before reaching the obstacle
+- What correct technique looks like: Assess the obstacle, select appropriate speed and gear, commit to the technique before entry, and execute smoothly without mid-approach corrections
+
+## Your Coaching Plan
+
+**1. Static Obstacle Practice**
+Setup: Find a small log or rock (6-12 inches high) on flat ground
+Focus: Practice standing position, smooth throttle pulse timing, and front wheel lift technique at walking pace until the movement becomes natural
+
+**2. Body Position Drill**
+Setup: Practice riding short sections of trail while standing, no obstacles
+Focus: Maintain standing position for entire sections, keep weight centered, arms relaxed. Build comfort with standing before attempting obstacles
+
+**3. Approach Speed Calibration**
+Setup: Use the same obstacle but approach at different controlled speeds
+Focus: Find the minimum speed needed to clear the obstacle cleanly, practice committing to that speed before the obstacle rather than adding throttle at the obstacle
+
+## Confidence Note
+
+**Confidence: High**
+
+The visual and audio evidence clearly show the key technique failures. The consistent seated position across all frames and the distinctive audio sequence of sudden acceleration followed by impact provide clear diagnostic information. Additional helmet camera footage showing the exact obstacle and the rider's throttle/clutch hand positions would be helpful, but the current evidence is sufficient to identify the primary issues and create an effective improvement plan.
+
+=== END ===
+
+Output saved to: scripts\coaching-output-claude-2026-03-31T19-28-03.txt
+

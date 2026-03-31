@@ -1,0 +1,118 @@
+=== GROUND TRUTH ===
+Clip: Mark crash
+Camera: 3rd-person
+Expected Scenario: Descent into jump
+Expected Outcome: Over-handlebars crash
+Expected Body Position: Visible but brief (4s)
+Key Test: Crash detection, background music
+Runtime: 75.5s
+=== MODEL OUTPUT (Gemini) ===
+[dotenv@17.3.1] injecting env (4) from .env.local -- tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] }
+=== RideMind - Gemini Coaching Test ===
+
+Video: C:\Users\rigge\OneDrive\Videos\Enduro ai coach test clips\Mark crash.mp4
+
+Loading knowledge base...
+
+Knowledge base trimmed: 72k characters dropped to stay under 20k cap
+Knowledge base loaded: 4/20 files, 20k characters
+
+Uploading video to Gemini Files API...
+
+Uploading video (44MB) to Gemini Files API...
+Upload complete. Waiting for processing...
+..
+Video ready.
+
+Starting analysis pipeline...
+
+Step 1: Visual observation (no KB)...
+
+[Step 1 visual] 2076 chars, 442 output tokens, finish: STOP
+Visual observation complete.
+
+
+--- RAW VISUAL OBSERVATION ---
+The video clip begins with an off-road motorcycle rider descending a steep, rocky, and dirt-covered slope. The terrain is loose dirt with embedded and scattered grey rocks, showing evidence of multiple tire tracks and ruts. Patches of moss and sparse vegetation are visible, particularly on the flatter sections and the lower parts of the slope.
+
+At 0:00, the rider is positioned high on the bike, standing upright on the foot pegs with a slight forward lean over the handlebars. There is a clear gap between the rider's seat and their body. The rider wears a red helmet, dark blue jersey with red accents, and red pants. The bike is orange and white, angled downhill, with the front wheel pointed generally forward and slightly left. The rider's head is looking straight ahead and slightly down the path of travel. The bike is moving at a moderate speed, and the engine sound indicates acceleration.
+
+By 0:01, the rider continues the descent, maintaining a standing position. As the bike reaches the bottom of the steeper section and transitions to a flatter, muddy, and heavily rutted area, the rider's torso leans more significantly forward, bending at the waist over the handlebars. The bike is steered sharply to the left. The bike leans far over to its left side, and the front wheel slides laterally across the muddy ground. The rider's left foot comes off the foot peg and extends outwards towards the ground.
+
+At 0:02, the bike loses traction completely and falls onto its left side in the mud. The rider falls with the bike, landing on their left side, with their body partially under the bike's frame. Their left arm is extended forward on the ground. The right foot detaches from the right foot peg as the bike comes to rest on its side. The rear wheel spins briefly in the air before stopping. The bike comes to a complete stop, lying flat on the muddy ground.
+
+The rider did not complete the section successfully; they fell to the ground with the motorcycle. No feet were on the ground prior to the fall, only the left foot extended as the bike began to go down.
+--- END RAW VISUAL ---
+
+Step 2: Audio observation (no KB)...
+
+[Step 2 audio] 1081 chars, 270 output tokens, finish: STOP
+Audio observation complete.
+
+
+--- RAW AUDIO OBSERVATION ---
+Here is a chronological description of the sounds heard in the clip:
+
+*   **0:00:** A human voice is heard, speaking briefly and indistinctly.
+*   **0:00 - 0:01:** An off-road motorcycle engine roars to life with a rapid and sharp increase in RPM, indicating a sudden burst of throttle.
+*   **0:01 - 0:02:** The engine sustains a high RPM for a moment, then drops abruptly. Concurrently, there is a clear impact sound, immediately followed by the distinct sound of a motorcycle sliding or skidding across a loose, possibly muddy or gravelly surface. Multiple human voices exclaim in surprise ("Oh!").
+*   **0:02 - 0:03:** The engine briefly continues to rev at a very high RPM, but the sound becomes erratic and fluctuating, indicative of the bike being on its side or experiencing wheel spin without effective forward motion. The sliding/skidding sound continues faintly. The human voices continue with more exclamations ("Whoa! Whoa! Whoa!").
+*   **0:03 - 0:04:** The engine sputters a few times and then completely stalls and stops. Indistinct human voices continue to be heard.
+--- END RAW AUDIO ---
+
+Step 3: Scenario classification...
+
+[Step 3 classification] 49 chars, 17 output tokens, finish: MAX_TOKENS  ⚠ TRUNCATED — hit token cap
+Scenario classification complete.
+
+SCENARIO: Descent
+SURFACE: Loose/mud/rocks
+DIFFIC
+
+Step 4: Coaching (with knowledge base)...
+
+[Step 4 coaching] 5234 chars, 1120 output tokens, finish: STOP
+=== COACHING FEEDBACK ===
+
+## What I Saw
+The video clip shows you descending a steep, rocky, dirt-covered slope that transitions into a flatter, muddy, and heavily rutted section. You were attempting to navigate this technical descent, but unfortunately, the front wheel slid in the mud, causing you to lose traction and fall to the ground with the bike.
+
+## What You Did Well
+Given the specific challenges of a steep, technical descent, there isn't a clear "done well" to highlight regarding the core technique for this scenario. While you maintained a standing position initially, the execution of the descent itself had critical areas for improvement that led to the fall.
+
+## What Needs Work
+
+### 1. Body Position on Descent
+*   **What I observed:** At 0:00, you were "positioned high on the bike, standing upright on the foot pegs with a slight forward lean over the handlebars." As you descended at 0:01, your "torso leans more significantly forward, bending at the waist over the handlebars."
+*   **Why it matters:** From the knowledge base, "rider's body in standard attack position on a steep descent — weight too far forward" is an error indicator. Most riders struggle because their "body position remains too far forward, which loads the front wheel and makes the very endo they fear more likely." While you didn't endo, this forward weight distribution contributed to the front wheel sliding.
+*   **What correct technique looks like:** For technical descents, the "rider's body is significantly behind the seat — arms extended forward, clear gap between hips and seat. Rear of the bike appears lower than the front relative to the slope — weight correctly rearward."
+
+### 2. Engine Braking and Throttle Management
+*   **What I observed:** From 0:00-0:01, the "engine roars to life with a rapid and sharp increase in RPM, indicating a sudden burst of throttle." At 0:00, the "engine sound indicates acceleration."
+*   **Why it matters:** On descents, "gravity is continuously working against the rider's attempts to control speed." Using throttle for acceleration on a steep descent works against gravity and makes speed control harder. "Most riders...do not trust engine braking, they over-rely on the front brake," but "engine braking [is] primary deceleration." An "Engine spinning freely with no compression sound" (which can happen if you're in too high a gear or actively accelerating) means "no engine braking."
+*   **What correct technique looks like:** The knowledge base states that "Consistent engine note in compression (overrun): engine braking active, correct gear selected" indicates good technique. The goal is "Consistent slow speed on descent without heavy visible braking — engine braking doing the work."
+
+### 3. Mud Transition and Traction Control
+*   **What I observed:** At 0:01, as you transitioned to the flatter, muddy section, "the front wheel slides laterally across the muddy ground." The audio indicated a "sudden burst of throttle" right before the impact and sliding sound.
+*   **Why it matters:** Entering mud with too much throttle and/or an incorrect line can easily lead to a loss of traction. The knowledge base indicates that "High-rpm screaming on mud with minimal forward progress: wheel digging, too much throttle." While your rear wheel wasn't digging initially, the sudden throttle combined with a loaded front wheel and lateral movement points to a lack of controlled input for the surface.
+*   **What correct technique looks like:** For mud, the guidance is "high entry speed, immediate throttle reduction, wheel showing mud self-cleaning spray rather than a rooster of wet mud." This means carrying momentum but immediately restraining the throttle to maintain it without spinning.
+
+## Your Coaching Plan
+
+1.  **Descent Body Position Drill:**
+    *   **Setup:** Find a moderately steep, non-technical descent where you feel comfortable.
+    *   **Focus:** Your only goal is to "shift your weight so far rearward that you feel like you might fall off the back." Pay attention to how long your arms feel and the gap between your hips and the seat. Exaggerate the position to internalize what "significantly behind the seat" feels like.
+2.  **Engine Braking Focus Drill:**
+    *   **Setup:** On the same descent, choose a gear (likely second or third) that provides substantial engine braking.
+    *   **Focus:** "Next descent, no front brake at all. Use engine braking and rear brake only." This will help you "trust engine braking" and understand how much deceleration it provides.
+3.  **Mud Entry and Throttle Reduction:**
+    *   **Setup:** Find a flat, muddy section or a mild transition similar to the one where you fell.
+    *   **Focus:** Practice entering the mud with sufficient momentum, then immediately "reduce throttle" to a sustained, low input. Focus on a clean line and feeling the bike self-clean the mud without spinning. Repeat and try different entry speeds and throttle restraint levels.
+
+## Confidence Note
+High. The visual and audio observations are very specific and directly correlate with several key error indicators and coaching cues in the knowledge base, particularly concerning technical descents and mud riding. No assumptions were needed beyond what was explicitly stated.
+
+=== END ===
+
+Output saved to: scripts\coaching-output-gemini-2026-03-31T21-10-59.txt
+

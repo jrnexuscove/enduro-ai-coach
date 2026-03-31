@@ -1,0 +1,165 @@
+=== GROUND TRUTH ===
+Clip: clutch scream hill
+Camera: POV
+Expected Scenario: Hill climb, leafy forest
+Expected Outcome: Wrong turn, hits tree, falls
+Expected Body Position: N/A (POV)
+Key Test: Audio clutch abuse detection
+Runtime: 68.4s
+=== MODEL OUTPUT (Claude) ===
+[dotenv@17.3.1] injecting env (4) from .env.local -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+=== RideMind - Claude Coaching Test ===
+
+Video: C:\Users\rigge\OneDrive\Videos\Enduro ai coach test clips\clutch scream hill.mp4
+
+Loading knowledge base...
+
+Knowledge base trimmed: 72k characters dropped to stay under 20k cap
+Knowledge base loaded: 4/20 files, 20k characters
+
+Extracting frames from video...
+
+Video duration: 52.8 seconds
+Extracted frame 1/16 at 3.1s
+Extracted frame 2/16 at 6.2s
+Extracted frame 3/16 at 9.3s
+Extracted frame 4/16 at 12.4s
+Extracted frame 5/16 at 15.5s
+Extracted frame 6/16 at 18.6s
+Extracted frame 7/16 at 21.7s
+Extracted frame 8/16 at 24.8s
+Extracted frame 9/16 at 28.0s
+Extracted frame 10/16 at 31.1s
+Extracted frame 11/16 at 34.2s
+Extracted frame 12/16 at 37.3s
+Extracted frame 13/16 at 40.4s
+Extracted frame 14/16 at 43.5s
+Extracted frame 15/16 at 46.6s
+Extracted frame 16/16 at 49.7s
+
+Extracting audio from video...
+
+Audio extracted successfully
+
+Starting analysis pipeline...
+
+Step 1: Visual observation (no KB)...
+
+[Step 1 visual] 4034 chars, 863 output tokens, stop: end_turn
+Visual observation complete.
+
+
+--- RAW VISUAL OBSERVATION ---
+I observe the following in each frame:
+
+**Frame 1:** This shows a first-person view from the motorcycle looking ahead into a forested area with tall, thin trees. The terrain is dirt/forest floor with scattered debris and logs. I can see handlebars at the bottom of the frame. There are other riders visible in the distance. The bike appears to be stopped or moving very slowly. I cannot see the rider's position from this POV angle.
+
+**Frame 2:** Similar forest view with the camera showing another rider on a red motorcycle in the distance among the trees. The terrain is loose dirt with tree debris. The bike appears to be moving slowly or stopped. Cannot determine rider seating position from this POV.
+
+**Frame 3:** The view shows a rider on a red motorcycle (appears to be a GASGAS brand bike) positioned to the right side of the frame. The rider appears to be SITTING on the seat with their feet on the pegs. The rider's torso is upright to slightly forward-leaning. Head position appears to be looking forward. The bike is on dirt terrain among trees. Speed appears slow to moderate.
+
+**Frame 4:** Forest terrain view without clear sight of a rider. The camera is looking through trees at dirt terrain with scattered organic debris. The bike appears to be moving slowly through the forested area.
+
+**Frame 5:** Similar forest view showing dirt terrain sloping upward with trees. There appears to be a rider visible in the distance on the hillside among the trees, but too far to determine seating position clearly. The terrain shows loose dirt and forest debris.
+
+**Frame 6:** The view shows wooded terrain with a dirt trail. There's a slight upward slope visible and trees surrounding the path. A small portion of the front fender is visible at the bottom. Cannot see rider position from this angle.
+
+**Frame 7:** Forest terrain view showing dirt ground with fallen logs and debris. Trees are visible throughout. There appears to be other riders visible in the distance on the hillside, but too far to determine their exact positions.
+
+**Frame 8:** The camera shows rough terrain with fallen logs, rocks, and forest debris creating obstacles on the trail. The path appears to wind upward through trees. Some riders are visible in the far distance on higher ground.
+
+**Frame 9:** View shows a steep, rough section of trail with loose dirt, rocks, and fallen tree branches. The terrain appears challenging with multiple obstacles. The path curves upward to the left through the forest.
+
+**Frame 10:** Shows more of the steep, technical terrain with loose dirt, rocks, and organic debris. Large fallen logs are visible as obstacles. The trail appears to continue upward through dense forest.
+
+**Frame 11:** The camera view shows very rough terrain with a large fallen log obstacle directly ahead. The ground is covered with loose dirt, rocks, and forest debris. The handlebars and front of the bike are visible at the bottom of the frame.
+
+**Frame 12:** Similar technical terrain with the fallen log obstacle. The view shows the challenging nature of the trail with multiple debris obstacles and loose dirt surfaces through the forest.
+
+**Frame 13:** The view shows rough forest floor with scattered debris, fallen branches, and loose dirt. Trees are visible throughout and the terrain appears uneven. The bottom of the frame shows the motorcycle's front fender.
+
+**Frame 14:** Forest terrain view showing dirt ground with natural debris. The path appears to wind through trees with some elevation changes visible.
+
+**Frame 15:** The view shows a red motorcycle (appears to be a GASGAS) that has fallen over on its side on the forest floor. The bike is lying on the dirt among trees and forest debris. No rider is visible in the frame.
+
+**Frame 16:** The final frame shows the fallen red motorcycle from a closer angle. The bike is completely on its side with the front wheel, handlebars, and body panels visible. The motorcycle appears to have crashed and is lying static on the dirt forest floor among trees and organic debris.
+--- END RAW VISUAL ---
+
+Step 2: Audio observation (no KB, GPT-4o audio)...
+
+[Step 2 audio] 1269 chars, 247 output tokens, finish: stop
+Audio observation complete.
+
+
+--- RAW AUDIO OBSERVATION ---
+At the start, I hear the motorcycle engine running at a moderate RPM that’s relatively steady. Then the engine revs increase briefly, indicating light throttle application. There’s a slight fluctuation in the engine sound, possibly from navigating small bumps or slight changes in terrain. 
+
+At one point, I hear an increase in RPM, and shortly after that, a decreasing but still fluctuating engine sound, suggesting the rider might be adjusting throttle or moving over uneven ground. 
+
+After a brief pause, there's a sudden burst of throttle application and a noticeable engine rev like the rider is accelerating quickly. Almost immediately, you hear some impact sounds and possibly some slipping as the RPM spikes but doesn’t sustain, which may indicate the bike losing traction slightly.
+
+There’s then a sound of a person speaking, followed by more engine revving at a high RPM, then a sudden drop-off, coinciding with an impact sound or the bike hitting an obstacle.
+
+Finally, after another burst of throttle, the engine sound stops abruptly, and I hear the rider exclaiming. There’s a sound of the bike perhaps leaning or falling, followed by some grunting noises, indicating the rider is either adjusting the motorcycle or recovering from a small loss of balance.
+--- END RAW AUDIO ---
+
+Step 3: Scenario classification...
+
+[Step 3 classification] 274 chars, 66 output tokens, stop: end_turn
+Scenario classification complete.
+
+SCENARIO: Obstacle crossing (log, rock, step)
+SURFACE: Loose dirt with forest debris
+DIFFICULTY: Hard
+OUTCOME: Failed
+SUMMARY: Rider attempted to navigate through technical forest terrain with fallen logs and obstacles but crashed, with the motorcycle ending up on its side.
+
+Step 4: Coaching (with knowledge base)...
+
+[Step 4 coaching] 3576 chars, 732 output tokens, stop: end_turn
+=== COACHING FEEDBACK ===
+
+## What I Saw
+
+The rider was attempting to navigate technical forest terrain with fallen logs and scattered debris on loose dirt surfaces. From the visual observations, I could see the rider was seated on the bike while approaching obstacles, then attempted to cross a large fallen log. The attempt failed, resulting in the motorcycle ending up completely on its side.
+
+## What You Did Well
+
+Based on the limited visual information available, I cannot identify specific correct techniques that were executed well. The rider maintained forward vision initially and appeared to approach the obstacles at a controlled speed, but the critical technique elements for obstacle crossing were not properly executed.
+
+## What Needs Work
+
+**1. Body Position - Seated Instead of Standing**
+- What I observed: "The rider appears to be SITTING on the seat with their feet on the pegs" and "rider's torso is upright to slightly forward-leaning"
+- Why it matters: From the knowledge base on technical terrain, standing allows proper weight transfer and suspension unweighting that's essential for obstacle crossing. Seated riding loads the suspension and prevents the dynamic weight shifts needed.
+- What correct technique looks like: Rider should be standing with weight shifts available for front wheel lift and rear wheel drive over obstacles.
+
+**2. Throttle Control and Timing**
+- What I observed: Audio shows "sudden burst of throttle application" followed by "RPM spikes but doesn't sustain" and "impact sounds and possibly some slipping"
+- Why it matters: Obstacle crossing requires precise throttle timing - a controlled pulse to lift the front wheel, then sustained drive to pull the rear over. Sudden throttle bursts often cause wheel spin or loss of control.
+- What correct technique looks like: Smooth throttle pulse for front wheel lift, maintained steady throttle for rear wheel traction through the obstacle.
+
+**3. Commitment and Line Choice**
+- What I observed: The sequence shows approach, engine revs, impact sounds, then "engine sound stops abruptly" with the bike "completely on its side"
+- Why it matters: Obstacle crossing demands full commitment once initiated. Half-hearted attempts or mid-obstacle hesitation typically result in crashes as momentum is lost at the critical moment.
+- What correct technique looks like: Complete commitment to the line and technique from approach through completion, maintaining drive until fully clear.
+
+## Your Coaching Plan
+
+**1. Static Log Practice Drill**
+Set up a small log (6-8 inches) on flat ground. Practice the sequence: approach standing, front wheel to log base, throttle pulse for lift, maintain throttle for rear wheel drive-over. Focus on timing and staying standing throughout.
+
+**2. Throttle Control Exercise**
+Practice throttle pulses while stationary - short, controlled bursts that would lift the front wheel without spinning the rear. Develop muscle memory for the correct throttle motion before attempting obstacles.
+
+**3. Commitment Training**
+Start with very small obstacles (2-4 inches) and practice the complete sequence with full commitment every time. Build confidence with success before progressing to larger obstacles.
+
+## Confidence Note
+
+**Confidence: Medium** - The visual observations clearly show the crash outcome and key technique errors (seated position, throttle control issues). However, I would benefit from seeing the actual approach and obstacle crossing attempt more clearly, plus understanding the specific obstacle dimensions and rider experience level to provide more targeted coaching.
+
+=== END ===
+
+Output saved to: scripts\coaching-output-claude-2026-03-31T19-19-28.txt
+

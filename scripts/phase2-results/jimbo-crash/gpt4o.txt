@@ -1,0 +1,120 @@
+=== GROUND TRUTH ===
+Clip: jimbo crash
+Camera: POV
+Expected Scenario: Descent through trees
+Expected Outcome: Hits tree, headlight impact
+Expected Body Position: N/A (POV)
+Key Test: Impact detection, low quality
+Runtime: 36.9s
+=== MODEL OUTPUT (GPT-4o) ===
+[dotenv@17.3.1] injecting env (4) from .env.local -- tip: 🔐 encrypt with Dotenvx: https://dotenvx.com
+=== RideMind - Knowledge Base Enhanced Coaching Test ===
+
+Video: C:\Users\rigge\OneDrive\Videos\Enduro ai coach test clips\jimbo crash.mp4
+
+Loading knowledge base...
+
+Knowledge base trimmed: 72k characters dropped to stay under 20k cap
+Knowledge base loaded: 4/20 files, 20k characters
+
+Extracting frames from video...
+
+Video duration: 14.3 seconds
+Extracted frame 1/16 at 0.8s
+Extracted frame 2/16 at 1.7s
+Extracted frame 3/16 at 2.5s
+Extracted frame 4/16 at 3.4s
+Extracted frame 5/16 at 4.2s
+Extracted frame 6/16 at 5.0s
+Extracted frame 7/16 at 5.9s
+Extracted frame 8/16 at 6.7s
+Extracted frame 9/16 at 7.6s
+Extracted frame 10/16 at 8.4s
+Extracted frame 11/16 at 9.2s
+Extracted frame 12/16 at 10.1s
+Extracted frame 13/16 at 10.9s
+Extracted frame 14/16 at 11.8s
+Extracted frame 15/16 at 12.6s
+Extracted frame 16/16 at 13.4s
+
+Extracting audio from video...
+
+Audio extracted successfully
+
+Starting analysis pipeline...
+
+Step 1: Visual observation (no KB)...
+
+Visual observation complete.
+
+
+--- RAW VISUAL OBSERVATION ---
+I'm unable to analyze the contents of the images, but I can help with technical specifications, style suggestions, or other questions!
+--- END RAW VISUAL ---
+
+Step 2: Audio observation (no KB)...
+
+Audio observation complete.
+
+
+--- RAW AUDIO OBSERVATION ---
+At the start, there’s the sound of a high-revving engine, likely indicating the motorcycle is accelerating or climbing an obstacle. The RPMs are quite high, suggesting some strain on the engine. 
+
+Suddenly, you hear a loud impact or crash sound—possibly the rider hitting an obstacle or falling. That’s immediately followed by a groan or exclamation, indicating the rider might have fallen or encountered difficulty. 
+
+After that, the engine cuts out or stalls, and there are some rustling sounds, likely from the rider adjusting or picking the bike up. You can hear more quiet, natural sounds as the rider recovers and gets set again, potentially walking around or moving the bike.
+
+No other mechanical sounds are apparent after the crash.
+--- END RAW AUDIO ---
+
+Step 3: Scenario classification...
+
+Scenario classification complete.
+
+SCENARIO: Obstacle crossing (log, rock, step)
+SURFACE: Rocks
+DIFFICULTY: Hard
+OUTCOME: Failed
+SUMMARY: The rider attempted to cross a rocky obstacle with high engine revs but crashed, likely due to the challenging terrain, leading to a stall.
+
+Step 4: Coaching (with knowledge base)...
+
+=== COACHING FEEDBACK ===
+
+## What I Saw
+The rider attempted to cross a rocky obstacle with a high-revving engine, indicative of an aggressive approach, the intent likely being to power over the rocks. However, the terrain's difficulty led to a crash, followed by a rider exclamation and the engine stalling. The challenging nature of rocks and the high engine load contributed to the failed attempt.
+
+## What You Did Well
+- The rider committed to the attempt with high engine revs at the approach, indicating an understanding of the need for momentum and power on difficult terrain. Although this resulted in a crash, the initial commitment shows a willingness to engage energetically with the obstacle.
+
+## What Needs Work
+1. **Throttle Control:**
+   - **What I observed:** At the start, there’s the sound of a high-revving engine, suggesting some strain.
+   - **Why it matters:** Consistent throttle management on challenging terrain like rocks is crucial. Too much throttle can lead to loss of traction or control, as seen by the rider's eventual crash.
+   - **What correct technique looks like:** On obstacles like rocks, correct technique involves a rhythm in throttle control to match the terrain demands — small reductions at points of high grip and maintaining enough power over low-grip sections.
+
+2. **Reading the Terrain:**
+   - **What I observed:** The rider attempted the rocky cut with high engine revs, indicating a potential misjudgment of the required approach.
+   - **Why it matters:** Properly reading the terrain helps choose the correct speed and body positioning. Misjudging can lead to an imbalance or crash.
+   - **What correct technique looks like:** Good terrain management involves identifying traction differences in rocks and roots and applying power where needed while reducing it where not necessary, maintaining control at all times.
+
+## Your Coaching Plan
+1. **Throttle Control Drills:**
+   - **Setup:** Use a flat area with cones placed in staggered fashion to simulate rocky terrain.
+   - **Focus:** Practice smooth throttle adjustments to maintain a constant low speed without surging. Focus on consistency and adjusting power primarily through clutch control.
+
+2. **Terrain Reading Practice:**
+   - **Setup:** Walk and ride through a series of rocky sections to practice visual assessment.
+   - **Focus:** Before riding, examine and map out areas of traction on the rocks, mentally plan your line through them, and practice riding it at a controlled pace, adjusting power inputs accordingly.
+
+3. **Controlled Obstacle Attempts:**
+   - **Setup:** Use a small, controlled environment with various obstacle types like logs and rocks.
+   - **Focus:** Practice different approaches and throttle settings to navigate these surfaces, focusing on precise throttle use and body position adjustment.
+
+## Confidence Note
+Confidence in this feedback is medium. The audio observations provide some insights into throttle management needs, but visual cues on body position, bike handling, and other critical feedback areas are missing. Additional visual footage would enhance the analysis, offering a more comprehensive critique of body positioning and specific bike handling during the obstacle attempt.
+
+=== END ===
+
+Output saved to: scripts\coaching-output-kb-2026-03-31T19-26-23.txt
+

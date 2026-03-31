@@ -1,0 +1,171 @@
+=== GROUND TRUTH ===
+Clip: nick crash
+Camera: 3rd-person
+Expected Scenario: Jumps on open hillside
+Expected Outcome: Crash after jumps
+Expected Body Position: Standing (distant)
+Key Test: Distant rider visibility
+Runtime: 65.7s
+=== MODEL OUTPUT (Claude) ===
+[dotenv@17.3.1] injecting env (4) from .env.local -- tip: 🤖 agentic secret storage: https://dotenvx.com/as2
+=== RideMind - Claude Coaching Test ===
+
+Video: C:\Users\rigge\OneDrive\Videos\Enduro ai coach test clips\nick crash.mp4
+
+Loading knowledge base...
+
+Knowledge base trimmed: 72k characters dropped to stay under 20k cap
+Knowledge base loaded: 4/20 files, 20k characters
+
+Extracting frames from video...
+
+Video duration: 9.7 seconds
+Extracted frame 1/16 at 0.6s
+Extracted frame 2/16 at 1.1s
+Extracted frame 3/16 at 1.7s
+Extracted frame 4/16 at 2.3s
+Extracted frame 5/16 at 2.9s
+Extracted frame 6/16 at 3.4s
+Extracted frame 7/16 at 4.0s
+Extracted frame 8/16 at 4.6s
+Extracted frame 9/16 at 5.2s
+Extracted frame 10/16 at 5.7s
+Extracted frame 11/16 at 6.3s
+Extracted frame 12/16 at 6.9s
+Extracted frame 13/16 at 7.4s
+Extracted frame 14/16 at 8.0s
+Extracted frame 15/16 at 8.6s
+Extracted frame 16/16 at 9.2s
+
+Extracting audio from video...
+
+Audio extracted successfully
+
+Starting analysis pipeline...
+
+Step 1: Visual observation (no KB)...
+
+[Step 1 visual] 4954 chars, 1050 output tokens, stop: end_turn
+Visual observation complete.
+
+
+--- RAW VISUAL OBSERVATION ---
+I can analyze these 16 frames from what appears to be a motocross or off-road motorcycle video taken from a stationary camera position. Here's what I observe in each frame:
+
+**Frame 1:** I see a small motorcycle and rider in the distance on a dirt trail. The rider appears to be SITTING on the seat. The rider's posture is upright. Their head appears to be looking forward down the trail. The motorcycle is upright with no lean. The terrain is dry dirt/sand with multiple trail tracks visible. The rider is taking a straight line down the trail. No visible obstacles. Speed appears moderate.
+
+**Frame 2:** The rider has moved slightly closer and appears to still be SITTING on the seat. Rider posture remains upright. Head position looking forward. Motorcycle remains upright. Same dry dirt terrain with tire tracks. Still following the main trail line. No obstacles visible. Speed appears moderate.
+
+**Frame 3:** Rider continues approaching and appears to be SITTING. Posture upright with what looks like slightly bent arms. Head looking ahead down the trail. Bike upright, no lean. Dry dirt terrain with scattered vegetation and multiple trail lines visible. Following the main trail. No obstacles. Speed appears moderate.
+
+**Frame 4:** Rider is still distant and appears to be SITTING on the seat. Upright posture maintained. Head directed forward along the trail path. Motorcycle upright. Terrain shows dry dirt with sparse vegetation and winding trail system visible. Taking the main trail line. No immediate obstacles. Speed appears moderate.
+
+**Frame 5:** The motorcycle and rider appear as a small figure in the distance, still appearing to be SITTING. Upright riding position. Head facing forward. Bike upright on the trail. Terrain shows expansive dirt trail system with multiple paths and berms visible. Following the established trail. No obstacles in immediate path. Speed appears moderate.
+
+**Frame 6:** Rider appears to be SITTING, positioned further away in the frame. Upright posture visible. Head orientation forward along trail. Motorcycle upright. Terrain shows complex trail system with banked turns and multiple lines. Taking the main trail route. No visible obstacles. Speed appears moderate.
+
+**Frame 7:** Small figure of rider in distance appears to be SITTING on motorcycle. Upright riding position. Head facing forward down trail. Bike appears upright. Terrain shows dirt trail system with vegetation on sides. Following established trail line. No obstacles visible. Speed appears moderate.
+
+**Frame 8:** Rider appears to be SITTING, distant in frame. Upright posture. Head directed forward. Motorcycle upright on trail. Terrain is dry dirt with trail system and surrounding vegetation. Taking main trail path. No obstacles present. Speed appears moderate.
+
+**Frame 9:** Rider still appears to be SITTING on the bike. Upright riding position maintained. Head looking ahead along trail. Motorcycle upright with no lean. Dry dirt terrain with established trail system visible. Following the trail line. No obstacles in path. Speed appears moderate.
+
+**Frame 10:** The rider appears to be SITTING. Upright posture. Head positioned looking forward. Bike upright on the trail. Terrain shows dirt trail with surrounding hills and vegetation. Taking the established trail route. No visible obstacles. Speed appears moderate.
+
+**Frame 11:** Frame shows mostly landscape with mountains and clouds. The motorcycle and rider are barely visible as a tiny speck in the distance on the trail, too small to definitively determine if SITTING or STANDING. The terrain shows dirt trails across hilly landscape. Cannot determine specific rider details due to distance.
+
+**Frame 12:** Frame shows closer view of rocky, dirt terrain with vegetation. No motorcycle or rider clearly visible in this frame - appears to be a landscape shot of the trail area with rocks and desert plants.
+
+**Frame 13:** This frame shows dirt trail terrain from a closer perspective with visible tire tracks and some vegetation. No motorcycle or rider clearly visible in this specific frame.
+
+**Frame 14:** Wide shot showing the trail system across hilly terrain. The motorcycle and rider appear as a very small figure in the distance - too small to definitively determine if SITTING or STANDING. The terrain shows multiple dirt trails winding through the landscape.
+
+**Frame 15:** Expanded view of the trail system and landscape. Cannot clearly identify the motorcycle and rider's position in this wide landscape shot.
+
+**Frame 16:** Final frame shows the broader landscape with mountains in background. The motorcycle and rider are not clearly distinguishable in this wide scenic shot of the terrain.
+
+Throughout the sequence where the rider is clearly visible (frames 1-10), the rider consistently appears to be SITTING on the motorcycle seat rather than standing on the foot pegs. The feet appear to be positioned on the foot pegs in a normal seated riding position.
+--- END RAW VISUAL ---
+
+Step 2: Audio observation (no KB, GPT-4o audio)...
+
+[Step 2 audio] 1064 chars, 215 output tokens, finish: stop
+Audio observation complete.
+
+
+--- RAW AUDIO OBSERVATION ---
+At the start of the clip, I hear the motorcycle engine revving at a mid-to-high RPM, which then quickly increases. The throttle application sounds like a sudden burst as the RPMs climb higher.
+
+Shortly after, there's a noticeable fluctuation in the engine RPM, suggesting either a gear change or the rider adjusting throttle input to navigate some terrain. The engine revs continue fluctuating as if the rider is accelerating and decelerating quickly.
+
+Partway through, I hear a distinct clunk or impact noise that could be the bike hitting an obstacle or the rider losing control. Immediately after, the engine sound drops off quickly, suggesting the bike has stopped or the rider has come off the bike.
+
+There’s human speech afterward, which suggests the rider either fell or had a mishap. I also hear some rustling noises, possibly from the bike or rider interacting with the ground or another object.
+
+Overall, the audio starts with a high-revving engine and fluctuates, followed by a distinct impact sound and then silence with speech and rustling at the end.
+--- END RAW AUDIO ---
+
+Step 3: Scenario classification...
+
+[Step 3 classification] 665 chars, 139 output tokens, stop: end_turn
+Scenario classification complete.
+
+SCENARIO: Flat terrain riding
+SURFACE: Hard-pack dirt with loose sections
+DIFFICULTY: Easy to moderate
+OUTCOME: Failed
+SUMMARY: Rider was cruising on flat desert trails when something went wrong, evidenced by the impact sound and subsequent engine silence with human speech.
+
+The visual shows consistent seated riding on relatively flat terrain with established trail systems, while the audio tells the story of an incident - starting with normal engine sounds, then fluctuations, followed by a distinct impact/clunk and engine cutout with human voices afterward, indicating the rider had some kind of mishap or fall during what appeared to be routine trail riding.
+
+Step 4: Coaching (with knowledge base)...
+
+[Step 4 coaching] 3640 chars, 753 output tokens, stop: end_turn
+=== COACHING FEEDBACK ===
+
+## What I Saw
+The rider was cruising on flat desert terrain with hard-pack dirt and loose sections, following established trail systems. This appeared to be routine trail riding on easy to moderate terrain when something went wrong, evidenced by the impact sound and engine silence followed by human voices.
+
+## What You Did Well
+Unfortunately, I cannot identify specific positive techniques from this footage. The rider was seated throughout the visible portion, which is appropriate for flat terrain cruising, but the incident that occurred suggests fundamental issues with the riding approach that led to the mishap.
+
+## What Needs Work
+
+**1. Body Position and Readiness**
+- What I observed: "The rider consistently appears to be SITTING on the motorcycle seat rather than standing on the foot pegs" throughout frames 1-10
+- Why it matters: Even on flat terrain, sitting reduces the rider's ability to absorb impacts and react to surface changes. The knowledge base emphasizes standing as the default attack position for maintaining bike control
+- What correct technique looks like: Standing with bent knees and elbows, ready to absorb terrain variations and maintain active control of the motorcycle
+
+**2. Speed and Surface Management** 
+- What I observed: "The throttle application sounds like a sudden burst as the RPMs climb higher" followed by "fluctuation in the engine RPM" and eventual impact
+- Why it matters: The audio suggests reactive throttle inputs rather than smooth, planned acceleration. On mixed surfaces (hard-pack with loose sections), sudden throttle changes can cause traction loss
+- What correct technique looks like: Smooth, progressive throttle application with consistent engine note, reading the terrain ahead to anticipate surface changes
+
+**3. Situational Awareness**
+- What I observed: "There's a distinct clunk or impact noise that could be the bike hitting an obstacle" followed by "the engine sound drops off quickly"
+- Why it matters: The sudden impact suggests the rider didn't see or properly react to an obstacle or terrain change, indicating insufficient forward vision or terrain reading
+- What correct technique looks like: Eyes up, scanning 20+ meters ahead, identifying potential hazards early and adjusting speed/line accordingly
+
+## Your Coaching Plan
+
+**1. Standing Position Drill**
+Setup: Ride the same flat terrain at reduced speed (30% slower than normal)
+Focus: Stand for entire session, no sitting allowed. Practice maintaining standing position through gentle terrain variations and speed changes
+
+**2. Smooth Throttle Control Drill**
+Setup: Find 100-meter section of mixed hard-pack/loose surface
+Focus: Maintain absolutely consistent engine note through the section. No RPM spikes or drops. Practice reading surface ahead and preemptively adjusting throttle before surface changes
+
+**3. Vision and Hazard Recognition Drill**
+Setup: Walk the same trail section first, then ride at very slow speed
+Focus: Call out every potential hazard, rock, rut, or surface change 20 meters before reaching it. Practice looking far ahead, not at the front wheel
+
+## Confidence Note
+**Confidence: Medium**
+
+The audio clearly indicates an incident occurred, and the visual shows consistent seated riding, but the distance and resolution make it difficult to assess more nuanced technique elements. Additional close-up footage showing hand position, foot placement, and the specific moment of the incident would provide more detailed coaching opportunities. A helmet camera or chase camera perspective would reveal crucial details about vision, line choice, and the exact sequence leading to the mishap.
+
+=== END ===
+
+Output saved to: scripts\coaching-output-claude-2026-03-31T19-37-23.txt
+

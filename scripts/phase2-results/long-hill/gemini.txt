@@ -1,0 +1,142 @@
+=== GROUND TRUTH ===
+Clip: long hill
+Camera: POV
+Expected Scenario: Long sustained hill climb
+Expected Outcome: Clean completion
+Expected Body Position: N/A (POV)
+Key Test: Must NOT report false failures
+Runtime: 110.3s
+=== MODEL OUTPUT (Gemini) ===
+[dotenv@17.3.1] injecting env (4) from .env.local -- tip: 🛡️ auth for agents: https://vestauth.com
+=== RideMind - Gemini Coaching Test ===
+
+Video: C:\Users\rigge\OneDrive\Videos\Enduro ai coach test clips\long hill_gemini.mp4
+
+Loading knowledge base...
+
+Knowledge base trimmed: 72k characters dropped to stay under 20k cap
+Knowledge base loaded: 4/20 files, 20k characters
+
+Uploading video to Gemini Files API...
+
+Uploading video (56MB) to Gemini Files API...
+Upload complete. Waiting for processing...
+...
+Video ready.
+
+Starting analysis pipeline...
+
+Step 1: Visual observation (no KB)...
+
+[Step 1 visual] 4121 chars, 932 output tokens, finish: STOP
+Visual observation complete.
+
+
+--- RAW VISUAL OBSERVATION ---
+Here's a chronological description of the video:
+
+**0:00-0:02:** The scene opens on a dirt trail. Three riders are visible. One rider, wearing a red jacket and black pants, is on the right side of the frame, holding a red dirt bike and standing on the ground. Another rider, in black gear, is seated on a red bike to the left, facing up the trail. A third rider, also on a red bike, is further up the trail, facing away. The rider on the far right has a green top and is standing off his bike, looking forward. The terrain is a loose dirt and gravel trail with bare trees on the slopes to either side. The sky is overcast.
+
+**0:02-0:04:** The camera transitions to a first-person perspective from the red bike on the right. The rider accelerates rapidly up a steep, narrow trail covered in dry leaves and small rocks. The handlebars are visible in the lower part of the frame, angled upwards with the steep incline. The rider is standing on the foot pegs, with a noticeable gap between their body and the seat. Their torso is leaning forward over the handlebars.
+
+**0:04-0:07:** The bike continues up the steep, leaf-covered incline. The rider remains standing, leaning forward, and appears to be looking straight ahead, up the trail. The bike's front wheel lifts slightly off the ground at times due to the acceleration and steepness. The terrain is a narrow path, mostly covered in dry, brown leaves, with some exposed dirt and small rocks. Trees with bare branches line both sides of the path.
+
+**0:07-0:15:** The rider maintains speed and continues ascending the steep, leaf-covered trail. They remain in a standing position, with their body angled forward. The bike is mostly upright, with slight side-to-side movements as it navigates the uneven surface. Tall, thin trees are densely packed on either side, and the path ahead is continuously uphill.
+
+**0:15-0:20:** The incline continues. The rider stays standing on the pegs, leaning forward, and maintains a consistent, moderate speed. The handlebars remain stable, and the rider's hands are firmly gripping them. The terrain is still a thick layer of dry leaves covering dirt, with visible patches of loose soil and small rocks.
+
+**0:20-0:25:** The rider continues uphill. The path appears to curve slightly to the left. The rider's body position is still standing and leaning forward. The bike maintains its upward trajectory, with some rear wheel spin audible. The trees on either side are bare, and the ground is covered in dried leaves.
+
+**0:25-0:30:** The rider navigates a slightly steeper section with more exposed dirt and fewer leaves in the immediate path. The rider's body remains standing, leaning forward. The bike maintains speed and traction.
+
+**0:30-0:35:** The path becomes a bit wider, but the incline remains significant. The rider continues standing, maintaining a steady throttle. The handlebars are seen turning slightly from side to side as the rider steers to maintain balance.
+
+**0:35-0:40:** The rider successfully continues the climb. The terrain appears less obstructed, still covered in dry leaves. The rider remains standing, leaning forward. The engine sound indicates consistent power delivery.
+
+**0:40-0:45:** The rider maintains a standing position, leaning forward, as the bike climbs the leaf-covered slope. The path continues straight up between the trees.
+
+**0:45-0:50:** The rider continues to ascend the hill, still standing on the foot pegs. The bike's front wheel is slightly elevated relative to the rear due to the incline. The terrain is consistent, with dry leaves and some small visible roots or rocks.
+
+**0:50-0:55:** The rider reaches a section where the incline lessens slightly, and the path ahead appears to level out somewhat. The rider is still standing and leaning forward. The bike successfully covers the terrain.
+
+**0:55-0:57:** The rider continues forward and the terrain gradually transitions to a less steep, more open area, indicating the completion of the steep uphill section. The rider remains standing and the bike continues to move forward. The rider successfully completes the observed section.
+--- END RAW VISUAL ---
+
+Step 2: Audio observation (no KB)...
+
+[Step 2 audio] 2536 chars, 652 output tokens, finish: STOP
+Audio observation complete.
+
+
+--- RAW AUDIO OBSERVATION ---
+Here's a chronological description of the sounds in the clip:
+
+**00:00**: A motorcycle engine is heard idling, followed by a voice saying "Give it...".
+**00:01**: The engine revs briefly. Another voice says "Woah, okay!" followed by another rev and the distinct sound of a gear engaging or clutch releasing, then a sudden burst of high engine RPM as the motorcycle accelerates into action.
+**00:02**: The engine's RPM increases sharply as the motorcycle begins to move uphill on what sounds like a trail of dry leaves and loose dirt/gravel.
+**00:03 - 00:07**: The engine maintains a high, fluctuating RPM with aggressive throttle application. The sound of the rear tire churning through dry leaves and loose ground is constant, indicating wheel spin and traction management as the bike climbs a steep incline.
+**00:08 - 00:11**: High engine revs continue, with prominent sounds of the tire spinning on loose, dry leaves. A voice yells "Come on, yeah, you fucking dickhead!" over the engine noise.
+**00:11 - 00:19**: The engine continues to operate at very high RPMs, with consistent throttle and audible wheel spin on the dry, leafy trail. The rider exclaims "Woohoo!" around 0:19.
+**00:19 - 00:24**: The engine's RPM remains high, but with slight fluctuations as the rider navigates the uphill terrain. The sound of leaves and dry earth being displaced by the tires is continuous.
+**00:24 - 00:30**: The engine revs high again with sustained throttle, and significant wheel spin is audible on the loose, leaf-covered ground as the bike continues its climb.
+**00:30 - 00:31**: The engine briefly lowers in RPM, then quickly revs back up. A voice says, "Fucking hell, here we go, another one of these!"
+**00:32 - 00:39**: High engine RPMs are sustained with strong throttle application. The sound of the tire digging into the dry, leafy and rocky terrain is very prominent, indicating continuous effort and some wheel spin.
+**00:39 - 00:43**: The engine continues to rev high, with short, intense bursts of throttle, managing the ascent. Leaves and small debris are audibly kicked up by the tires.
+**00:43 - 00:45**: The engine maintains high revs. The rider laughs and shouts "Hahaha! Woohoo!"
+**00:45 - 00:56**: The engine continues with a mix of sustained high RPMs and rapid throttle blips. The constant sound of tires grinding on dry leaves and dirt persists as the motorcycle pushes up the final section of the incline. The sound of the engine fades slightly towards the end of the clip, though the bike still appears to be moving.
+--- END RAW AUDIO ---
+
+Step 3: Scenario classification...
+
+[Step 3 classification] 61 chars, 18 output tokens, finish: MAX_TOKENS  ⚠ TRUNCATED — hit token cap
+Scenario classification complete.
+
+SCENARIO: Hill climb
+SURFACE: Loose (dry leaves, dirt, gravel
+
+Step 4: Coaching (with knowledge base)...
+
+[Step 4 coaching] 7377 chars, 1685 output tokens, finish: STOP
+=== COACHING FEEDBACK ===
+
+Here's your personalised coaching feedback:
+
+## What I Saw
+You tackled a steep, narrow hill climb covered in dry leaves, loose dirt, and small rocks. You started with rapid acceleration and maintained a committed, standing, and forward-leaning body position throughout the entire ascent, successfully reaching the top of the observed section.
+
+## What You Did Well
+1.  **Body Position:** Your commitment to a standing, forward-leaning body position was excellent. From the moment you accelerated into the climb (0:02-0:04) until you leveled out at the top (0:50-0:55), your body was visibly forward over the handlebars, maintaining a clear gap between your body and the seat. This aligns perfectly with the `Visual Cues – Correct Technique` for loose hill climbing, where "Rider's chest visibly forward over the tank" and "Rider is standing, with a gap between seat and body throughout the climb" are crucial. This body position helps keep the front wheel planted and provides leverage for bike control.
+2.  **Commitment & Entry:** You initiated the climb with clear commitment and rapid acceleration (0:02-0:04), which is vital for building initial momentum. The knowledge base (`hill-01`) states that "The decision to attempt must be made before entry, and once made, it must be executed with full commitment." Your swift entry demonstrated this commitment.
+
+## What Needs Work
+1.  **Throttle Control & Excessive Wheel Spin:**
+    *   **What I observed:** From 0:03-0:07, "The engine maintains a high, fluctuating RPM with aggressive throttle application. The sound of the rear tire churning through dry leaves and loose ground is constant, indicating wheel spin and traction management as the bike climbs a steep incline." This pattern of very high, sustained engine RPMs and significant audible wheel spin was a consistent theme throughout the entire climb (e.g., 0:11-0:19, 0:24-0:30, 0:32-0:39, 0:45-0:56), often with "short, intense bursts of throttle" (0:39-0:43).
+    *   **Why it matters:** On loose surfaces, this level of sustained free wheel spin is highly inefficient. The `hill-01` knowledge base notes, "Sudden high-rev engine scream with no forward progress: rear wheel in free spin — throttle or clutch overcorrection needed." This means you're burning energy and fuel without generating optimal forward drive. It also means you're losing momentum, which is crucial for getting over the hardest sections of a climb (`hill-04`).
+    *   **What correct technique looks like:** The goal is an "even engine note with slight load variation: productive slip zone maintained" and a "consistent, moderate roost — even in spray, not erratic" (`hill-01`). When the bike decelerates on a loose surface, "try holding the throttle steady or even reducing it slightly while feathering the clutch" (`hill-04`).
+2.  **Clutch Management:**
+    *   **What I observed:** The audio indicates "aggressive throttle application" and "rapid throttle blips" (0:03-0:07, 0:39-0:43) alongside constant wheel spin, but no clear audio cues of precise clutch modulation.
+    *   **Why it matters:** On loose terrain, the clutch is your primary tool for fine-tuning traction and maintaining the 'productive slip zone'. The `hill-01` knowledge base emphasizes, "Your clutch is on or off — I need you feathering it, like a volume dial, not a light switch. Small continuous adjustments, not grab-and-release." Without this modulation, the wheel either spins freely or the engine bogs, both of which reduce forward momentum.
+    *   **What correct technique looks like:** When you feel the rear spinning, "try closing the clutch 20% — just 20% — and see if the wheel bites again. Don't close it all the way." (`hill-01`). This allows the engine to keep power on, but momentarily reduces it to the rear wheel for a traction reset.
+3.  **Momentum Preservation:**
+    *   **What I observed:** While your entry was rapid (0:02-0:04), the pervasive and aggressive wheel spin (as noted above) suggests that much of the initial momentum you built was being dissipated by the spinning rear wheel rather than being converted into forward progress up the hill.
+    *   **Why it matters:** Momentum is stored kinetic energy, and on hills, it does work that the engine cannot do once traction becomes the limiting factor (`hill-04`). "Rear wheel producing large, erratic roost mid-climb: free spin draining momentum" (`hill-04`). Wasting momentum early means you have less energy to overcome tougher sections later in the climb.
+    *   **What correct technique looks like:** Aim for "minimal rear wheel roost compared to forward progress — productive slip, not free spin" (`hill-04`). The engine tone should ideally show a "progressive engine tone drop from high to low: correct — speed reducing as gravity absorbs momentum, but at controlled rate" as gravity absorbs the momentum, but not a sudden high-pitch scream (`hill-04`).
+
+## Your Coaching Plan
+1.  **Drill Name: "Steady Throttle, Clutch Feather"**
+    *   **Setup:** Find a moderately steep, loose section of trail – maybe one-third the length of the climb you just did.
+    *   **Focus:** Your primary goal is to minimize wheel spin and avoid high engine screams. Set your throttle hand to a steady, moderate position *before* you enter the climb, then use *only* your clutch lever for continuous, small adjustments to manage traction. Your ears are key here: listen for that rhythmic "bite-bite-bite" and avoid the sudden high-rev scream. This will teach you to maintain the productive slip zone.
+2.  **Drill Name: "Momentum Conservation Climb"**
+    *   **Setup:** Ride the same hill, or a similar long, loose climb.
+    *   **Focus:** Your only goal for this drill is to get *further* up the hill than last time, not necessarily faster. Calibrate your entry speed by imagining the hardest part of the climb is where you need maximum momentum. Then, as you climb, practice the "Steady Throttle, Clutch Feather" technique to prevent momentum-wasting wheel spin. Resist the urge to add more throttle aggressively if you feel yourself slowing; instead, feather the clutch or hold the throttle steady, letting momentum and careful traction management do the work.
+3.  **Drill Name: "Aural Feedback Loop"**
+    *   **Setup:** Ride the same loose climbs.
+    *   **Focus:** Make a conscious effort to actively listen to your engine and rear tire. Can you differentiate between the "even engine note with slight load variation" (good traction) versus the "sudden high-rev engine scream" (free spin)? Can you hear the difference between a productive "bite-bite-bite" from the tire versus a sustained "churning" sound? Use these audio cues as immediate feedback to adjust your throttle and clutch inputs. This drill will integrate your body position (which is already excellent) with refined control inputs.
+
+## Confidence Note
+**High.** The visual observations of your excellent body position are clear and consistent, and the audio observations of engine RPM and wheel spin are very distinct, allowing for direct and specific application of the knowledge base. Additional information, such as video from a chase camera (to observe throttle hand movements more directly) or sensor data (like rear wheel speed vs. front wheel speed, or clutch sensor data), would provide quantitative details but would likely only confirm the observations already made.
+
+=== END ===
+
+Output saved to: scripts\coaching-output-gemini-2026-03-31T21-18-10.txt
+

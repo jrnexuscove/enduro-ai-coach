@@ -1,0 +1,116 @@
+=== GROUND TRUTH ===
+Clip: clutch scream hill
+Camera: POV
+Expected Scenario: Hill climb, leafy forest
+Expected Outcome: Wrong turn, hits tree, falls
+Expected Body Position: N/A (POV)
+Key Test: Audio clutch abuse detection
+Runtime: 351.7s
+=== MODEL OUTPUT (Gemini) ===
+[dotenv@17.3.1] injecting env (4) from .env.local -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+=== RideMind - Gemini Coaching Test ===
+
+Video: C:\Users\rigge\OneDrive\Videos\Enduro ai coach test clips\clutch scream hill.mp4
+
+Loading knowledge base...
+
+Knowledge base trimmed: 72k characters dropped to stay under 20k cap
+Knowledge base loaded: 4/20 files, 20k characters
+
+Uploading video to Gemini Files API...
+
+Uploading video (352MB) to Gemini Files API...
+Upload complete. Waiting for processing...
+.........
+Video ready.
+
+Starting analysis pipeline...
+
+Step 1: Visual observation (no KB)...
+
+[Step 1 visual] 350 chars, 80 output tokens, finish: MAX_TOKENS  ⚠ TRUNCATED — hit token cap
+Visual observation complete.
+
+
+--- RAW VISUAL OBSERVATION ---
+The video begins at 00:00 with the rider stationary on a red dirt bike, with the right foot on the ground and the left foot on the footpeg. The camera is chest-mounted, providing a first-person perspective. The rider is wearing a helmet and looking up a steep, forested uphill slope. The ground is covered in loose dirt, pine needles, and dead leaves
+--- END RAW VISUAL ---
+
+Step 2: Audio observation (no KB)...
+
+[Step 2 audio] 2320 chars, 651 output tokens, finish: MAX_TOKENS  ⚠ TRUNCATED — hit token cap
+Audio observation complete.
+
+
+--- RAW AUDIO OBSERVATION ---
+The audio presents a chronological sequence of off-road motorcycle sounds and human speech in a forest environment.
+
+*   **0:00 - 0:02:** A motorcycle engine is heard at a medium-high, steady RPM with consistent throttle application, indicating forward motion.
+*   **0:02 - 0:03:** The engine RPM increases sharply with a strong throttle burst, accompanied by sounds of dirt/gravel being displaced, suggesting wheel spin and acceleration up a slope.
+*   **0:03 - 0:05:** The engine RPM fluctuates, decreasing slightly then increasing again, maintaining momentum.
+*   **0:05 - 0:07:** The engine RPM fluctuates further, with moments of reduced throttle followed by renewed application, indicating the rider is navigating challenging terrain.
+*   **0:07 - 0:09:** The engine RPM drops significantly, throttle cuts out, and the engine sounds like it stalls or the rider comes to a stop.
+*   **0:09 - 0:11:** The engine is off. Sounds of rustling leaves and movement on loose ground are audible.
+*   **0:11 - 0:12:** A distinct kickstart sound is heard, and the engine restarts, settling into a low idle.
+*   **0:12 - 0:16:** The motorcycle engine idles steadily at a low RPM.
+*   **0:16 - 0:18:** The engine continues to idle. Muffled voices or conversation can be heard in the background.
+*   **0:18 - 0:24:** The engine idles consistently. The background voices persist, becoming slightly clearer.
+*   **0:24 - 0:25:** A voice exclaims loudly, "T-MAX, you motherfuckers!"
+*   **0:25 - 0:26:** Immediately following the exclamation, a loud, heavy thud and scraping sound indicates a fall or crash, possibly the bike hitting the ground. This is accompanied by a grunt of effort or pain from the speaker.
+*   **0:26 - 0:29:** Sounds of struggling, groaning, and heavy exhalations are heard from the speaker, along with rustling of leaves and movement on the ground, suggesting the speaker is getting up or adjusting after the fall.
+*   **0:29 - 0:31:** The engine is off. The speaker groans and says, "Let it cool down."
+*   **0:31 - 0:32:** The speaker says "Ow."
+*   **0:32 - 0:34:** Heavy breathing and sounds of shuffling on loose terrain continue. A metallic "clink" is briefly heard.
+*   **0:34 - 0:35:** An attempt to kickstart the engine results in a sputter, then it cuts out.
+*   **0:35 - 0:36:** Another kickstart
+--- END RAW AUDIO ---
+
+Step 3: Scenario classification...
+
+[Step 3 classification] 69 chars, 20 output tokens, finish: MAX_TOKENS  ⚠ TRUNCATED — hit token cap
+Scenario classification complete.
+
+SCENARIO: Hill climb
+SURFACE: Loose (dirt, pine needles, dead leaves)
+
+Step 4: Coaching (with knowledge base)...
+
+[Step 4 coaching] 5253 chars, 1137 output tokens, finish: STOP
+=== COACHING FEEDBACK ===
+
+## What I Saw
+The rider attempted a steep, forested uphill climb on a red dirt bike. The ground was covered in loose dirt, pine needles, and dead leaves, presenting a challenging, low-traction surface. The climb began from a stationary position and was characterized by aggressive throttle application and wheel spin, ultimately ending with the bike stalling mid-climb, followed by a fall.
+
+## What You Did Well
+*   **Vision:** The video begins with you "looking up a steep, forested uphill slope." This is a crucial element of correct technique, as your "body will follow your eyes." By looking towards the top of the climb, you guide yourself and the bike up the intended line, rather than getting fixated on immediate obstacles.
+
+## What Needs Work
+
+1.  **Commitment & Momentum Management (Stationary Start):**
+    *   **What I observed:** The video begins with you "stationary on a red dirt bike, with the right foot on the ground." The climb then abruptly ends mid-way when "The engine RPM drops significantly, throttle cuts out, and the engine sounds like it stalls or the rider comes to a stop" (0:07-0:09).
+    *   **Why it matters:** "Half-hearted attempts are more dangerous than walking — an aborted climb mid-way leaves the rider perched on a loose, steep slope with no momentum and a heavy bike." (Hill Climbing - Loose Surfaces). Starting from a stationary position on loose, steep terrain makes it extremely difficult to build the "pre-loaded kinetic energy" (Momentum Management) needed to carry the bike through the most challenging sections without demanding excessive traction.
+    *   **What correct technique looks like:** "Entry momentum, built on traction-rich flat terrain before the slope begins, is pre-loaded kinetic energy that carries the bike uphill without demanding more traction than the surface can provide." (Momentum Management). The "decision to attempt must be made before entry, and once made, it must be executed with full commitment." (Hill Climbing - Loose Surfaces).
+
+2.  **Throttle Control & Productive Wheel Slip:**
+    *   **What I observed:** After initial forward motion, "The engine RPM increases sharply with a strong throttle burst, accompanied by sounds of dirt/gravel being displaced, suggesting wheel spin and acceleration up a slope" (0:02-0:03). The RPM then "fluctuates, decreasing slightly then increasing again" (0:03-0:05), and "fluctuates further, with moments of reduced throttle followed by renewed application" (0:05-0:07).
+    *   **Why it matters:** On loose surfaces, "the fundamental challenge is that loose surfaces provide little traction just when the engine is demanding maximum grip to fight gravity." A "sudden high-rev engine scream with no forward progress" indicates "rear wheel in free spin — throttle or clutch overcorrection needed." (Hill Climbing - Loose Surfaces - Audio Cues). "Adding throttle aggressively when bike decelerates" is a "reactive throttle response making spin worse" and "momentum being wasted." (Momentum Management - Error Indicators).
+    *   **What correct technique looks like:** The rider should be in "a narrow band of productive wheel slip where the rear wheel is generating drive without spinning freely." This is achieved with an "even engine note with slight load variation" (Hill Climbing - Loose Surfaces - Audio Cues) and a "smooth throttle hand position — no surges or sudden changes mid-climb." (Momentum Management - Visual Cues - Correct Technique).
+
+## Your Coaching Plan
+
+1.  **"Calibrated Entry Speed" Drill:**
+    *   **Setup:** Before riding, walk the climb. Identify the *most challenging* loose section.
+    *   **Focus:** Your goal is to determine the minimum entry speed required to arrive at that hardest section with sufficient momentum to carry through it, not just to the base of the hill. On your next attempt, approach with that determined speed from a distance, commit to it, and maintain a smooth, steady throttle. Remember, "the loose section... is where you needed to arrive with momentum — so set your entry speed for there, not for here." (Momentum Management - Corrective Feedback).
+
+2.  **"Feather the Clutch Drill":**
+    *   **Setup:** Find a slightly less steep, but still loose, section of similar terrain.
+    *   **Focus:** Practice maintaining a consistent engine RPM *without* allowing the wheel to spin freely. Use the clutch as a "volume dial" to smoothly modulate power to the rear wheel, allowing for drive without excessive spin. When you feel the wheel starting to free spin, don't chop the throttle, but "try closing the clutch 20% — just 20% — and see if the wheel bites again. Don't close it all the way." (Hill Climbing - Loose Surfaces - Progression Prompts). Aim for an "even engine note with slight load variation" (Hill Climbing - Loose Surfaces - Audio Cues).
+
+## Confidence Note
+Medium.
+The audio observations provided excellent diagnostic cues regarding wheel spin and engine stall, which are critical for loose hill climbs. However, the chest-mounted camera limited visual observations of key technique elements such as body position (standing/sitting, forward lean), specific throttle hand movements, and rear wheel roost, which would allow for more comprehensive and tailored feedback.
+
+=== END ===
+
+Output saved to: scripts\coaching-output-gemini-2026-03-31T20-43-47.txt
+

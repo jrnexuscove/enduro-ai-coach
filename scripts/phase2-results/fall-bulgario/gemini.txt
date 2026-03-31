@@ -1,0 +1,13 @@
+=== GROUND TRUTH ===
+Clip: Fall bulgario muddy hill 1
+Camera: POV
+Expected Scenario: Muddy hill climb
+Expected Outcome: Falls near top, momentum loss
+Expected Body Position: N/A (POV)
+Key Test: Momentum/crash detection
+Runtime: 232.8s (FAILED)
+=== MODEL OUTPUT (Gemini) ===
+ERROR: Run failed
+Command failed: npx tsx scripts/test-coaching-gemini.ts "C:\Users\rigge\OneDrive\Videos\Enduro ai coach test clips\Fall bulgario muddy hill 1.mp4"
+Video upload failed: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/upload/v1beta/files: fetch failed
+If the file is not an MP4, or exceeds Gemini size limits, try a shorter clip.

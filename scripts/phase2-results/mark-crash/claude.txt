@@ -1,0 +1,159 @@
+=== GROUND TRUTH ===
+Clip: Mark crash
+Camera: 3rd-person
+Expected Scenario: Descent into jump
+Expected Outcome: Over-handlebars crash
+Expected Body Position: Visible but brief (4s)
+Key Test: Crash detection, background music
+Runtime: 81.4s
+=== MODEL OUTPUT (Claude) ===
+[dotenv@17.3.1] injecting env (4) from .env.local -- tip: 🤖 agentic secret storage: https://dotenvx.com/as2
+=== RideMind - Claude Coaching Test ===
+
+Video: C:\Users\rigge\OneDrive\Videos\Enduro ai coach test clips\Mark crash.mp4
+
+Loading knowledge base...
+
+Knowledge base trimmed: 72k characters dropped to stay under 20k cap
+Knowledge base loaded: 4/20 files, 20k characters
+
+Extracting frames from video...
+
+Video duration: 4.6 seconds
+Extracted frame 1/16 at 0.3s
+Extracted frame 2/16 at 0.5s
+Extracted frame 3/16 at 0.8s
+Extracted frame 4/16 at 1.1s
+Extracted frame 5/16 at 1.4s
+Extracted frame 6/16 at 1.6s
+Extracted frame 7/16 at 1.9s
+Extracted frame 8/16 at 2.2s
+Extracted frame 9/16 at 2.5s
+Extracted frame 10/16 at 2.7s
+Extracted frame 11/16 at 3.0s
+Extracted frame 12/16 at 3.3s
+Extracted frame 13/16 at 3.5s
+Extracted frame 14/16 at 3.8s
+Extracted frame 15/16 at 4.1s
+Extracted frame 16/16 at 4.4s
+
+Extracting audio from video...
+
+Audio extracted successfully
+
+Starting analysis pipeline...
+
+Step 1: Visual observation (no KB)...
+
+[Step 1 visual] 8348 chars, 1809 output tokens, stop: end_turn
+Visual observation complete.
+
+
+--- RAW VISUAL OBSERVATION ---
+Frame 1: The rider is SITTING on the seat of the red motorcycle. The rider is in an upright posture, wearing a red and white helmet with a dark jacket. Their arms are bent at the elbows, gripping the handlebars. The rider's head appears to be looking forward toward the barren hillside ahead. The bike is positioned on what appears to be a dirt track or trail, angled slightly right, navigating through a sparse, rocky landscape with loose gravel and dirt terrain. Both feet appear to be on the foot pegs. The speed appears slow to moderate. White directional arrows are visible on the ground as course markers. There is a large pile of rocks visible to the right side of the track.
+
+Frame 2: The rider is SITTING on the seat. The body position remains upright with bent arms holding the handlebars. The rider's head is tilted slightly, still looking forward along the track. The motorcycle continues along the same dirt path with the bike remaining mostly upright with minimal lean. The terrain shows loose dirt and gravel surface with scattered rocks. Both feet remain on the foot pegs. Speed appears slow to moderate. The rocky terrain and course markers remain visible in the background.
+
+Frame 3: The rider is SITTING on the seat. The posture remains upright with arms bent, hands on handlebars. The rider's head is positioned looking forward down the track. The motorcycle maintains an upright position with very slight rightward lean as it follows the dirt trail. The terrain continues to be loose dirt and gravel with visible track markers. Both feet are on the foot pegs. Speed appears slow to moderate. The landscape shows barren hills with sparse vegetation and the same rock pile obstacle visible.
+
+Frame 4: The rider is SITTING on the seat. The body position shows the rider leaning slightly forward with bent arms gripping the handlebars. The rider's head is angled forward, appearing to look ahead along the track. The bike has a slight lean to the right as it navigates the curved section of the dirt trail. The terrain remains loose dirt and gravel. Both feet are positioned on the foot pegs. Speed appears slow to moderate. The course continues through the same rocky, sparse landscape with visible track markers.
+
+Frame 5: The rider is SITTING on the seat. The rider maintains a forward-leaning posture with bent arms. The head is positioned looking ahead along the track direction. The motorcycle shows more pronounced rightward lean as it continues through what appears to be a turn or curve in the trail. The terrain is loose dirt and gravel surface. Both feet remain on the foot pegs. Speed appears moderate. The track continues through the barren, rocky landscape with course markers visible.
+
+Frame 6: The rider is STANDING on the foot pegs. There is a visible gap between the rider's body and the seat. The rider's posture is more upright with arms extended, gripping the handlebars. The rider's head is positioned looking forward. The motorcycle shows significant lean to the right as it navigates through what appears to be a more challenging section of the track. The terrain remains loose dirt and gravel. Both feet are firmly planted on the foot pegs. Speed appears moderate. An orange flag marker is visible in the left portion of the frame.
+
+Frame 7: The rider is STANDING on the foot pegs with a clear gap visible between the rider and seat. The rider's body is in an aggressive forward-leaning stance with bent arms gripping the handlebars. The rider's head is positioned looking ahead along the track. The motorcycle has pronounced lean to the right as it navigates through the turn. The terrain shows loose dirt and gravel. Both feet are on the foot pegs. Speed appears moderate to fast. The orange flag marker remains visible, and the landscape shows the same barren, rocky characteristics.
+
+Frame 8: The rider is STANDING on the foot pegs. The gap between rider and seat is clearly visible. The rider's body position shows an aggressive forward lean with bent arms. The rider's head is angled forward, looking ahead. The motorcycle continues with significant rightward lean through the turn section. The terrain is loose dirt and gravel. Both feet remain on the foot pegs. Speed appears moderate to fast. The track continues through the rocky landscape with the orange flag marker still visible in the background.
+
+Frame 9: The rider is STANDING on the foot pegs with visible separation from the seat. The rider's posture shows extreme forward lean with bent arms gripping the handlebars tightly. The rider's head is positioned low and forward. The motorcycle has very pronounced lean to the right, appearing to be in a sharp turn or losing control. The terrain is loose dirt and gravel. Both feet are on the foot pegs. Speed appears fast. The bike appears to be sliding or beginning to lose traction on the loose surface.
+
+Frame 10: The rider is no longer clearly SITTING or STANDING as the motorcycle appears to be in the process of crashing. The rider's body position shows them leaning heavily to the right with the motorcycle. Both the rider and bike are tilted at an extreme angle toward the ground. The rider's head is positioned low. The motorcycle is nearly horizontal to the ground surface. The terrain is loose dirt and gravel. The rider's feet appear to still be near the foot pegs but the bike is clearly out of control. Speed appears fast but decreasing due to the crash.
+
+Frame 11: The rider and motorcycle are both on the ground. The rider is no longer on the seat or foot pegs but is lying on the dirt surface beside the motorcycle. The rider's body is positioned on their side on the ground. The rider's head (with red and white helmet) is visible near the ground. The motorcycle is lying on its side on the dirt surface. Both rider and bike are stationary on the loose dirt and gravel terrain. The bike is not upright and the rider's feet are on the ground. Speed is essentially zero as both have come to rest after the crash.
+
+Frame 12: The rider is on the ground, not sitting or standing on the motorcycle. The rider is positioned lying on their side on the dirt surface. The rider's head is visible in the red and white helmet, positioned near the ground. The motorcycle remains on its side on the dirt surface. The terrain is loose dirt and gravel. Both the rider's feet are on the ground as they are lying down. Both rider and motorcycle are stationary. Speed is zero as they remain at rest following the crash.
+
+Frame 13: The rider is on the ground, not sitting or standing on the motorcycle. The rider appears to be in a crouched or crawling position on the dirt surface, possibly beginning to get up from the crash. The rider's head in the red and white helmet is visible, positioned low near the ground. The motorcycle continues to lie on its side. The terrain remains loose dirt and gravel. Both of the rider's feet/legs are in contact with the ground. Both rider and bike are essentially stationary. Speed is zero.
+
+Frame 14: The rider is on the ground, not sitting or standing on the motorcycle. The rider appears to be in the process of getting up from the crash, positioned in a crouched stance on the dirt surface. The rider's head is visible in the red and white helmet. The motorcycle remains lying on its side on the loose dirt and gravel terrain. The rider's feet are both on the ground as they work to stand up. Both rider and motorcycle are stationary. Speed is zero.
+
+Frame 15: The rider is on the ground beside the motorcycle, not sitting or standing on it. The rider appears to be in a crouched position, continuing to recover from the crash. The rider's head is visible in the red and white helmet, positioned above the bike. The motorcycle remains on its side on the dirt surface. The terrain is loose dirt and gravel. Both of the rider's feet are on the ground. Both rider and bike remain stationary. Speed is zero.
+
+Frame 16: The camera angle has shifted significantly lower, showing primarily the ground surface and part of what appears to be the red motorcycle in the lower portion of the frame. The rider is not clearly visible in this frame due to the camera angle and position. The terrain shows loose dirt, gravel, and patches of green moss or vegetation. The motorcycle appears to still be down on the ground. The scene appears stationary with zero speed.
+--- END RAW VISUAL ---
+
+Step 2: Audio observation (no KB, GPT-4o audio)...
+
+[Step 2 audio] 676 chars, 138 output tokens, finish: stop
+Audio observation complete.
+
+
+--- RAW AUDIO OBSERVATION ---
+At the start, I hear the engine at a moderate RPM that seems to be steadily climbing. There’s a smooth throttle application as the rider likely begins moving. Then, suddenly, the RPMs surge rapidly, indicating a sudden twist of the throttle—probably as the rider tries to overcome an obstacle or accelerate quickly. 
+
+At that moment, I hear a bit of a skidding or sliding sound, maybe the rear wheel losing traction or hitting something loose like gravel. After that, the engine's RPM drops quickly, suggesting the rider either lets off the throttle suddenly or applies the brake. There’s also a bit of verbal reaction, which hints at a moment of surprise or a quick maneuver.
+--- END RAW AUDIO ---
+
+Step 3: Scenario classification...
+
+[Step 3 classification] 247 chars, 61 output tokens, stop: end_turn
+Scenario classification complete.
+
+SCENARIO: Corner/turn
+SURFACE: loose dirt/gravel
+DIFFICULTY: moderate
+OUTCOME: failed
+SUMMARY: Rider crashed while attempting a right-hand turn on loose terrain, losing traction and going down after transitioning from sitting to standing position.
+
+Step 4: Coaching (with knowledge base)...
+
+[Step 4 coaching] 3223 chars, 691 output tokens, stop: end_turn
+=== COACHING FEEDBACK ===
+
+## What I Saw
+
+The rider was attempting a right-hand turn on loose dirt and gravel terrain at moderate speed. They started sitting, transitioned to standing mid-turn, but lost traction and crashed when the bike developed an extreme lean angle on the loose surface. The audio confirms wheel spin with sudden throttle application followed by loss of control.
+
+## What You Did Well
+
+Looking at this crash sequence, I need to be honest — I don't see evidence of correct turning technique on loose surfaces. The transition from sitting to standing happened too late in the turn, and the aggressive throttle application on loose terrain led directly to the loss of control.
+
+## What Needs Work
+
+**1. Body Position Timing**
+- What I observed: "The rider is SITTING on the seat" through frames 1-5, only "STANDING on the foot pegs" from frame 6 onward, well into the turn
+- Why it matters: On loose surfaces, standing position should be established before entering technical terrain, not during it. Sitting unloads the rear wheel and reduces traction when you need it most
+- What correct technique looks like: Standing position with weight slightly rearward before entering loose corners to maintain rear wheel traction and bike control
+
+**2. Throttle Management on Loose Surface**
+- What I observed: Audio shows "RPMs surge rapidly" with "sudden twist of the throttle" followed by "skidding or sliding sound"
+- Why it matters: Aggressive throttle on loose terrain exceeds the surface's traction limit, causing wheel spin that destabilizes the bike rather than providing drive
+- What correct technique looks like: Smooth, progressive throttle application that stays within the traction window, using momentum rather than aggressive power
+
+**3. Turn Entry Speed**
+- What I observed: "Speed appears moderate to fast" with "very pronounced lean to the right" and "extreme angle toward the ground"
+- Why it matters: Excessive lean angle on loose surfaces reduces available traction and makes the bike unstable - the physics of loose surface cornering demand a more upright approach
+- What correct technique looks like: Lower entry speeds that allow the bike to stay more upright, using wider lines rather than steep lean angles
+
+## Your Coaching Plan
+
+**1. Standing Position Drill**
+Setup: Practice the same corner at walking pace, but establish standing position 20 meters before the turn entry. Focus on being standing and stable before any technical terrain begins.
+
+**2. Traction Window Exercise** 
+Setup: On flat loose terrain, practice finding the exact throttle position where the rear wheel grips without spinning. Learn to recognize the audio and feel of productive slip versus free spin.
+
+**3. Wide Line Cornering**
+Setup: Repeat the same corner but take a much wider line that allows you to stay more upright. Focus on using momentum and gentle steering rather than lean angle to change direction.
+
+## Confidence Note
+
+**Confidence: High**
+
+The visual sequence clearly shows the crash progression and the audio confirms the throttle/traction relationship. The transition from sitting to standing mid-turn and the aggressive throttle application are classic errors on loose terrain that the knowledge base directly addresses.
+
+=== END ===
+
+Output saved to: scripts\coaching-output-claude-2026-03-31T19-56-47.txt
+

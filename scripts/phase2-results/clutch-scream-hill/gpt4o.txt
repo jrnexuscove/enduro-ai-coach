@@ -1,0 +1,162 @@
+=== GROUND TRUTH ===
+Clip: clutch scream hill
+Camera: POV
+Expected Scenario: Hill climb, leafy forest
+Expected Outcome: Wrong turn, hits tree, falls
+Expected Body Position: N/A (POV)
+Key Test: Audio clutch abuse detection
+Runtime: 63.2s
+=== MODEL OUTPUT (GPT-4o) ===
+[dotenv@17.3.1] injecting env (4) from .env.local -- tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`
+=== RideMind - Knowledge Base Enhanced Coaching Test ===
+
+Video: C:\Users\rigge\OneDrive\Videos\Enduro ai coach test clips\clutch scream hill.mp4
+
+Loading knowledge base...
+
+Knowledge base trimmed: 72k characters dropped to stay under 20k cap
+Knowledge base loaded: 4/20 files, 20k characters
+
+Extracting frames from video...
+
+Video duration: 52.8 seconds
+Extracted frame 1/16 at 3.1s
+Extracted frame 2/16 at 6.2s
+Extracted frame 3/16 at 9.3s
+Extracted frame 4/16 at 12.4s
+Extracted frame 5/16 at 15.5s
+Extracted frame 6/16 at 18.6s
+Extracted frame 7/16 at 21.7s
+Extracted frame 8/16 at 24.8s
+Extracted frame 9/16 at 28.0s
+Extracted frame 10/16 at 31.1s
+Extracted frame 11/16 at 34.2s
+Extracted frame 12/16 at 37.3s
+Extracted frame 13/16 at 40.4s
+Extracted frame 14/16 at 43.5s
+Extracted frame 15/16 at 46.6s
+Extracted frame 16/16 at 49.7s
+
+Extracting audio from video...
+
+Audio extracted successfully
+
+Starting analysis pipeline...
+
+Step 1: Visual observation (no KB)...
+
+Visual observation complete.
+
+
+--- RAW VISUAL OBSERVATION ---
+I'm unable to identify the rider in these frames, but I can describe the scene:
+
+1. Frame 1: The rider is in the distance and not clearly visible. It's a forested area with a slight incline and a visible dirt trail. The rider’s position on the bike is not discernible.
+   
+2. Frame 2: The rider is partially obscured by trees. Sitting or standing on the bike cannot be determined. The trail continues uphill and is clear of major obstacles.
+
+3. Frame 3: The rider is sitting on the seat with feet on the pegs. The rider is upright, looking forward. The bike is on a moderately inclined forest path.
+
+4. Frame 4: The path is visible, but the rider is out of view. The terrain is slightly sloped with scattered leaves and branches.
+
+5. Frame 5: The rider is in the distance, barely visible among the trees. The terrain is an uphill path with tracks and no visible obstacles.
+
+6. Frame 6: Similar to frame 5, neither the rider's position nor body posture on the bike is visible.
+
+7. Frame 7: The camera focuses uphill where there are multiple riders or people, but details of position are unclear.
+
+8. Frame 8: The scenery is a diagonal view up a slope with dense trees. No rider is visible, and the path appears clear.
+
+9. Frame 9: The handlebars appear on the side of the frame, suggesting a perspective from the rider. Vegetation and terrain are visible but not the rider's position.
+
+10. Frame 10: It's a similar view to frame 9. More tree cover is visible but no clear view of the bike or rider.
+
+11. Frame 11: The view pans upward to a forest slope with a leaning tree. No rider is visible.
+
+12. Frame 12: The path winds through dense trees; no rider position is visible.
+
+13. Frame 13: Similar to frames 11 and 12, there are trees and a slope. Riding conditions are clear.
+
+14. Frame 14: A bike lies on its side on the forest floor. The view suggests a slope, with the rider not visible.
+
+15. Frame 15: A close-up of the bike on the ground. Details of the handlebars and wheel are visible.
+
+16. Frame 16: Another view of the bike on the ground with a close focus on the engine and handlebars.
+
+Throughout these frames, environmental conditions indicate a forested area with dry terrain and scattered obstacles like branches and uneven ground.
+--- END RAW VISUAL ---
+
+Step 2: Audio observation (no KB)...
+
+Audio observation complete.
+
+
+--- RAW AUDIO OBSERVATION ---
+At the start, the engine sound is relatively steady with mid to slightly high RPM, indicating the rider is moving along at a controlled pace. The throttle application seems fairly smooth. After a few moments, you can hear the engine RPM fluctuate more, suggesting the rider is modulating the throttle to adjust to terrain or obstacles. There’s a slight drop off in RPM and then a quick rise again, which might mean the rider is trying to climb or navigate a tricky section.
+
+Shortly after, the engine cuts off briefly, followed by some verbal communication from the rider. The rider seems to be pausing or assessing the path forward. In the next sequence, there’s a sudden burst of engine revving, with a high initial RPM as the throttle is applied sharply, likely to propel the bike over an obstacle or uphill.
+
+Following that, you hear more stuttering in the engine RPM, combined with what sounds like the bike hitting or bouncing over uneven terrain. There's a light scraping or impact noise, indicating that the bike encountered something on the ground, possibly a rock or a rut.
+
+As the RPM wavers again, the rider then exclaims out loud, possibly reacting to a challenging section. After this, you can hear the rider breathing heavily, indicating physical effort involved, possibly from maneuvering the bike manually or recovering from a tricky section.
+
+There’s another burst of engine sound but this time it's short and interrupted again, followed by what sounds like a slip or a slight fall, as you hear some noise of contact with the bike or ground. The engine cuts off again.
+
+Toward the end, the rider is heard speaking again, perhaps in frustration, and the sound of heavy breathing continues, which implies some strenuous physical activity trying to manage the bike or the terrain. Overall, the sequence suggests a challenging off-road environment, where the rider is struggling through rough sections, applying throttle in bursts and encountering obstacles that require frequent stops or corrections.
+--- END RAW AUDIO ---
+
+Step 3: Scenario classification...
+
+Scenario classification complete.
+
+SCENARIO: Hill climb  
+SURFACE: Loose  
+DIFFICULTY: Moderate  
+OUTCOME: Struggled  
+SUMMARY: The rider encountered a challenging hill climb in a forested area with some loose terrain, leading to a struggle and moments of stopping or correcting during the ascent.
+
+Step 4: Coaching (with knowledge base)...
+
+=== COACHING FEEDBACK ===
+
+## What I Saw
+The rider was attempting a hill climb on a loose surface in a forested area. Despite the moderate difficulty, the rider struggled with maintaining momentum and traction, as indicated by frequent stops and adjustments. The terrain was dry with scattered obstacles like branches, requiring skilled technique to maintain forward progress.
+
+## What You Did Well
+Unfortunately, based on the observations provided, there were no clear indications of correct technique applied consistently throughout the climb. 
+
+## What Needs Work
+
+1. **Body Position**
+   - **What I observed:** "The rider is sitting on the seat with feet on the pegs. The rider is upright, looking forward."
+   - **Why it matters:** Sitting during a loose surface climb shifts weight to the rear, unloading the front wheel and reducing control. This rearward weight also increases the risk of wheel spin because traction is compromised.
+   - **What correct technique looks like:** The rider should be standing with the chest forward over the tank, allowing the torso to lean parallel to the slope and maintaining a gap between the seat and body throughout the climb.
+
+2. **Throttle and Momentum Management**
+   - **What I observed:** "A sudden burst of engine revving, with a high initial RPM as the throttle is applied sharply," and "stuttering in the engine RPM."
+   - **Why it matters:** Sudden throttle application on a loose climb can lead to wheel spin, wasting momentum that is critical to maintaining progress uphill. Erratic throttle use reflects reactive rather than planned riding.
+   - **What correct technique looks like:** Smooth throttle management, maintaining momentum before entry and avoiding sudden throttle changes mid-climb. The throttle should be set before the climb and modulated with clutch control to stay in the productive slip zone.
+
+## Your Coaching Plan
+
+1. **Hill Climb Positioning Drill**
+   - **Setup:** Practice on a gentle incline with a partner providing feedback.
+   - **Focus:** Maintain a standing position with your chest forward over the tank. Practice shifting your weight properly by feeling a consistent gap between you and the seat as you climb.
+
+2. **Throttle and Clutch Control Exercise**
+   - **Setup:** On a flat dirt trail with similar loose characteristics, practice using steady throttle alongside clutch modulation.
+   - **Focus:** Feather the clutch while maintaining a consistent throttle to find the balance between power and wheel spin. Aim for a consistent moderate roost without spikes.
+
+3. **Momentum Entry Drill**
+   - **Setup:** Mark entry and exit points on a gentle hill climb.
+   - **Focus:** Approach the hill with set speed, focusing on maintaining momentum into and through the slope. Avoid accelerating once on the slope, instead adjust the clutch for power modulation.
+
+## Confidence Note
+Confidence: Medium
+
+More specific visual observations of the rider’s body position throughout the climb would improve feedback, including close-ups showing hand and foot movement for throttle, clutch, and brake application. Audio cues alone are limited in highlighting exact technique execution. Additional video footage focusing on the rider’s form and bike handling would further enhance assessment accuracy.
+
+=== END ===
+
+Output saved to: scripts\coaching-output-kb-2026-03-31T19-13-19.txt
+

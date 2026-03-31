@@ -1,0 +1,169 @@
+=== GROUND TRUTH ===
+Clip: colin hill
+Camera: 3rd-person
+Expected Scenario: Hill climb, rocky
+Expected Outcome: Bail midway
+Expected Body Position: Seated entire time
+Key Test: Body position accuracy
+Runtime: 68.0s
+=== MODEL OUTPUT (Claude) ===
+[dotenv@17.3.1] injecting env (4) from .env.local -- tip: ⚙️  write to custom object with { processEnv: myObject }
+=== RideMind - Claude Coaching Test ===
+
+Video: C:\Users\rigge\OneDrive\Videos\Enduro ai coach test clips\colin hill.mp4
+
+Loading knowledge base...
+
+Knowledge base trimmed: 72k characters dropped to stay under 20k cap
+Knowledge base loaded: 4/20 files, 20k characters
+
+Extracting frames from video...
+
+Video duration: 19.4 seconds
+Extracted frame 1/16 at 1.1s
+Extracted frame 2/16 at 2.3s
+Extracted frame 3/16 at 3.4s
+Extracted frame 4/16 at 4.6s
+Extracted frame 5/16 at 5.7s
+Extracted frame 6/16 at 6.8s
+Extracted frame 7/16 at 8.0s
+Extracted frame 8/16 at 9.1s
+Extracted frame 9/16 at 10.3s
+Extracted frame 10/16 at 11.4s
+Extracted frame 11/16 at 12.5s
+Extracted frame 12/16 at 13.7s
+Extracted frame 13/16 at 14.8s
+Extracted frame 14/16 at 16.0s
+Extracted frame 15/16 at 17.1s
+Extracted frame 16/16 at 18.2s
+
+Extracting audio from video...
+
+Audio extracted successfully
+
+Starting analysis pipeline...
+
+Step 1: Visual observation (no KB)...
+
+[Step 1 visual] 3791 chars, 946 output tokens, stop: end_turn
+Visual observation complete.
+
+
+--- RAW VISUAL OBSERVATION ---
+Looking at these 16 frames from the motorcycle riding clip:
+
+**Frame 1**: The rider is SITTING on the seat. Body weight is resting on the seat, torso upright and slightly leaning forward, arms bent at elbows, head up looking ahead. Feet are on the pegs. Red/pink Honda dirt bike on rocky, loose dirt terrain with scattered stones. Speed appears moderate. Hillside with trees in background.
+
+**Frame 2**: The rider is SITTING on the seat. Torso leaning forward slightly, arms bent, head looking ahead and slightly to the left. Feet on pegs. Motion blur visible indicating moderate speed. Rocky dirt trail with trees. Bike appears level.
+
+**Frame 3**: The rider is SITTING on the seat. Body positioned over the seat, leaning forward, arms bent, head up looking ahead. Feet on pegs. Bike ascending what appears to be a rocky, steep section with loose rocks scattered. Forest environment with tall pine trees.
+
+**Frame 4**: The rider is SITTING on the seat. Body weight on seat, leaning forward, arms bent holding handlebars, head up. Feet on pegs. Dust cloud behind rear wheel. Climbing rocky terrain through pine forest. Moderate speed.
+
+**Frame 5**: The rider is SITTING on the seat. Torso forward-leaning, arms bent, head up looking ahead. Feet on pegs. Large dust cloud visible behind bike. Rocky trail with scattered stones, pine forest setting. Speed appears moderate.
+
+**Frame 6**: The rider is SITTING on the seat. Body positioned on seat, leaning forward, arms bent, head up. Feet on pegs. Dust trail behind bike. Rocky terrain with pine trees on both sides. Following what appears to be a single-track trail.
+
+**Frame 7**: The rider is SITTING on the seat. Body weight on seat, forward lean, arms bent, head looking ahead. Feet on pegs. Bike appears more distant, dust visible. Pine forest setting with rocky trail. Moderate speed.
+
+**Frame 8**: The rider is SITTING on the seat. Forward-leaning posture, arms bent, head up. Feet on pegs. Bike creating dust cloud on rocky trail through dense pine forest. Trail appears to curve left.
+
+**Frame 9**: The rider is SITTING on the seat. Body on seat, leaning forward, arms bent at elbows, head up looking ahead. Feet on pegs. Dust cloud behind bike. Rocky trail through pine forest with tall trees on both sides.
+
+**Frame 10**: The rider is SITTING on the seat. Torso leaning forward over tank, arms bent, head up. Feet on pegs. Heavy dust cloud behind rear wheel. Rocky terrain with scattered stones and pine forest.
+
+**Frame 11**: The rider is SITTING on the seat. Body weight on seat, forward lean, bent arms, head looking ahead. Feet on pegs. Dust cloud visible. Trail through pine forest with dead branches and undergrowth visible.
+
+**Frame 12**: The rider is SITTING on the seat. Forward-leaning position, arms bent, head up. Feet on pegs. Bike and rider partially obscured by trees in foreground. Dust trail visible. Pine forest setting with rocky terrain.
+
+**Frame 13**: The rider is SITTING on the seat. Body positioned on seat, leaning forward, arms bent, head up looking ahead. Feet on pegs. Creating dust cloud on rocky trail. Dense pine forest environment.
+
+**Frame 14**: The rider is SITTING on the seat. Torso over seat, forward lean, bent arms, head up. Feet on pegs. Bike appears to be climbing or on uneven terrain. Dust visible. Pine forest with rocks and undergrowth.
+
+**Frame 15**: The rider is SITTING on the seat. Body weight on seat, leaning forward, arms bent, head looking ahead. Feet on pegs. Bike appears more distant through trees. Rocky trail with dust, pine forest setting.
+
+**Frame 16**: No rider or motorcycle visible in this frame. Shows only the rocky trail, scattered stones, pine forest, and some dead branches. Dust cloud visible in the distance suggests the rider has moved beyond view up the trail.
+--- END RAW VISUAL ---
+
+Step 2: Audio observation (no KB, GPT-4o audio)...
+
+[Step 2 audio] 1325 chars, 249 output tokens, finish: stop
+Audio observation complete.
+
+
+--- RAW AUDIO OBSERVATION ---
+At the start, I hear the engine revving to a moderate RPM and then a dropping off, suggesting some initial acceleration and then a pause. The throttle application sounds a bit jerky, as if the rider is adjusting to quick changes or obstacles in the terrain.
+
+Then, there are some subtle gear-shifting sounds, perhaps indicating the rider is navigating through rough terrain and needs to adjust speeds frequently.
+
+You can hear the bike interacting with the terrain—gravel or rough surfaces—with some crunching under the wheels, suggesting uneven ground.
+
+At one point, there is a noticeable drop in RPM quickly followed by an increase, likely caused by the bike hitting an obstacle or the rider needing to modulate power to overcome terrain features.
+
+Towards the end, the engine sound fades, and there's what seems like light conversation or instruction in the background, indicating the rider may have slowed down or stopped temporarily. Throughout, you don't hear much wheel spin, suggesting the rider is maintaining traction, though the engine sound occasionally climbs high and then drops, which may indicate brief moments of lost momentum or small corrective maneuvers.
+
+In summary, the sounds indicate fluctuating RPMs, some jerky throttle inputs, possible minor obstacles, and an overall challenging off-road terrain.
+--- END RAW AUDIO ---
+
+Step 3: Scenario classification...
+
+[Step 3 classification] 737 chars, 150 output tokens, stop: end_turn
+Scenario classification complete.
+
+SCENARIO: Hill climb
+SURFACE: Loose/rocky
+DIFFICULTY: Moderate
+OUTCOME: Clean
+SUMMARY: Rider successfully navigated a rocky uphill trail through pine forest while maintaining seated position and steady progress with good traction control.
+
+The consistent seated position throughout all frames, the upward terrain angle visible in the forest setting, the dust clouds from rear wheel traction, and the audio description of fluctuating RPMs with gear changes all indicate a sustained hill climb. The rider maintained control and forward progress without any signs of struggle or failure, though the jerky throttle inputs and RPM variations suggest they were actively managing power delivery to maintain traction on the loose, rocky surface.
+
+Step 4: Coaching (with knowledge base)...
+
+[Step 4 coaching] 3242 chars, 726 output tokens, stop: end_turn
+=== COACHING FEEDBACK ===
+
+## What I Saw
+
+The rider attempted a moderate rocky hill climb through pine forest on loose, scattered stone terrain. They maintained a seated position throughout the entire climb while creating dust clouds from the rear wheel, indicating active traction management on the challenging surface.
+
+## What You Did Well
+
+**Traction Management**: The audio observations note "you don't hear much wheel spin, suggesting the rider is maintaining traction" — this indicates good throttle control to stay in the productive slip zone rather than free-spinning the rear wheel.
+
+## What Needs Work
+
+**1. Body Position - Seated Throughout Climb**
+- *What I observed*: "The rider is SITTING on the seat" consistently across all 16 frames, with "Body weight is resting on the seat" and "torso upright and slightly leaning forward"
+- *Why it matters*: The knowledge base states that sitting "unloaded the front" wheel and causes weight to go "straight to the rear axle," making the front wheel wander and reducing control
+- *What correct technique looks like*: "Rider is standing, with a gap between seat and body throughout the climb" with "torso lean angle roughly parallels the slope"
+
+**2. Commitment and Entry Speed**
+- *What I observed*: Audio shows "jerky throttle inputs" and "fluctuating RPMs with gear changes" suggesting reactive riding rather than committed entry
+- *Why it matters*: The knowledge base emphasizes that "half-hearted attempts are more dangerous than walking" and "the decision to attempt must be made before entry, and once made, it must be executed with full commitment"
+- *What correct technique looks like*: "Set the throttle before entry, not during" with consistent momentum management rather than reactive throttle adjustments
+
+**3. Pre-Climb Preparation**
+- *What I observed*: The "jerky throttle inputs" and need for frequent "gear-shifting sounds" mid-climb suggest inadequate preparation
+- *Why it matters*: The knowledge base states "Gear goes on before the climb — stop, select, go" and gear selection "cannot be corrected mid-climb under load"
+- *What correct technique looks like*: "Rider pauses before climb base, shifts gear, then enters — not shifting under load"
+
+## Your Coaching Plan
+
+**1. Standing Position Drill**
+Setup: Practice the same climb at walking pace while standing. Focus: Maintain gap between body and seat for entire climb. Feel how standing loads the front wheel and improves control over loose rocks.
+
+**2. Commit-or-Walk Assessment**
+Setup: Before each climb attempt, stop at the base and make a binary decision: attempt with full commitment or walk. Focus: If attempting, set throttle and body position before entry — no adjustments until the top.
+
+**3. Pre-Climb Gear Selection**
+Setup: Approach each hill, stop 10 meters before the slope begins, select appropriate gear, then enter at consistent speed. Focus: No gear changes during the climb — all preparation happens before entry.
+
+## Confidence Note
+
+**Confidence: High** - The visual observations clearly show seated position throughout all frames, and the audio confirms the reactive riding style. The scenario matches loose surface hill climbing technique requirements perfectly. No additional information needed for this assessment.
+
+=== END ===
+
+Output saved to: scripts\coaching-output-claude-2026-03-31T19-12-16.txt
+

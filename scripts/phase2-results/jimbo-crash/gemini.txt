@@ -1,0 +1,149 @@
+=== GROUND TRUTH ===
+Clip: jimbo crash
+Camera: POV
+Expected Scenario: Descent through trees
+Expected Outcome: Hits tree, headlight impact
+Expected Body Position: N/A (POV)
+Key Test: Impact detection, low quality
+Runtime: 49.7s
+=== MODEL OUTPUT (Gemini) ===
+[dotenv@17.3.1] injecting env (4) from .env.local -- tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] }
+=== RideMind - Gemini Coaching Test ===
+
+Video: C:\Users\rigge\OneDrive\Videos\Enduro ai coach test clips\jimbo crash.mp4
+
+Loading knowledge base...
+
+Knowledge base trimmed: 72k characters dropped to stay under 20k cap
+Knowledge base loaded: 4/20 files, 20k characters
+
+Uploading video to Gemini Files API...
+
+Uploading video (2MB) to Gemini Files API...
+Upload complete. Waiting for processing...
+.
+Video ready.
+
+Starting analysis pipeline...
+
+Step 1: Visual observation (no KB)...
+
+[Step 1 visual] 3297 chars, 803 output tokens, finish: MAX_TOKENS  ⚠ TRUNCATED — hit token cap
+Visual observation complete.
+
+
+--- RAW VISUAL OBSERVATION ---
+The video begins with a first-person perspective from the handlebars of an off-road motorcycle, moving slowly down a wooded trail.
+
+**0:00-0:01:** The rider is standing on the foot pegs, with a visible gap between their rear and the seat. Their body is bent slightly forward at the waist. Their head is positioned upright, appearing to look straight ahead down the trail. The bike is upright, traversing a slight downhill slope. The terrain consists of loose brown dirt largely covered in dry, brown leaves. Numerous bare trees with vertical trunks are visible on both sides of the path and further down the slope.
+
+**0:01-0:02:** The rider maintains a standing position, with their body still leaning slightly forward. The bike continues to move at a slow, consistent speed. The front wheel is pointed straight ahead.
+
+**0:02-0:03:** The rider's body leans further forward over the handlebars. Their head is slightly tilted down, looking towards the immediate path directly in front of the bike. The bike continues to move slowly. A thick tree trunk becomes prominent directly in the center of the bike's path, angled slightly to the left from the perspective of the rider.
+
+**0:03-0:04:** The bike's front tire makes direct contact with the base of the tree trunk on its right side. The bike's forward motion stops abruptly. The front end of the bike pivots sharply to the left. The rider's left foot comes off the peg and extends towards the ground. The rider's body shifts to the left over the bike.
+
+**0:04-0:05:** The bike is now stationary, leaning against the tree. The rider's left foot is firmly on the ground. The rider's body is crouched over the handlebars. The left hand briefly leaves the handlebar and then returns.
+
+**0:05-0:06:** The rider remains stationary, with the left foot on the ground. The bike is leaning against the tree. The rider's right hand is on the throttle.
+
+**0:06-0:07:** The rider's left hand is seen pressing against the bark of the tree trunk, seemingly to push away. The bike remains stationary.
+
+**0:07-0:08:** The rider's left hand is still braced against the tree. The bike remains in contact with the tree. The rider's head is looking down at the bike and the ground.
+
+**0:08-0:09:** The rider's left hand moves back to the left handlebar. The bike is still against the tree, stationary.
+
+**0:09-0:10:** The rider, with their left foot on the ground, begins to pull the bike backward, away from the tree. The bike remains upright. The rider's head is facing forward.
+
+**0:10-0:11:** The rider continues to maneuver the bike backward by pushing with their feet on the ground. The bike moves a short distance backward, then slightly to the right, still clearing the initial tree.
+
+**0:11-0:12:** The rider continues pushing the bike backward with both feet on the ground. The bike is gradually moving away from the tree and turning to the right.
+
+**0:12-0:13:** The bike continues to be pushed backward by the rider's feet on the ground, creating more space from the obstacle. The bike is upright, now facing slightly right.
+
+**0:13-0:14:** The rider backs up further, then adjusts the handlebars to the right, positioning the front wheel to resume forward movement. The bike is stationary, upright, with the rider's feet still on the ground. The section
+--- END RAW VISUAL ---
+
+Step 2: Audio observation (no KB)...
+
+[Step 2 audio] 1731 chars, 445 output tokens, finish: STOP
+Audio observation complete.
+
+
+--- RAW AUDIO OBSERVATION ---
+Here is a chronological description of the sounds heard in the clip:
+
+*   **0:00:** The motorcycle engine is idling at a low, steady RPM.
+*   **0:01:** A brief, slight increase in engine RPM, followed by a return to idle.
+*   **0:02:** Another brief, slight increase in engine RPM, then returning to idle.
+*   **0:03:** A sudden, sharp rev of the engine to a higher RPM, immediately followed by a distinct impact sound, suggesting a collision. The engine RPM then sharply decreases.
+*   **0:04:** A clanking sound is heard as the motorcycle appears to fall or hit something, followed by a muffled thud. A male voice exclaims "F-!"
+*   **0:05:** The voice continues, "Ah, fuck." Muffled sounds of movement and possibly the bike settling are heard.
+*   **0:06:** The engine is silent. Muffled ambient sounds continue.
+*   **0:07:** A low grunting sound from a person is heard, along with more muffled sounds.
+*   **0:08:** Muffled sounds, possibly of shifting or adjustment.
+*   **0:09:** A distinct metallic clink, followed by a low mechanical whine, then a brief, sharp rev of the engine at a moderate RPM, which quickly dies out. This suggests an attempt to kickstart the bike.
+*   **0:10:** Another metallic clink, followed by a low mechanical whine and a brief engine rev that quickly dies out, indicating a second unsuccessful start attempt.
+*   **0:11:** A muffled scraping or shuffling sound is heard, possibly of feet on loose terrain or the bike being adjusted.
+*   **0:12:** A third metallic clink, followed by a low mechanical whine, and then the engine successfully starts, settling into a steady idle at a low RPM.
+*   **0:13:** The engine continues to idle. A light, brief scraping sound is heard before the clip ends.
+--- END RAW AUDIO ---
+
+Step 3: Scenario classification...
+
+[Step 3 classification] 53 chars, 17 output tokens, finish: MAX_TOKENS  ⚠ TRUNCATED — hit token cap
+Scenario classification complete.
+
+SCENARIO: Obstacle crossing (log, rock, step)
+SURFACE
+
+Step 4: Coaching (with knowledge base)...
+
+[Step 4 coaching] 6056 chars, 1334 output tokens, finish: STOP
+=== COACHING FEEDBACK ===
+
+Okay, let's break down that section. This type of technical riding demands precision and foresight, and it's a great opportunity to refine some fundamental skills.
+
+## What I Saw
+You were navigating a slow, slightly downhill wooded trail covered in loose dirt and dry leaves. You encountered a thick tree trunk directly in your path. Your front wheel impacted the tree head-on, causing an abrupt stop, loss of balance, and the bike stalled, requiring you to push it back and restart.
+
+## What You Did Well
+*   **Standing Body Position:** From the start (0:00-0:01), you were standing on the foot pegs with a visible gap between your body and the seat. This is a good general riding position for off-road and descents as it allows for better balance and dynamic weight shifts, which is crucial for maneuvering and handling obstacles.
+
+## What Needs Work
+1.  **Vision Management:**
+    *   **What I observed:** Just before the impact (0:02-0:03), your head was "slightly tilted down, looking towards the immediate path directly in front of the bike."
+    *   **Why it matters:** This "short vision" is an error indicator on descents. It forces you into a reactive riding style, giving you very little time to identify upcoming obstacles, plan your line, or execute the correct technique. You often hit what you're looking at, especially when it's directly in front of your wheel.
+    *   **What correct technique looks like:** For technical descents, your "rider's head is directed forward and down the slope, not at the ground immediately ahead" (hill-03). You need to be looking further ahead, anticipating the terrain, not reacting to what's under your front wheel.
+
+2.  **Obstacle Crossing Technique:**
+    *   **What I observed:** Your "bike's front tire makes direct contact with the base of the tree trunk... forward motion stops abruptly" (0:03-0:04). This impact was preceded by "A sudden, sharp rev of the engine to a higher RPM" (0:03 audio).
+    *   **Why it matters:** Hitting an obstacle like a tree trunk head-on causes an abrupt stop, throwing your weight forward and leading to a loss of control, as seen when you lost balance and stalled. The sharp, sudden rev just before impact suggests either an accidental throttle input or a mistimed attempt to lighten the front wheel, which unfortunately contributed to the uncontrolled stop rather than aiding obstacle clearance.
+    *   **What correct technique looks like:** For obstacles such as a rock step, the goal is a "brief front-wheel lift before the step, smooth roll-over" (hill-02). This involves a precise throttle pulse to lift or lighten the front wheel, allowing it to roll over, rather than into, the obstacle, maintaining your momentum and stability.
+
+3.  **Engine Control and Reactivity:**
+    *   **What I observed:** The "sudden, sharp rev of the engine to a higher RPM, immediately followed by a distinct impact sound" (0:03 audio), and the subsequent stalling of the engine requiring multiple kickstart attempts (0:09-0:12 audio).
+    *   **Why it matters:** An uncontrolled or reactive throttle blip, especially on a descent or before an obstacle, can destabilize the bike, cause unexpected lurching, or waste valuable traction. On descents, your engine should primarily be used for controlled braking. The stall and the need for multiple restarts highlight a breakdown in your ability to maintain control and composure under pressure.
+    *   **What correct technique looks like:** On technical descents, you should prioritize engine braking to manage speed ("Consistent engine note in compression (overrun): engine braking active, correct gear selected" - hill-03). When navigating obstacles, any throttle input should be smooth, deliberate, and perfectly timed to aid in clearance, not to cause an abrupt surge.
+
+## Your Coaching Plan
+
+1.  **Drill Name: "Eyes Up, Lead the Line"**
+    *   **Setup:** Practice riding on a familiar, slightly downhill trail that has scattered, small, visible obstacles (e.g., small roots, rocks, fallen branches).
+    *   **Focus:** Maintain your standing position and consciously force your eyes to look 10-15 meters ahead, focusing on the path you want to take, not the immediate obstacle under your wheel. Internally narrate the upcoming terrain ("root, then turn, then rock") to train your peripheral vision and scanning technique. This will give you more time to process and react.
+
+2.  **Drill Name: "Log Roll-Over (Controlled Pulse)"**
+    *   **Setup:** Find a single, small-to-medium sized log or piece of wood on flat ground.
+    *   **Focus:** Practice approaching the log slowly. As your front wheel gets very close, apply a brief, precise throttle pulse to lighten or slightly lift the front wheel, allowing it to roll smoothly over the log. Immediately shift your weight forward after the front wheel crosses to help the rear wheel roll over. Start with very small logs and emphasize smoothness, timing, and minimal throttle to achieve the lift. This teaches you controlled front wheel management.
+
+3.  **Drill Name: "Engine Braking Only Descent"**
+    *   **Setup:** Find a mild downhill section similar to the one in the video, but initially clear of major obstacles. Select a gear (e.g., 2nd or 3rd) that provides significant engine braking.
+    *   **Focus:** Attempt to descend the section using *only* engine braking and the rear brake. Actively avoid using the front brake unless it's an emergency. Pay attention to the consistent "compression" sound of the engine. This will build your trust in engine braking, enhance your rear brake modulation, and teach you how to maintain a steady, controlled speed on descents without relying on abrupt mechanical braking inputs.
+
+## Confidence Note
+High. The visual and audio observations clearly detail the approach, impact, and immediate aftermath, providing concrete evidence for the identified technique issues. The knowledge base offers direct parallels for vision, obstacle negotiation, and engine control on descents, allowing for highly specific and actionable feedback.
+
+=== END ===
+
+Output saved to: scripts\coaching-output-gemini-2026-03-31T19-27-13.txt
+

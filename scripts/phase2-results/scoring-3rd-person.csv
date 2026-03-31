@@ -1,0 +1,11 @@
+# perception_avg = avg(body_position + scenario + outcome). coaching_capped = coaching score but max 2 if perception_avg < 2.5
+clip_id,clip_name,model,runtime_seconds,body_position,scenario,outcome,rider_visibility,perception_avg,coaching,coaching_capped,hallucination,confidence,chronology,specificity,consistency,failure_tags,verdict,production_usability,notes
+colin-hill,colin hill,GPT-4o,68.5,,,,,,,,,,,,,,,,
+colin-hill,colin hill,Gemini,82.8,,,,,,,,,,,,,,,,
+colin-hill,colin hill,Claude,68.0,,,,,,,,,,,,,,,,
+nick-crash,nick crash,GPT-4o,27.7,,,,,,,,,,,,,,,,
+nick-crash,nick crash,Gemini,35.3,,,,,,,,,,,,,,,,
+nick-crash,nick crash,Claude,65.7,,,,,,,,,,,,,,,,
+mark-crash,Mark crash,GPT-4o,54.5,,,,,,,,,,,,,,,,
+mark-crash,Mark crash,Gemini,75.5,,,,,,,,,,,,,,,,
+mark-crash,Mark crash,Claude,81.4,,,,,,,,,,,,,,,,

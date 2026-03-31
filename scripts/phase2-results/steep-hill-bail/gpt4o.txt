@@ -1,0 +1,13 @@
+=== GROUND TRUTH ===
+Clip: steep hill bail in trees
+Camera: POV
+Expected Scenario: Steep hill climb, bare forest
+Expected Outcome: Runs out of room, drops bike
+Expected Body Position: N/A (POV)
+Key Test: Line choice failure detection
+Runtime: 43.1s (FAILED)
+=== MODEL OUTPUT (GPT-4o) ===
+ERROR: Run failed
+Command failed: npx tsx scripts/test-coaching-kb.ts "C:\Users\rigge\OneDrive\Videos\Enduro ai coach test clips\steep hill bail in trees.mp4"
+Error: ENOENT: no such file or directory, open 'C:\Projects\Enduro-AI-Coach\scripts\temp-frames\audio.wav'
+Assertion failed: !(handle->flags & UV_HANDLE_CLOSING), file src\win\async.c, line 76

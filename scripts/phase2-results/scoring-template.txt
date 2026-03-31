@@ -1,0 +1,53 @@
+=== RIDEMIND PHASE 2 — SCORING TEMPLATE ===
+
+Clip:
+Model:
+Runtime:
+
+--- PROFILE A: 3rd-Person Clip ---
+(use only if camera = 3rd-person)
+
+A1. Body Position Accuracy (0-5):
+A2. Scenario Classification Accuracy (0-5):
+A3. Outcome Detection Accuracy (0-5):
+A4. Rider Visibility Handling (0-5):
+A5. Coaching Quality (0-5):
+
+Perception Average (A1+A2+A3 / 3):
+Coaching Capped (max 2 if perception avg < 2.5):
+
+--- PROFILE B: POV Clip ---
+(use only if camera = POV)
+
+B1. Audio Analysis Quality (0-5):
+B2. Scenario Classification Accuracy (0-5):
+B3. Outcome Detection Accuracy (0-5):
+B4. Terrain & Line Reading (0-5):
+B5. POV Awareness (0-5):
+B6. Coaching Quality (0-5):
+
+Perception Average (B1+B2+B3 / 3):
+Coaching Capped (max 2 if perception avg < 2.5):
+
+--- Secondary Metrics ---
+Hallucination Rate: [ None / Low / Medium / High ]
+Confidence Calibration: [ Well-calibrated / Over-confident / Under-confident / None expressed ]
+Chronological Accuracy: [ Accurate / Mostly accurate / Confused / N/A ]
+Specificity: [ Specific / Mixed / Generic ]
+Observation Consistency: [ Consistent / Minor contradiction / Major contradiction ]
+
+--- Failure Tags (tick all that apply) ---
+[ ] WRONG_BODY_POSITION
+[ ] MISSED_CRASH
+[ ] FALSE_FAIL
+[ ] WRONG_SCENARIO
+[ ] HALLUCINATED_DETAIL
+[ ] IGNORED_AUDIO
+[ ] POV_CONFUSION
+[ ] GENERIC_COACHING
+
+--- Verdict ---
+Verdict: [ PASS / MARGINAL / FAIL ]
+Production Usability: [ Yes / With caveats / No ]
+
+Notes:

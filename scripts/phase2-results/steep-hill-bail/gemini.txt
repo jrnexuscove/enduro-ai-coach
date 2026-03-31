@@ -1,0 +1,170 @@
+=== GROUND TRUTH ===
+Clip: steep hill bail in trees
+Camera: POV
+Expected Scenario: Steep hill climb, bare forest
+Expected Outcome: Runs out of room, drops bike
+Expected Body Position: N/A (POV)
+Key Test: Line choice failure detection
+Runtime: 287.2s
+=== MODEL OUTPUT (Gemini) ===
+[dotenv@17.3.1] injecting env (4) from .env.local -- tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`
+=== RideMind - Gemini Coaching Test ===
+
+Video: C:\Users\rigge\OneDrive\Videos\Enduro ai coach test clips\steep hill bail in trees.mp4
+
+Loading knowledge base...
+
+Knowledge base trimmed: 72k characters dropped to stay under 20k cap
+Knowledge base loaded: 4/20 files, 20k characters
+
+Uploading video to Gemini Files API...
+
+Uploading video (255MB) to Gemini Files API...
+Upload complete. Waiting for processing...
+......
+Video ready.
+
+Starting analysis pipeline...
+
+Step 1: Visual observation (no KB)...
+
+[Step 1 visual] 5930 chars, 1412 output tokens, finish: MAX_TOKENS  ⚠ TRUNCATED — hit token cap
+Visual observation complete.
+
+
+--- RAW VISUAL OBSERVATION ---
+Here is a literal, chronological description of the video:
+
+**0:00-0:01:** The video begins with a static, first-person view from a red GasGas motorcycle. The handlebars are visible, with "RENTHAL" written on the crossbar pad. The rider's gloved hands are on the grips, wearing red and black gloves. The terrain is a dirt path covered in dry, brown leaves. Bare trees are visible on either side of the path, which ascends slightly ahead. The rider is seated, with both feet on the foot pegs.
+
+**0:01-0:02:** The motorcycle engine makes a loud, revving sound. The bike starts moving forward, accelerating slowly. The rider remains seated, looking ahead up the path. The path appears to curve slightly to the left. The ground is covered in dense brown leaves and some visible dirt.
+
+**0:02-0:03:** The bike continues forward, turning left onto a narrower, slightly muddier path that ascends a small incline. The rider remains seated, looking straight ahead up the incline. The bike leans slightly left through the turn. The engine sound remains consistent, indicating maintained throttle.
+
+**0:03-0:04:** The rider navigates the bike up the incline, which is covered in deep, dry brown leaves, some bare dirt, and small rocks. The path narrows further into what appears to be a single track through the trees. The rider remains seated, looking forward and slightly up the incline.
+
+**0:04-0:05:** The bike continues ascending the narrow, leaf-covered path. The engine sound indicates increasing throttle. The rider's upper body is leaned slightly forward over the handlebars.
+
+**0:05-0:06:** The rider transitions to standing on the foot pegs as the incline becomes steeper and the terrain rockier, covered in loose leaves and branches. The bike's front wheel points uphill. The rider's head is looking up the trail. The engine revs higher as the bike gains speed.
+
+**0:06-0:07:** The bike continues the steep ascent. The rider is standing, leaning forward, with arms bent at the elbows. The front wheel lifts slightly off the ground, then drops back down. The terrain is very loose, covered in deep layers of leaves and scattered branches. The engine sound is loud and constant.
+
+**0:07-0:08:** The bike continues to ascend, passing through a section with more dry, pale grass mixed with the brown leaves. The rider remains standing, leaning forward. The bike's front wheel briefly lifts again. The rider appears to be looking up the hill.
+
+**0:08-0:09:** The bike's speed seems to decrease slightly as it encounters a challenging section. The rider is still standing, leaning forward. The engine revs, but the bike's forward momentum is slow. The handlebars turn slightly to the left, then straighten.
+
+**0:09-0:10:** The bike slowly moves up a section with a clear rut in the center of the path, covered by leaves. The rider is standing, upper body leaning forward, with the head looking up the trail. The engine continues to rev strongly.
+
+**0:10-0:11:** The bike continues ascending, with the rider standing and leaning forward. The terrain is a mix of loose leaves, small branches, and dry grass. The front wheel occasionally points slightly upwards due to the incline and terrain irregularities.
+
+**0:11-0:12:** The bike continues its slow, powerful ascent. The rider maintains a standing position, leaning forward. The sound of the engine is consistent, indicating continuous power application.
+
+**0:12-0:13:** The bike pushes up a slightly less steep section, but still covered in thick layers of leaves. The rider is standing, leaning forward. The bike maintains a relatively straight line up the visible path.
+
+**0:13-0:14:** The bike's front wheel points significantly upwards due to the steepness of the terrain. The rider is standing, very upright on the pegs, looking up. The engine continues to rev.
+
+**0:14-0:15:** The bike passes over a small bump or root hidden under the leaves, causing the front wheel to lift slightly. The rider is standing, leaning forward. The ground is thickly covered in leaves.
+
+**0:15-0:16:** The bike continues ascending, with the rider standing and slightly leaning forward. The path appears to veer slightly to the right. The engine sound is consistent.
+
+**0:16-0:17:** The bike is still climbing, the rider standing. The terrain appears to be a consistent steep incline covered in dry leaves and small branches. The rider is looking up the hill.
+
+**0:17-0:18:** The bike continues its slow, powerful climb. The rider maintains a standing posture, leaning forward. The bike briefly pitches forward then back as it moves over uneven ground.
+
+**0:18-0:19:** The rider is still ascending, standing on the pegs. The path remains steep and covered in leaves. The engine continues to rev consistently.
+
+**0:19-0:20:** The bike continues its climb, with the rider maintaining a standing position. The terrain is consistent with previous sections – steep, covered in dry leaves and small branches.
+
+**0:20-0:21:** The bike is still ascending slowly. The rider remains standing, leaning forward. The handlebars are turned slightly left.
+
+**0:21-0:22:** The motorcycle's front wheel is pointed upwards as it continues to climb. The rider is standing, leaning forward. The terrain ahead looks like a steep, leaf-covered bank.
+
+**0:22-0:23:** The bike is still climbing a steep section. The rider is standing, leaning forward. The handlebars are turned slightly left.
+
+**0:23-0:24:** The bike’s forward momentum continues, albeit slowly. The rider is standing, leaning forward. The bike moves over what appears to be a small pile of branches or debris.
+
+**0:24-0:25:** The bike's front wheel begins to rise dramatically as it attempts to surmount a larger obstacle, possibly a fallen tree trunk or large root mass, obscured by leaves. The rider is standing, leaning back slightly as the front lifts.
+
+**0:25-0:26:** The bike’s front wheel is now very high, almost vertical. The engine revs loudly
+--- END RAW VISUAL ---
+
+Step 2: Audio observation (no KB)...
+
+[Step 2 audio] 2599 chars, 589 output tokens, finish: STOP
+Audio observation complete.
+
+
+--- RAW AUDIO OBSERVATION ---
+Here is a chronological description of the sounds heard in the clip:
+
+The audio begins with the distinct sound of a dirt bike engine revving high, followed by a brief throttle cut and immediate re-application of throttle. This pattern of high engine RPM, frequent quick throttle bursts, and occasional slight cuts continues as the bike navigates what sounds like loose dirt and dry leaves, creating constant rustling and crunching under the tires.
+
+Between 0:01 and 0:02, a metallic clunking sound is heard, possibly indicating a gear shift or impact with a small obstacle. The engine maintains high, fluctuating RPMs, suggesting the rider is working the throttle aggressively to climb. At 0:05, there's a pronounced burst of throttle, leading to a brief moment of high-pitched wheel spin on loose ground, followed by more sustained high RPMs.
+
+As the bike continues uphill, the engine sound remains a constant high rev with frequent throttle adjustments, sometimes decreasing slightly before quickly being brought back up. The terrain interaction sounds are consistent: a continuous rustling of dry leaves and cracking of small twigs or branches. At 0:11, a dull thud or impact is heard. Around 0:12, the engine revs suddenly drop and then quickly rise again, suggesting a brief loss of traction or momentum that is quickly corrected with more throttle.
+
+Further up the incline (0:15-0:16), there's a slight pop or backfire from the engine during a high-revving moment. The sound of the tire digging into loose ground becomes more prominent at 0:17. The engine sound continues to fluctuate rapidly with intense throttle application, indicating a challenging climb. At 0:21-0:22, a distinct "clack" sound is heard, followed quickly by another impact and a sudden, uncontrolled high revving of the engine consistent with the wheel spinning without significant forward motion.
+
+At 0:23, a rider exclaims "Yep!". Immediately after, at 0:24, there is a very loud, sharp series of impacts – a crash, followed by the sound of the bike sliding and scraping against the ground and leaves. The engine sputters and then completely dies. The rider emits an "Oh!" and "Ah!" in response to the crash.
+
+From 0:26 until the end of the clip, the engine remains silent. The dominant sounds are the rustling of leaves and the rider's voice, first saying "I just bent the ear," then "Am I good in the ear?" There are also sounds of movement, rustling leaves, and at 0:30, a metallic scrape and clank, indicating the rider or bike is being moved or adjusted. The audio ends with further rustling and a final dull clunk.
+--- END RAW AUDIO ---
+
+Step 3: Scenario classification...
+
+[Step 3 classification] 54 chars, 17 output tokens, finish: MAX_TOKENS  ⚠ TRUNCATED — hit token cap
+Scenario classification complete.
+
+SCENARIO: Hill climb
+SURFACE: Loose (dry leaves, dirt,
+
+Step 4: Coaching (with knowledge base)...
+
+[Step 4 coaching] 6094 chars, 1365 output tokens, finish: STOP
+=== COACHING FEEDBACK ===
+
+## What I Saw
+The video shows an attempt at a hill climb on highly loose terrain, primarily covered in thick, dry brown leaves, dirt, small rocks, and branches. The rider navigated an initial gentle incline that curved to the left, which then transitioned into a steeper, single-track ascent with a rutted section and a significant, obscured obstacle near the top, where the attempt ended in a crash.
+
+## What You Did Well
+*   **Transition to Standing:** You correctly transitioned to standing on the foot pegs as the incline became steeper and the terrain more challenging (0:05-0:06). This aligns with the principle of "Rider is standing, with a gap between seat and body throughout the climb."
+*   **Vision Direction:** For most of the climb, your head was angled forward and up the trail (e.g., 0:05-0:06, 0:07-0:08, 0:09-0:10). This indicates you were looking ahead to where you wanted to go, which is crucial for maintaining line and control on technical terrain.
+
+## What Needs Work
+
+1.  **Initial Body Position:**
+    *   **What I observed:** "The rider is seated, with both feet on the foot pegs." (0:00-0:01), and this seated position was maintained through the initial approach and turn (until 0:05), even as the path ascended slightly.
+    *   **Why it matters:** Sitting on the approach or during the initial climb shifts your weight to the rear axle, which unloads the front wheel. This makes it harder to steer effectively, maintain a straight line, and absorb impacts with your legs, especially on loose and varied terrain.
+    *   **What correct technique looks like:** "Rider is standing, with a gap between seat and body throughout the climb." and "Stand before the slope, not on it."
+
+2.  **Throttle Control and Momentum Management:**
+    *   **What I observed:** The audio indicates "high engine RPM, frequent quick throttle bursts, and occasional slight cuts" throughout the climb. Visually, "The engine makes a loud, revving sound. The bike starts moving forward, accelerating slowly." (0:01-0:02). Later, "The engine revs, but the bike's forward momentum is slow." (0:08-0:09) and there was "sudden, uncontrolled high revving of the engine consistent with the wheel spinning without significant forward motion" (0:21-0:22, 0:25-0:26) just before the crash.
+    *   **Why it matters:** On loose surfaces, aggressive or jerky throttle inputs cause the rear wheel to spin freely, which wastes momentum instead of converting engine power into forward drive. This leads to rapid deceleration despite high revs, making the bike difficult to control and increasing the likelihood of getting stuck or crashing.
+    *   **What correct technique looks like:** "Even engine note with slight load variation: productive slip zone maintained." and "Smooth throttle hand position — no surges or sudden changes mid-climb." For momentum, it's about "Consistent approach speed maintained through the entry — not accelerating at the base," to achieve "Minimal rear wheel roost compared to forward progress — productive slip, not free spin."
+
+3.  **Body Position Over Obstacles (Mid-Climb Commitment):**
+    *   **What I observed:** As you encountered the final, larger obstacle, "The bike's front wheel begins to rise dramatically... The rider is standing, leaning back slightly as the front lifts." (0:24-0:25), followed by the front wheel becoming "very high, almost vertical." (0:25-0:26).
+    *   **Why it matters:** Leaning back when the front wheel lifts excessively on a steep climb shifts your weight too far rearward. This can cause the front wheel to become dangerously high and uncontrollable, preventing you from maintaining steering authority and balance, especially when surmounting obstacles. Maintaining a forward, attack position is crucial for front wheel traction and control.
+    *   **What correct technique looks like:** "Rider's chest visibly forward over the tank from a side camera — torso lean angle roughly parallels the slope" and "Rider body position maintained forward throughout — no rearward drift as the climb progresses."
+
+## Your Coaching Plan
+
+1.  **Drill: Standing Entry & Hold**
+    *   **Setup:** Find a short, gentle incline with similar loose leaf/dirt terrain.
+    *   **Focus:** Practice starting from a standstill *already standing* on the pegs. Maintain that standing, chest-forward body position (torso roughly paralleling the slope) through the entire ascent, without sitting down or leaning back. Focus on feeling your legs absorb bumps and maintain balance. This will build muscle memory for the correct starting position.
+
+2.  **Drill: Consistent Drive Challenge**
+    *   **Setup:** Use the same hill you attempted or a similar one, but focus on a shorter, less committing section initially.
+    *   **Focus:** The goal is to achieve a *consistent* engine note and forward drive with minimal wheel spin. Before you enter, select a gear and set your throttle to achieve a "productive slip zone." If you feel the wheel start to spin freely or momentum slowing, try holding the throttle steady or even reducing it slightly, while feathering the clutch in *small, continuous adjustments*. Listen for a rhythmic "bite-bite-bite" from the tire, not a high-pitched scream.
+
+3.  **Drill: Momentum Mapping**
+    *   **Setup:** Walk the specific hill you attempted.
+    *   **Focus:** Identify the single most challenging section or obstacle on the climb. This is the "crux" where traction is lowest or the obstacle is largest. Your goal for the next ride is to calibrate your entry speed and throttle *so that you arrive at that specific crux point with the maximum usable momentum*, not just at the base of the hill. Don't worry about clearing the entire climb yet; focus on carrying momentum through that hardest spot.
+
+## Confidence Note
+High. The detailed visual and audio observations provide strong, direct evidence for the identified technique issues, aligning perfectly with diagnostic cues in the knowledge base, especially for loose hill climbing and momentum management. The crash at the end further confirms the breakdown in technique.
+
+=== END ===
+
+Output saved to: scripts\coaching-output-gemini-2026-03-31T21-09-44.txt
+

@@ -1,0 +1,172 @@
+=== GROUND TRUTH ===
+Clip: long hill
+Camera: POV
+Expected Scenario: Long sustained hill climb
+Expected Outcome: Clean completion
+Expected Body Position: N/A (POV)
+Key Test: Must NOT report false failures
+Runtime: 62.6s
+=== MODEL OUTPUT (Claude) ===
+[dotenv@17.3.1] injecting env (4) from .env.local -- tip: ⚙️  suppress all logs with { quiet: true }
+=== RideMind - Claude Coaching Test ===
+
+Video: C:\Users\rigge\OneDrive\Videos\Enduro ai coach test clips\long hill.mp4
+
+Loading knowledge base...
+
+Knowledge base trimmed: 72k characters dropped to stay under 20k cap
+Knowledge base loaded: 4/20 files, 20k characters
+
+Extracting frames from video...
+
+Video duration: 56.8 seconds
+Extracted frame 1/16 at 3.3s
+Extracted frame 2/16 at 6.7s
+Extracted frame 3/16 at 10.0s
+Extracted frame 4/16 at 13.4s
+Extracted frame 5/16 at 16.7s
+Extracted frame 6/16 at 20.1s
+Extracted frame 7/16 at 23.4s
+Extracted frame 8/16 at 26.7s
+Extracted frame 9/16 at 30.1s
+Extracted frame 10/16 at 33.4s
+Extracted frame 11/16 at 36.8s
+Extracted frame 12/16 at 40.1s
+Extracted frame 13/16 at 43.5s
+Extracted frame 14/16 at 46.8s
+Extracted frame 15/16 at 50.1s
+Extracted frame 16/16 at 53.5s
+
+Extracting audio from video...
+
+Audio extracted successfully
+
+Starting analysis pipeline...
+
+Step 1: Visual observation (no KB)...
+
+[Step 1 visual] 3827 chars, 792 output tokens, stop: end_turn
+Visual observation complete.
+
+
+--- RAW VISUAL OBSERVATION ---
+Looking at these 16 frames from this motorcycle riding clip:
+
+**Frame 1:** The view shows only the red fender and handlebars in a rocky, eroded hillside area. No rider visible. Terrain is loose dirt and rock with sparse vegetation. Trees visible on hillsides. Speed appears stopped or very slow.
+
+**Frame 2:** Similar stationary view of rocky terrain with trees. Red fender and partial handlebar visible. Terrain shows loose stones and dirt surface. No rider body position visible. Speed appears stopped.
+
+**Frame 3:** Camera angle shows forested area with bare trees and leaf-covered ground. Red fender visible at bottom of frame. Handlebars partially visible. No clear view of rider position. Appears to be moving at slow speed through wooded area.
+
+**Frame 4:** Moving through forest with handlebars and red components visible. Terrain is leaf-covered forest floor with deciduous trees. Camera angle doesn't show rider body position clearly. Movement appears slow to moderate speed.
+
+**Frame 5:** Forest environment continues, leaf-covered ground, bare trees. Red bike components visible at bottom of frame. No clear rider position visible from this camera angle. Speed appears slow.
+
+**Frame 6:** Similar forest setting with handlebars visible. Red fender partially shown. Terrain is brown leaves on forest floor. Trees are mostly bare. Cannot determine rider position from this view. Speed appears slow.
+
+**Frame 7:** Continuing through forest, similar terrain of leaves and bare trees. Bike components visible at frame bottom. Rider position not clearly visible from camera angle. Movement appears slow through wooded area.
+
+**Frame 8:** Forest environment with red bike components visible. Leaf-covered ground with scattered trees. Cannot clearly see rider body position or seat area from this camera perspective. Speed appears slow to moderate.
+
+**Frame 9:** Moving through forest, handlebars and red components visible. Brown leaf-covered terrain. Trees surrounding area. Camera angle doesn't provide clear view of rider position relative to seat. Speed appears slow.
+
+**Frame 10:** Forest setting continues, similar terrain. Red bike parts visible at bottom of frame. Cannot determine from this camera angle whether rider is sitting or standing. Speed appears slow through wooded area.
+
+**Frame 11:** Blurred motion frame showing movement through forest. Red components visible but blurred. Cannot assess rider position due to motion blur. Terrain appears to be forest floor with leaves.
+
+**Frame 12:** Forest environment with bare trees and leaf-covered ground. Red fender visible. Camera angle doesn't show clear view of rider body position. Speed appears slow to moderate through wooded area.
+
+**Frame 13:** Continuing through forest with similar terrain. Handlebars and red components visible. Cannot clearly determine rider seating position from this camera perspective. Speed appears slow.
+
+**Frame 14:** Forest setting with trees and leaf-covered ground. Red bike components visible at frame bottom. Camera angle doesn't provide view of rider position relative to seat. Speed appears slow.
+
+**Frame 15:** Similar forest environment, bare trees, brown leaves on ground. Bike components visible but rider position not clearly visible from this camera angle. Movement appears slow.
+
+**Frame 16:** Forest setting continues with leaf-covered terrain and trees. Red components visible. Cannot determine rider body position from this camera perspective. Speed appears slow through wooded area.
+
+**Note:** Throughout all 16 frames, the camera angle and positioning makes it impossible to clearly see whether the rider is sitting on the seat or standing on the foot pegs, as the view is primarily focused forward showing the terrain ahead rather than capturing the rider's body position relative to the motorcycle seat.
+--- END RAW VISUAL ---
+
+Step 2: Audio observation (no KB, GPT-4o audio)...
+
+[Step 2 audio] 1994 chars, 394 output tokens, finish: stop
+Audio observation complete.
+
+
+--- RAW AUDIO OBSERVATION ---
+At the start, you can hear the engine revving up with a sudden burst of RPM as the throttle is quickly opened. There’s a rough, gravelly sound beneath, indicating either gravel or loose dirt terrain. The engine’s RPM fluctuates a bit, suggesting some quick throttle adjustments as the rider navigates terrain changes.
+
+Right after, there's a brief higher rev followed by a drop in RPM, as if the rider momentarily backs off the throttle or engages the clutch slightly. You can hear some loose gravel or rocks hitting around, implying some rough terrain interaction.
+
+The engine returns to a steady, mid-to-high RPM with a mostly smooth throttle application. There’s some background noise from the tires crunching over the loose surface. 
+
+A slight pause in throttle is followed by another sudden burst of RPM, as the rider likely accelerates again—perhaps after navigating a bump or obstacle. You can hear the rider reacting verbally, indicating some kind of event like maybe going over an obstacle or encountering a tricky spot.
+
+The RPM then drops again slightly but stays relatively steady, fluctuating a bit but not too erratic. There’s a consistent sound of the terrain under the tires, likely loose dirt or gravel.
+
+Next, another moderately high rev can be heard, and you can hear the motorcycle engine working harder—suggesting either a climb or acceleration. The throttle seems to be applied smoothly but firmly this time.
+
+Towards the end, the engine RPM flares up slightly again, suggesting a bit of slipping or spinning of the rear wheel, particularly as the terrain might have gotten more challenging. You can hear more rocks or dirt being kicked up.
+
+Finally, the RPM settles down a bit, accompanied by the continuous crunch of the rough terrain under the tires, suggesting the rider might either be slowing down or stabilizing after a rough patch. There’s some free-revving noise at the end, indicating the rider may have temporarily disengaged the clutch or is coasting a little.
+--- END RAW AUDIO ---
+
+Step 3: Scenario classification...
+
+[Step 3 classification] 245 chars, 60 output tokens, stop: end_turn
+Scenario classification complete.
+
+SCENARIO: Flat terrain riding
+SURFACE: Loose dirt/leaves
+DIFFICULTY: Easy
+OUTCOME: Clean
+SUMMARY: Rider navigates through forest terrain on leaf-covered ground at slow to moderate speeds with steady throttle control and no apparent difficulties.
+
+Step 4: Coaching (with knowledge base)...
+
+[Step 4 coaching] 3408 chars, 709 output tokens, stop: end_turn
+=== COACHING FEEDBACK ===
+
+## What I Saw
+The rider was navigating flat forest terrain covered in loose leaves and dirt at slow speeds. Based on the audio, this appears to be more challenging terrain than initially classified, with evidence of wheel spin, throttle surges, and loose surface interaction suggesting traction challenges on the leaf-covered ground.
+
+## What You Did Well
+Unfortunately, I cannot identify specific positives from the available observations. The camera angle prevented assessment of body position, and the audio suggested reactive throttle management rather than smooth, controlled technique.
+
+## What Needs Work
+
+**1. Throttle Control on Loose Surfaces**
+- What I observed: "sudden burst of RPM," "RPM flares up slightly again, suggesting a bit of slipping or spinning of the rear wheel," and "free-revving noise at the end"
+- Why it matters: From the knowledge base on loose surfaces: erratic throttle creates wheel spin that wastes momentum and reduces forward progress
+- What correct technique looks like: "Even engine note with slight load variation" indicating the rider is maintaining the productive slip zone rather than creating free spin
+
+**2. Reactive Rather Than Planned Throttle Management**
+- What I observed: "RPM fluctuates a bit, suggesting some quick throttle adjustments" and "sudden burst of RPM" followed by backing off
+- Why it matters: The knowledge base emphasizes that throttle movements should be "planned" rather than "reactive," especially on surfaces where traction is limited
+- What correct technique looks like: "Throttle hand position remains relatively stable — no visible jerking" with smooth, deliberate inputs
+
+**3. Inconsistent Power Delivery**
+- What I observed: "brief higher rev followed by a drop in RPM" and multiple cycles of acceleration and deceleration
+- Why it matters: On loose surfaces, inconsistent power delivery breaks traction and creates the very spinning that makes forward progress difficult
+- What correct technique looks like: "Consistent engine load tone throughout" indicating steady power delivery matched to available traction
+
+## Your Coaching Plan
+
+**1. Throttle Discipline Drill**
+Set up a 50-meter section of similar loose terrain. Practice riding through at exactly 25% throttle position — no more, no less. Focus on maintaining that exact throttle position regardless of what the rear wheel does. This teaches throttle independence from traction feedback.
+
+**2. Audio Feedback Training**
+Record engine sound during practice runs. Listen back and identify the difference between productive load (steady tone with slight variation) versus free spin (high-pitch screaming). Train your ear to recognize when you're in the productive traction zone.
+
+**3. Commitment Line Practice**
+Walk a similar section and identify the best line. Then ride that exact line at consistent speed without deviating, regardless of traction changes. Focus on trusting your pre-selected line rather than hunting for traction reactively.
+
+## Confidence Note
+**Confidence: Low**
+
+The camera angle made it impossible to assess body position, which is critical for loose surface technique. Additionally, the initial scenario classification as "easy flat terrain" doesn't match the audio evidence of wheel spin and traction challenges. Higher-quality footage showing rider position and a more accurate terrain assessment would significantly improve coaching effectiveness.
+
+=== END ===
+
+Output saved to: scripts\coaching-output-claude-2026-03-31T19-35-15.txt
+

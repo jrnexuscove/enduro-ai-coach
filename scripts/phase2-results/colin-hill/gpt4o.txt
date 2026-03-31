@@ -1,0 +1,250 @@
+=== GROUND TRUTH ===
+Clip: colin hill
+Camera: 3rd-person
+Expected Scenario: Hill climb, rocky
+Expected Outcome: Bail midway
+Expected Body Position: Seated entire time
+Key Test: Body position accuracy
+Runtime: 68.5s
+=== MODEL OUTPUT (GPT-4o) ===
+[dotenv@17.3.1] injecting env (4) from .env.local -- tip: 🔐 encrypt with Dotenvx: https://dotenvx.com
+=== RideMind - Knowledge Base Enhanced Coaching Test ===
+
+Video: C:\Users\rigge\OneDrive\Videos\Enduro ai coach test clips\colin hill.mp4
+
+Loading knowledge base...
+
+Knowledge base trimmed: 72k characters dropped to stay under 20k cap
+Knowledge base loaded: 4/20 files, 20k characters
+
+Extracting frames from video...
+
+Video duration: 19.4 seconds
+Extracted frame 1/16 at 1.1s
+Extracted frame 2/16 at 2.3s
+Extracted frame 3/16 at 3.4s
+Extracted frame 4/16 at 4.6s
+Extracted frame 5/16 at 5.7s
+Extracted frame 6/16 at 6.8s
+Extracted frame 7/16 at 8.0s
+Extracted frame 8/16 at 9.1s
+Extracted frame 9/16 at 10.3s
+Extracted frame 10/16 at 11.4s
+Extracted frame 11/16 at 12.5s
+Extracted frame 12/16 at 13.7s
+Extracted frame 13/16 at 14.8s
+Extracted frame 14/16 at 16.0s
+Extracted frame 15/16 at 17.1s
+Extracted frame 16/16 at 18.2s
+
+Extracting audio from video...
+
+Audio extracted successfully
+
+Starting analysis pipeline...
+
+Step 1: Visual observation (no KB)...
+
+Visual observation complete.
+
+
+--- RAW VISUAL OBSERVATION ---
+**Frame 1:**
+- Rider is standing on the foot pegs with a visible gap between their body and the seat.
+- The rider appears to be leaning slightly forward with arms bent.
+- Rider's head is facing forward, looking ahead on the trail.
+- The bike is upright, aligned with the trail.
+- The terrain is a rocky, uneven path with a slight incline.
+- No visible obstacles in immediate path.
+- Impression of moderate speed.
+
+**Frame 2:**
+- Rider is sitting on the seat.
+- Posture is upright with slightly bent arms.
+- Rider's head is turned slightly to the right, possibly looking towards the side.
+- The bike leans slightly to the left.
+- The terrain remains rocky and uneven, sloping downwards.
+- The path is narrow with dense trees alongside.
+- Moderate speed impression.
+
+**Frame 3:**
+- Rider is standing on the foot pegs.
+- The rider is leaning slightly back with both arms extended.
+- Rider's head is looking forward up the trail.
+- The bike is angled upwards following the incline.
+- Steep, rocky terrain with an upward slope.
+- No visible obstacles directly on path.
+- The impression is of a slow climb.
+
+**Frame 4:**
+- Rider is standing on foot pegs, leaning forward with arms bent.
+- Head is looking uphill.
+- The bike is leaned slightly forward, matching the uphill terrain.
+- Rugged, rocky terrain continuing upwards.
+- Straight line up a narrow path between trees.
+- Dust indicates slight acceleration, slow to moderate speed.
+
+**Frame 5:**
+- Rider is standing on the foot pegs.
+- Leaning forward slightly, arms bent.
+- Head is focused directly upward on the continued incline.
+- The bike is upright with slight lean as it banks with the path.
+- Terrain is rocky and inclined steeply.
+- No immediate obstacles.
+- Moderate speed with visible dust trail.
+
+**Frame 6:**
+- Rider is standing on foot pegs.
+- Upright posture with heads turned forward.
+- The bike is more upright; slight lean as it follows path contour.
+- Rocky, narrow path.
+- Tightly packed trees on both sides.
+- Dust indicates consistent speed; moderate pace.
+
+**Frame 7:**
+- Rider standing on foot pegs, leaning forward slightly.
+- Arms bent, head facing forward uphill.
+- Bike is slightly airborne, no contact with ground.
+- Rugged, uneven terrain with rocks and dirt.
+- Line is straight upwards between trees.
+- Fast speed, indicated by air and dust clouds.
+
+**Frame 8:**
+- Rider continues standing on foot pegs.
+- Leaning slightly forward with arms bent, focused on upper trail.
+- Bike rear wheel on the ground, front slightly off.
+- The path is steep, rocky, and narrow.
+- Dust behind the wheels is visible.
+- Impression of fast movement.
+
+**Frame 9:**
+- Rider standing on foot pegs.
+- Slight lean forward; arms are controlling the descent.
+- Head is looking up the path.
+- The bike has settled back on the ground, slightly angled uphill.
+- Rocky, irregular terrain; straight narrow path.
+- Speed appears moderate, slowing down.
+
+**Frame 10:**
+- Rider standing on foot pegs.
+- Balanced with a slight forward lean; arms slightly bent.
+- Head is directed towards the upper path.
+- Bike moving smoothly over rough, inclined terrain.
+- Line is direct, no obstacles.
+- Moderate speed with a dust cloud trailing.
+
+**Frame 11:**
+- Rider standing on foot pegs.
+- Leaning forward with a focused head.
+- The bike is level with the incline.
+- Rough terrain with scattered rocks.
+- Straight line forward through dense trees.
+- Moderate speed suggested by dust dispersion.
+
+**Frame 12:**
+- Rider standing, leaning slightly forwards with arms bent.
+- Head turned left slightly.
+- Bike is upright, maintaining balance on uneven terrain.
+- Narrow path through forest.
+- Dust cloud indicating traction on loose ground.
+- Moderate forward speed.
+
+**Frame 13:**
+- Rider is standing on foot pegs.
+- Leaning forward slightly; arms bent.
+- Head is turned slightly left.
+- Uphill bike angle continues on rocky terrain.
+- Straight path amidst trees.
+- Slow to moderate speed with a visible dust trail.
+
+**Frame 14:**
+- Rider sitting on seat.
+- Upright with arms bent slightly, looking up.
+- Bike leaned slightly back due to terrain slope.
+- Rocky, challenging path.
+- Narrow line through trees is maintained.
+- Moderate speed continuing upwards.
+
+**Frame 15:**
+- Rider standing on foot pegs again.
+- Body is leaning slightly forward; rider looking forward.
+- Bike is angled on an uphill path.
+- Rugged, tree-laden terrain.
+- Line is clear, no obstacles in view.
+- Moderate speed impression with dust tail visible.
+
+**Frame 16:**
+- Rider standing on foot pegs.
+- Slight forward lean with control on handlebars.
+- Head focused forward.
+- Bike continues uphill on uneven rocky path.
+- Line is maintained, no new obstacles visible.
+- Moderate speed as indicated by dust dispersion.
+--- END RAW VISUAL ---
+
+Step 2: Audio observation (no KB)...
+
+Audio observation complete.
+
+
+--- RAW AUDIO OBSERVATION ---
+At the start of the clip, I hear the motorcycle engine revving with a high and fluctuating RPM pattern as the rider likely applies the throttle in short bursts. The throttle input doesn't sound smooth; instead, it comes in distinct bursts, suggesting the rider is navigating difficult terrain.
+
+As the ride continues, I hear some momentary lower RPMs, indicating possible braking or coasting, followed by more bursts of throttle as the rider applies power again. There’s a continuous fluctuation in the engine note, which implies rapid throttle application, a bit jerky rather than smooth.
+
+I also hear some faint mechanical or clutch-related sounds in the background, especially when the rider seems to slow down or engage the clutch.
+
+There are a few distinct dull thuds or impacts, which might be the front or rear wheel encountering obstacles like rocks or ruts. The terrain interaction sounds suggest a rough surface—likely loose dirt or gravel—and at one point, there may have even been some minor wheel spin, indicated by a quick rise in RPM without much forward movement.
+
+Toward the end, the RPMs lower, and I can hear people talking casually, likely the rider and others, discussing the ride. There’s a relaxed tone to their conversation, so it sounds like the intense part of the riding has ended. 
+
+In summary, I heard fluctuating engine sounds with bursts of throttle, a few impact noises, some clutch manipulation, and overall rough terrain sounds. Finally, the engine noise dies down, and there is conversation in the background.
+--- END RAW AUDIO ---
+
+Step 3: Scenario classification...
+
+Scenario classification complete.
+
+SCENARIO: Hill climb  
+SURFACE: Rocky  
+DIFFICULTY: Hard  
+OUTCOME: Clean  
+SUMMARY: The rider navigated a challenging and steep uphill rocky path successfully, using bursts of throttle and maintaining moderate speed, indicating adept handling of the technical terrain.
+
+Step 4: Coaching (with knowledge base)...
+
+=== COACHING FEEDBACK ===
+
+## What I Saw
+You navigated a challenging and steep uphill climb on rocky terrain. The conditions demanded a high level of technical ability due to the hard surface and uneven path. Your successful ascent indicated a clean execution of advanced enduro techniques.
+
+## What You Did Well
+- **Body Positioning:** Throughout most of your climb (as seen in multiple frames), you maintained the correct standing position on the foot pegs, leaning slightly forward with bent arms. This aligns with the correct technique which helps keep the body weight balanced optimally over the bike for better control and traction.
+- **Direct Line and Consistent Speed:** Your ascent mostly followed a straight line between obstacles (frames 7-13), which is ideal for maintaining momentum and avoiding unnecessary maneuvers that could unsettle the bike.
+
+## What Needs Work
+- **Throttle Smoothness:** *"The throttle input doesn't sound smooth; instead, it comes in distinct bursts, suggesting the rider is navigating difficult terrain."* This jerky throttle application is problematic because it can lead to wheel spin and loss of control on such a rocky and uneven surface. Proper technique requires smooth, deliberate throttle movements to maintain traction—especially important on rocky inclines where momentum and control are critical.
+- **Seated Position Mid-climb:** *"Frame 2: Rider is sitting on the seat. Posture is upright with slightly bent arms."* Sitting leads to your weight shifting rearward, which unloads the front wheel and can limit control and traction when climbing. Correct technique advises standing throughout such a climb to keep weight balanced and maintain control over both front and rear wheels.
+
+## Your Coaching Plan
+1. **Throttle Control Drill:**
+   - Setup: Find an open area with varying terrain similar to the rocky climb.
+   - Focus: Practice smooth throttle application by maintaining a steady hand when accelerating and decelerating. Aim for a consistent engine note and try to eliminate abrupt changes in RPMs.
+   
+2. **Climb Standing Position Drill:**
+   - Setup: Use a hill with a similar gradient to the observed climb.
+   - Focus: Stand on the foot pegs throughout the climb, with a forward lean. Practice maintaining this position without reverting to sitting, even during challenging sections. Focus on keeping weight balanced and avoid sitting until reaching flat ground.
+
+3. **Momentum Management Drill:**
+   - Setup: Simulate a rocky climb by marking start and end points on an incline.
+   - Focus: Enter the climb with steady speed, practice maintaining that speed without relying on bursts of throttle. Concentrate on choosing a direct, straight line up the hill to conserve momentum.
+
+## Confidence Note
+Confidence: Medium.
+
+Additional information on how frequently you reverted to a seated position and any specifics on wheel spin incidents could guide more tailored feedback. Video footage of the attempt would enhance the assessment of body posture and throttle control nuances.
+
+=== END ===
+
+Output saved to: scripts\coaching-output-kb-2026-03-31T19-09-45.txt
+

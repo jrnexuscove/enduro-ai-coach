@@ -1,0 +1,40 @@
+=== RIDEMIND PHASE 2 — RUN SUMMARY ===
+Completed at: 2026-03-31T21:18:10.617Z
+
+Total runs attempted: 24
+Successful runs:      24
+Failed runs:          0
+
+--- Average Runtime Per Model ---
+  GPT-4o: no successful runs
+  Gemini: 110.3s average (1 runs)
+  Claude: no successful runs
+
+--- Failed Runs ---
+  None
+
+--- Output Files Generated ---
+  scripts\phase2-results\colin-hill\gpt4o.txt
+  scripts\phase2-results\colin-hill\gemini.txt
+  scripts\phase2-results\colin-hill\claude.txt
+  scripts\phase2-results\clutch-scream-hill\gpt4o.txt
+  scripts\phase2-results\clutch-scream-hill\gemini.txt
+  scripts\phase2-results\clutch-scream-hill\claude.txt
+  scripts\phase2-results\fall-bulgario\gpt4o.txt
+  scripts\phase2-results\fall-bulgario\gemini.txt
+  scripts\phase2-results\fall-bulgario\claude.txt
+  scripts\phase2-results\jimbo-crash\gpt4o.txt
+  scripts\phase2-results\jimbo-crash\gemini.txt
+  scripts\phase2-results\jimbo-crash\claude.txt
+  scripts\phase2-results\long-hill\gpt4o.txt
+  scripts\phase2-results\long-hill\gemini.txt
+  scripts\phase2-results\long-hill\claude.txt
+  scripts\phase2-results\nick-crash\gpt4o.txt
+  scripts\phase2-results\nick-crash\gemini.txt
+  scripts\phase2-results\nick-crash\claude.txt
+  scripts\phase2-results\steep-hill-bail\gpt4o.txt
+  scripts\phase2-results\steep-hill-bail\gemini.txt
+  scripts\phase2-results\steep-hill-bail\claude.txt
+  scripts\phase2-results\mark-crash\gpt4o.txt
+  scripts\phase2-results\mark-crash\gemini.txt
+  scripts\phase2-results\mark-crash\claude.txt

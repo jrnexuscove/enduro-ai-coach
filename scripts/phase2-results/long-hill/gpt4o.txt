@@ -1,0 +1,234 @@
+=== GROUND TRUTH ===
+Clip: long hill
+Camera: POV
+Expected Scenario: Long sustained hill climb
+Expected Outcome: Clean completion
+Expected Body Position: N/A (POV)
+Key Test: Must NOT report false failures
+Runtime: 68.8s
+=== MODEL OUTPUT (GPT-4o) ===
+[dotenv@17.3.1] injecting env (4) from .env.local -- tip: ⚙️  write to custom object with { processEnv: myObject }
+=== RideMind - Knowledge Base Enhanced Coaching Test ===
+
+Video: C:\Users\rigge\OneDrive\Videos\Enduro ai coach test clips\long hill.mp4
+
+Loading knowledge base...
+
+Knowledge base trimmed: 72k characters dropped to stay under 20k cap
+Knowledge base loaded: 4/20 files, 20k characters
+
+Extracting frames from video...
+
+Video duration: 56.8 seconds
+Extracted frame 1/16 at 3.3s
+Extracted frame 2/16 at 6.7s
+Extracted frame 3/16 at 10.0s
+Extracted frame 4/16 at 13.4s
+Extracted frame 5/16 at 16.7s
+Extracted frame 6/16 at 20.1s
+Extracted frame 7/16 at 23.4s
+Extracted frame 8/16 at 26.7s
+Extracted frame 9/16 at 30.1s
+Extracted frame 10/16 at 33.4s
+Extracted frame 11/16 at 36.8s
+Extracted frame 12/16 at 40.1s
+Extracted frame 13/16 at 43.5s
+Extracted frame 14/16 at 46.8s
+Extracted frame 15/16 at 50.1s
+Extracted frame 16/16 at 53.5s
+
+Extracting audio from video...
+
+Audio extracted successfully
+
+Starting analysis pipeline...
+
+Step 1: Visual observation (no KB)...
+
+Visual observation complete.
+
+
+--- RAW VISUAL OBSERVATION ---
+Frame 1: 
+- **Rider Position:** Not visible
+- **Terrain:** Steep hill, dirt and rocks, scattered leaves
+- **Line:** Slightly to the right side
+- **Obstacles:** Rocks and uneven terrain
+- **Speed:** Impression of being slow or stopped
+
+Frame 2:
+- **Rider Position:** Not visible
+- **Terrain:** Uphill, rocky and dirt surface with visible roots
+- **Line:** Center
+- **Obstacles:** Roots and rocks
+- **Speed:** Impression of being slow or stopped
+
+Frame 3:
+- **Rider Position:** Not visible
+- **Terrain:** Forested area, dirt path with leaves
+- **Line:** Center
+- **Obstacles:** Leaves covering path
+- **Speed:** Impression of moderate speed
+
+Frame 4:
+- **Rider Position:** Not visible
+- **Terrain:** Uphill with leaves and dirt
+- **Line:** Center
+- **Obstacles:** Leaves
+- **Speed:** Impression of moderate speed
+
+Frame 5:
+- **Rider Position:** Not visible
+- **Terrain:** Leaf-covered path, dirt
+- **Line:** Center
+- **Obstacles:** Fallen branches and leaves
+- **Speed:** Impression of moderate speed
+
+Frame 6:
+- **Rider Position:** Not visible
+- **Terrain:** Forest, leaf-covered ground
+- **Line:** Center
+- **Obstacles:** Leaves
+- **Speed:** Impression of moderate speed
+
+Frame 7:
+- **Rider Position:** Not visible
+- **Terrain:** Leafy dirt path
+- **Line:** Center
+- **Obstacles:** Leaves
+- **Speed:** Impression of moderate speed
+
+Frame 8:
+- **Rider Position:** Not visible
+- **Terrain:** Dirt with leaves, forest
+- **Line:** Center
+- **Obstacles:** Leaves
+- **Speed:** Impression of moderate speed
+
+Frame 9:
+- **Rider Position:** Not visible
+- **Terrain:** Dirt track with leaves
+- **Line:** Center
+- **Obstacles:** Leaves, branches
+- **Speed:** Impression of moderate speed
+
+Frame 10:
+- **Rider Position:** Not visible
+- **Terrain:** Leaf-strewn path, dirt
+- **Line:** Center
+- **Obstacles:** Leaves
+- **Speed:** Impression of moderate speed
+
+Frame 11:
+- **Rider Position:** Not visible
+- **Terrain:** Dirt track, forested
+- **Line:** Center
+- **Obstacles:** Twigs, leaves
+- **Speed:** Impression of moderate speed
+
+Frame 12:
+- **Rider Position:** Not visible
+- **Terrain:** Undulating dirt, leaves
+- **Line:** Center
+- **Obstacles:** Leaves
+- **Speed:** Impression of moderate speed
+
+Frame 13:
+- **Rider Position:** Not visible
+- **Terrain:** Dirt path through forest
+- **Line:** Center
+- **Obstacles:** Branches, leaves
+- **Speed:** Impression of moderate speed
+
+Frame 14:
+- **Rider Position:** Not visible
+- **Terrain:** Dirt path with dense leaf cover
+- **Line:** Center
+- **Obstacles:** Leaves, branches
+- **Speed:** Impression of moderate speed
+
+Frame 15:
+- **Rider Position:** Not visible
+- **Terrain:** Dirt and leaf path, uphill
+- **Line:** Curving left
+- **Obstacles:** Branches, leaves
+- **Speed:** Impression of moderate speed
+
+Frame 16:
+- **Rider Position:** Not visible
+- **Terrain:** Leafy ground, slight elevation
+- **Line:** Center, slight curve
+- **Obstacles:** Leaves
+- **Speed:** Impression of moderate speed
+--- END RAW VISUAL ---
+
+Step 2: Audio observation (no KB)...
+
+Audio observation complete.
+
+
+--- RAW AUDIO OBSERVATION ---
+At the start, there’s a sharp acceleration— the engine revs up quickly, suggesting a sudden throttle application. The RPMs climb rapidly and then fluctuate a bit as the rider likely navigates over uneven terrain. You can hear brief moments where the engine revs higher without a matching sound of forward progression, which likely indicates some wheel spin or sliding on a loose surface.
+
+Partway through, there’s a bit of a consistent mid-range engine tone, indicating the rider is holding the throttle steady for a short stretch. The terrain sounds rough, possibly gravel or loose dirt, as you can hear that distinctive crunching and scattering of small rocks under the tires.
+
+Next, there's another burst of throttle, causing the engine to rev higher again abruptly. As the rider encounters some more obstacles, there are a few slight dips in the RPM, which may be clutch engagement or slight braking to control speed. You can hear a faint clatter, possibly from the suspension reacting to bumps or rocks.
+
+Later in the clip, the engine note stabilizes again at a moderate level before another quick throttle burst to get over an obstacle. Each time the engine revs up sharply, you can tell the rider is climbing or accelerating abruptly. There's a lot of variation in tone, indicating frequent changes in throttle and terrain.
+
+Finally, there's a slight winding down near the end, where the engine note lowers a bit, and you can hear the sound of the bike settling after some bumps. It’s clear the rider is having fun, as there are some celebratory shouts in between these bursts of acceleration.
+--- END RAW AUDIO ---
+
+Step 3: Scenario classification...
+
+Scenario classification complete.
+
+SCENARIO: Hill climb  
+SURFACE: Loose with rocks and roots  
+DIFFICULTY: Moderate  
+OUTCOME: Clean  
+SUMMARY: The rider successfully navigates a moderately difficult uphill path covered with rocks, roots, and leaves, maintaining control despite encountering some wheel spin and uneven terrain.
+
+Step 4: Coaching (with knowledge base)...
+
+=== COACHING FEEDBACK ===
+
+## What I Saw
+The rider attempted to climb a moderately difficult uphill path characterized by loose dirt, rocks, and roots. Despite the challenging conditions that involved terrain instability and limited traction, they managed to complete the climb successfully, albeit with noticeable wheel spin and variability in throttle control.
+
+## What You Did Well
+- The rider maintained a relatively consistent engine tone in certain sections, which shows some effort towards controlled throttle management during the climb. This is indicative of attempting to stay within the productive slip zone where the rear wheel generates adequate drive.
+  
+## What Needs Work
+1. **Sudden Throttle Applications**  
+   - **What I observed:** "There’s a sharp acceleration— the engine revs up quickly, suggesting a sudden throttle application."  
+   - **Why it matters:** Sudden throttle inputs can lead to unnecessary wheel spin, particularly on loose surfaces, as they exceed the traction capacity of the terrain. This can waste momentum and make control more difficult.
+   - **What correct technique looks like:** Smooth and controlled throttle inputs are essential for maintaining traction and ensuring productive wheel slip rather than free spinning. Stabilizing the throttle helps in maintaining momentum without over-relying on last-minute acceleration. 
+
+2. **Frequent Wheel Spin**  
+   - **What I observed:** "Engine revs higher without a matching sound of forward progression, which likely indicates some wheel spin or sliding."  
+   - **Why it matters:** Wheel spin results in lost momentum and control, making it harder to sustain forward motion up the hill. It can also lead to further terrain degradation, which hampers traction for subsequent attempts.
+   - **What correct technique looks like:** To minimize wheel spin, the rider should focus on consistent throttle management and utilize the clutch for fine adjustments. This allows the rear wheel to stay within the productive slip zone, ensuring better traction and control.
+
+## Your Coaching Plan
+1. **Throttle Control Drills**
+   - **Setup:** Find a flat or slightly inclined surface with loose dirt and practice riding at a steady throttle. Increase speed incrementally while trying to maintain constant wheel speed without causing wheel spin.
+   - **Focus:** Maintain a smooth hand position and avoid abrupt throttle changes. Listen for engine stability without sudden changes in tone indicating excessive wheel spin.
+
+2. **Clutch Feathering Practice**
+   - **Setup:** On a medium gradient loose dirt hill, practice using the clutch to modulate power delivery rather than relying solely on throttle. 
+   - **Focus:** Spend time adjusting the clutch to softly engage and disengage power, helping to find the productive slip zone without over-spinning the rear wheel.
+
+3. **Momentum Maintenance Drill**
+   - **Setup:** Walk the climb beforehand to identify surface changes. Practice entering with different speeds to determine the optimal momentum for clearing obstacles smoothly without reducing throttle mid-section.
+   - **Focus:** Focus on building and maintaining momentum from the base of the climb to avoid over-reliance on reactive throttle inputs partway up.
+
+## Confidence Note
+Confidence Rating: Medium
+
+The observations provided limited visibility into the rider's body position, which plays a crucial role in hill climbing technique. Additional information on the rider's physical stance (e.g., leaning forward, standing) and helmet cam footage showing line choice and throttle hand during the climb would help to provide more precise and tailored feedback.
+
+=== END ===
+
+Output saved to: scripts\coaching-output-kb-2026-03-31T19-29-12.txt
+

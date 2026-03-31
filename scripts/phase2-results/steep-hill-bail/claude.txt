@@ -1,0 +1,174 @@
+=== GROUND TRUTH ===
+Clip: steep hill bail in trees
+Camera: POV
+Expected Scenario: Steep hill climb, bare forest
+Expected Outcome: Runs out of room, drops bike
+Expected Body Position: N/A (POV)
+Key Test: Line choice failure detection
+Runtime: 104.9s
+=== MODEL OUTPUT (Claude) ===
+[dotenv@17.3.1] injecting env (4) from .env.local -- tip: ⚙️  override existing env vars with { override: true }
+=== RideMind - Claude Coaching Test ===
+
+Video: C:\Users\rigge\OneDrive\Videos\Enduro ai coach test clips\steep hill bail in trees.mp4
+
+Loading knowledge base...
+
+Knowledge base trimmed: 72k characters dropped to stay under 20k cap
+Knowledge base loaded: 4/20 files, 20k characters
+
+Extracting frames from video...
+
+Video duration: 32.7 seconds
+Extracted frame 1/16 at 1.9s
+Extracted frame 2/16 at 3.9s
+Extracted frame 3/16 at 5.8s
+Extracted frame 4/16 at 7.7s
+Extracted frame 5/16 at 9.6s
+Extracted frame 6/16 at 11.6s
+Extracted frame 7/16 at 13.5s
+Extracted frame 8/16 at 15.4s
+Extracted frame 9/16 at 17.3s
+Extracted frame 10/16 at 19.3s
+Extracted frame 11/16 at 21.2s
+Extracted frame 12/16 at 23.1s
+Extracted frame 13/16 at 25.0s
+Extracted frame 14/16 at 27.0s
+Extracted frame 15/16 at 28.9s
+Extracted frame 16/16 at 30.8s
+
+Extracting audio from video...
+
+Audio extracted successfully
+
+Starting analysis pipeline...
+
+Step 1: Visual observation (no KB)...
+
+[Step 1 visual] 3119 chars, 684 output tokens, stop: end_turn
+Visual observation complete.
+
+
+--- RAW VISUAL OBSERVATION ---
+I observe 16 frames from what appears to be a motorcycle crash sequence. However, I must note that no rider is visible in any of these frames - the sequence shows only terrain views and eventually a crashed motorcycle.
+
+**Frame 1:** No motorcycle or rider visible. Shows forest terrain with loose dirt/gravel ground, bare trees, overcast sky. Terrain appears to be a trail or clearing with scattered rocks and debris.
+
+**Frame 2:** No motorcycle or rider visible. Similar forest terrain, camera appears to be moving forward along the trail. Ground is dirt/leaf litter with some erosion patterns visible.
+
+**Frame 3:** First appearance of motorcycle handlebars and red front number plate in bottom of frame. No rider visible. Camera looking ahead at wooded trail with dirt surface.
+
+**Frame 4:** Red front number plate and handlebars visible in frame. No rider visible. Camera looking ahead at forest trail, moderate forward movement apparent.
+
+**Frame 5:** Handlebars and red front plate visible. No rider visible. Terrain shows more vegetation and fallen leaves, camera continuing forward movement.
+
+**Frame 6:** Similar view with handlebars visible. No rider visible. Camera moving through wooded area with scattered debris and leaf litter on ground.
+
+**Frame 7:** Handlebars visible in frame bottom. No rider visible. Forest terrain with more open areas between trees, moderate speed apparent.
+
+**Frame 8:** Handlebars and red components visible. No rider visible. Camera continuing through forest with leaf-covered ground, steady forward movement.
+
+**Frame 9:** Clear view of handlebars and red front plate. No rider visible. Forest setting with bare trees, leaf-covered ground, moderate speed.
+
+**Frame 10:** More of motorcycle visible including "RENTHAL" text on handlebars. No rider visible. Forest terrain continues, camera angle steady.
+
+**Frame 11:** Handlebars and red front section prominent. No rider visible. Wooded area with hills visible in background, continued forward motion.
+
+**Frame 12:** Similar motorcycle components visible. No rider visible. Forest trail continues with natural obstacles and varying terrain.
+
+**Frame 13:** Camera angle changes dramatically - motorcycle appears to be falling/crashing. Red rear fender and wheel visible, bike appears sideways/tilted. No rider visible.
+
+**Frame 14:** Motorcycle is clearly crashed/lying on its side. Front wheel visible on left, red bodywork visible. Bike is completely down among leaf litter. No rider visible.
+
+**Frame 15:** Close-up view of crashed motorcycle. Red bodywork with "GAS GAS" branding visible, bike lying on forest floor among leaves and debris. No rider visible.
+
+**Frame 16:** Final frame shows crashed motorcycle from different angle. Red and white bodywork with "GAS GAS" text clearly visible, motorcycle completely down on leaf-covered ground. No rider visible.
+
+**Critical observation:** Throughout all 16 frames, no rider is visible at any point. The sequence appears to show a riderless motorcycle moving through forest terrain before crashing, or potentially footage taken after a crash with the camera still recording.
+--- END RAW VISUAL ---
+
+Step 2: Audio observation (no KB, GPT-4o audio)...
+
+[Step 2 audio] 1080 chars, 216 output tokens, finish: stop
+Audio observation complete.
+
+
+--- RAW AUDIO OBSERVATION ---
+At the start of the clip, I hear the motorcycle engine revving to a high RPM. The throttle application sounds quite sudden and aggressive, with a sharp rise in engine speed. As the rider moves, the engine sound fluctuates, suggesting the rider is adjusting throttle input frequently—possibly navigating uneven terrain.
+
+There are some subtle mechanical sounds, likely from the suspension or frame reacting to bumps or obstacles on the trail.
+
+Shortly after, the RPMs rise again sharply, followed by a slight drop, as if the rider is either braking or momentarily letting off the throttle. The engine sound then becomes smoother and more consistent, suggesting the rider is on a relatively stable stretch of terrain.
+
+Near the end of the clip, I hear a sudden “thud” or impact sound. Immediately after, the engine noise cuts off or becomes muted. It seems like the rider may have hit something hard, or possibly crashed.
+
+Then, I hear a person’s voice reacting vocally, and the engine sound remains idle or off after that point, indicating the ride has stopped or been interrupted.
+--- END RAW AUDIO ---
+
+Step 3: Scenario classification...
+
+[Step 3 classification] 671 chars, 145 output tokens, stop: end_turn
+Scenario classification complete.
+
+SCENARIO: Other (riderless motorcycle movement/crash)
+SURFACE: Loose dirt with leaf litter
+DIFFICULTY: Moderate
+OUTCOME: Failed
+SUMMARY: A riderless motorcycle travels through forest terrain before crashing and coming to rest on its side among the leaf litter.
+
+**Note:** This appears to be an unusual scenario where the motorcycle is moving without a visible rider present, which could indicate either a runaway bike situation, post-crash footage, or a camera angle that doesn't capture the rider. The audio suggests initial rider input with aggressive throttle application followed by impact and engine cutoff, but visually no rider is observed throughout the sequence.
+
+Step 4: Coaching (with knowledge base)...
+
+[Step 4 coaching] 3255 chars, 657 output tokens, stop: end_turn
+=== COACHING FEEDBACK ===
+
+## What I Saw
+
+This appears to be a riderless motorcycle moving through loose forest terrain with leaf litter before crashing and coming to rest on its side. The audio suggests initial rider input with aggressive throttle application, but no rider is visible throughout the 16-frame sequence, making this an unusual scenario that could indicate a runaway bike situation or post-crash footage.
+
+## What You Did Well
+
+I cannot identify any correct technique elements since no rider was visible throughout the sequence. This appears to be either a runaway motorcycle situation or footage captured after a rider separation from the bike.
+
+## What Needs Work
+
+**1. Complete Loss of Rider Control**
+- What I observed: "Throughout all 16 frames, no rider is visible at any point" with "aggressive throttle application" heard in audio followed by crash
+- Why it matters: Rider separation from the motorcycle eliminates all possibility of technique application and creates an extremely dangerous situation
+- What correct technique looks like: Maintaining secure riding position with proper grip and body position throughout all terrain
+
+**2. Excessive Initial Throttle Input**
+- What I observed: "The motorcycle engine revving to a high RPM. The throttle application sounds quite sudden and aggressive, with a sharp rise in engine speed"
+- Why it matters: From the knowledge base on loose surfaces: aggressive throttle inputs cause wheel spin that wastes momentum and can lead to loss of control
+- What correct technique looks like: Smooth, measured throttle application that maintains traction rather than breaking it loose
+
+**3. Complete System Breakdown**
+- What I observed: "Near the end of the clip, I hear a sudden 'thud' or impact sound. Immediately after, the engine noise cuts off" followed by the bike "lying on forest floor among leaves and debris"
+- Why it matters: This represents a complete failure of all fundamental riding principles - speed control, line choice, and bike/rider unity
+- What correct technique looks like: Maintaining control through progressive inputs and proper body positioning to prevent crashes
+
+## Your Coaching Plan
+
+**1. Basic Bike Control Assessment**
+Setup: Return to flat, stable terrain with minimal obstacles
+Focus: Re-establish fundamental rider position, grip, and smooth throttle control before attempting any technical terrain
+
+**2. Progressive Terrain Re-introduction**
+Setup: Start with easy forest paths with good traction
+Focus: Rebuilding confidence in throttle modulation and maintaining rider-bike connection through varying terrain
+
+**3. Emergency Response Training**
+Setup: Controlled environment practice of emergency stops and runaway bike scenarios
+Focus: Understanding when to abandon versus when to recover, plus safety protocols for bike separation incidents
+
+## Confidence Note
+
+**Confidence: Low**
+
+This scenario is highly unusual as it shows a riderless motorcycle, making standard technique assessment impossible. Additional information needed would include: what caused the rider separation, whether this is post-crash footage, the rider's physical condition, and the circumstances leading to this situation. Normal coaching protocols cannot apply until basic rider-bike unity is re-established.
+
+=== END ===
+
+Output saved to: scripts\coaching-output-claude-2026-03-31T19-53-46.txt
+

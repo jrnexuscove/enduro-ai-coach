@@ -1,0 +1,138 @@
+=== GROUND TRUTH ===
+Clip: colin hill
+Camera: 3rd-person
+Expected Scenario: Hill climb, rocky
+Expected Outcome: Bail midway
+Expected Body Position: Seated entire time
+Key Test: Body position accuracy
+Runtime: 82.8s
+=== MODEL OUTPUT (Gemini) ===
+[dotenv@17.3.1] injecting env (4) from .env.local -- tip: 🤖 agentic secret storage: https://dotenvx.com/as2
+=== RideMind - Gemini Coaching Test ===
+
+Video: C:\Users\rigge\OneDrive\Videos\Enduro ai coach test clips\colin hill.mp4
+
+Loading knowledge base...
+
+Knowledge base trimmed: 72k characters dropped to stay under 20k cap
+Knowledge base loaded: 4/20 files, 20k characters
+
+Uploading video to Gemini Files API...
+
+Uploading video (30MB) to Gemini Files API...
+Upload complete. Waiting for processing...
+...
+Video ready.
+
+Starting analysis pipeline...
+
+Step 1: Visual observation (no KB)...
+
+[Step 1 visual] 3735 chars, 862 output tokens, finish: STOP
+Visual observation complete.
+
+
+--- RAW VISUAL OBSERVATION ---
+The video opens at 0:00 with a rider in a pink helmet, black jersey with blue accents, grey pants, and pink gloves, on a red and white dirt bike. The bike is angled slightly towards the left of the frame. The rider is standing on the foot pegs, with a visible gap between their seat and their body. Their back is slightly rounded, and their head is oriented forward and slightly downward, appearing to look at the ground in front of the bike. The bike is on a downward sloping, loose dirt and gravel trail, surrounded by pine trees on the left side of the frame and a rocky, sparsely vegetated slope on the right.
+
+At 0:01, the rider begins to move forward, accelerating down the slope. Their body remains standing on the pegs. The bike's front wheel is pointed slightly to the right of the path of travel.
+
+By 0:02, the rider leans further forward, with their chest closer to the handlebars. The bike is now angled significantly more to the right, and the rear wheel begins to slide out to the left, kicking up a large cloud of light brown dust. The rider's head is still looking forward and slightly down.
+
+At 0:03, the bike is in a full slide, with the rear wheel drifting significantly to the left and generating substantial dust. The rider's left leg is extended outwards from the bike, with the foot held up, not touching the ground. Their body is leaning to the right, counter-leaning into the turn. The front wheel appears to be steering into the slide. The terrain is loose, dusty dirt with scattered small rocks.
+
+Between 0:04 and 0:05, the bike continues to slide down the hill, maintaining a significant lean to the right. The left leg is still extended. The dust cloud trails behind the bike. The rider's head remains looking forward.
+
+At 0:06, the rider pulls their left leg back onto the foot peg, and the bike appears to be regaining traction, continuing to travel down the dusty trail. The rider is still in a standing position, with their upper body leaning slightly forward over the handlebars.
+
+By 0:07, the bike is moving faster down the trail, generating a continuous plume of dust from the rear wheel. The rider maintains a standing position, with their body slightly forward. The bike is upright.
+
+At 0:08, the rider and bike are further down the trail, continuing to move at a high speed. The rider's body is still standing, leaning forward.
+
+Around 0:09, the rider again extends their left leg out to the side as the bike leans into another turn, with the rear wheel kicking up a large amount of dust as it slides. The bike is now angled towards the center-left of the frame.
+
+At 0:10, the rear wheel is visibly sliding, generating a dense cloud of dust that obscures part of the bike and rider. The rider's left foot is still extended off the peg, but not touching the ground. The bike is leaned significantly to the right, counter-steering into the slide. The rider's head is looking forward.
+
+From 0:11 to 0:13, the bike continues to drift sideways in the dust, the rider's left leg remains extended. The bike then begins to stand more upright, and the dust cloud begins to dissipate as the rear wheel regains traction. The rider's left foot comes back onto the peg. The bike's speed appears to have slowed during the slide. The rider is still standing.
+
+At 0:14, the rider and bike have come to a stop. The rider is still on the bike, standing over it, with both feet now on the ground. The bike is oriented downhill, facing away from the camera. The rider lifts their helmet visor up.
+
+The video ends at 0:19 with the rider and bike stopped on the trail, with the rider visible looking forward and upward. The section was completed without a fall, but the rider stopped at the end of the visible segment.
+--- END RAW VISUAL ---
+
+Step 2: Audio observation (no KB)...
+
+[Step 2 audio] 1550 chars, 388 output tokens, finish: STOP
+Audio observation complete.
+
+
+--- RAW AUDIO OBSERVATION ---
+The audio begins with an off-road motorcycle engine at a moderate RPM, quickly increasing with a burst of throttle at 0:00, accompanied by the sound of tires on loose gravel and dirt. By 0:01, the engine is at a very high, sustained RPM, with intense sounds of the tire churning loose material, creating significant dust, and a distinct "thump" or "clatter" around 0:02.
+
+The high RPM and aggressive throttle application continue until 0:04, accompanied by loud tire-on-gravel/dirt sounds and a "whoosh" sound from the moving bike. Between 0:05 and 0:06, the engine RPM gradually decreases, indicating reduced throttle.
+
+At 0:07, a male voice exclaims, "Oh no!". The engine RPM continues to lower, sounding like it's coasting or under very light throttle. From 0:09, the engine RPM increases again, with renewed sounds of tires on loose ground and more dust being kicked up.
+
+By 0:11, the engine is at high RPM, with very aggressive and loud sounds of tires spinning and displacing a large volume of gravel and dirt, suggesting significant wheel spin on loose terrain. The engine then sputters, struggles, and abruptly stalls around 0:12-0:13, followed by a dull "thud" as the bike comes to a halt.
+
+From 0:13, multiple male voices are heard, discussing the event, with phrases like "Oh, what...", "Oh no!", and partially indistinguishable comments. The engine remains silent. The voices become fainter and less distinct from 0:16 onwards, with a barely discernible "Good effort" heard towards the end of the clip at 0:19, before the audio fades out.
+--- END RAW AUDIO ---
+
+Step 3: Scenario classification...
+
+[Step 3 classification] 51 chars, 18 output tokens, finish: MAX_TOKENS  ⚠ TRUNCATED — hit token cap
+Scenario classification complete.
+
+SCENARIO: Descent
+SURFACE: Loose (dirt/gravel/dust)
+
+Step 4: Coaching (with knowledge base)...
+
+[Step 4 coaching] 5237 chars, 1163 output tokens, finish: STOP
+=== COACHING FEEDBACK ===
+
+## What I Saw
+This video shows you attempting a technical descent on a loose, dusty dirt and gravel trail. You accelerated into the descent, navigating two significant turns where the rear wheel broke traction and slid, kicking up substantial dust. You maintained a standing position throughout and completed the section without falling, though the bike stalled at the end of the visible segment.
+
+## What You Did Well
+*   **Standing Body Position:** You consistently maintained a standing position on the foot pegs, which is crucial for managing weight distribution and absorbing impacts on descents.
+*   **Counter-Steering and Leg Out:** During the slides, you instinctively counter-leaned and extended your left leg, demonstrating a good reactive ability to balance and control the bike when traction was lost.
+
+## What Needs Work
+
+### 1. Body Position for Descents
+*   **What I observed:** At 0:02, you "leans further forward, with their chest closer to the handlebars" and maintained an "upper body leaning slightly forward over the handlebars" at 0:06.
+*   **Why it matters:** On steep descents, a forward body position shifts too much weight to the front wheel. This unloads the rear, making it prone to sliding, and significantly increases the risk of an endo (front flip), especially when braking.
+*   **What correct technique looks like:** The rider's body should be "significantly behind the seat — arms extended forward, clear gap between hips and seat" to keep weight rearward, load the rear wheel for traction, and lighten the front.
+
+### 2. Engine Braking vs. Aggressive Throttle
+*   **What I observed:** You began the descent with a "burst of throttle at 0:00", followed by a "very high, sustained RPM, with intense sounds of the tire churning loose material" until 0:04. This pattern repeated from 0:09, leading to "very aggressive and loud sounds of tires spinning and displacing a large volume of gravel and dirt," which then caused the engine to "sputter, struggles, and abruptly stalls around 0:12-0:13."
+*   **Why it matters:** On loose descents, gravity is already accelerating you. Adding aggressive throttle exacerbates wheel spin and loss of traction, leading to uncontrolled slides and speed. Engine braking is your primary tool for deceleration, providing controlled, stable speed management without relying heavily on mechanical brakes, which can lock up on loose surfaces.
+*   **What correct technique looks like:** The engine note should be "consistent in compression (overrun): engine braking active, correct gear selected," indicating that the engine is doing the work to slow you down. The goal is "consistent slow speed on descent without heavy visible braking."
+
+### 3. Vision on Descents
+*   **What I observed:** Your "head is oriented forward and slightly downward, appearing to look at the ground in front of the bike" at 0:00, and this vision remained consistent throughout the video (0:02, 0:04-0:05, 0:10).
+*   **Why it matters:** Looking immediately in front of your wheel gives you only reactive vision. You can only respond to obstacles as they appear, rather than anticipating and planning your line and speed. This leads to jerky inputs and a feeling of being out of control.
+*   **What correct technique looks like:** Your "head is directed forward and down the slope, not at the ground immediately ahead." You need to "Look to the bottom of the descent," extending your vision "twenty metres" ahead to allow your body and bike to naturally adjust and plan your trajectory.
+
+## Your Coaching Plan
+
+1.  **"Extreme Rearward Weight" Drill:**
+    *   **Setup:** Find a moderately steep, non-technical descent.
+    *   **Focus:** Descend the section, consciously pushing your hips as far back as possible, so you feel like you might fall off the back. Keep your arms extended and relaxed. Feel how this shifts your weight and provides more stability. Do this repeatedly until the sensation of being far back feels normal.
+
+2.  **"Engine Braking Only" Descent:**
+    *   **Setup:** Revisit this same descent or a similar one. Select a lower gear (e.g., 2nd or 3rd) *before* you start the descent.
+    *   **Focus:** Your primary goal is to use *only* engine braking and the rear brake for speed control. Try to use *no front brake at all* for the first few attempts. Focus on a consistent, controlled speed. Pay attention to the engine note – it should be in compression, not high-revving. This will force you to rely on engine braking and feel its effectiveness.
+
+3.  **"Look to the Horizon" Drill:**
+    *   **Setup:** On any descent, starting at the top.
+    *   **Focus:** Before you even start moving, look all the way to the bottom of the descent, or as far ahead as you can see. As you descend, consciously keep your eyes fixed on a distant point, guiding your bike with your peripheral vision. Resist the urge to look at your front wheel. You'll find your body naturally adjusts to the terrain when your eyes lead the way.
+
+## Confidence Note
+High. The visual and audio observations directly contradict core principles of technical descending and throttle control on loose surfaces as outlined in the knowledge base. The suggested drills directly address these observed technique issues.
+
+=== END ===
+
+Output saved to: scripts\coaching-output-gemini-2026-03-31T19-11-08.txt
+

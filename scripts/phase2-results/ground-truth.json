@@ -1,0 +1,82 @@
+[
+  {
+    "id": "colin-hill",
+    "name": "colin hill",
+    "path": "C:\\Users\\rigge\\OneDrive\\Videos\\Enduro ai coach test clips\\colin hill.mp4",
+    "camera": "3rd-person",
+    "scenario": "Hill climb, rocky",
+    "outcome": "Bail midway",
+    "bodyPosition": "Seated entire time",
+    "keyTest": "Body position accuracy"
+  },
+  {
+    "id": "clutch-scream-hill",
+    "name": "clutch scream hill",
+    "path": "C:\\Users\\rigge\\OneDrive\\Videos\\Enduro ai coach test clips\\clutch scream hill.mp4",
+    "camera": "POV",
+    "scenario": "Hill climb, leafy forest",
+    "outcome": "Wrong turn, hits tree, falls",
+    "bodyPosition": "N/A (POV)",
+    "keyTest": "Audio clutch abuse detection"
+  },
+  {
+    "id": "fall-bulgario",
+    "name": "Fall bulgario muddy hill 1",
+    "path": "C:\\Users\\rigge\\OneDrive\\Videos\\Enduro ai coach test clips\\Fall bulgario muddy hill 1.mp4",
+    "camera": "POV",
+    "scenario": "Muddy hill climb",
+    "outcome": "Falls near top, momentum loss",
+    "bodyPosition": "N/A (POV)",
+    "keyTest": "Momentum/crash detection"
+  },
+  {
+    "id": "jimbo-crash",
+    "name": "jimbo crash",
+    "path": "C:\\Users\\rigge\\OneDrive\\Videos\\Enduro ai coach test clips\\jimbo crash.mp4",
+    "camera": "POV",
+    "scenario": "Descent through trees",
+    "outcome": "Hits tree, headlight impact",
+    "bodyPosition": "N/A (POV)",
+    "keyTest": "Impact detection, low quality"
+  },
+  {
+    "id": "long-hill",
+    "name": "long hill",
+    "path": "C:\\Users\\rigge\\OneDrive\\Videos\\Enduro ai coach test clips\\long hill.mp4",
+    "camera": "POV",
+    "scenario": "Long sustained hill climb",
+    "outcome": "Clean completion",
+    "bodyPosition": "N/A (POV)",
+    "keyTest": "Must NOT report false failures"
+  },
+  {
+    "id": "nick-crash",
+    "name": "nick crash",
+    "path": "C:\\Users\\rigge\\OneDrive\\Videos\\Enduro ai coach test clips\\nick crash.mp4",
+    "camera": "3rd-person",
+    "scenario": "Jumps on open hillside",
+    "outcome": "Crash after jumps",
+    "bodyPosition": "Standing (distant)",
+    "keyTest": "Distant rider visibility"
+  },
+  {
+    "id": "steep-hill-bail",
+    "name": "steep hill bail in trees",
+    "path": "C:\\Users\\rigge\\OneDrive\\Videos\\Enduro ai coach test clips\\steep hill bail in trees.mp4",
+    "camera": "POV",
+    "scenario": "Steep hill climb, bare forest",
+    "outcome": "Runs out of room, drops bike",
+    "bodyPosition": "N/A (POV)",
+    "keyTest": "Line choice failure detection"
+  },
+  {
+    "id": "mark-crash",
+    "name": "Mark crash",
+    "path": "C:\\Users\\rigge\\OneDrive\\Videos\\Enduro ai coach test clips\\Mark crash.mp4",
+    "camera": "3rd-person",
+    "scenario": "Descent into jump",
+    "outcome": "Over-handlebars crash",
+    "bodyPosition": "Visible but brief (4s)",
+    "keyTest": "Crash detection, background music"
+  }
+]
