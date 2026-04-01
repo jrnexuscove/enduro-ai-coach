@@ -20,6 +20,10 @@
 
 | ID | Category | Task | Status | Blocked By |
 |----|----------|------|--------|------------|
+| K0a | KB | Generate terrain-01_rock KB entry | Not started | — |
+| K0b | KB | Generate dynamics-01_weight-distribution KB entry | Not started | — |
+| K0c | KB | Generate feature-01_jump KB entry | Not started | — |
+| K0d | KB | Generate dynamics-02_throttle-management KB entry | Not started | — |
 | T5 | Testing | Define Phase 3 scoring framework (finalised 12 metrics) | Not started | — |
 | T6 | Testing | Create ground truth document for all 8 Phase 2 clips | Not started | — |
 
@@ -46,21 +50,28 @@
 | K5 | Review/QA pass on all new KB files | Not started | K1, K2, K3 |
 | K6 | Internet-source validation for physics claims | Not started | K3 |
 
-### Pipeline / Engineering
+### Pipeline / Engineering — Stages 1–4 (Build First)
 
 | ID | Task | Status | Blocked By |
 |----|------|--------|------------|
-| E1 | Implement Stage 1: Camera Perspective Detection | Not started | Gate 1 |
-| E2 | Implement Stage 2: Observability Assessment | Not started | Gate 1 |
-| E3 | Implement Stage 3: Terrain & Feature Detection | Not started | Gate 1, K1, K2 |
-| E4 | Implement Stage 4: Event Sequencing | Not started | Gate 1 |
-| E5 | Implement Stage 5: Failure Type Classification | Not started | Gate 1 |
-| E6 | Implement Stage 6: Crash Type Classification | Not started | Gate 1 |
-| E7 | Implement Stage 7: Causal Chain Construction | Not started | Gate 1 |
-| E8 | Implement Stage 8: Coaching Generation (refactor existing) | Not started | Gate 1 |
-| E9 | Implement Stage 9: Coaching Safety Validation | Not started | Gate 1 |
-| E10 | Build KB loader / query function | Not started | Gate 1 |
-| E11 | Wire pipeline into existing test runner CLI | Not started | E1–E10 |
+| E1 | Implement Stage 1: Camera Perspective Detection | Not started | — |
+| E2 | Implement Stage 2: Observability Assessment | Not started | — |
+| E3 | Implement Stage 3: Rider Intent / Attempt Detection | Not started | — |
+| E4 | Implement Stage 4: Terrain & Feature Detection | Not started | K0a–K0d |
+| E10 | Build KB loader / query function | Not started | K0a–K0d |
+
+### Pipeline / Engineering — Stages 5–11 (After Early Validation)
+
+| ID | Task | Status | Blocked By |
+|----|------|--------|------------|
+| E5 | Implement Stage 5: Event Sequencing | Not started | E1–E4 |
+| E6 | Implement Stage 6: Failure Type Classification | Not started | E1–E4 |
+| E7 | Implement Stage 7: Crash Type Classification | Not started | E1–E4 |
+| E8 | Implement Stage 8: Causal Chain Construction | Not started | E1–E4 |
+| E9 | Implement Stage 9: Decision Engine / Coaching Strategy Mapping | Not started | E1–E4 |
+| E11 | Implement Stage 10: Coaching Generation (refactor existing) | Not started | E1–E4 |
+| E12 | Implement Stage 11: Coaching Safety Validation | Not started | E1–E4 |
+| E13 | Wire pipeline into existing test runner CLI | Not started | E1–E12 |
 
 ### Testing & Evaluation
 
@@ -73,6 +84,14 @@
 ---
 
 ## P2 — Important but Not Blocking
+
+### Early Validation
+
+| ID | Task | Status | Blocked By |
+|----|------|--------|------------|
+| V1 | Early validation: run stages 1–4 on Colin Hill | Not started | E1–E4 |
+| V2 | Early validation: run stages 1–4 on Mark Crash | Not started | E1–E4 |
+| V3 | Document validation gaps before building stages 5–11 | Not started | V1, V2 |
 
 ### Knowledge Base — Wave 2 (Expansion)
 

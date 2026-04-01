@@ -53,7 +53,17 @@ Phase 2 proved that swapping models changes scores by 10–30%, but adding the r
 
 ## 3. RideMind Reasoning Pipeline v1 (Core Design)
 
-The pipeline processes a single video clip through 9 ordered stages. Each stage produces structured output that feeds forward. No stage is optional in v1; later optimisation may allow skipping stages when confidence is high.
+The pipeline processes a single video clip through 11 ordered stages. Each stage produces structured output that feeds forward. No stage is optional in v1; later optimisation may allow skipping stages when confidence is high.
+
+**Audio note:** Audio is a cross-cutting input available to stages 3–8, not a separate stage. Stages that benefit from audio (engine tone, impact sounds, rider speech) draw from it as needed.
+
+**Multi-model note:** Phase 3 v1 is single-model. Multi-model verification is explicitly deferred to post-pipeline-validation. The pipeline architecture is designed to support it in a future version, but it is not part of the Gate 3 target.
+
+**Milestone validation clips:** Colin Hill (first validation target — clearest ground truth for terrain and failure type), Mark Crash (second — tests crash type classification and safety validation).
+
+For detailed stage contracts and JSON schemas, see `docs/pipeline-contracts-v1.md`.
+
+---
 
 ### Stage 1: Camera Perspective Detection
 
@@ -95,11 +105,32 @@ The pipeline processes a single video clip through 9 ordered stages. Each stage 
 
 ---
 
-### Stage 3: Terrain & Feature Detection
+### Stage 3: Rider Intent / Attempt Detection
+
+**Purpose:** Determine what the rider was trying to do, and how committed they were to it. Intent distinguishes "failed attempt at a jump" from "chose not to jump" — a critical distinction for coaching.
+
+**Input:** Raw frames + audio observation + shallow terrain cues from Stage 2 output + camera perspective from Stage 1.
+
+**Note:** This stage runs before full terrain detection (Stage 4) but has access to shallow terrain cues — it is not working in a vacuum.
+
+**Output:** Structured intent assessment:
+- `attempted_feature`: what the rider was attempting (jump | climb | descent | berm | corner | straight | unknown)
+- `commitment_level`: full | partial | aborted | unclear
+- `intent_confidence`: 0.0–1.0
+- `abort_point`: if aborted, at what point (approach | entry | mid-execution | none)
+- `rider_experience_signals`: signals suggesting skill level (body position confidence, line choice, speed management)
+
+**Depends on:** Camera perspective (Stage 1), Observability output (Stage 2). No KB dependency — prompt-driven reasoning from visual and audio cues.
+
+**Why it matters:** Without intent detection, the system cannot distinguish a rider who was attempting a feature from one who wasn't. Coaching a deliberate attempt differently from a surprise encounter changes everything downstream.
+
+---
+
+### Stage 4: Terrain & Feature Detection
 
 **Purpose:** Identify what the ground is made of, what features are present, and what those features demand from the rider.
 
-**Input:** Raw frames + audio observation + Terrain KB + Terrain Feature KB.
+**Input:** Raw frames + audio observation + intent output (Stage 3) + Terrain KB + Terrain Feature KB.
 
 **Output:** Structured terrain map:
 - `surface_type`: [mud, rock, shale, leaves, roots, sand, hardpack, mixed]
@@ -117,11 +148,11 @@ The pipeline processes a single video clip through 9 ordered stages. Each stage 
 
 ---
 
-### Stage 4: Event Sequencing
+### Stage 5: Event Sequencing
 
 **Purpose:** Break the clip into a chronological sequence of discrete events rather than treating it as one moment.
 
-**Input:** Visual observation + audio observation + terrain features.
+**Input:** Visual observation + audio observation + terrain features (Stage 4) + rider intent (Stage 3).
 
 **Output:** Ordered event timeline:
 - Array of events, each containing:
@@ -138,11 +169,11 @@ The pipeline processes a single video clip through 9 ordered stages. Each stage 
 
 ---
 
-### Stage 5: Failure Type Classification
+### Stage 6: Failure Type Classification
 
 **Purpose:** Identify what category of failure occurred (if any) and connect it to its root cause.
 
-**Input:** Event sequence + terrain context.
+**Input:** Event sequence (Stage 5) + terrain context (Stage 4) + rider intent (Stage 3).
 
 **Output:** Failure classification:
 - `failure_detected`: true | false
@@ -157,11 +188,11 @@ The pipeline processes a single video clip through 9 ordered stages. Each stage 
 
 ---
 
-### Stage 6: Crash Type Classification
+### Stage 7: Crash Type Classification
 
 **Purpose:** If a crash occurred, identify the specific crash mechanism.
 
-**Input:** Event sequence (crash phase) + visual observation + audio observation.
+**Input:** Event sequence (crash phase) + visual observation + audio observation + failure type (Stage 6).
 
 **Output:** Crash classification:
 - `crash_detected`: true | false
@@ -172,15 +203,17 @@ The pipeline processes a single video clip through 9 ordered stages. Each stage 
 
 **Depends on:** Bike Dynamics KB (how different crash types manifest physically), event sequence (what preceded the crash).
 
+**Note:** Stage 6 (Failure Type) runs before Stage 7 (Crash Type). Failure type is broader — it applies to non-crash failures too. Crash type refines the classification when a crash exists.
+
 **Why it matters:** An OTB from a jump requires completely different coaching from a lowside in a corner. Mark Crash proved that wrong crash classification leads to dangerous coaching.
 
 ---
 
-### Stage 7: Causal Chain Construction
+### Stage 8: Causal Chain Construction
 
 **Purpose:** Build the complete cause-and-effect chain from setup to outcome.
 
-**Input:** All previous stage outputs.
+**Input:** All previous stage outputs (1–7).
 
 **Output:** Structured causal chain:
 - `setup`: what conditions existed before the critical moment
@@ -195,14 +228,34 @@ The pipeline processes a single video clip through 9 ordered stages. Each stage 
 
 ---
 
-### Stage 8: Coaching Generation
+### Stage 9: Decision Engine / Coaching Strategy Mapping
 
-**Purpose:** Produce actionable coaching feedback grounded in the causal chain.
+**Purpose:** Translate the causal chain and failure diagnosis into a structured coaching strategy — before any coaching language is generated.
 
-**Input:** Causal chain + failure classification + event sequence + observability confidence levels.
+**Input:** Causal chain (Stage 8) + all failure/crash classifications + observability confidence levels.
+
+**Output (v1 — 6 fields):**
+- `primary_issue`: the single most important thing to address (from causal chain)
+- `root_cause`: the underlying cause of the primary issue (from Stage 8)
+- `coaching_priority_order`: ordered array of issues from most to least critical
+- `risk_flags`: any coaching points that carry safety implications
+- `recommended_tone`: reinforcement-first | analysis-first | correction-focused (driven by outcome and rider commitment level)
+- `secondary_issues`: additional issues to address, ordered
+
+**Deferred to v2:** Coaching suppressions (blocking certain advice based on crash type), intervention taxonomy (drill types, difficulty grading), multi-session progression tracking.
+
+**Why it matters:** Without a strategy step, coaching generation mixes observation, diagnosis, and advice in an unstructured way. This stage separates "what to say" from "how to say it", producing a clear brief for Stage 10.
+
+---
+
+### Stage 10: Coaching Generation
+
+**Purpose:** Produce actionable coaching feedback grounded in the causal chain and coaching strategy.
+
+**Input:** Decision Engine output (Stage 9) + causal chain + event sequence + observability confidence levels.
 
 **Output:** Structured coaching:
-- `tone`: reinforcement-first | analysis-first | correction-focused (driven by outcome)
+- `tone`: reinforcement-first | analysis-first | correction-focused (driven by Stage 9 strategy)
 - `what_happened`: scenario description grounded in observations
 - `what_went_well`: specific positive observations (with confidence)
 - `what_needs_work`: array of coaching points, each containing:
@@ -219,11 +272,11 @@ The pipeline processes a single video clip through 9 ordered stages. Each stage 
 
 ---
 
-### Stage 9: Coaching Safety Validation
+### Stage 11: Coaching Safety Validation
 
 **Purpose:** Check that the coaching output does not contradict the failure diagnosis or recommend actions that would reproduce or worsen the observed failure.
 
-**Input:** Coaching output + failure classification + crash type + causal chain.
+**Input:** Coaching output (Stage 10) + failure classification + crash type + causal chain + risk_flags from Stage 9.
 
 **Output:** Safety check result:
 - `safe`: true | false
@@ -231,7 +284,7 @@ The pipeline processes a single video clip through 9 ordered stages. Each stage 
 - `revised_coaching`: corrected version if conflicts found
 - `blocked_points`: any coaching points removed for safety
 
-**Depends on:** Failure type and crash type classifications, causal chain.
+**Depends on:** Failure type and crash type classifications, causal chain, risk_flags from Decision Engine.
 
 **Why it matters:** Mark Crash. Gemini told the rider to get their weight further back. The rider crashed because their weight was already too far back. That coaching would reproduce the crash. This stage exists to prevent that from ever reaching the user.
 
@@ -392,11 +445,11 @@ All three new KBs follow the same quality standards as the existing technique KB
 
 No work proceeds past a gate until it is explicitly approved.
 
-| Gate | What Must Be Approved | Blocks |
-|------|----------------------|--------|
-| **Gate 1 — Pipeline Approved** | Stage names, order, purpose, outputs, dependencies | All KB generation, all engineering |
-| **Gate 2 — KB Schema Approved** | Entry template structure for each KB domain | Batch KB generation |
-| **Gate 3 — Pipeline v1 Implemented** | All 9 stages wired and producing structured output | Phase 3 retest |
+| Gate | Status | What Must Be Approved | Blocks |
+|------|--------|----------------------|--------|
+| **Gate 1 — Pipeline Approved** | **PASSED** (2026-04-01) | Stage names, order, purpose, outputs, dependencies | All KB generation, all engineering |
+| **Gate 2 — KB Schema Approved** | **PASSED** (2026-04-01) | Entry template structure for each KB domain | Batch KB generation |
+| **Gate 3 — Pipeline v1 Implemented** | NOT PASSED | All 11 stages wired and producing structured output | Phase 3 retest |
 
 ### Phase 3A: Foundation (Weeks 1–2)
 
@@ -450,56 +503,51 @@ No work proceeds past a gate until it is explicitly approved.
 
 ---
 
-## 6. Immediate Action Plan (Next 7–10 Days)
+## 6. Current Execution State
 
-### Day 1–2: Lock Contracts (Gate 1)
+Gates 1 and 2 are both passed. The pipeline architecture (11 stages) and KB entry schemas are locked. Work proceeds in this order:
 
-**Jake does:**
-- Review and approve the pipeline stage definitions in this document — **this is Gate 1**
-- Cross-check Colin Hill scores from local saved data
-- Save master plan, backlog, and CLAUDE.md updates to repo
+### Step 1: Generate Priority KB Entries (P0 — Now)
 
-**Claude Code does:**
-- Create `docs/pipeline-contracts-v1.md` with the JSON schema for each stage's input/output
-- Create folder structure for new KBs: `knowledge-base/terrain/`, `knowledge-base/features/`, `knowledge-base/bike-dynamics/`
-- Update `architecture-principles.md` to reflect reasoning pipeline approach
+Generate the first 4 KB entries needed to support validation against the milestone clips:
 
-### Day 3–5: Start KB Builds (Gate 2)
+1. `terrain-01_rock` — Rock/shale surface properties, traction behaviour, gradient effects
+2. `dynamics-01_weight-distribution` — Weight distribution physics, fore/aft effects on traction and handling
+3. `feature-01_jump` — Jump identification, demands, failure modes, coaching notes
+4. `dynamics-02_throttle-management` — Throttle control across surfaces, 2T vs 4T behaviour
 
-**Claude Code does (batch agent run — requires Gate 1 + Gate 2 passed):**
-- Write first 10 Terrain KB files (surfaces from Phase 2 clips)
-- Write first 8 Terrain Feature KB files (jumps, drops, ruts, off-camber, dead-ends)
-- Write first 6 Bike Dynamics KB files (traction, throttle, clutch, 2T/4T, jump physics, crash physics)
+These four entries are the minimum needed to exercise stages 4, 6, 7, and 8 meaningfully on Colin Hill and Mark Crash.
 
-**Jake does:**
-- Review KB outputs for riding accuracy (you're the domain expert on what feels right vs what reads like generic AI)
-- Flag any files that need internet-sourced technical validation
+For KB entry schemas and templates, see `docs/kb-schemas-v1.md`.
 
-**ChatGPT does:**
-- Provide secondary review of KB files for riding technique accuracy
-- Cross-check physics claims in Bike Dynamics KB
+### Step 2: Validate KB Entries (P0 — After Step 1)
 
-### Day 6–8: Pipeline Skeleton
+Review the 4 generated KB entries against:
+- Colin Hill ground truth (terrain and failure type)
+- Mark Crash ground truth (crash type and safety flags)
 
-**Claude Code does:**
-- Implement Stages 1 + 2 as TypeScript functions with structured JSON output
-- Implement Stage 3 with KB loading (simple: load relevant files by keyword match)
-- Wire Stages 1–3 into a test script that can process a single clip
+Flag any entries where the content would produce incorrect retrieval or coaching.
 
-**Jake does:**
-- Run the Stage 1–3 test on 2–3 Phase 2 clips to verify camera detection and terrain identification
-- Compare output quality against Phase 2 raw observations
+### Step 3: Build Pipeline Stages 1–4 (P1 — After Step 2)
 
-### Day 9–10: First Validation
+Implement the first four stages as TypeScript functions with structured JSON output:
 
-**Claude Code does:**
-- Implement Stages 4–7 (event sequencing through causal chain)
-- Wire full pipeline (Stages 1–9) into test runner
+1. **Stage 1** — Camera Perspective Detection (prompt-driven, no KB)
+2. **Stage 2** — Observability Assessment (prompt-driven, no KB)
+3. **Stage 3** — Rider Intent / Attempt Detection (prompt-driven, audio cross-cutting)
+4. **Stage 4** — Terrain & Feature Detection (first KB-dependent stage)
 
-**Jake does:**
-- Run full pipeline on Colin Hill and Mark Crash (the two clips with clearest ground truth)
-- Compare structured output against Phase 2 ground truth
-- Assess: is the pipeline producing better reasoning than raw model output?
+Wire stages 1–4 into a test script that can process a single clip and produce structured output.
+
+### Step 4: Early Validation on Milestone Clips (P2 — After Step 3)
+
+Run stages 1–4 on Colin Hill and Mark Crash. Assess:
+- Is camera perspective correctly detected?
+- Is observability correctly assessed (confidence ceilings set)?
+- Is rider intent correctly identified?
+- Are terrain features detected and KB entries correctly retrieved?
+
+Compare against ground truth. Document gaps before proceeding to stages 5–11.
 
 ---
 
@@ -520,37 +568,43 @@ No work proceeds past a gate until it is explicitly approved.
 
 | ID | Task | Priority | Status |
 |----|------|----------|--------|
-| K1 | Write Terrain KB — 10 core surface files | P0 | Not started |
-| K2 | Write Terrain Feature KB — 8 core feature files | P0 | Not started |
-| K3 | Write Bike Dynamics KB — 6 core concept files | P0 | Not started |
-| K4 | Define KB file schema (metadata, tags, cross-refs) | P0 | Not started |
+| K0a | Generate terrain-01_rock KB entry | P0 | Not started |
+| K0b | Generate dynamics-01_weight-distribution KB entry | P0 | Not started |
+| K0c | Generate feature-01_jump KB entry | P0 | Not started |
+| K0d | Generate dynamics-02_throttle-management KB entry | P0 | Not started |
+| K4 | Define KB file schema (metadata, tags, cross-refs) | **Done** | 2026-04-01 |
+| K1 | Write Terrain KB — 10 core surface files | P1 | Not started |
+| K2 | Write Terrain Feature KB — 8 core feature files | P1 | Not started |
+| K3 | Write Bike Dynamics KB — 6 core concept files | P1 | Not started |
 | K5 | Review/QA pass on all new KB files | P1 | Blocked (needs K1–K3) |
 | K6 | Internet-source validation for physics claims | P1 | Blocked (needs K3) |
-| K7 | Write remaining Terrain KB files (15–20 total) | P1 | Blocked (needs K1) |
-| K8 | Write remaining Feature KB files (20–25 total) | P1 | Blocked (needs K2) |
-| K9 | Write remaining Dynamics KB files (15–20 total) | P1 | Blocked (needs K3) |
-| K10 | Migrate existing technique KB (154+ files) to database | P1 | Not started |
+| K7 | Write remaining Terrain KB files (15–20 total) | P2 | Blocked (needs K1) |
+| K8 | Write remaining Feature KB files (20–25 total) | P2 | Blocked (needs K2) |
+| K9 | Write remaining Dynamics KB files (15–20 total) | P2 | Blocked (needs K3) |
+| K10 | Migrate existing technique KB (154+ files) to database | P2 | Not started |
 | K11 | Migrate new KBs to database | P2 | Blocked (needs A2, K1–K3) |
-| K12 | Cross-check Colin Hill scores from local data | P0 | Not started |
+| K12 | Cross-check Colin Hill Phase 2 scores | **Done** | 2026-04-01 |
 
 ### Pipeline / Engineering
 
 | ID | Task | Priority | Status |
 |----|------|----------|--------|
-| E1 | Implement Stage 1: Camera Perspective Detection | P0 | Not started |
-| E2 | Implement Stage 2: Observability Assessment | P0 | Not started |
-| E3 | Implement Stage 3: Terrain & Feature Detection | P0 | Not started |
-| E4 | Implement Stage 4: Event Sequencing | P1 | Not started |
-| E5 | Implement Stage 5: Failure Type Classification | P1 | Not started |
-| E6 | Implement Stage 6: Crash Type Classification | P1 | Not started |
-| E7 | Implement Stage 7: Causal Chain Construction | P1 | Not started |
-| E8 | Implement Stage 8: Coaching Generation (refactor existing) | P1 | Not started |
-| E9 | Implement Stage 9: Coaching Safety Validation | P1 | Not started |
-| E10 | Build KB loader / query function | P0 | Not started |
-| E11 | Wire pipeline into existing test runner CLI | P1 | Not started |
-| E12 | Increase Gemini token budget for classification steps | P2 | Not started |
-| E13 | Add retry logic for Gemini upload failures | P2 | Not started |
-| E14 | Investigate GPT-4o visual refusal causes | P2 | Not started |
+| E1 | Implement Stage 1: Camera Perspective Detection | P1 | Not started |
+| E2 | Implement Stage 2: Observability Assessment | P1 | Not started |
+| E3 | Implement Stage 3: Rider Intent / Attempt Detection | P1 | Not started |
+| E4 | Implement Stage 4: Terrain & Feature Detection | P1 | Not started |
+| E5 | Implement Stage 5: Event Sequencing | P1 | Not started |
+| E6 | Implement Stage 6: Failure Type Classification | P1 | Not started |
+| E7 | Implement Stage 7: Crash Type Classification | P1 | Not started |
+| E8 | Implement Stage 8: Causal Chain Construction | P1 | Not started |
+| E9 | Implement Stage 9: Decision Engine / Coaching Strategy Mapping | P1 | Not started |
+| E10 | Implement Stage 10: Coaching Generation (refactor existing) | P1 | Not started |
+| E11 | Implement Stage 11: Coaching Safety Validation | P1 | Not started |
+| E12 | Build KB loader / query function | P1 | Not started |
+| E13 | Wire pipeline into existing test runner CLI | P1 | Blocked (needs E1–E12) |
+| E14 | Increase Gemini token budget for classification steps | P2 | Not started |
+| E15 | Add retry logic for Gemini upload failures | P2 | Not started |
+| E16 | Investigate GPT-4o visual refusal causes | P2 | Not started |
 
 ### Testing & Evaluation
 
@@ -616,3 +670,4 @@ These Phase 2 failures are unacceptable in Phase 3:
 |---------|------|---------|
 | 1.0 | 2026-04-01 | Initial Phase 3 Master Plan |
 | 1.1 | 2026-04-01 | Added approval gates (Gate 1, 2, 3). Cross-checked with independent reviewer. |
+| 1.2 | 2026-04-01 | Updated to 11-stage pipeline: added Stage 3 (Rider Intent) and Stage 9 (Decision Engine). Added audio cross-cutting note, multi-model deferral note, Decision Engine v1 outputs, milestone clips. Gate 1 + Gate 2 PASSED. References to pipeline-contracts-v1.md and kb-schemas-v1.md. Execution plan updated to reflect current state. |
