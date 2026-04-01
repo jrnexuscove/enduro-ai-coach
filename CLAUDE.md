@@ -15,7 +15,8 @@ RideMind is a **physics-aware, terrain-aware, machine-aware riding intelligence 
 - Phase 2 multi-model testing is **complete** (8 clips × 3 models, fully scored)
 - Phase 2 evaluation report is **complete**
 - Phase 3 master plan is **complete** and saved at `docs/ridemind-phase3-master-plan-v1.md`
-- **Gate 1 PASSED (2026-04-01)** — pipeline contracts at `docs/pipeline-contracts-v1.md`. Next: Gate 2 — KB schema approval before batch KB generation begins
+- **Gate 1 PASSED (2026-04-01)** — pipeline contracts at `docs/pipeline-contracts-v1.md`
+- **Gate 2 PASSED (2026-04-01)** — KB schemas at `docs/kb-schemas-v1.md`. Next: generate first 4 priority KB entries (terrain-01_rock, dynamics-01_weight-distribution, feature-01_jump, dynamics-02_throttle-management), then validate against Colin Hill and Mark Crash
 
 ### Key Phase 2 Findings
 
@@ -48,7 +49,7 @@ Plus three new knowledge bases:
 | Gate | Status | Blocks |
 |------|--------|--------|
 | Gate 1 — Pipeline stages approved | **PASSED** (2026-04-01) | — |
-| Gate 2 — KB entry schemas approved | NOT PASSED | Batch KB generation |
+| Gate 2 — KB entry schemas approved | **PASSED** (2026-04-01) | — |
 | Gate 3 — Pipeline v1 implemented | NOT PASSED | Phase 3 retest |
 
 ## Project Structure
@@ -83,6 +84,7 @@ scripts/
 
 - `docs/ridemind-phase3-master-plan-v1.md` — Source of truth for Phase 3
 - `docs/pipeline-contracts-v1.md` — Stage contracts for the 11-stage reasoning pipeline (Gate 1 output)
+- `docs/kb-schemas-v1.md` — Entry templates for Terrain KB, Feature KB, and Bike Dynamics KB (Gate 2 output)
 - `docs/phase2-evaluation-framework.md` — Scoring rubric
 - `docs/backlog.md` — Current task backlog with gates
 - `docs/architecture-principles.md` — System design principles
