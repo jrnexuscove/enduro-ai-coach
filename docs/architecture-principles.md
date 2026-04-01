@@ -139,6 +139,15 @@ When making technical decisions, prefer the option that:
 
 ---
 
+## Reasoning Pipeline (Phase 3+)
+The original MVP processing approach (visual → audio → classify → coach) has been superseded by the 9-stage reasoning pipeline defined in Phase 3.
+
+The 9-stage pipeline (Camera Perspective → Observability → Terrain & Feature Detection → Event Sequencing → Failure Type → Crash Type → Causal Chain → Coaching Generation → Safety Validation) is now the target architecture for all analysis work.
+
+See `docs/ridemind-phase3-master-plan-v1.md` for the full pipeline design and build plan.
+
+---
+
 ## Future Expansion
 The architecture should leave room for future capabilities, but should not implement them now.
 

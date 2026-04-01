@@ -1,175 +1,115 @@
-# Backlog
+# RideMind — Backlog
 
-## Purpose
-This backlog translates the MVP scope into actionable build tasks.
-
-It is intentionally simple and focused on execution.
-
----
-
-## Status Types
-- TODO
-- IN PROGRESS
-- DONE
+**Last updated:** 2026-04-01
+**Current phase:** Phase 3 — Reasoning Pipeline + KB Build
+**Master plan:** `docs/ridemind-phase3-master-plan-v1.md`
 
 ---
 
-# Updated Backlog - Post AI Validation
+## Approval Gates
 
-## Status
-✅ **COMPLETED:**
-- Project scaffolding (Next.js, TypeScript, environment setup)
-- AI coaching validation script (visual + audio analysis)
-- Proven AI can provide useful coaching feedback from video clips
-- Identified coaching quality improvements needed (expert knowledge integration)
-
-## CURRENT PRIORITY: AI Enhancement (Before UI Build)
-
-### 1. Expert Knowledge Integration
-- [ ] Extract transcripts from key YouTube channels (IRC Tyre Guy, Splat Moto, Chris Birch)
-- [ ] Purchase and analyze 2-3 reputable online courses 
-- [ ] Build technique knowledge base organized by scenario
-- [ ] Enhance system prompt with specific techniques (standing vs sitting, weight distribution, etc.)
-- [ ] Test improved coaching on existing video clips
-
-### 2. MVP Web Application 
-
-### 2a. Core Flow Architecture
-- [ ] Define final feedback schema (based on AI testing results)
-- [ ] Create API route `/api/analyze` (accepts video + metadata)
-- [ ] Set up temporary video storage and processing pipeline
-
-### 2b. UI Development
-- [ ] Build single-page MVP flow:
-  - Session context form (terrain type, rider goal, issue description)
-  - Video upload component (30-60 second limit)
-  - Processing state display 
-  - Structured coaching feedback display
-- [ ] Mobile-first responsive design
-- [ ] Error handling and validation
-
-### 2c. Integration & Testing
-- [ ] Connect frontend to analysis API
-- [ ] End-to-end testing with real video clips
-- [ ] Performance optimization for video processing
-
-## Phase 1 — Coaching Validation Testing
-
-- [x] Built test-coaching.ts baseline script (visual + audio via GPT-4o)
-- [x] Built test-coaching-kb.ts with knowledge base integration
-- [x] Refactored to 4-step observe-then-coach architecture
-- [x] Built test-coaching-gemini.ts (raw video via Gemini)
-- [x] Built test-coaching-claude.ts (Claude vision + GPT-4o audio)
-- [x] Completed colin hill comparison test across all 3 models
-- [ ] Run remaining 6 test clips through all 3 models
-- [ ] Build comparison matrix and select model architecture
+| Gate | Status | Blocks |
+|------|--------|--------|
+| Gate 1 — Pipeline stages approved | **NOT PASSED** | All KB generation, all engineering |
+| Gate 2 — KB entry schemas approved | **NOT PASSED** | Batch KB generation |
+| Gate 3 — Pipeline v1 implemented | **NOT PASSED** | Phase 3 retest |
 
 ---
 
-## POST-MVP ENHANCEMENTS
-- [ ] Session history and user accounts
-- [ ] Multiple video angle support  
-- [ ] Real-time coaching integration
-- [ ] Advanced telemetry fusion
-- [ ] Expert coach validation system
+## P0 — Must Do First
 
-
-## MVP Tasks
-
-### 1. Project Setup
-- [x] Create Next.js app — DONE
-- [x] Set up basic project structure — DONE
-- [x] Confirm local dev server runs — DONE
-- [ ] Push initial app to GitHub
+| ID | Category | Task | Status | Blocked By |
+|----|----------|------|--------|------------|
+| A1 | Architecture | Define pipeline stage JSON contracts | Not started | — |
+| K4 | Knowledge Base | Define KB file schema (metadata, tags, cross-refs) for all 3 new KBs | Not started | — |
+| K12 | Knowledge Base | Cross-check Colin Hill Phase 2 scores from local saved data | Not started | — |
+| T5 | Testing | Define Phase 3 scoring framework (finalised 12 metrics) | Not started | — |
+| T6 | Testing | Create ground truth document for all 8 Phase 2 clips | Not started | — |
 
 ---
 
-### 2. Basic UI Shell
-- [ ] Create homepage layout
-- [ ] Add simple navigation
-- [ ] Add upload page route
-- [ ] Ensure mobile-friendly layout
+## P1 — Core Build
+
+### Architecture
+
+| ID | Task | Status | Blocked By |
+|----|------|--------|------------|
+| A2 | Design database schema for all KBs | Not started | Gate 1 |
+| A3 | Create mermaid diagram of pipeline flow | Not started | Gate 1 |
+| A5 | Design observability confidence scoring system | Not started | Gate 1 |
+| A6 | Define coaching tone mapping rules (outcome → tone) | Not started | Gate 1 |
+
+### Knowledge Base — Wave 1 (Core Files)
+
+| ID | Task | Status | Blocked By |
+|----|------|--------|------------|
+| K1 | Write Terrain KB — 10 core surface files | Not started | Gate 1, Gate 2 |
+| K2 | Write Terrain Feature KB — 8 core feature files | Not started | Gate 1, Gate 2 |
+| K3 | Write Bike Dynamics KB — 6 core concept files | Not started | Gate 1, Gate 2 |
+| K5 | Review/QA pass on all new KB files | Not started | K1, K2, K3 |
+| K6 | Internet-source validation for physics claims | Not started | K3 |
+
+### Pipeline / Engineering
+
+| ID | Task | Status | Blocked By |
+|----|------|--------|------------|
+| E1 | Implement Stage 1: Camera Perspective Detection | Not started | Gate 1 |
+| E2 | Implement Stage 2: Observability Assessment | Not started | Gate 1 |
+| E3 | Implement Stage 3: Terrain & Feature Detection | Not started | Gate 1, K1, K2 |
+| E4 | Implement Stage 4: Event Sequencing | Not started | Gate 1 |
+| E5 | Implement Stage 5: Failure Type Classification | Not started | Gate 1 |
+| E6 | Implement Stage 6: Crash Type Classification | Not started | Gate 1 |
+| E7 | Implement Stage 7: Causal Chain Construction | Not started | Gate 1 |
+| E8 | Implement Stage 8: Coaching Generation (refactor existing) | Not started | Gate 1 |
+| E9 | Implement Stage 9: Coaching Safety Validation | Not started | Gate 1 |
+| E10 | Build KB loader / query function | Not started | Gate 1 |
+| E11 | Wire pipeline into existing test runner CLI | Not started | E1–E10 |
+
+### Testing & Evaluation
+
+| ID | Task | Status | Blocked By |
+|----|------|--------|------------|
+| T1 | Re-run all 8 Phase 2 clips through new pipeline | Not started | Gate 3 |
+| T2 | Score Phase 3 results against Phase 2 baselines | Not started | T1 |
+| T3 | Write Phase 3 evaluation report | Not started | T2 |
 
 ---
 
-### 3. Session Input Form
-- [ ] Create form for ride context
-- [ ] Fields:
-  - terrain type
-  - difficulty level
-  - rider experience
-  - description of issue
-- [ ] Validate inputs
-- [ ] Submit form data
+## P2 — Important but Not Blocking
+
+### Knowledge Base — Wave 2 (Expansion)
+
+| ID | Task | Status | Blocked By |
+|----|------|--------|------------|
+| K7 | Write remaining Terrain KB files (15–20 total) | Not started | K1 |
+| K8 | Write remaining Feature KB files (20–25 total) | Not started | K2 |
+| K9 | Write remaining Dynamics KB files (15–20 total) | Not started | K3 |
+| K10 | Migrate existing technique KB (154+ files) to database | Not started | A2 |
+| K11 | Migrate new KBs to database | Not started | A2, K1–K3 |
+
+### Engineering — Reliability
+
+| ID | Task | Status | Blocked By |
+|----|------|--------|------------|
+| E12 | Increase Gemini token budget for classification steps | Not started | — |
+| E13 | Add retry logic for Gemini upload failures | Not started | — |
+| E14 | Investigate GPT-4o visual refusal causes | Not started | — |
+
+### Testing — Expansion
+
+| ID | Task | Status | Blocked By |
+|----|------|--------|------------|
+| T4 | Expand test corpus to 20+ clips | Not started | T3 |
+| A4 | Decide model assignment per pipeline stage | Not started | T2 |
 
 ---
 
-### 4. Video Upload
-- [ ] Add file upload component
-- [ ] Accept video files
-- [ ] Limit file size (e.g. ~100MB)
-- [ ] Show upload progress
-- [ ] Store file temporarily
+## Completed
 
----
-
-### 5. Processing Flow (Mock First)
-- [ ] Create API route `/analyze`
-- [ ] Accept form + video metadata
-- [ ] Return mock response:
-  - what happened
-  - what to improve
-  - tips
-
----
-
-### 6. Feedback Display
-- [ ] Create results page
-- [ ] Show structured feedback
-- [ ] Sections:
-  - observation
-  - mistake
-  - recommendation
-- [ ] Keep UI clean and readable
-
----
-
-### 7. End-to-End Flow
-- [ ] User submits form + video
-- [ ] Data sent to backend
-- [ ] Mock analysis returned
-- [ ] Results displayed
-
----
-
-### 8. Polish (MVP Level)
-- [ ] Improve layout spacing
-- [ ] Improve mobile UX
-- [ ] Add loading states
-- [ ] Handle errors
-
----
-
-## Post-MVP (Do Not Build Yet)
-
-### AI Enhancements
-- Real video analysis
-- Frame extraction
-- Motion detection
-- Technique classification
-
-### Hardware Integration
-- IMU sensors
-- Telemetry ingestion
-- Sensor fusion
-
-### Experience Enhancements
-- Session history
-- User accounts
-- Saved feedback
-- Progress tracking
-
-### Advanced Features
-- Virtual playback simulation
-- AI-generated replays
-- Comparison with pro riders
+| ID | Task | Completed |
+|----|------|-----------|
+| — | Phase 2 multi-model testing (24/24 runs) | 2026-03-31 |
+| — | Phase 2 scoring (8/8 clips, 3 models) | 2026-04-01 |
+| — | Phase 2 evaluation report | 2026-04-01 |
+| — | Phase 3 master plan | 2026-04-01 |
+| — | Knowledge base domains 1–15 (154+ technique files) | Previously |

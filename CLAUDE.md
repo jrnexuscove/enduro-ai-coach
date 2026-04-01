@@ -1,197 +1,106 @@
-# Project Overview
-This project is RideMind.
+# CLAUDE.md — RideMind Project Context
 
-RideMind is an AI-powered coaching platform for off-road motorcycle riders.
+**Last updated:** 2026-04-01
 
-The purpose of the product is to help riders improve performance by analysing ride/session information and short action-camera footage, then returning useful coaching feedback.
+## What is RideMind?
 
-The user building this product is not a professional software engineer, so all development should be beginner-friendly, clearly explained, and easy to maintain.
+RideMind (ridemind.ai) is an AI-powered off-road motorcycle coaching platform. It analyses ride footage and provides structured, actionable coaching feedback. Built by Jake under Nexus Cove.
 
----
+RideMind is a **physics-aware, terrain-aware, machine-aware riding intelligence system** — not a generic video analysis tool.
 
-# Current Phase
-The project is currently in the early MVP build phase.
+## Current Phase: Phase 3 — Reasoning Pipeline + KB Build
 
-The Next.js application has been scaffolded with TypeScript, Tailwind CSS, and App Router.
+### Where We Are
 
-The immediate goal is to build the core MVP flow: session input → video upload → analysis → coaching feedback.
+- Phase 2 multi-model testing is **complete** (8 clips × 3 models, fully scored)
+- Phase 2 evaluation report is **complete**
+- Phase 3 master plan is **complete** and saved at `docs/ridemind-phase3-master-plan-v1.md`
+- **Gate 1 (pipeline approval) has NOT been passed yet** — no KB generation or engineering should begin until it is
 
-Do not assume the full long-term vision should be built now.
+### Key Phase 2 Findings
 
----
+1. No single model is production-ready. Gemini strongest on observation (~65%) but 63% reliability. GPT-4o mid-tier (~42%) with visual refusals. Claude weakest quality (~34%) but 100% reliability.
+2. Architecture matters more than model choice — 10 systematic failures exist above the model layer.
+3. Critical gaps: no terrain feature detection, no crash type classification, no failure causation reasoning, no event sequencing, fabricated certainty under low observability.
 
-# Product Priorities
-Prioritise the following in order:
+### What We're Building
 
-1. Build a small, working MVP
-2. Validate whether users get real value from automated coaching
-3. Keep the codebase simple and maintainable
-4. Avoid overengineering
-5. Expand only after the MVP flow works
+A 9-stage reasoning pipeline:
+1. Camera Perspective Detection
+2. Observability Assessment
+3. Terrain & Feature Detection
+4. Event Sequencing
+5. Failure Type Classification
+6. Crash Type Classification
+7. Causal Chain Construction
+8. Coaching Generation
+9. Coaching Safety Validation
 
----
+Plus three new knowledge bases:
+- Terrain KB (surfaces, gradients, conditions)
+- Terrain Feature KB (jumps, drops, berms, ruts, ledges)
+- Bike Dynamics KB (2T/4T, traction, throttle, clutch, crash physics)
 
-# MVP Direction
-The MVP should focus on a simple flow where:
+### Approval Gates
 
-1. A rider provides ride/session information
-2. A rider uploads a short video clip (for example 30–60 seconds from an action camera such as GoPro or DJI)
-3. The system analyses the input
-4. The system returns structured coaching feedback
+| Gate | Status | Blocks |
+|------|--------|--------|
+| Gate 1 — Pipeline stages approved | NOT PASSED | All KB generation, all engineering |
+| Gate 2 — KB entry schemas approved | NOT PASSED | Batch KB generation |
+| Gate 3 — Pipeline v1 implemented | NOT PASSED | Phase 3 retest |
 
-The MVP is about validating coaching quality, not scale, speed, or perfect technical sophistication.
+## Project Structure
 
----
+```
+app/                    # Next.js app (App Router, not src/app/)
+docs/                   # All planning, architecture, and strategy docs (flat structure)
+knowledge-base/
+  domain-01-*/          # Existing technique KB (15 domains, 154+ topics)
+  ...
+  terrain/              # NEW — Terrain KB (to be created)
+  features/             # NEW — Terrain Feature KB (to be created)
+  bike-dynamics/        # NEW — Bike Dynamics KB (to be created)
+scripts/
+  test-coaching-kb.ts   # GPT-4o test runner (Phase 1/2)
+  test-coaching-claude.ts # Claude test runner (Phase 2)
+  test-coaching-gemini.ts # Gemini test runner (Phase 2)
+  phase2-batch-runner.ts  # Batch runner for Phase 2
+  phase2-results/       # Phase 2 raw outputs
+```
 
-# Explicit MVP Constraints
-For the MVP, assume the following constraints:
+## Tech Stack
 
-- No real-time processing
-- No hardware integration such as IMUs or other external sensors
-- No advanced telemetry fusion yet
-- No pro-rider model training yet
-- No complex multi-service backend unless clearly necessary
-- No premature optimisation for scale
-- Video may be downsampled or simplified for processing
-- Focus on proving value, not building the final system
+- **Framework:** Next.js + TypeScript + Tailwind CSS + App Router
+- **Models:** GPT-4o, Claude, Gemini 2.5 Flash
+- **Media:** ffmpeg-static, ffprobe-static, fluent-ffmpeg
+- **Audio:** gpt-4o-audio-preview
+- **Runtime:** Node.js, npm
+- **Dev environment:** VS Code, Claude Code, Windows/PowerShell
 
----
+## Key Files
 
-# Long-Term Vision
-Long term, the product may expand into:
+- `docs/ridemind-phase3-master-plan-v1.md` — Source of truth for Phase 3
+- `docs/phase2-evaluation-framework.md` — Scoring rubric
+- `docs/backlog.md` — Current task backlog with gates
+- `docs/architecture-principles.md` — System design principles
+- `docs/mvp-scope.md` — MVP definition
+- `docs/product-vision.md` — Long-term vision
 
-- ride telemetry integration
-- sensor and IMU integration
-- video + sensor fusion
-- richer post-ride analysis
-- real-time coaching support
-- AI models informed by expert/pro rider technique
-- expansion into MTB, motocross, and other disciplines
+## Working With Jake
 
-A key long-term goal is for the application to generate a virtual playback of the ride scenario, including:
+- Non-professional developer, intermediate rider
+- Beginner-friendly instructions, exact file paths, copy-paste-ready
+- Label commands: "Paste into Claude Code:" or "Paste into regular PowerShell terminal:"
+- Windows + PowerShell — do NOT chain commands with `&`
+- npm is the package manager
+- Prefer select-all-and-paste over file downloads
+- Quality over token efficiency — the knowledge base IS the product
+- Never silently reduce quality
 
-- a reconstructed view of what the system believes happened
-- likely mistakes or inefficiencies in rider technique
-- a simulated view of what to try next time
-- coaching suggestions linked to the scenario
+## Critical Principles
 
-However, this should not distort MVP scope.
-
----
-
-# Technical Preferences
-Prefer the following unless there is a strong reason not to:
-
-- Next.js for the web app
-- TypeScript where practical
-- simple API routes over complex backend architecture
-- mainstream, well-supported libraries
-- small and understandable folder structures
-- minimal dependencies
-
-Ask before introducing major new dependencies or architectural complexity.
-
-
-# Project Structure
-The current project structure is:
-
-- `/app` → Next.js App Router pages and API routes
-- `/public` → static assets
-- `/docs` → product, planning, and architecture documents
-- `.claude/` → Claude skills and behaviour configuration
-- `.env.local` → environment variables (not committed to git)
-
-Do not create new top-level folders without discussing first.
-
-# Tech Stack (MVP)
-- Next.js 16 with App Router
-- TypeScript
-- Tailwind CSS
-- OpenAI API (for video/image analysis)
----
-
-# Working Style
-When helping with this project:
-
-- Explain the plan before making major changes
-- Break work into small steps
-- Make the smallest sensible change first
-- Prefer clarity over cleverness
-- Reuse existing patterns where possible
-- Suggest sensible commit points
-- Flag tradeoffs clearly
-- Ask before destructive changes
-- Do not refactor unrelated areas unless asked
-
----
-
-# Code Style
-- Use clear variable and function names
-- Keep functions small and readable
-- Add comments where logic is not obvious
-- Prefer maintainability over cleverness
-- Avoid unnecessary abstraction
-- Keep files reasonably focused
-
----
-
-# Output Style
-When responding in this project:
-
-- Be practical
-- Be concise but clear
-- Avoid generic startup fluff
-- Avoid overcomplicated architecture unless justified
-- Assume the user wants direct, actionable next steps
-- Explain errors in plain English
-- When suggesting code changes, explain what changed and why
-
----
-
-# Product Thinking Rules
-Always keep the following in mind:
-
-- The project should follow build small → validate → iterate
-- The first version should prove usefulness before chasing sophistication
-- Video matters because it is central to understanding real riding behaviour
-- Hardware/sensor ideas are important, but later
-- The system should eventually help a rider understand:
-  - what happened
-  - what likely went wrong
-  - what to try next time
-
----
-
-# What To Avoid
-Avoid these common mistakes unless explicitly asked:
-
-- building for scale too early
-- adding many dependencies without need
-- complex microservices
-- premature authentication complexity
-- premature database complexity
-- trying to solve the full long-term vision in version 1
-- changing unrelated files during focused tasks
-- producing vague advice without concrete next actions
-
----
-
-# Decision Heuristic
-If unsure what to do next, prefer the option that:
-
-1. makes the MVP more real
-2. keeps the system simpler
-3. improves feedback quality
-4. helps validate real user value quickly
-
----
-
-## Knowledge Base Build
-- Topic template: knowledge-base/TOPIC-TEMPLATE.md
-- Each topic follows the exact template structure — no sections skipped
-- Output files go in knowledge-base/[domain-folder]/
-- File naming: domain-XX_topic-name.md
-- All content must be expert-level, technically accurate, and specific enough for an AI coaching engine to generate actionable feedback
-- When researching topics, prioritise sources from professional enduro/motocross coaches, pro rider techniques, and established riding schools
-- Every topic document must include all 10 sections from the template
-- Coaching language must sound like a real riding coach — direct, encouraging, physical cues
+1. **Coaching accuracy is the product.** Correct > impressive. Never hallucinate or overclaim.
+2. **Observation before coaching.** If the observation is wrong, the coaching is invalid.
+3. **Architecture over models.** Structured reasoning improves output regardless of which model fills each role.
+4. **Coaching safety is a constraint, not a preference.** Advice that would reproduce a crash must be blocked.
+5. **Gate discipline.** No work proceeds past an approval gate until it is explicitly approved.
