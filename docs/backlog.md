@@ -10,7 +10,7 @@
 
 | Gate | Status | Blocks |
 |------|--------|--------|
-| Gate 1 — Pipeline stages approved | **NOT PASSED** | All KB generation, all engineering |
+| Gate 1 — Pipeline stages approved | **PASSED** (2026-04-01) | — |
 | Gate 2 — KB entry schemas approved | **NOT PASSED** | Batch KB generation |
 | Gate 3 — Pipeline v1 implemented | **NOT PASSED** | Phase 3 retest |
 
@@ -20,9 +20,7 @@
 
 | ID | Category | Task | Status | Blocked By |
 |----|----------|------|--------|------------|
-| A1 | Architecture | Define pipeline stage JSON contracts | Not started | — |
-| K4 | Knowledge Base | Define KB file schema (metadata, tags, cross-refs) for all 3 new KBs | Not started | — |
-| K12 | Knowledge Base | Cross-check Colin Hill Phase 2 scores from local saved data | Not started | — |
+| K4 | Knowledge Base | Define KB entry schemas (metadata, tags, cross-refs) for all 3 new KBs — **Gate 2** | Not started | — |
 | T5 | Testing | Define Phase 3 scoring framework (finalised 12 metrics) | Not started | — |
 | T6 | Testing | Create ground truth document for all 8 Phase 2 clips | Not started | — |
 
@@ -108,6 +106,8 @@
 
 | ID | Task | Completed |
 |----|------|-----------|
+| A1 | Define pipeline stage JSON contracts (Gate 1) | 2026-04-01 |
+| K12 | Cross-check Colin Hill Phase 2 scores from local saved data | 2026-04-01 |
 | — | Phase 2 multi-model testing (24/24 runs) | 2026-03-31 |
 | — | Phase 2 scoring (8/8 clips, 3 models) | 2026-04-01 |
 | — | Phase 2 evaluation report | 2026-04-01 |

@@ -15,7 +15,7 @@ RideMind is a **physics-aware, terrain-aware, machine-aware riding intelligence 
 - Phase 2 multi-model testing is **complete** (8 clips × 3 models, fully scored)
 - Phase 2 evaluation report is **complete**
 - Phase 3 master plan is **complete** and saved at `docs/ridemind-phase3-master-plan-v1.md`
-- **Gate 1 (pipeline approval) has NOT been passed yet** — no KB generation or engineering should begin until it is
+- **Gate 1 PASSED (2026-04-01)** — pipeline contracts at `docs/pipeline-contracts-v1.md`. Next: Gate 2 — KB schema approval before batch KB generation begins
 
 ### Key Phase 2 Findings
 
@@ -25,16 +25,18 @@ RideMind is a **physics-aware, terrain-aware, machine-aware riding intelligence 
 
 ### What We're Building
 
-A 9-stage reasoning pipeline:
+An 11-stage reasoning pipeline (contracts at `docs/pipeline-contracts-v1.md`):
 1. Camera Perspective Detection
 2. Observability Assessment
-3. Terrain & Feature Detection
-4. Event Sequencing
-5. Failure Type Classification
-6. Crash Type Classification
-7. Causal Chain Construction
-8. Coaching Generation
-9. Coaching Safety Validation
+3. Rider Intent / Attempt Detection
+4. Terrain & Feature Detection
+5. Event Sequencing
+6. Failure Type Classification
+7. Crash Type Classification
+8. Causal Chain Construction
+9. Decision Engine / Coaching Strategy Mapping
+10. Coaching Generation
+11. Coaching Safety Validation
 
 Plus three new knowledge bases:
 - Terrain KB (surfaces, gradients, conditions)
@@ -45,7 +47,7 @@ Plus three new knowledge bases:
 
 | Gate | Status | Blocks |
 |------|--------|--------|
-| Gate 1 — Pipeline stages approved | NOT PASSED | All KB generation, all engineering |
+| Gate 1 — Pipeline stages approved | **PASSED** (2026-04-01) | — |
 | Gate 2 — KB entry schemas approved | NOT PASSED | Batch KB generation |
 | Gate 3 — Pipeline v1 implemented | NOT PASSED | Phase 3 retest |
 
@@ -80,6 +82,7 @@ scripts/
 ## Key Files
 
 - `docs/ridemind-phase3-master-plan-v1.md` — Source of truth for Phase 3
+- `docs/pipeline-contracts-v1.md` — Stage contracts for the 11-stage reasoning pipeline (Gate 1 output)
 - `docs/phase2-evaluation-framework.md` — Scoring rubric
 - `docs/backlog.md` — Current task backlog with gates
 - `docs/architecture-principles.md` — System design principles
