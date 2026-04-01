@@ -25,13 +25,25 @@ Phase 2 tested three AI models (GPT-4o, Claude, Gemini 2.5 Flash) across 8 real 
 
 ### Confidence Note on Scores
 
-The scoring framework evolved during Phase 2. Early clips used fewer metrics; later clips expanded to 12 dimensions. Denominators vary across clips. Scores for clips 2–8 are grounded in the review sessions and cross-checked with an independent assessor. **Colin Hill scores should be cross-checked against locally saved scoring tables before being treated as final** — the exact table was not available during this consolidation.
+The scoring framework evolved during Phase 2. Early clips used fewer metrics; later clips expanded to 12 dimensions. Denominators vary across clips. Scores for clips 2–8 are grounded in the review sessions and cross-checked with an independent assessor. Colin Hill scores verified via cross-check against raw model outputs (2026-04-01).
 
 ### Scores by Clip
 
 #### Clip 1 — Colin Hill (3rd person)
 
-*Scores pending local cross-check. From earlier session notes: Claude strongest on body position, GPT-4o strongest on scenario classification, Gemini hallucinated the scene. All three missed the bail/outcome — shared bias that model fusion won't fix. Exact per-metric scores should be verified against saved scoring data.*
+Scores verified via cross-check against raw model outputs (2026-04-01).
+
+| Metric | Claude | GPT-4o | Gemini |
+|--------|--------|--------|--------|
+| Audio | 3 | 3 | 0 |
+| Scenario | 4 | 5 | 0 |
+| Outcome | 2 | 2 | 0 |
+| Terrain & Line | 3 | 3 | 0 |
+| Body Position | 5 | 2 | 0 |
+| Coaching | 3 | 3 | 0 |
+| **Total** | **20/30 (67%)** | **18/30 (60%)** | **0/30 (0%) — hallucinated** |
+
+Key finding: Claude got body position perfect (5/5) — only time across all clips. GPT-4o best scenario classification. Gemini hallucinated an entirely different scene (described a downhill descent with slides and leg extensions). All three missed the bail — shared outcome detection bias.
 
 #### Clip 2 — Clutch Scream Hill (POV)
 
@@ -225,11 +237,10 @@ Based on Phase 2 evidence:
 ## Section 5: Next Steps
 
 ### Immediate
-1. **Cross-check Colin Hill scores** against locally saved scoring tables to complete the validated scoreboard.
-2. **Update project docs** — backlog.md, architecture docs, evaluation framework to reflect Phase 2 findings.
+1. **Update project docs** — backlog.md, architecture docs, evaluation framework to reflect Phase 2 findings.
 
 ### Architecture Build (Next Phase)
-3. **Design the RideMind Reasoning Pipeline v1** — the structured multi-step pipeline:
+2. **Design the RideMind Reasoning Pipeline v1** — the structured multi-step pipeline:
    - Camera perspective detection
    - Observability assessment
    - Visual observation
@@ -241,12 +252,12 @@ Based on Phase 2 evidence:
    - Crash type classification (if applicable)
    - Coaching safety check
    - Coaching generation with tone calibration
-4. **Migrate knowledge base to queryable database** — already planned, still the right next step. KB needs to be queryable by terrain feature, failure type, and crash type.
-5. **Build terrain feature KB** — jumps, drops, berms, ruts, ledges, camber changes as discrete identifiable features with coaching implications.
+3. **Migrate knowledge base to queryable database** — already planned, still the right next step. KB needs to be queryable by terrain feature, failure type, and crash type.
+4. **Build terrain feature KB** — jumps, drops, berms, ruts, ledges, camber changes as discrete identifiable features with coaching implications.
 
 ### Validation (Future Phase)
-6. **Re-run the same 8 clips as Phase 3** using the new pipeline architecture. Same clips, same ground truth, same scoring framework. Measures whether architecture improvements close the gaps Phase 2 identified.
-7. **Expand test corpus** — 8 clips is enough for architecture discovery but not enough for statistical confidence. Target 20+ clips covering all scenario types.
+5. **Re-run the same 8 clips as Phase 3** using the new pipeline architecture. Same clips, same ground truth, same scoring framework. Measures whether architecture improvements close the gaps Phase 2 identified.
+6. **Expand test corpus** — 8 clips is enough for architecture discovery but not enough for statistical confidence. Target 20+ clips covering all scenario types.
 
 ---
 
