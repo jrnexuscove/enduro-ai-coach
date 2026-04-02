@@ -20,7 +20,8 @@ RideMind is a **physics-aware, terrain-aware, machine-aware riding intelligence 
 - **Gate 2 PASSED (2026-04-01)** — KB schemas approved with cleanup corrections. Schemas at `docs/kb-schemas-v1.md`
 - **Terrain KB (Domain 17) — COMPLETE** — 10 entries generated and committed (TERRAIN-01 mud through TERRAIN-10 mixed). Dual-reviewed on rock, grass, clay, and mixed entries. All entries status: draft (not yet validated against pipeline runs).
 - **OPEN DECISION — Dynamics KB structure:** New domain folder (6 new files) vs upgrade existing Domain 02/03 entries with pipeline frontmatter (26 upgraded files). Must resolve before generation begins.
-- **Next step:** Finalise Feature KB entry list (decide groupings), then generate first 2 entries (jump + switchback) for schema validation.
+- **Feature KB entry list — LOCKED** — 14 entries, organised by geometry (not discipline). Discipline extremes handled by severity tiers within entries.
+- **Next step:** Update Feature KB schema in `docs/kb-schemas-v1.md` (body section structure), then generate first 2 entries (Jump + Switchback) for schema validation. Dual review (Claude + ChatGPT), then batch remaining 12.
 
 ### Key Phase 2 Findings
 
@@ -45,7 +46,7 @@ An 11-stage reasoning pipeline (contracts at `docs/pipeline-contracts-v1.md`):
 
 Plus three new knowledge bases:
 - Terrain KB (surfaces, gradients, conditions)
-- Terrain Feature KB (jumps, drops, berms, ruts, ledges)
+- Terrain Feature KB — 14 entries locked, geometry-first: jump/launch, drop, steps/ledges, horizontal obstacles, roots crossings, rock garden, rut, berm/banked turn, off-camber/side slope, switchback, water crossing, gully/ditch/washout, whoops/rhythm sections, elevated beam/plank
 - Bike Dynamics KB (2T/4T, traction, throttle, clutch, crash physics)
 
 ### Approval Gates
@@ -55,6 +56,28 @@ Plus three new knowledge bases:
 | Gate 1 — Pipeline stages approved | **PASSED** (2026-04-01) | — |
 | Gate 2 — KB entry schemas approved | **PASSED** (2026-04-01) | — |
 | Gate 3 — Pipeline v1 implemented | NOT PASSED | Phase 3 retest |
+
+## Architectural Decisions (Phase 3)
+
+### Three-System Architecture
+
+RideMind is three architecturally separate systems that must not bleed into each other:
+
+- **Reality Analysis System:** Terrain KB + Feature KB + Pipeline stages 1–9. Answers "what is this rider dealing with?"
+- **Coaching System:** Technique KB + failure-to-correction logic + Stage 10 coaching output. Answers "what should the rider do differently?"
+- **Training System (future):** Drill KB + drill evaluation + progression tracking. Answers "how do we fix this over time?"
+
+Feature KB must not contain drill content. Terrain KB must not leak into coaching. Architecture decisions now must not block the future Training System. The drill feedback loop (analyse → prescribe → practise → re-analyse) is the product moat — not a nice-to-have.
+
+### Skill Tags — Intermediate Mapping Layer
+
+Skill tags link failure classification to coaching output. Every failure type maps to one or more skill tags (e.g. `balance_low_speed`, `momentum_control`, `clutch_throttle_coordination`, `line_commitment`, `body_position_climb`). Later they connect failure diagnosis to drill recommendations, enabling the closed coaching loop. The taxonomy must be designed before Stage 10 (Coaching Generation) is built.
+
+### Feature KB Design Constraints
+
+- **Geometry-first, not discipline-first.** The pipeline detects shapes, not sports. Discipline extremes are handled by severity tiers within each entry (minor = trail, moderate = enduro, significant = hard enduro, major = trials/extreme).
+- **Training drills are NOT feature types.** Cone exercises, pallet practice, and figure-8s are handled via upload UX (rider flags the session as drill practice) and a future drill evaluation system.
+- **Single-event vs continuous/section features.** Single-event features (jump, drop, log, step) behave differently from continuous/section features (off-camber, switchback, rock garden, whoops, beam). This distinction affects retrieval, severity assessment, and coaching timing.
 
 ## Project Structure
 

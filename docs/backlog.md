@@ -20,9 +20,9 @@
 
 | ID | Category | Task | Status | Blocked By |
 |----|----------|------|--------|------------|
-| FKB-1 | KB | Finalise Feature KB entry list (decide groupings: step_up+step_down, gully+ledge; confirm roots vs TERRAIN-07) | Not started | — |
-| FKB-2 | KB | Generate first 2 Feature KB entries (jump + switchback) for schema validation | Not started | FKB-1 |
-| FKB-3 | KB | Review first 2 entries; batch remaining Feature KB entries (~6–8 total) | Not started | FKB-2 |
+| FKB-0 | KB | Update Feature KB schema in docs/kb-schemas-v1.md — add body section structure (severity_definition block, technique-by-severity sections, Pipeline ID + Observability Notes per section) | Not started | — |
+| FKB-2 | KB | Generate first 2 Feature KB entries (Jump + Switchback) for schema validation | Not started | FKB-0 |
+| FKB-3 | KB | Dual review (Claude + ChatGPT); batch remaining 12 Feature KB entries | Not started | FKB-2 |
 | T5 | Testing | Define Phase 3 scoring framework (finalised 12 metrics) | Not started | — |
 | T6 | Testing | Create ground truth document for all 8 Phase 2 clips | Not started | — |
 
@@ -34,6 +34,7 @@
 
 | ID | Task | Status | Blocked By |
 |----|------|--------|------------|
+| SKILL-1 | Design skill tag taxonomy: map failure types to skill tags (e.g. balance_low_speed, momentum_control, line_commitment). Must be complete before Stage 10 is built. | Not started | — |
 | A2 | Design database schema for all KBs | Not started | Gate 1 |
 | A3 | Create mermaid diagram of pipeline flow | Not started | Gate 1 |
 | A5 | Design observability confidence scoring system | Not started | Gate 1 |
@@ -132,6 +133,17 @@
 
 ## P3 — Non-Blocking Improvements
 
+### Post-MVP: Drill & Training System
+
+| ID | Task | Status | Notes |
+|----|------|--------|-------|
+| DRILL-1 | Drill KB system design: define drill entry schema, link to skill tags, define evaluation criteria | Not started | Post-MVP |
+| DRILL-2 | Drill evaluation pipeline: analyse drill execution videos against skill tag success criteria | Not started | Post-MVP |
+| DRILL-3 | Training mode in upload UX: rider flags upload as practice/drill session vs trail riding | Not started | Post-MVP |
+| DRILL-4 | Progression tracking system: track skill tag improvement over time across sessions | Not started | Post-MVP |
+
+### Non-Blocking Cleanup (do anytime)
+
 | ID | Task | Status | Notes |
 |----|------|--------|-------|
 | NB-1 | Formalise Stage 11 safety constraint pattern in `docs/pipeline-contracts-v1.md` | Not started | Pattern used by clay and roots KB entries; needs formal definition in contracts |
@@ -146,6 +158,7 @@
 
 | ID | Task | Completed |
 |----|------|-----------|
+| FKB-1 | Finalise Feature KB entry list — 14 entries locked, geometry-first | 2026-04-02 |
 | K1 | Write Terrain KB — 10 core surface files (Domain 17, TERRAIN-01 to TERRAIN-10) | 2026-04-02 |
 | K0a | Generate terrain-01_rock KB entry (included in K1) | 2026-04-02 |
 | K4 | Define KB entry schemas for all 3 new KBs (Gate 2) | 2026-04-01 |

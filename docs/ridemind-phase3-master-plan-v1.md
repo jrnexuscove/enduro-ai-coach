@@ -49,6 +49,16 @@ Current AI systems treat riding footage as a generic vision task: describe what 
 
 Phase 2 proved that swapping models changes scores by 10–30%, but adding the right reasoning step (terrain features, failure types, event sequencing) would change scores by 50–100%. The models are the engines. The reasoning pipeline is the vehicle. You can't win a race with a better engine in a broken car.
 
+### Three-System Architecture
+
+RideMind is three architecturally separate systems:
+
+- **Reality Analysis System:** Terrain KB + Feature KB + Pipeline stages 1–9. Answers "what is this rider dealing with?"
+- **Coaching System:** Technique KB + failure-to-correction logic + Stage 10 coaching output. Answers "what should the rider do differently?"
+- **Training System (future):** Drill KB + drill evaluation + progression tracking. Answers "how do we fix this over time?"
+
+These systems must remain architecturally separate. Feature KB must not contain drill content. Terrain KB must not leak into coaching. Architecture decisions now must not block the future Training System. The closed feedback loop — pipeline analyses riding → coaching prescribes drills → rider practises → pipeline evaluates drill execution — is the product moat. It is not a nice-to-have. Every design choice in Phase 3 must leave this future system buildable.
+
 ---
 
 ## 3. RideMind Reasoning Pipeline v1 (Core Design)
@@ -338,6 +348,26 @@ Three new knowledge bases are required alongside the existing technique KB (15 d
 
 **What it contains:** Discrete, identifiable terrain features that demand specific rider responses.
 
+**Architecture principle:** Feature KB is organised by geometry, not discipline. The pipeline detects shapes — a jump is a jump whether it's on an MX track or in hard enduro. Discipline-specific extremes are handled through severity tiers within each entry: minor = trail, moderate = enduro, significant = hard enduro, major = trials/extreme. Training drills (cone exercises, balance drills, pallet practice) are NOT feature types — they are handled via upload UX.
+
+**Feature type distinction:** Single-event features (jump, drop, log, step) involve a discrete moment of execution and behave differently from continuous/section features (off-camber, switchback, rock garden, whoops, beam) that affect an extended section. This distinction affects retrieval logic, severity assessment, and coaching timing.
+
+**Locked entry list (14 entries):**
+1. Jump / Launch Features (tabletop, double, triple, kicker)
+2. Drop Features
+3. Steps / Ledges (step-up + step-down combined — includes pallets, boulders, vertical faces)
+4. Horizontal Obstacles (logs, pipes, tyres, low rigid obstacles)
+5. Roots / Root Crossings (discrete crossings — lightweight entry; surface networks covered in TERRAIN-07)
+6. Rock Garden (dual-retrieval with TERRAIN-03)
+7. Rut (geometry focus — surface behaviour covered in Terrain KB)
+8. Berm / Banked Turn
+9. Off-camber / Side Slope (distinct from berm — one of the most common UK enduro failure geometries)
+10. Switchback
+11. Water Crossing (severity range: puddle to deep ford; bog holes as extreme variant)
+12. Gully / Ditch / Washout (void/channel geometry — distinct from steps/ledges)
+13. Whoops / Rhythm Sections (repeated features, frequency-dependent; includes corrugations)
+14. Elevated Beam / Plank (narrow elevated riding, balance-dominant)
+
 **How the pipeline uses it:** Stage 3 (Feature Detection) queries this KB to identify features in the scene and understand what they demand. Stage 4 (Event Sequencing) uses detected features as phase boundaries. Stage 7 (Causal Chain) uses feature demands to assess whether the rider met them.
 
 **Example entry:**
@@ -422,6 +452,18 @@ Three new knowledge bases are required alongside the existing technique KB (15 d
 ```
 
 **Scope:** 15–20 concept files covering throttle, clutch, braking, suspension, engine types, traction, jump physics, crash physics, and machine-specific behaviours. Approximately 15–20 files.
+
+---
+
+### D. Skill Tag Layer
+
+**What it is:** An intermediate mapping layer between failure classification (Stage 6) and coaching output (Stage 10). Every failure type maps to one or more skill tags (e.g. `balance_low_speed`, `momentum_control`, `clutch_throttle_coordination`, `line_commitment`, `body_position_climb`).
+
+**Why it matters:** Skill tags connect failure diagnosis to drill recommendations, enabling the closed coaching loop: analyse → prescribe → practise → re-analyse. Without skill tags, coaching outputs are one-off text responses with no structured link to practice. With skill tags, the system can track which skills a rider is weak on, prescribe the right drills, and measure improvement over time.
+
+**When to build it:** The skill tag taxonomy must be designed before Stage 10 (Coaching Generation) is implemented, so that coaching outputs include skill tags from day one. The taxonomy is not a separate KB — it is a structured mapping table (a design artefact) that lives in `docs/`.
+
+**What it is not:** The Drill KB (which maps skill tags to specific drills) is a separate future system. Design the skill tag taxonomy now; build the Drill KB post-MVP.
 
 ---
 
@@ -525,34 +567,41 @@ Before Dynamics KB generation can begin, one structural decision must be resolve
 
 This decision affects scope, effort, and whether existing technique KB entries gain pipeline integration. Must be resolved before Dynamics KB generation begins.
 
-### Step 1: Finalise Feature KB Entry List (P0 — Now)
+### Completed: Feature KB Entry List
 
-Before generating Feature KB entries, the entry list must be finalised. Key grouping decisions:
+The Feature KB entry list is locked at 14 entries, organised by geometry (not discipline). Full list with architecture constraints in Section 4.B.
 
-- **step_up + step_down** — one combined entry or two separate?
-- **gully + ledge** — one combined entry or two separate?
-- **roots** — TERRAIN-07 covers roots as a surface; does roots need a Feature KB entry?
-- Estimated 8–10 entries total
+### Step 1: Update Feature KB Schema (P0 — Now)
+
+Update `docs/kb-schemas-v1.md` to add the Feature KB body section structure. Schema 2 currently has the frontmatter template and section name list but not the full body structure. Required additions:
+- Complete body section structure (equivalent to Terrain KB's 11-section structure)
+- Severity_definition block usage across body sections
+- Technique-by-severity section structure
+- Single-event vs continuous/section feature handling guidance
 
 ### Step 2: Generate First Feature KB Entries (P0 — After Step 1)
 
 Generate the first 2 Feature KB entries for schema validation:
-1. `feature-01_jump` — Jump identification, demands, failure modes, coaching notes
+1. `feature-01_jump` — Jump / Launch Features (tabletop, double, triple, kicker)
 2. `feature-02_switchback` — Switchback identification, demands, failure modes
 
 Validate against Colin Hill and Mark Crash ground truth before proceeding to batch generation.
 
 For KB entry schemas and templates, see `docs/kb-schemas-v1.md`.
 
-### Step 3: Batch Remaining Feature KB Entries (P0 — After Step 2)
+### Step 3: Batch Remaining 12 Feature KB Entries (P0 — After Step 2)
 
-Generate remaining Feature KB entries based on the finalised entry list (~6–8 remaining after Step 2).
+Dual review (Claude + ChatGPT) on first 2 entries, then batch remaining 12 Feature KB entries.
 
 ### Step 4: Resolve Dynamics KB Structure and Generate Entries (P1 — After Step 3)
 
 Resolve the open decision (new files vs upgrade existing Domain 02/03), then generate or upgrade Dynamics KB entries accordingly.
 
-### Step 5: Build Pipeline Stages 1–4 (P1 — After Step 4)
+### Step 5: Design Skill Tag Taxonomy (P1 — Parallel with Steps 3–4)
+
+Design the skill tag taxonomy: a structured mapping from failure types to skill tags. Must be complete before Stage 10 (Coaching Generation) is implemented. Output: a mapping table document in `docs/`. See Section 4.D.
+
+### Step 6: Build Pipeline Stages 1–4 (P1 — After Steps 3 and 5)
 
 Implement the first four stages as TypeScript functions with structured JSON output:
 
@@ -563,7 +612,7 @@ Implement the first four stages as TypeScript functions with structured JSON out
 
 Wire stages 1–4 into a test script that can process a single clip and produce structured output.
 
-### Step 6: Early Validation on Milestone Clips (P2 — After Step 5)
+### Step 7: Early Validation on Milestone Clips (P2 — After Step 6)
 
 Run stages 1–4 on Colin Hill and Mark Crash. Assess:
 - Is camera perspective correctly detected?
@@ -696,3 +745,4 @@ These Phase 2 failures are unacceptable in Phase 3:
 | 1.1 | 2026-04-01 | Added approval gates (Gate 1, 2, 3). Cross-checked with independent reviewer. |
 | 1.2 | 2026-04-01 | Updated to 11-stage pipeline: added Stage 3 (Rider Intent) and Stage 9 (Decision Engine). Added audio cross-cutting note, multi-model deferral note, Decision Engine v1 outputs, milestone clips. Gate 1 + Gate 2 PASSED. References to pipeline-contracts-v1.md and kb-schemas-v1.md. Execution plan updated to reflect current state. |
 | 1.3 | 2026-04-02 | Terrain KB complete (10 entries, Domain 17). Feature KB is now P0. Dynamics KB open decision documented (new files vs upgrade existing Domain 02/03). Section 6 execution steps updated to reflect current position. |
+| 1.4 | 2026-04-02 | Feature KB entry list locked (14 entries, geometry-first). Three-system architecture added to Section 2. Section 4.B updated with 14-entry list, architecture constraints, single-event vs section distinction. Section 4.D added (Skill Tag Layer). Section 6 execution steps updated: schema update is Step 1, skill tag taxonomy added as Step 5, validation moved to Step 7. |
