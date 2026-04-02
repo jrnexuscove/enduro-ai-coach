@@ -481,9 +481,9 @@ No work proceeds past a gate until it is explicitly approved.
 
 **Goal:** Wire the pipeline into the test runner and validate against the same 8 clips.
 
-**→ Gate 3 checkpoint: All 9 stages must be implemented and producing structured output before retest begins.**
+**→ Gate 3 checkpoint: All 11 stages must be implemented and producing structured output before retest begins.**
 
-9. **Integrate pipeline into test runner** — Replace the current 4-step pipeline (visual → audio → classify → coach) with the 9-stage pipeline. Keep the same CLI interface.
+9. **Integrate pipeline into test runner** — Replace the current 4-step pipeline (visual → audio → classify → coach) with the 11-stage pipeline. Keep the same CLI interface.
 
 10. **Re-run all 8 Phase 2 clips** — Same clips, same ground truth, same scoring framework (use the expanded 12-metric version from late Phase 2). Score against the same rubric.
 

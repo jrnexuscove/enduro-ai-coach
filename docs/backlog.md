@@ -132,3 +132,20 @@
 | — | Phase 2 evaluation report | 2026-04-01 |
 | — | Phase 3 master plan | 2026-04-01 |
 | — | Knowledge base domains 1–15 (154+ technique files) | Previously |
+
+---
+
+## Domain 18: Rider Skills & Technique Execution
+
+- **Status:** Not started � schema design required
+- **Blocked by:** Terrain and Feature KB generation complete
+- **Priority:** Required before real user testing
+- **Description:** New KB domain covering deliberate skill practice clips (not trail scenarios). Handles uploads where riders are practicing specific techniques rather than riding terrain. Pipeline routes to this KB via Stage 3 (Rider Intent) when the clip is identified as skill practice rather than trail riding.
+- **Initial entries (6-8 planned):**
+  1. Wheelies (power wheelie, clutch-up, balance point, loop-out/drop-down failures)
+  2. Clutch Control Drills (clutch-up lifts, slipping, feathering, friction zone)
+  3. Bunny Hops / Bike Lifts (front lift, rear lift, full bunny hop, timing)
+  4. Standing Balance / Slow Speed Control (static balance, track stands, slow manoeuvring)
+  5. Precision Placement (hopping onto objects, pallet exercises, log rides, beam riding)
+  6. Jumping Technique (body position, throttle at lip, air awareness, landing execution)
+- **Architecture note:** Requires own schema � structurally different from terrain and feature KBs. Cross-references Domain 02 (control inputs) and Domain 03 (bike dynamics) for mechanics, but this domain covers execution, common errors, and coaching cues for deliberate practice.

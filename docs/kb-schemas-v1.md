@@ -1,9 +1,16 @@
-# RideMind KB Entry Schemas — v1
+# RideMind KB Entry Schemas — v1.1
 
-> **Status:** Gate 2 PASSED (2026-04-01)
+> **Status:** Gate 2 PASSED (2026-04-01) — v1.1 schema governance update 2026-04-02
 > **Authority:** These templates define the entry format for all three new knowledge bases. No batch KB generation begins until this document is approved.
 > **Applies to:** Terrain KB, Terrain Feature KB, Bike Dynamics KB
 > **Pipeline reference:** `docs/pipeline-contracts-v1.md` — all enum values are taken from that document
+
+### Changelog
+
+| Version | Date | Changes |
+|---------|------|---------|
+| v1.0 | 2026-04-01 | Initial schema — Gate 2 PASSED |
+| v1.1 | 2026-04-02 | Locked 11-section body structure with 5 mandatory / 6 flexible sections. Formally defined stage4_surface_condition. Permanently removed surface_variants. Added Observability Notes structure guidance. Added tags formatting rule. |
 
 ---
 
@@ -22,10 +29,14 @@ Block 3 — content_metadata    Descriptive fields + scope + status + misclassif
 - **SECONDARY** — highly likely relevant; retrieve when primary match fires or no closer match exists
 - **CONTEXTUAL** — useful background; retrieve when no higher-tier match is available
 
-**Body section inheritance:**  
-All entries follow the existing 9-section KB format with two modifications:
-- Section 2 and Section 3 are renamed per KB type (detailed below)
-- Section 4 (Diagnostic Cues) gains a **Pipeline Identification** subsection containing an **Observability Notes** prose block
+**Body section inheritance:**
+- **Terrain KB** uses a dedicated 11-section structure with 5 mandatory and 6 default sections (see Schema 1 — Section Structure below).
+- **Terrain Feature KB** and **Bike Dynamics KB** follow the existing 9-section KB format with two modifications:
+  - Section 2 and Section 3 are renamed per KB type (detailed below)
+  - Section 4 (Diagnostic Cues) gains a **Pipeline Identification** subsection containing an **Observability Notes** prose block
+
+**Tags formatting rule:**  
+Tags must use YAML list format: `tags: [mud, traction, ruts]` — not comma-separated string format. Existing entries will be cleaned up in a future pass.
 
 ---
 
@@ -55,6 +66,7 @@ retrieval_triggers:
   SECONDARY:                          # Highly likely relevant — retrieve if primary fires
     stage6_failure_types: [technique, momentum, traction]
     stage4_gradient: [moderate_up, steep_up, very_steep_up, steep_down, very_steep_down]
+    stage4_surface_condition: [dry, damp, wet]
   CONTEXTUAL:                         # Background context — retrieve if no closer match
     stage3_intent_category: [climb, descent, obstacle_clear]
 
@@ -68,7 +80,12 @@ content_metadata:
     riding technique on rocks (see domain-05) or drill design for rock sections."
   status: draft                       # Changes to 'validated' after review pass
   surface_type: rock
-  surface_variants: [loose_rock, embedded_rock, shale_fragment, granite_slab]
+  terrain_states:                        # surface_variants was removed in v1.1 — terrain_states is the canonical list of distinct surface conditions for each terrain type
+    - loose_rock
+    - embedded_rock
+    - rock_slab
+    - shale_fragment
+    - mixed_rock_mud
   conditions_covered: [dry, damp, wet]   # Stage 4 surface.condition values
   traction_range:                     # Expected traction per condition — Stage 4 enum values
     dry: moderate
@@ -87,35 +104,99 @@ content_metadata:
   difficulty_range: [beginner, intermediate, advanced]
   related_topics: [TERRAIN-07, FEATURE-03, DYNAMICS-02]
   prerequisites: [BIOMECH-01]
-  tags: rock, rocky, loose, embedded, traction, hill-climb, descent
+  tags: [rock, rocky, loose, embedded, traction, hill-climb, descent]
   version: 1.0
   last_updated: 2026-04-01
 ---
 ```
 
+### stage4_surface_condition — Definition
+
+`stage4_surface_condition` = coarse environmental/condition signals detectable independently of terrain classification, used to guide retrieval before full terrain-state reasoning. Examples: mud uses `[wet, saturated, frozen]`; hard pack uses `[dry, dusty, damp]`. This is **NOT** a mirror of `terrain_states` and is **NOT** exhaustive. It is used for early-stage retrieval weighting only.
+
+This field appears in `retrieval_triggers.SECONDARY` and may also appear in `content_metadata.conditions_covered` where the full condition set needs to be documented.
+
+---
+
 ### Section Structure
 
-**Section 2 — Surface Physics & Traction Profile** *(replaces Core Principles)*
-- Physical properties: hardness, stability, embedded vs loose
-- Traction behaviour by condition — dry/damp/wet/saturated
-- How gradient changes traction on this surface
-- Why specific failure types occur here
+Terrain KB entries use an 11-section body structure. **5 sections are mandatory** and must appear in every entry. **6 sections are default** — included by default but can be renamed, merged, or replaced with terrain-specific equivalents where the content genuinely does not apply.
 
-**Section 3 — Condition & Gradient Variations** *(replaces Technique Breakdown by Level)*
-- Surface behaviour across conditions (dry vs wet)
-- Mixed context interactions (rock + mud, rock + shale)
-- How gradient interacts with this surface specifically
+---
 
-**Section 4 — Diagnostic Cues** *(standard structure + new subsection)*
-- Visual Cues — Correct Identification / Common Confusion
-- Audio Cues — surface sounds (rock scrape, stone clatter, embedded thud)
-- **Pipeline Identification Cues** *(new)*
-  - What the model looks for to classify this surface in footage
-  - Audio surface cues that map to Stage 4 `audio_terrain_cues.surface_sounds`
-  - Visual texture, colour, and reflectivity markers
-  - **Observability Notes** *(prose block)*: Describe what is clearly visible from typical footage, what can only be inferred, and what cannot be determined at all. Example: *"Rock type (granite vs limestone) is not distinguishable at normal filming distances. Wetness can be inferred from sheen or dark colouration. Sub-surface conditions (mud hidden below loose rock) are not observable."*
+**MANDATORY sections** *(every terrain entry must include all five)*
 
-**Sections 5–9** — standard format (Coaching Language, Drills, Cross-References, Terrain & Context Variations, Expert Insights)
+**Section 1 — Surface Physics**
+- Physical properties: hardness, deformability, stability, particle size and behaviour
+- How traction is generated on this surface (friction, mechanical interlock, penetration)
+- Break-away characteristics — progressive vs abrupt
+- Why these physics make certain failure types more likely here
+
+**Section 2 — Terrain States**
+- Each state from the `terrain_states` frontmatter field, with full description
+- Visual identification per state (colour, texture, surface condition indicators)
+- Traction and behaviour differences between states
+- How states transition into each other (progressive degradation or seasonal change)
+
+**Section 3 — Bike Behaviour**
+- Traction delivery mechanism for this surface
+- Break-away characteristics for front and rear wheels
+- Braking performance and calibration points
+- Suspension behaviour: how terrain features transfer to chassis
+
+**Section 4 — Technique Implications**
+- Key technique adaptations for this surface
+- Common technique errors and their mechanical consequences on this surface
+- Line selection principles specific to this surface type
+
+**Section 9 — Interaction Patterns & Failure Triggers** *(MANDATORY)*
+- Named failure chains — each with: trigger → mechanism → outcome
+- Must include the following subsections:
+
+  **### Pipeline Identification Notes**
+  - What the pipeline should look for to classify this surface type
+  - Observable indicators: visual, audio, motion cues
+  - Enum values that fire on this surface and their observable preconditions
+
+  **### Observability Notes**
+  Three-part structure (mandatory):
+  1. What is reliably observable from footage (directly confirmable)
+  2. What is inferable with caveats (can be estimated but not confirmed)
+  3. What cannot be determined from footage (pipeline must flag as unknown)
+
+---
+
+**DEFAULT sections** *(include by default; rename, merge, or replace with terrain-specific equivalents where the content genuinely does not apply)*
+
+**Section 5 — Gradient Interaction**
+- How this surface behaves on uphills and downhills
+- Gradient-specific failure triggers
+- Speed management on gradient
+
+**Section 6 — Rut Behaviour** *(e.g. renamed to "Line Dynamics" for rock; omitted for surfaces where ruts are not meaningful)*
+- How ruts form and behave on this surface
+- Rut depth and wall compliance differences from other surface types
+- Technique adjustments for rut riding on this surface
+
+**Section 7 — Conditions Impact**
+- How dry, damp, wet, dusty, frozen conditions change surface behaviour
+- Non-linear transitions (e.g. clay going from improved-grip-damp to low-grip-saturated)
+- Seasonal and time-of-day variation
+
+**Section 8 — Entry / Exit Transitions**
+- How tyre contamination affects grip when transitioning to/from this surface
+- Critical transition pairs (e.g. mud → hardpack, hardpack → mud)
+- Pipeline trigger: surface transition as a distinct coaching scenario
+
+**Section 10 — False Signals / Illusions**
+- Surface appearance vs actual traction properties
+- Common rider misreads and the mechanism behind them
+- Why prior experience on similar surfaces creates calibration errors
+
+**Section 11 — Terrain Demands / Constraints**
+- Minimum technique required for safe riding on this surface
+- Tyre and equipment relevance
+- Out-of-scope references (what to point to, not duplicate)
 
 ---
 
@@ -324,7 +405,7 @@ content_metadata:
 | `scope` field | ✓ | ✓ | ✓ | Prevents overlap with existing KB |
 | `status: draft` | ✓ | ✓ | ✓ | All new entries start as draft |
 | `common_misclassifications` | ✓ | ✓ | ✓ | Pipeline disambiguation |
-| `surface_variants` | ✓ | — | — | Mixed surface support |
+| `terrain_states` | ✓ | — | — | Canonical list of distinct surface conditions per terrain type (replaces `surface_variants` — permanently removed v1.1) |
 | `common_mixed_contexts` | ✓ | — | — | Mixed surface coaching triggers |
 | `severity_definition` block | — | ✓ | — | Mandatory; 4 lines, consistent across all feature entries |
 | `typical_body_position` | — | ✓ | — | (not metadata — informational only) |
