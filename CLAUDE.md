@@ -21,7 +21,7 @@ RideMind is a **physics-aware, terrain-aware, machine-aware riding intelligence 
 - **Terrain KB (Domain 17) — COMPLETE** — 10 entries generated and committed (TERRAIN-01 mud through TERRAIN-10 mixed). Dual-reviewed on rock, grass, clay, and mixed entries. All entries status: draft (not yet validated against pipeline runs).
 - **OPEN DECISION — Dynamics KB structure:** New domain folder (6 new files) vs upgrade existing Domain 02/03 entries with pipeline frontmatter (26 upgraded files). Must resolve before generation begins.
 - **Feature KB entry list — LOCKED** — 14 entries, organised by geometry (not discipline). Discipline extremes handled by severity tiers within entries.
-- **Next step:** Update Feature KB schema in `docs/kb-schemas-v1.md` (body section structure), then generate first 2 entries (Jump + Switchback) for schema validation. Dual review (Claude + ChatGPT), then batch remaining 12.
+- **Feature KB schema validated** — FEATURE-01 (jump, single-event) and FEATURE-02 (off-camber, continuous) committed. Schema v1.2 holding. Next: pipeline stages 1-4.
 
 ### Key Phase 2 Findings
 

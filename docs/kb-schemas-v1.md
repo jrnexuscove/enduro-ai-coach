@@ -376,6 +376,18 @@ Feature KB entries use an 11-section body structure. **5 sections are mandatory*
 - Equipment considerations relevant to this feature (tyre type, suspension setup, bike geometry)
 - Out-of-scope content with explicit pointers to where those topics live
 
+### Section Boundary Rules
+
+**Section 4 / Section 10 boundary:**
+Section 4 defines technique requirements, observable errors, and severity-tier coaching gates specific to the feature. Section 10 defines progression gating, prerequisite mapping, and "do not coach up" constraints for Stage 9 decision logic. Section 4 should not become a drill curriculum; Section 10 should not restate execution technique.
+
+**Severity definition rule:**
+Severity must be defined primarily by observable feature geometry, commitment profile, and consequence geometry. Rider skill requirement is secondary commentary and must not be the primary basis for tier assignment.
+
+### Retrieval Mapping Note
+
+Some Feature KB entries map primarily to Stage 4 geometry or state fields rather than stage4_feature_type. Off-camber (FEATURE-02) is retrieved primarily through stage4_camber: [off_camber_left, off_camber_right] because off-camber is a cross-cutting terrain geometry condition that can co-exist with other feature types. The pipeline_enum_value field in these entries maps to the relevant Stage 4 field, which may not be feature_type.
+
 ---
 
 ### Adaptation Rules
