@@ -34,7 +34,8 @@
 
 | ID | Task | Status | Blocked By |
 |----|------|--------|------------|
-| SKILL-1 | Design skill tag taxonomy: map failure types to skill tags (e.g. balance_low_speed, momentum_control, line_commitment). Must be complete before Stage 10 is built. | Not started | — |
+| COACH-1 | Define RideMind coaching persona and philosophy — Three Pillars framework (Balance, Body Position, Power Delivery & Collection) as foundational coaching model. Principles: fundamentals mastered on flat ground before terrain; pillars are interconnected; "deliver and collect" — speed of transition between max and min power is the skill. Shapes coaching tone, skill prioritisation, drill sequencing, progression logic, and Stage 10 framing. Must be complete before Stage 10 is built. | Not started | — |
+| SKILL-1 | Design skill tag taxonomy: map failure types to skill tags (e.g. balance_low_speed, momentum_control, line_commitment). Must be complete before Stage 10 is built. | Not started | COACH-1 |
 | A2 | Design database schema for all KBs | Not started | Gate 1 |
 | A3 | Create mermaid diagram of pipeline flow | Not started | Gate 1 |
 | A5 | Design observability confidence scoring system | Not started | Gate 1 |

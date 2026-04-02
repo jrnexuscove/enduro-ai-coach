@@ -73,6 +73,12 @@ Feature KB must not contain drill content. Terrain KB must not leak into coachin
 
 Skill tags link failure classification to coaching output. Every failure type maps to one or more skill tags (e.g. `balance_low_speed`, `momentum_control`, `clutch_throttle_coordination`, `line_commitment`, `body_position_climb`). Later they connect failure diagnosis to drill recommendations, enabling the closed coaching loop. The taxonomy must be designed before Stage 10 (Coaching Generation) is built.
 
+### Coaching Philosophy
+
+RideMind's coaching persona is informed by the Three Pillars framework (Balance, Body Position, Power Delivery & Collection) from established elite enduro coaching methodology. All riding can be decomposed into these three pillars. Fundamentals are mastered on flat ground first, then applied to terrain. The pillars are interconnected — improving one improves the others. The "deliver and collect" principle applies specifically to Power Delivery: the speed of transition between maximum and minimum power is the skill, not just smooth throttle.
+
+This framework will shape: coaching tone, skill prioritisation, skill tag taxonomy, drill sequencing, and progression logic for Stage 10 coaching output. Full coaching persona document (COACH-1) must be created before Stage 10 (Coaching Generation) is implemented.
+
 ### Feature KB Design Constraints
 
 - **Geometry-first, not discipline-first.** The pipeline detects shapes, not sports. Discipline extremes are handled by severity tiers within each entry (minor = trail, moderate = enduro, significant = hard enduro, major = trials/extreme).

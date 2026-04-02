@@ -1,6 +1,6 @@
-# RideMind KB Entry Schemas — v1.1
+# RideMind KB Entry Schemas — v1.2
 
-> **Status:** Gate 2 PASSED (2026-04-01) — v1.1 schema governance update 2026-04-02
+> **Status:** Gate 2 PASSED (2026-04-01) — v1.2 schema governance update 2026-04-02
 > **Authority:** These templates define the entry format for all three new knowledge bases. No batch KB generation begins until this document is approved.
 > **Applies to:** Terrain KB, Terrain Feature KB, Bike Dynamics KB
 > **Pipeline reference:** `docs/pipeline-contracts-v1.md` — all enum values are taken from that document
@@ -11,6 +11,7 @@
 |---------|------|---------|
 | v1.0 | 2026-04-01 | Initial schema — Gate 2 PASSED |
 | v1.1 | 2026-04-02 | Locked 11-section body structure with 5 mandatory / 6 flexible sections. Formally defined stage4_surface_condition. Permanently removed surface_variants. Added Observability Notes structure guidance. Added tags formatting rule. |
+| v1.2 | 2026-04-02 | Feature KB 11-section body structure with mandatory/default split, adaptation rules, edge case guidance, feature_class frontmatter field, Commitment & Reversibility Profile sub-block, coaching gates, and skill tag future-proofing hook. |
 
 ---
 
@@ -31,7 +32,8 @@ Block 3 — content_metadata    Descriptive fields + scope + status + misclassif
 
 **Body section inheritance:**
 - **Terrain KB** uses a dedicated 11-section structure with 5 mandatory and 6 default sections (see Schema 1 — Section Structure below).
-- **Terrain Feature KB** and **Bike Dynamics KB** follow the existing 9-section KB format with two modifications:
+- **Terrain Feature KB** uses a dedicated 11-section structure with 5 mandatory and 6 default sections, matching Terrain KB rigour (see Schema 2 — Section Structure below).
+- **Bike Dynamics KB** follows the existing 9-section KB format with two modifications:
   - Section 2 and Section 3 are renamed per KB type (detailed below)
   - Section 4 (Diagnostic Cues) gains a **Pipeline Identification** subsection containing an **Observability Notes** prose block
 
@@ -220,6 +222,7 @@ Terrain KB entries use an 11-section body structure. **5 sections are mandatory*
 pipeline_contract:
   kb_type: terrain_feature
   pipeline_enum_value: [jump]         # Exact Stage 4 features_detected[].feature_type value — list
+  feature_class: single_event         # single_event | continuous
 
 # ── BLOCK 2: Retrieval Triggers ─────────────────────────────────────────────
 retrieval_triggers:
@@ -267,28 +270,138 @@ content_metadata:
 
 ### Section Structure
 
-**Section 2 — Feature Identification & Physical Properties** *(replaces Core Principles)*
-- What defines this feature type vs similar features
-- Anatomy: approach, face/lip, airtime, landing, exit
-- How severity gradations manifest physically (minor → major)
-- Common surface/terrain contexts where this feature appears
+> **Design context:** Features may be **single-event** (jump, drop, log, step, water crossing) or **continuous/section-based** (off-camber, switchback, rock garden, whoops, beam). The `feature_class` field in `pipeline_contract` captures this distinction. Both types use the same 11-section structure — emphasis shifts between sections depending on feature class (see adaptation rules below).
 
-**Section 3 — Technique by Severity** *(replaces Technique Breakdown by Level)*
-- Minor: required technique, what errors look like, consequence
-- Moderate: escalated requirements, commitment threshold
-- Significant/Major: full commitment requirements, coaching gate (do not coach this until foundational skills confirmed)
+Feature KB entries use an 11-section body structure. **5 sections are mandatory** and must appear in every entry. **6 sections are default** — included by default but can be renamed, merged, or omitted where content genuinely does not apply.
 
-**Section 4 — Diagnostic Cues** *(standard structure + new subsection)*
-- Visual Cues — Correct Identification / Misidentification risks
-- Audio Cues — engine load on compression, impact on landing
-- **Pipeline Identification Cues** *(new)*
-  - What the model looks for to detect this feature in footage
-  - Approach indicators (visible compression, face shape, approach angle)
-  - Audio markers (engine note change on face, impact sound on landing)
-  - Post-feature indicators (if feature is missed and only landing/aftermath is visible)
-  - **Observability Notes** *(prose block)*: Describe what can be confirmed vs only inferred. Example: *"Jump face is usually identifiable when rider approaches from the correct angle. Airtime is clearly observable in 3rd-person. Landing success vs failure is observable. Jump height is only inferable. Whether the rider saw the jump in time is not observable."*
+---
 
-**Sections 5–9** — standard format
+**MANDATORY sections** *(every feature entry must include all five)*
+
+**Section 1 — Feature Geometry & Physics**
+- Structural definition: what makes this a distinct feature type, its geometry, and the physical zones — approach zone, execution zone, exit zone (single-event) or entry / extent / exit (continuous features)
+- Force vectors acting on rider and bike during execution: what physical forces this geometry generates
+- Why this geometry creates a distinct riding problem that surface technique alone cannot solve
+- **Mandatory sub-block — Commitment & Reversibility Profile:**
+  - Point of no return: where the rider's decision becomes irreversible
+  - Recovery window: how long or far after commitment the rider can still influence the outcome
+  - Bailout options: what exits exist before the commitment point
+- For continuous features: the spatial behaviour model — how the feature changes through its length
+
+**Section 2 — Feature Forms & Variants**
+- Distinct sub-types this feature takes in the real world (equivalent function to Terrain States in the Terrain KB)
+- Per variant: visual identification criteria, size/shape indicators, typical contexts where each appears
+- How severity gradations manifest physically (minor → major) — by consequence, reversibility, and commitment, not just size, matching the frontmatter `severity_definition`
+- Pipeline relevance: visual indicators that distinguish this variant from adjacent misclassification candidates
+- Rule: each variant must produce at least one distinct failure pattern not shared by other variants in the same entry
+
+**Section 3 — Bike Behaviour**
+- Physics-level bike response to this feature type
+- Tyre and suspension dynamics specific to this feature
+- Front vs rear wheel behaviour differences on this feature
+- How severity amplifies the bike's mechanical response
+- Control input consequences: what throttle, brake, and steer inputs produce at the physics level on this feature
+- **Constraint:** describes mechanical response only. No coaching language, rider intent, or corrective advice. Coaching content belongs in Section 4.
+- Written at a level Stage 8 (Causal Chain Construction) can reference directly
+
+**Section 4 — Technique by Severity**
+- Organised by the 4 severity tiers defined in frontmatter `severity_definition`: minor / moderate / significant / major
+- Per tier: required body position, control input timing and sequencing, commitment threshold, common technique errors, mechanical consequence of those errors
+- Coaching gate note per tier: what prerequisite skills must exist before coaching up to this tier
+- May reference underlying skill categories (e.g. `balance_low_speed`, `clutch_throttle_coordination`) for future Skill Tag and Drill system integration
+- For significant/major tiers where foundational skills are not confirmed: explicit "coaching gate — do not prescribe this tier without [prerequisite] confirmed" note required
+- For continuous features: entry technique / sustained technique / exit technique structure within each tier
+
+**Section 5 — Interaction Patterns & Failure Triggers**
+- Named failure chains — each with: trigger → mechanism → outcome
+- Must be keyed to Stage 6 failure types: `technique | decision | momentum | traction | line_choice`
+- Must include the following mandatory subsections:
+
+  **### Pipeline Identification Notes**
+  - Visual indicators for Stage 4 `feature_type` detection
+  - Approach indicators (shape visible on approach), execution indicators (in-feature cues), post-event indicators (aftermath observable when approach was not captured)
+  - Audio markers where relevant (engine note change on compression, impact sound on landing)
+  - Severity indicators: what distinguishes minor from significant in footage
+  - Edge cases where Stage 4 classification confidence should be flagged low
+
+  **### Observability Notes** *(3-part mandatory structure)*
+  1. What is reliably confirmable from footage (directly observable)
+  2. What is inferable with caveats (can be estimated but not confirmed)
+  3. What cannot be determined from footage (pipeline must flag as unknown)
+
+---
+
+**DEFAULT sections** *(include by default; rename, merge, or omit where content genuinely does not apply — see adaptation rules below)*
+
+**Section 6 — Approach & Setup Requirements**
+- What the rider must do before the feature's execution zone begins: approach speed selection, line onto the feature, body position setup point, gear/clutch/brake prep
+- Commitment threshold: the point at which the approach becomes locked in
+- Common approach errors and their downstream consequences (before the feature, not during)
+- May rename to "Entry Discipline" for continuous features
+- **Merge restriction:** for timing-dependent features (jump, drop, step, log, water crossing), this section must remain separate and must not merge with Section 4
+
+**Section 7 — Terrain & Condition Interaction**
+- How surface type changes this feature's difficulty and technique requirements
+- **Not a duplication of Terrain KB content** — flags which Terrain KB entries should be co-retrieved and documents the interaction effect at feature level (e.g. "Jump landing on mud = grip loss problem on run-out, not takeoff problem — retrieve TERRAIN-01")
+- Key terrain-surface interaction pairs for this feature, with brief behavioural note per pair
+- Condition modifiers (dry/wet/frozen) and how they shift severity classification at the feature level
+- May compress or omit for features where terrain interaction is minimal (e.g. elevated beam on hard substrate)
+- Higher priority for continuous features (rock garden, whoops, off-camber) where surface conditions affect technique throughout the section
+
+**Section 8 — Exit, Landing & Recovery**
+- What happens after the execution phase
+- Single-event: landing dynamics, run-out requirements, recovery window after landing
+- Continuous: section exit technique, speed management into the exit, recovery from within-section errors
+- Consequence of lost recovery window — what happens after the point of no return
+- Rename to reflect feature type: "Run-Out & Recovery" (jump), "Section Exit" (rock garden, whoops), "Recovery Window" (drop)
+- **Merge restriction:** for timing-dependent features (jump, drop, step, log, water crossing), this section must remain separate and must not merge with Section 4
+
+**Section 9 — False Reads & Misidentification**
+- What the feature looks like vs what it is: rider misread scenarios and their mechanisms
+- Camera/footage misclassification risks (expanding the frontmatter `common_misclassifications` in narrative form)
+- How conditions create visual ambiguity (e.g. wet rock garden that looks like a rut, berm that reads as off-camber)
+- Why prior experience on similar features creates calibration errors
+- Pipeline note: these scenarios directly inform when Stage 4 classification confidence should be reduced
+
+**Section 10 — Coaching Gates & Prerequisites**
+- Minimum prerequisite skills for each severity tier, with references to BIOMECH / CONTROL entries
+- Progression model: skill sequence for building safely from minor to major
+- "Do not coach up" thresholds: when Stage 9 (Decision Engine) should decline to recommend the next severity tier
+- Feeds Stage 9 coaching strategy mapping and Stage 11 safety validation
+- Future-proofing: each severity tier's skill prerequisites may be tagged with skill category labels (e.g. `balance_low_speed`, `clutch_throttle_coordination`) to prepare for the Skill Tag and Drill KB integration
+- For features with limited realistic severity range (beam, roots), the out-of-scope tiers compress to stubs with explicit coaching gate notes
+
+**Section 11 — Feature Demands / Constraints**
+- Minimum technique required for safe execution — references only, not duplication
+- Equipment considerations relevant to this feature (tyre type, suspension setup, bike geometry)
+- Out-of-scope content with explicit pointers to where those topics live
+
+---
+
+### Adaptation Rules
+
+The following rules govern how default sections may be adapted. Apply consistently across all 14 feature entries.
+
+- **Rename rule:** Default sections may be renamed to reflect the feature type. Document the rename in the section heading: `## 6. Entry Discipline (adapted from Approach & Setup)`. Same pattern as Terrain KB rock entry renaming Section 6 to "Rock Line Navigation".
+- **Merge rule:** Sections 6+4 or 8+4 may merge for simple minor-severity features where approach or exit content is thin. Document with a one-line note at the top of the merged section. Merge is **not permitted** for timing-dependent features: jump, drop, step, log, water crossing.
+- **Omission rule:** A default section may be omitted if the content genuinely does not exist for this feature type. Document with a one-line omission note in the entry header.
+- **Emphasis by feature class:** Sections 6 and 8 are higher priority for single-event features (discrete commitment and recovery moments). Section 7 is higher priority for continuous features (surface conditions affect technique throughout the section). Same structure, different emphasis.
+
+---
+
+### Author Guidance — Edge Cases
+
+These edge cases require special handling during entry generation. They are guidance notes, not schema constraints.
+
+1. **Rut / Terrain KB overlap:** Feature KB covers geometry — rut depth, entry/exit dynamics, line lock-in, wall compliance. Terrain KB covers surface physics. Scope boundary must be stated explicitly in the `scope` frontmatter field and in Section 7. Do not duplicate mud or clay physics in the rut feature entry.
+
+2. **Rock Garden / Terrain KB overlap:** Feature KB covers sequential obstacle navigation (geometry, line selection, momentum management through discrete obstacles). TERRAIN-03 covers surface physics. Dual-retrieval is expected and correct. Scope boundary must be explicit in both entries' `scope` fields and `related_topics`.
+
+3. **Whoops severity:** Whoops severity is strongly speed-dependent — the same whoops at 15mph vs 40mph require fundamentally different technique and produce different failure modes. Define severity by the gap between the rider's current capability and the feature's speed requirement, not by whoops size alone. The `severity_definition` frontmatter for this entry requires more nuanced language than other entries.
+
+4. **Berm — assistance vs hazard:** Berm is the only planned feature where the terrain structure provides active assistance rather than presenting a hazard. Failure modes are leaving the berm and under-committing, not surviving it. Section 3 (Bike Behaviour) inverts the typical pattern — centripetal force is beneficial. Section 4 emphasises using the berm. This is a tonal difference, not a schema problem.
+
+5. **Elevated beam scope:** This entry covers natural and competition obstacles (log crossings, natural elevated beams in extreme enduro) only. It explicitly excludes drill-practice setups (workshop beams, pallet stacks), which are handled by the future Training System via drill KB and upload UX flagging. State this boundary in the `scope` frontmatter field. Section 10 must be conservative — do not coach up without confirmed balance and precision placement prerequisites.
 
 ---
 
@@ -412,9 +525,11 @@ content_metadata:
 | `severity_definition` block | — | ✓ | — | Mandatory; 4 lines, consistent across all feature entries |
 | `typical_body_position` | — | ✓ | — | (not metadata — informational only) |
 | `causal_patterns` list | — | — | ✓ | trigger/mechanism/immediate_effect/likely_consequences/corrective_counterfactual |
-| Section 2 renamed | Surface Physics & Traction | Feature ID & Properties | Physics Explanation | |
-| Section 3 renamed | Condition & Gradient Variations | Technique by Severity | Input → Response Mapping | |
-| Section 4 Pipeline ID subsection | ✓ + Observability Notes | ✓ + Observability Notes | ✓ + Observability Notes + Causal Chain Patterns | |
+| Section 2 renamed | Surface Physics & Traction | Feature Forms & Variants (v1.2) | Physics Explanation | Feature KB v1.2: sections 1–11 replace the prior 9-section structure |
+| Section 3 renamed | Condition & Gradient Variations | Bike Behaviour (v1.2) | Input → Response Mapping | Feature KB v1.2: Section 3 is bike physics only; Technique by Severity is Section 4 |
+| Section 4 Pipeline ID subsection | ✓ + Observability Notes | ✓ Section 5 + Observability Notes (v1.2) | ✓ + Observability Notes + Causal Chain Patterns | Feature KB v1.2: Pipeline ID + Observability Notes are mandatory subsections of Section 5 |
+| `feature_class` field | — | ✓ | — | `single_event \| continuous` — in `pipeline_contract` block |
+| 11-section body structure | Already ✓ (v1.1) | ✓ v1.2 (5 mandatory / 6 default) | — | Feature KB now matches Terrain KB rigour; full section list and rules in Schema 2 |
 
 ---
 
