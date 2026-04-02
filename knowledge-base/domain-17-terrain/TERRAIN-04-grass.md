@@ -12,7 +12,7 @@ retrieval_triggers:
     stage6_failure_types: [traction, line_choice, decision]
     stage4_gradient: [gentle_up, moderate_up, steep_up, gentle_down, moderate_down, steep_down]
     stage4_surface_condition: [wet, damp, dry]
-    scenario_cues: [dry_grass, wet_grass_short, wet_grass_long, damp_grass, grass_over_soft_ground, worn_grass_trail, frost_grass]
+    scenario_cues: [dry_grass, wet_grass_short, wet_grass_long, damp_grass, grass_over_soft_ground, worn_grass_trail, frost_grass, long_overgrown_grass]
   CONTEXTUAL:                           # Background context — retrieve when no closer match
     stage3_intent_category: [trail_ride, climb, descent, race_section]
     stage4_features_detected: [rut]
@@ -39,6 +39,7 @@ content_metadata:
     - frost_grass
     - grass_over_soft_ground
     - worn_grass_trail
+    - long_overgrown_grass
   conditions_covered: [dry, damp, wet, frozen]
   traction_range:
     dry: moderate_to_high   # Variable: well-rooted sward = high; sparse grass over soil = moderate
@@ -104,6 +105,8 @@ Grass also conceals sub-surface terrain features. Ruts, holes, root systems, emb
 **Grass over soft ground** — When the substrate below the grass layer is soft, wet, or saturated, the traction equation shifts. The tyre penetrates through the grass layer under load and engages primarily with the soft soil below. This transitions the effective surface behaviour from grass to soft ground — closer in physics to mud than to hardpack. The initial wheel pass may feel like normal wet grass, but repeated passes drive the tyre deeper into the soft substrate, and the surface degrades rapidly from the grass-state to a churned soft-ground state. This is the primary degradation path for heavily trafficked grassy events: the first pass behaves as wet grass, subsequent passes behave as mud. Stage 4 should consider both `surface.primary_type: grass` and `surface.primary_type: mud` for soft-ground grass states — whichever is dominant in the specific footage.
 
 **Worn grass trail** — A defined trail corridor through which grass has been largely removed by repeated wheel passes. The surface is compacted earth or hardpack with residual grass at the trail edges and occasional grass patches across the trail line. Traction characteristics are primarily those of the exposed substrate (hardpack or compacted soil) rather than the grass layer. Visually similar to hardpack at distance; distinguishable by grass-fringe edges and occasional green patches across the trail. Traction is higher than wet grass but subject to contamination from adjacent grassy surface under wet conditions — the trail edge is still wet grass, and line deviation onto the grass fringe carries the full wet-grass traction risk.
+
+**Long overgrown grass** — Tall or dense grass that obscures the ground surface entirely, typically blade height over 30–40 cm or dense low scrub mixed with grass. The primary hazard is not traction but visibility: the rider cannot see any underlying terrain features — ruts, holes, rocks, camber changes, or drainage channels — because the grass cover is complete. This creates a delayed-reaction scenario in which hazards are only detected at the moment of contact, not during approach. Even in dry conditions, when traction itself is adequate, the risk remains high due to hidden geometry — a concealed rut or hole cannot be avoided because it cannot be seen. When wet, the visibility failure combines with the traction failure from the wet grass layer, compounding difficulty through two independent mechanisms simultaneously. This state is fundamentally different from wet_grass_short, where the primary failure mode is traction loss on a visible surface; in long overgrown grass, the primary failure mode is encountering an unseen terrain feature. Common in UK countryside riding, unused trail sections, and seasonal overgrowth conditions on green lanes and hillside tracks between summer and autumn. The coaching implication is qualitatively different from other grass states: traction management techniques address the wet_grass states; long overgrown grass requires a speed constraint informed by zero terrain visibility — the rider must be slow enough that any hidden hazard contact is survivable rather than trying to navigate a surface they cannot see. See Section 6 (Hidden Sub-Surface Hazards) for the full treatment of concealed terrain features under grass cover.
 
 ---
 
