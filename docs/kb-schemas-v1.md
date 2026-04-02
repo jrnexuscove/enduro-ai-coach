@@ -50,6 +50,8 @@ Tags must use YAML list format: `tags: [mud, traction, ruts]` — not comma-sepa
 **File naming:** `terrain-[N]_[surface-type]-profile.md`  
 **Topic ID pattern:** `TERRAIN-[N]`
 
+> **Reference implementation:** `knowledge-base/domain-17-terrain/` — all 10 first-wave entries complete (TERRAIN-01 mud through TERRAIN-10 mixed), built to this schema. Use these files as the quality benchmark when reviewing Feature KB and Bike Dynamics KB entries.
+
 ### Frontmatter Template
 
 ```yaml

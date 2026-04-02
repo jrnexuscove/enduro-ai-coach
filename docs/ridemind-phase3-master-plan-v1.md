@@ -505,30 +505,54 @@ No work proceeds past a gate until it is explicitly approved.
 
 ## 6. Current Execution State
 
-Gates 1 and 2 are both passed. The pipeline architecture (11 stages) and KB entry schemas are locked. Work proceeds in this order:
+Gates 1 and 2 are both passed. The pipeline architecture (11 stages) and KB entry schemas are locked.
 
-### Step 1: Generate Priority KB Entries (P0 — Now)
+### Completed: Terrain KB (Domain 17)
 
-Generate the first 4 KB entries needed to support validation against the milestone clips:
+All 10 Terrain KB entries have been generated and committed to `knowledge-base/domain-17-terrain/`:
+- TERRAIN-01 mud through TERRAIN-10 mixed
+- Schema v1.1 used throughout (11-section body, 3-block frontmatter, 5 mandatory sections)
+- Quality validated via dual review (Claude + ChatGPT) on rock, grass, clay, and mixed entries
+- All entries status: draft — not yet validated against pipeline runs
 
-1. `terrain-01_rock` — Rock/shale surface properties, traction behaviour, gradient effects
-2. `dynamics-01_weight-distribution` — Weight distribution physics, fore/aft effects on traction and handling
-3. `feature-01_jump` — Jump identification, demands, failure modes, coaching notes
-4. `dynamics-02_throttle-management` — Throttle control across surfaces, 2T vs 4T behaviour
+### Open Decision: Dynamics KB Structure
 
-These four entries are the minimum needed to exercise stages 4, 6, 7, and 8 meaningfully on Colin Hill and Mark Crash.
+Before Dynamics KB generation can begin, one structural decision must be resolved:
+
+**Option A — New domain folder:** Generate 6 new files in `knowledge-base/bike-dynamics/` using the Dynamics KB schema from `docs/kb-schemas-v1.md`.
+
+**Option B — Upgrade existing entries:** Add pipeline frontmatter (`pipeline_contract`, `retrieval_triggers`, `causal_patterns`) to the 26 existing files in Domain 02 (Bike Control) and Domain 03 (Bike Dynamics).
+
+This decision affects scope, effort, and whether existing technique KB entries gain pipeline integration. Must be resolved before Dynamics KB generation begins.
+
+### Step 1: Finalise Feature KB Entry List (P0 — Now)
+
+Before generating Feature KB entries, the entry list must be finalised. Key grouping decisions:
+
+- **step_up + step_down** — one combined entry or two separate?
+- **gully + ledge** — one combined entry or two separate?
+- **roots** — TERRAIN-07 covers roots as a surface; does roots need a Feature KB entry?
+- Estimated 8–10 entries total
+
+### Step 2: Generate First Feature KB Entries (P0 — After Step 1)
+
+Generate the first 2 Feature KB entries for schema validation:
+1. `feature-01_jump` — Jump identification, demands, failure modes, coaching notes
+2. `feature-02_switchback` — Switchback identification, demands, failure modes
+
+Validate against Colin Hill and Mark Crash ground truth before proceeding to batch generation.
 
 For KB entry schemas and templates, see `docs/kb-schemas-v1.md`.
 
-### Step 2: Validate KB Entries (P0 — After Step 1)
+### Step 3: Batch Remaining Feature KB Entries (P0 — After Step 2)
 
-Review the 4 generated KB entries against:
-- Colin Hill ground truth (terrain and failure type)
-- Mark Crash ground truth (crash type and safety flags)
+Generate remaining Feature KB entries based on the finalised entry list (~6–8 remaining after Step 2).
 
-Flag any entries where the content would produce incorrect retrieval or coaching.
+### Step 4: Resolve Dynamics KB Structure and Generate Entries (P1 — After Step 3)
 
-### Step 3: Build Pipeline Stages 1–4 (P1 — After Step 2)
+Resolve the open decision (new files vs upgrade existing Domain 02/03), then generate or upgrade Dynamics KB entries accordingly.
+
+### Step 5: Build Pipeline Stages 1–4 (P1 — After Step 4)
 
 Implement the first four stages as TypeScript functions with structured JSON output:
 
@@ -539,7 +563,7 @@ Implement the first four stages as TypeScript functions with structured JSON out
 
 Wire stages 1–4 into a test script that can process a single clip and produce structured output.
 
-### Step 4: Early Validation on Milestone Clips (P2 — After Step 3)
+### Step 6: Early Validation on Milestone Clips (P2 — After Step 5)
 
 Run stages 1–4 on Colin Hill and Mark Crash. Assess:
 - Is camera perspective correctly detected?
@@ -671,3 +695,4 @@ These Phase 2 failures are unacceptable in Phase 3:
 | 1.0 | 2026-04-01 | Initial Phase 3 Master Plan |
 | 1.1 | 2026-04-01 | Added approval gates (Gate 1, 2, 3). Cross-checked with independent reviewer. |
 | 1.2 | 2026-04-01 | Updated to 11-stage pipeline: added Stage 3 (Rider Intent) and Stage 9 (Decision Engine). Added audio cross-cutting note, multi-model deferral note, Decision Engine v1 outputs, milestone clips. Gate 1 + Gate 2 PASSED. References to pipeline-contracts-v1.md and kb-schemas-v1.md. Execution plan updated to reflect current state. |
+| 1.3 | 2026-04-02 | Terrain KB complete (10 entries, Domain 17). Feature KB is now P0. Dynamics KB open decision documented (new files vs upgrade existing Domain 02/03). Section 6 execution steps updated to reflect current position. |

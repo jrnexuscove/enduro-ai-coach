@@ -1,6 +1,6 @@
 # RideMind — Backlog
 
-**Last updated:** 2026-04-01
+**Last updated:** 2026-04-02
 **Current phase:** Phase 3 — Reasoning Pipeline + KB Build
 **Master plan:** `docs/ridemind-phase3-master-plan-v1.md`
 
@@ -20,10 +20,9 @@
 
 | ID | Category | Task | Status | Blocked By |
 |----|----------|------|--------|------------|
-| K0a | KB | Generate terrain-01_rock KB entry | Not started | — |
-| K0b | KB | Generate dynamics-01_weight-distribution KB entry | Not started | — |
-| K0c | KB | Generate feature-01_jump KB entry | Not started | — |
-| K0d | KB | Generate dynamics-02_throttle-management KB entry | Not started | — |
+| FKB-1 | KB | Finalise Feature KB entry list (decide groupings: step_up+step_down, gully+ledge; confirm roots vs TERRAIN-07) | Not started | — |
+| FKB-2 | KB | Generate first 2 Feature KB entries (jump + switchback) for schema validation | Not started | FKB-1 |
+| FKB-3 | KB | Review first 2 entries; batch remaining Feature KB entries (~6–8 total) | Not started | FKB-2 |
 | T5 | Testing | Define Phase 3 scoring framework (finalised 12 metrics) | Not started | — |
 | T6 | Testing | Create ground truth document for all 8 Phase 2 clips | Not started | — |
 
@@ -44,10 +43,12 @@
 
 | ID | Task | Status | Blocked By |
 |----|------|--------|------------|
-| K1 | Write Terrain KB — 10 core surface files | Not started | Gate 1, Gate 2 |
-| K2 | Write Terrain Feature KB — 8 core feature files | Not started | Gate 1, Gate 2 |
-| K3 | Write Bike Dynamics KB — 6 core concept files | Not started | Gate 1, Gate 2 |
-| K5 | Review/QA pass on all new KB files | Not started | K1, K2, K3 |
+| K2 | Write Terrain Feature KB — 8–10 entries | Not started | FKB-1 |
+| DYN-D | Resolve Dynamics KB structure decision: new domain folder (6 files) vs upgrade Domain 02/03 (26 files) | Not started | — |
+| K0b | Generate dynamics-01_weight-distribution KB entry | Not started | DYN-D |
+| K0d | Generate dynamics-02_throttle-management KB entry | Not started | DYN-D |
+| K3 | Write Bike Dynamics KB — remaining entries | Not started | DYN-D, K0b, K0d |
+| K5 | Review/QA pass on all new KB files | Not started | K2, K3 |
 | K6 | Internet-source validation for physics claims | Not started | K3 |
 
 ### Pipeline / Engineering — Stages 1–4 (Build First)
@@ -103,6 +104,15 @@
 | K10 | Migrate existing technique KB (154+ files) to database | Not started | A2 |
 | K11 | Migrate new KBs to database | Not started | A2, K1–K3 |
 
+### Domain 16 — Machine Characteristics & Bike Profiles
+
+| ID | Task | Status | Blocked By |
+|----|------|--------|------------|
+| D16-1 | Design Domain 16 schema (four-layer architecture: platform family → model-specific → fueling/generation → rider mods) | Not started | K2, K3 |
+| D16-2 | Generate Domain 16 entries (rider mods layer deferred post-MVP) | Not started | D16-1 |
+
+> Domain 16 is a different KB type from terrain/features/dynamics — structured bike data, not coaching content. No schema exists yet in `docs/kb-schemas-v1.md`. Deferred until Feature and Dynamics KBs are complete.
+
 ### Engineering — Reliability
 
 | ID | Task | Status | Blocked By |
@@ -120,10 +130,24 @@
 
 ---
 
+## P3 — Non-Blocking Improvements
+
+| ID | Task | Status | Notes |
+|----|------|--------|-------|
+| NB-1 | Formalise Stage 11 safety constraint pattern in `docs/pipeline-contracts-v1.md` | Not started | Pattern used by clay and roots KB entries; needs formal definition in contracts |
+| NB-2 | Standardise failure chain naming convention across all KB entries | Not started | Inconsistent naming found during terrain KB review |
+| NB-3 | Promote "hidden hazard" to a formally defined reusable pattern in `docs/kb-schemas-v1.md` | Not started | Currently appears informally in grass, sand, clay, mixed entries |
+| NB-4 | Fix tags format in TERRAIN-01 and TERRAIN-02 (comma-separated string → YAML list) | Not started | Schema v1.1 requires YAML list format; these two entries predate the rule |
+| NB-5 | Confirm rock garden clarification line was added to TERRAIN-03 | Not started | Flagged during terrain KB review |
+
+---
+
 ## Completed
 
 | ID | Task | Completed |
 |----|------|-----------|
+| K1 | Write Terrain KB — 10 core surface files (Domain 17, TERRAIN-01 to TERRAIN-10) | 2026-04-02 |
+| K0a | Generate terrain-01_rock KB entry (included in K1) | 2026-04-02 |
 | K4 | Define KB entry schemas for all 3 new KBs (Gate 2) | 2026-04-01 |
 | A1 | Define pipeline stage JSON contracts (Gate 1) | 2026-04-01 |
 | K12 | Cross-check Colin Hill Phase 2 scores from local saved data | 2026-04-01 |
@@ -137,7 +161,7 @@
 
 ## Domain 18: Rider Skills & Technique Execution
 
-- **Status:** Not started � schema design required
+- **Status:** Not started � schema design required
 - **Blocked by:** Terrain and Feature KB generation complete
 - **Priority:** Required before real user testing
 - **Description:** New KB domain covering deliberate skill practice clips (not trail scenarios). Handles uploads where riders are practicing specific techniques rather than riding terrain. Pipeline routes to this KB via Stage 3 (Rider Intent) when the clip is identified as skill practice rather than trail riding.
@@ -148,4 +172,4 @@
   4. Standing Balance / Slow Speed Control (static balance, track stands, slow manoeuvring)
   5. Precision Placement (hopping onto objects, pallet exercises, log rides, beam riding)
   6. Jumping Technique (body position, throttle at lip, air awareness, landing execution)
-- **Architecture note:** Requires own schema � structurally different from terrain and feature KBs. Cross-references Domain 02 (control inputs) and Domain 03 (bike dynamics) for mechanics, but this domain covers execution, common errors, and coaching cues for deliberate practice.
+- **Architecture note:** Requires own schema � structurally different from terrain and feature KBs. Cross-references Domain 02 (control inputs) and Domain 03 (bike dynamics) for mechanics, but this domain covers execution, common errors, and coaching cues for deliberate practice.

@@ -1,6 +1,6 @@
 # CLAUDE.md — RideMind Project Context
 
-**Last updated:** 2026-04-01
+**Last updated:** 2026-04-02
 
 ## What is RideMind?
 
@@ -18,7 +18,9 @@ RideMind is a **physics-aware, terrain-aware, machine-aware riding intelligence 
 - Phase 3 master plan is **complete** and saved at `docs/ridemind-phase3-master-plan-v1.md`
 - **Gate 1 PASSED (2026-04-01)** — 11-stage pipeline approved with reconciliations. Contracts at `docs/pipeline-contracts-v1.md`
 - **Gate 2 PASSED (2026-04-01)** — KB schemas approved with cleanup corrections. Schemas at `docs/kb-schemas-v1.md`
-- **Next step:** Generate first 4 priority KB entries (terrain-01_rock, dynamics-01_weight-distribution, feature-01_jump, dynamics-02_throttle-management), then validate against Colin Hill and Mark Crash. After that, build pipeline stages 1–4.
+- **Terrain KB (Domain 17) — COMPLETE** — 10 entries generated and committed (TERRAIN-01 mud through TERRAIN-10 mixed). Dual-reviewed on rock, grass, clay, and mixed entries. All entries status: draft (not yet validated against pipeline runs).
+- **OPEN DECISION — Dynamics KB structure:** New domain folder (6 new files) vs upgrade existing Domain 02/03 entries with pipeline frontmatter (26 upgraded files). Must resolve before generation begins.
+- **Next step:** Finalise Feature KB entry list (decide groupings), then generate first 2 entries (jump + switchback) for schema validation.
 
 ### Key Phase 2 Findings
 
@@ -62,7 +64,7 @@ docs/                   # All planning, architecture, and strategy docs (flat st
 knowledge-base/
   domain-01-*/          # Existing technique KB (15 domains, 154+ topics)
   ...
-  terrain/              # NEW — Terrain KB (to be created)
+  domain-17-terrain/    # Terrain KB — COMPLETE (10 entries: TERRAIN-01 to TERRAIN-10)
   features/             # NEW — Terrain Feature KB (to be created)
   bike-dynamics/        # NEW — Bike Dynamics KB (to be created)
 scripts/
