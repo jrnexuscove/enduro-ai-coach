@@ -26,7 +26,7 @@ content_metadata:
     for log crossings — discrete cylindrical horizontal obstacles (fallen trees, logs,
     branches) that cross the trail and must be ridden over. Does NOT cover riding
     along a narrow elevated surface (see beam / narrow elevated surface feature), root crossings as a grouped
-    obstacle type (see FEATURE-06), step features with flat faces ridden at low speed
+    obstacle type (see roots feature entry), step features with flat faces ridden at low speed
     (see FEATURE-04), standing technique fundamentals (see BIOMECH-01), or clutch
     and throttle mechanics (see CONTROL-01)."
   status: draft
