@@ -347,7 +347,10 @@ Before committing any new `terrain_feature` entry, run this check:
 10. **Compression check**
     Does this entry pass the four compression tests (crib sheet, duplication, retrieval value, training data)? Are Sections 1, 3, 4, 6, and 8 free of restated concepts and explanatory prose that does not change coaching output?
 
-No new feature should be committed until all ten checks pass.
+11. **Redundant content check**
+    Entries must not contain redundant prose, duplicated sections, or filler content. Every section must earn its place through coaching relevance or pipeline utility.
+
+No new feature should be committed until all eleven checks pass.
 
 ---
 
