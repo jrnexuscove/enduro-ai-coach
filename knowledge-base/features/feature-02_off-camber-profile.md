@@ -60,6 +60,10 @@ content_metadata:
 
 Off-camber terrain is any surface where the ground slopes laterally relative to the rider's direction of travel, tilting the bike and rider toward the outside or downhill edge. The defining characteristic is a sustained lateral gravitational component acting on the bike's centre of mass, pulling it sideways off the intended line. Unlike a jump where the critical event is a single moment at the lip, off-camber is a continuous exposure feature — the lateral force acts throughout the section and accumulates consequence over time and distance.
 
+**Primary Observable Signature:** Sustained lateral slope requiring visible counter-lean, uphill weighting, or line-holding against downhill drift.
+
+**Dominant Risk Axis:** Lateral traction depletion and fall-line drift toward the downhill edge.
+
 ### Physical Zones — Entry / Extent / Exit
 
 **Entry zone:** The transition from neutral or favourable camber into the off-camber section. This is where the lateral force begins and where the rider must establish the weight distribution, lean angle, and speed that will sustain them through the section. On well-defined trails, the entry may be gradual — the trail surface tilts progressively over several metres. On natural terrain, the entry can be abrupt: a trail contouring around a hillside may transition to full off-camber within a single bike length.
@@ -254,6 +258,15 @@ Major off-camber severity is defined by the feature geometry and conditions rath
 
 ## 5. Interaction Patterns & Failure Triggers *(MANDATORY)*
 
+**Expected Outcome Patterns:**
+- stable traverse
+- controlled foot-down recovery
+- progressive lateral drift
+- line loss to downhill edge
+- lowside
+- tip-over
+- bail / dismount uphill
+
 ### Failure Chain: Progressive Lateral Drift (traction / line_choice)
 
 **Trigger:** Rider enters off-camber traverse on a wet or loose surface at the uphill edge of the trail.
@@ -400,6 +413,11 @@ Standing with uphill peg weighting must be established before the camber begins.
 **Frost:** Near-zero traction in all directions. Off-camber frosted terrain is effectively unrideable at any meaningful severity — the gravitational lateral component exceeds available friction at angles as low as 5–8°. The coaching response for frosted off-camber should be a decision-level constraint: dismount or avoid.
 
 **Seasonal context:** Spring conditions in the UK combine maximum moisture with soft ground and active vegetation growth (wet grass). This is the peak period for off-camber failures. Autumn conditions may produce drier surfaces but with leaf cover that acts as a lubricant on otherwise grippy terrain.
+
+**Compounding Risk:**
+- Off-camber entering directly into a braking zone or descent sharply increases combined traction demand.
+- Off-camber combined with surface transition mid-section magnifies line-holding failure risk.
+- Off-camber immediately after landing or major impact event increases instability before recovery is complete.
 
 ---
 

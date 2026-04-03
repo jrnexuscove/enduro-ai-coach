@@ -56,6 +56,10 @@ content_metadata:
 
 A jump is any terrain geometry where an ascending ramp or compression face launches the motorcycle and rider into an airborne state. The defining characteristic is **airtime** — a period where neither wheel is in contact with the ground, and the rider's ability to influence trajectory is reduced to body weight shifts and rear brake input only. Throttle, front brake, and steering have no meaningful effect without ground contact. The critical inputs must be completed before the launch point; corrections available during airtime are extremely limited.
 
+**Primary Observable Signature:** Visible airborne phase with tyre-to-ground separation after launch from ramp, compression, or lip geometry.
+
+**Dominant Risk Axis:** Pitch attitude at takeoff and landing impact severity.
+
 ### Physical Zones
 
 **Approach zone:** The section of trail or track leading to the jump face. This is where the rider sets entry speed, selects gear, establishes body position, and commits to the feature. The approach zone ends at the base of the jump face. On natural terrain, the approach zone may be poorly defined — the rider may not recognise they are approaching a launch feature until they are already on the face.
@@ -88,6 +92,8 @@ Surface technique alone cannot solve a jump. Unlike every other terrain feature 
 
 ## 2. Feature Forms & Variants *(MANDATORY)*
 
+> **Classification hard rule:** If sustained ground contact is maintained throughout the feature, it is NOT a jump regardless of geometry.
+>
 > **Classification rule:** A feature belongs in the Jump KB when the defining event is launch into meaningful airtime from ramp or compression geometry. It belongs in the Steps/Ledges KB (FEATURE-07/08) when the defining event is wheel placement against a vertical face under sustained ground contact. It belongs in the Drop KB (FEATURE-02) when the defining event is purely downward transition with no upward launch trajectory. Speed can transform a step_up into a jump — the classification is determined by the dominant event in the footage, not by the terrain geometry alone.
 
 ### Natural Compression / Roller
@@ -242,6 +248,15 @@ Every dynamic described above scales with speed. A nose-up pitch at low speed on
 
 ## 5. Interaction Patterns & Failure Triggers *(MANDATORY)*
 
+**Expected Outcome Patterns:**
+- clean landing
+- nose-heavy landing
+- rear-heavy landing
+- case / knuckle impact
+- overshoot
+- crash after landing
+- bail before launch
+
 ### Failure Chain: Insufficient Approach Speed (momentum failure)
 
 **Trigger:** Rider enters the approach zone below the speed required to clear the feature or reach the intended landing zone.
@@ -266,7 +281,7 @@ Every dynamic described above scales with speed. A nose-up pitch at low speed on
 
 **Trigger:** Rider accelerates while on the jump face, either deliberately (trying to "boost" the jump) or reactively (target fixation on the lip).
 
-**Mechanism:** Throttle application on the face compresses the rear shock under power (rear squat) while increasing exit speed. Combined with the rearward weight transfer from sustained drive, the rider's centre of mass shifts behind the bike's natural balance point. At the lip, the loaded shock rebounds — this rebound energy adds to the launch force and, combined with the rearward CoG, tends to produce an aggressive nose-up pitch as the bike departs. The exact pitch outcome depends on face angle, rebound timing, and speed, but the general pattern for sustained throttle on the face is nose-up departure.
+**Mechanism:** Throttle application on the face compresses the rear shock under power (rear squat) while increasing exit speed. Combined with the rearward weight transfer from sustained drive, the rider's centre of mass shifts behind the bike's natural balance point. At the lip, the loaded shock rebounds — this rebound energy adds to the launch force and, combined with the rearward CoG, tends to produce an aggressive nose-up pitch as the bike departs. The exact pitch outcome depends on face angle, rebound timing, and speed, but the general pattern for sustained throttle on the face is nose-up departure. This describes the common failure pattern for sustained throttle application on the face; see Section 3 for the fuller interaction model, including suspension timing and face-profile variation.
 
 **Outcome:** Nose-up airtime followed by rear-heavy landing. Severity depends on the magnitude of throttle input and the jump size — on minor jumps, this produces a sharp rear landing; on significant jumps, this can produce full nose-vertical attitude and rear-first impact at height.
 
@@ -403,6 +418,10 @@ Gear selection must be completed in the approach zone. The correct gear maintain
 **Frozen conditions:** Harden the surface dramatically, producing sharper lip geometry and harsher landings. Frozen mud surfaces that are normally soft become rock-like. Frozen conditions also reduce traction on the face and landing.
 
 **Dusty conditions:** Reduce visibility of the lip geometry and landing zone. Dust kicked up by the front wheel on the face may obscure the lip from the rider. Surface traction is generally good but the visual penalty can cause the rider to misjudge the feature.
+
+**Compounding Risk:**
+- Landing onto off-camber terrain sharply increases lateral instability and crash likelihood on contact.
+- Jump followed immediately by a braking zone, turn, or technical obstacle reduces recovery margin and compounds consequence.
 
 ---
 
