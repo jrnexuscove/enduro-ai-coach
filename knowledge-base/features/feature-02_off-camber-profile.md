@@ -58,201 +58,149 @@ content_metadata:
 
 ## 1. Feature Geometry & Physics *(MANDATORY)*
 
-Off-camber terrain is any surface where the ground slopes laterally relative to the rider's direction of travel, tilting the bike and rider toward the outside or downhill edge. The defining characteristic is a sustained lateral gravitational component acting on the bike's centre of mass, pulling it sideways off the intended line. Unlike a jump where the critical event is a single moment at the lip, off-camber is a continuous exposure feature — the lateral force acts throughout the section and accumulates consequence over time and distance.
+Off-camber terrain slopes laterally relative to the rider's direction of travel, applying a continuous gravitational component pulling the bike toward the downhill edge. Unlike single-event features, off-camber is a **continuous exposure feature** — the lateral force acts throughout the section and accumulates consequence over time and distance.
 
-**Primary Observable Signature:** Sustained lateral slope requiring visible counter-lean, uphill weighting, or line-holding against downhill drift.
+**Primary Observable Signature:** Sustained lateral slope requiring visible counter-lean, uphill weighting, or active line-holding against downhill drift.
 
 **Dominant Risk Axis:** Lateral traction depletion and fall-line drift toward the downhill edge.
 
-### Physical Zones — Entry / Extent / Exit
+### Physical Zones
 
-**Entry zone:** The transition from neutral or favourable camber into the off-camber section. This is where the lateral force begins and where the rider must establish the weight distribution, lean angle, and speed that will sustain them through the section. On well-defined trails, the entry may be gradual — the trail surface tilts progressively over several metres. On natural terrain, the entry can be abrupt: a trail contouring around a hillside may transition to full off-camber within a single bike length.
+**Entry zone:** Where the rider must establish correct weight distribution, lean angle, and speed before the lateral force begins. The transition to full off-camber angle can be gradual or abrupt — on natural terrain, full off-camber may begin within one bike length.
 
-**Extent zone:** The sustained off-camber section where the lateral slope is continuous. This is the exposure duration — the period during which the rider must maintain active balance against the lateral force. The extent may be a few metres on a tight trail corner or hundreds of metres on a hillside traverse. Difficulty compounds with distance: fatigue, micro-corrections, and minor traction events accumulate. Unlike single-event features where difficulty concentrates at one moment, off-camber difficulty is distributed across the full extent with no natural rest point.
+**Extent zone:** Sustained off-camber with no natural rest point. Difficulty compounds with distance: fatigue, micro-corrections, and minor traction events accumulate throughout.
 
-**Exit zone:** The transition back to neutral camber or to a different terrain feature. The exit may be a relief (camber flattens) or a compounded challenge (off-camber exits into a corner, obstacle, or gradient change). If the rider has been compensating heavily through the section — leaning uphill, weighting the inside peg — the exit can produce an overcorrection as the lateral force disappears and the compensating body position is suddenly excessive for the neutral surface that follows.
+**Exit zone:** Transition back to neutral camber. An abrupt exit can produce overcorrection — the rider continues counter-leaning after the camber has flattened. If the exit leads to a corner, obstacle, or gradient change, the traction management transition must be active.
 
-### Force Vectors
+### Key Mechanic: Traction Budget
 
-Gravity acts vertically downward on the combined bike-rider centre of mass. On flat terrain, the ground's normal force acts directly upward — the two forces balance and no lateral component exists. On off-camber terrain, the ground surface is tilted, so the normal force acts perpendicular to the slope rather than vertically upward. The difference between gravitational pull (straight down) and the ground's reaction force (perpendicular to the slope) produces a net lateral force component that pushes the tyre contact patches toward the downhill edge.
-
-The rider's available traction must resist this lateral force to maintain the intended line. The traction budget has a fixed maximum determined by surface type, tyre compound, and wheel load. On off-camber terrain, a portion of this budget is consumed by resisting the lateral gravitational component, leaving less available for braking, acceleration, or directional changes. The steeper the off-camber angle, the greater the proportion of the traction budget consumed by lateral resistance, and the less remains for any other demand. This is why off-camber terrain punishes combined inputs — braking on off-camber adds a longitudinal traction demand to the lateral one, and the combined demand can exceed the total budget even at angles and speeds that would be manageable if only one demand were present.
-
-### Why This Creates a Distinct Riding Problem
-
-Off-camber is the only common feature type where gravity works continuously against the rider's intended line. On flat terrain, gravity loads the tyres vertically and assists traction. On off-camber, gravity pulls the bike sideways off the line. This lateral force is constant and unrelenting — the rider cannot "get past" it the way they can get past a rock, a jump, or a rut. Every metre of the section requires the same active resistance. The cumulative effect is that off-camber sections demand sustained concentration, sustained body position discipline, and sustained traction management over the full section length — a qualitatively different demand from the brief intensity of single-event features.
-
-The interaction with surface type is multiplicative rather than additive. Dry hardpack off-camber at 15° is a moderate challenge. Wet grass off-camber at 15° can be a significant or major challenge, because the available traction is dramatically lower while the lateral demand is identical. This surface-angle interaction is what makes off-camber the most common UK enduro failure geometry: UK conditions combine moderate slopes with wet grass, damp clay, and slippery root surfaces — surfaces that reduce traction precisely when lateral traction demand is highest.
+The off-camber lateral force consumes a portion of available traction throughout the section, leaving less for braking, acceleration, or directional changes. Combined inputs (e.g., braking on off-camber descent) are disproportionately risky because they draw on the same budget already partially committed to lateral resistance.
 
 ### Commitment & Reversibility Profile
 
-**Point of no return:** Unlike single-event features, off-camber has no single commitment point. The rider can typically stop or slow at any point in the section. However, stopping on off-camber terrain does not resolve the lateral force — the bike is still being pulled sideways while stationary. On steep or low-traction off-camber, stopping may be worse than continuing: a moving bike has gyroscopic stability that a stationary bike does not, and a stationary bike on steep off-camber will slide or tip. The commitment is therefore progressive rather than binary — the deeper into the section, the more committed, because turning around or reversing on off-camber is often more difficult than continuing.
+**Point of no return:** Progressive rather than binary — the deeper into the section, the more committed, because turning around on off-camber is often harder than continuing. On steep or low-traction off-camber, stopping may be worse than continuing: a stationary bike loses gyroscopic stability while the lateral force remains.
 
-**Recovery window:** The recovery window for off-camber is the full section width — the distance between the rider's current line and the downhill edge where recovery is no longer possible. Unlike a jump where the recovery window is temporal (measured in seconds of airtime), the off-camber recovery window is spatial (measured in metres of trail width available on the downhill side). The window narrows as the rider drifts downhill and widens if the rider can regain uphill position. On narrow trails with steep drop-offs on the downhill side, the recovery window may be as small as one metre — a single lateral drift event can consume it entirely.
+**Recovery window:** Spatial, not temporal — measured in metres of trail width between the rider's current line and the downhill edge. Narrows as the rider drifts downhill; widens only if the rider can actively regain uphill position.
 
-**Bailout options:** The primary bailout is stopping and dismounting uphill of the bike. On moderate off-camber, the rider can foot-down on the uphill side and stabilise. On steep off-camber, dismounting cleanly requires the bike to be stationary and the rider must exit uphill — exiting downhill places the rider below the bike with the bike potentially sliding down onto them. On extended off-camber with no flat rest points, the bailout may be retreating to the entry zone.
+**Bailout options:** Stop and dismount uphill of the bike. On moderate off-camber, foot-down on the uphill side and stabilise. On steep off-camber, exit uphill only — exiting downhill places the rider below the bike. On extended sections with no flat rest points, retreat to the entry zone.
 
 ---
 
 ## 2. Feature Forms & Variants *(MANDATORY)*
 
-> **Classification rule:** A feature classifies as off-camber when the defining challenge is sustained lateral slope working against the rider's intended line. It classifies as a berm when the lateral slope assists the rider's turn by providing inward banking. It classifies as a switchback when the defining challenge is the turn geometry itself, even if off-camber sections exist within the turn. Off-camber within a corner is covered here; the corner itself is covered in CORNER entries.
+> **Classification rule:** A feature classifies as off-camber when the defining challenge is sustained lateral slope working against the rider's intended line. It classifies as a berm when the lateral slope assists the rider's turn. It classifies as a switchback when the defining challenge is the turn geometry itself. Off-camber within a corner is covered here; the corner geometry is covered in CORNER entries.
 
 ### Hillside Traverse
 
-The most common off-camber form in UK enduro: a trail that contours horizontally across a hillside, with the uphill slope above the trail and the downhill slope below. The trail surface itself is tilted at the hillside angle (or close to it). The rider travels roughly perpendicular to the fall-line. The off-camber exposure is continuous for the full traverse length, which can be tens or hundreds of metres.
+Trail contouring horizontally across a hillside with continuous lateral tilt. Most common off-camber form in UK enduro. Exposure is continuous for the full traverse length — tens to hundreds of metres.
 
-**Visual identification:** Trail visible crossing a hillside at roughly constant elevation. The uphill edge of the trail is visibly higher than the downhill edge. The slope continues below the trail — the downhill edge is not the bottom of a feature but the edge of the hillside.
+**Visual identification:** Trail crossing hillside at roughly constant elevation. Uphill edge visibly higher than downhill edge. Slope continues below the trail.
 
-**Severity range:** Minor to major, determined primarily by slope angle and surface type. Dry hardpack at 10° is minor. Wet grass at 15° is moderate to significant. Any surface at 25°+ with exposure below the trail is significant to major.
+**Severity range:** Minor to major, set by slope angle and surface type. Dry hardpack at 10° = minor. Wet grass at 15° = moderate to significant. Any surface at 25°+ with exposure below = significant to major.
 
-**Distinct failure pattern:** Progressive lateral drift. The rider enters the traverse at the correct line (upper edge of the trail). Over the section length, repeated micro-slips on the off-camber surface move the line progressively downhill. The rider does not notice any single slip event — each is individually minor — but the accumulated drift moves the bike from the upper trail edge toward the lower edge. When the rider recognises the drift, they are now riding on the most off-camber part of the trail with the least available recovery width. Correction requires regaining uphill position, which demands more traction than maintaining the original line — traction that may not be available on the surface that caused the drift.
+**Distinct failure pattern:** Progressive lateral drift. Repeated micro-slips accumulate over section length without any single visible event. When the rider registers the drift, they are on the most off-camber part of the trail with the least recovery width. Correction requires more traction than the original line — traction that may not be available on the surface that caused the drift.
 
 ### Off-Camber Corner
 
-A corner where the road or trail surface slopes away from the apex — the opposite of a banked corner (berm). The outside edge of the turn is higher than the inside edge, or the entire trail surface tilts outward on a hillside. The cornering forces (centripetal demand pushing the bike outward) combine with the off-camber gravitational component (also pushing outward), producing a compounded lateral force that substantially exceeds either demand alone.
+Corner where the trail surface slopes away from the apex. Cornering forces (centripetal, pushing outward) and off-camber gravitational component (also outward) compound multiplicatively.
 
-**Visual identification:** A visible turn in the trail where the ground slopes away from the inside of the turn. The downhill side of the trail is on the outside of the corner. The rider must turn while the surface pushes them toward the outside — the opposite of a berm where the slope would assist the turn.
+**Visual identification:** Visible turn where the ground slopes away from the inside of the turn — downhill side is on the outside of the corner.
 
-**Severity range:** Moderate to major. Off-camber corners are rarely minor because the combination of cornering forces and camber forces is inherently multiplicative. Even gentle off-camber angles on dry surfaces create meaningful challenge when combined with cornering loads.
+**Severity range:** Moderate to major. Off-camber corners are rarely minor because the combined force compound is inherently significant.
 
-**Distinct failure pattern:** Front-wheel push to outside. The rider enters the corner at a speed and lean angle appropriate for a flat corner. The off-camber adds an outward gravitational component that the rider's lean angle does not account for. The front tyre's lateral traction budget is consumed by the combined cornering and camber demand. The front wheel pushes wide (understeers), tracking toward the outside edge of the trail rather than following the rider's steered line. On low-traction surfaces, this push develops gradually — the rider senses the front drifting but does not have enough lateral traction to correct it by adding lean. The result is either running wide (off the trail on the outside) or a lowside when the front tyre exceeds its lateral friction limit.
+**Distinct failure pattern:** Front-wheel push to outside. Rider's lean angle set for a flat corner does not account for the off-camber component. Front tyre's lateral budget exceeded → front pushes wide → lowside or run-wide on low-traction surfaces.
 
 ### Off-Camber Descent
 
-A downhill section where the trail surface is tilted laterally. The rider is managing both the downhill gradient and the off-camber angle simultaneously. Braking on a surface that is already consuming traction to resist lateral force creates a three-way traction demand: lateral resistance, longitudinal braking, and the weight-forward shift from deceleration that unloads the rear tyre (the tyre with the most lateral traction contribution from the rear footpeg weighting).
+Downhill section with lateral tilt. Braking creates a three-way traction demand: lateral resistance + longitudinal braking + weight-forward transfer that unloads the rear tyre.
 
-**Visual identification:** Trail descending at an angle with visible lateral tilt. The slope falls away both forward (descent) and sideways (off-camber). The downhill and lateral fall-lines are at an angle to each other — the bike wants to follow the combined fall-line (diagonally down the hill) rather than the trail.
+**Visual identification:** Trail descending with visible lateral tilt. Slope falls both forward (descent) and sideways (off-camber).
 
-**Severity range:** Moderate to major. The combination of gradient and off-camber is inherently compound. Even moderate gradient with moderate off-camber produces significant lateral drift risk under braking.
+**Severity range:** Moderate to major. Even moderate gradient with moderate off-camber produces significant lateral drift risk under braking.
 
-**Distinct failure pattern:** Rear-wheel lateral slide under braking. The rider brakes on the descent, shifting weight forward and unloading the rear tyre. The rear tyre, now carrying less weight, has reduced lateral traction resistance against the off-camber force. The rear wheel slides downhill while the front wheel (more loaded under braking) tracks straighter. The bike adopts an increasingly sideways attitude — the rear end slides downhill of the front end. If the rider does not release the brake and rebalance, the angle continues to increase until the rear swings fully around (spin-out) or the front washes out (lowside).
+**Distinct failure pattern:** Rear-wheel lateral slide under braking. Braking unloads the rear tyre, reducing its lateral friction. Rear slides downhill while front tracks straighter. Bike rotates — rear end moves downhill of front. Releasing the brake allows recovery at moderate severity; continued braking produces spin-out or lowside.
 
 ### Off-Camber Climb
 
-An uphill section with lateral tilt. Often lower immediate slide severity than off-camber descent because the climbing gradient naturally loads the rear wheel and the rear tyre is under drive traction rather than braking traction. However, severity can escalate sharply when drive demand, low traction, and exposure combine — a stalled climb on steep wet off-camber leaves the rider stationary on a slope with no gyroscopic stability and limited restart options. The failure mode shifts from lateral slide to front-wheel drift: the front wheel, lightly loaded on the climb and receiving the lateral gravitational force, drifts downhill while the rear wheel maintains drive traction on the uphill side.
+Uphill section with lateral tilt. Rear wheel heavily loaded under drive — typically lower immediate slide severity than descent. Escalates sharply on low-traction surfaces where drive demand and lateral resistance both compete for the rear tyre budget. A stalled climb on steep wet off-camber leaves the rider stationary with no gyroscopic stability.
 
-**Visual identification:** Trail climbing at an angle with visible lateral tilt. Less immediately obvious than off-camber descent because the rider's attention is focused on the climb difficulty rather than the lateral angle.
+**Visual identification:** Trail climbing with visible lateral tilt — less immediately obvious because rider focus is on the climb.
 
-**Severity range:** Minor to moderate in most conditions. Elevated to significant when combined with low-traction surfaces (wet grass, mud) or steep climbing gradients that demand high throttle (consuming rear traction budget for drive rather than lateral resistance).
+**Severity range:** Minor to moderate in most conditions. Significant on wet grass, mud, or steep gradients demanding high throttle.
 
-**Distinct failure pattern:** Front-wheel downhill wander. The lightly loaded front wheel on a climb does not resist the lateral gravitational force effectively. The rider steers for the intended line but the front tracks progressively downhill. Because the rear wheel is under drive traction and more heavily loaded, it continues to track the rider's power line — the bike gradually angles across the trail with the front end lower than the rear. On narrow trails, this wander moves the front wheel off the trail edge.
+**Distinct failure pattern:** Front-wheel downhill wander. Front lightly loaded on climb → lateral force drifts it downhill while rear under drive tracks the power line → bike angles across trail with front lower than rear.
 
 ### Rutted Off-Camber
 
-Off-camber terrain with ruts running approximately along the direction of travel. The ruts channel the wheels but the rut floor is itself tilted at the off-camber angle. The rut walls provide some lateral constraint but — particularly in mud — the wall on the downhill side has less structural integrity (the material is looser and wetter on the downhill edge where water drains). The result is a section where the bike is both constrained by the rut and pulled sideways by the camber, with the constraining wall weakest on the side toward which the bike is being pulled.
+Off-camber terrain with ruts running along the direction of travel. Rut walls provide lateral constraint, but the downhill wall has lower structural integrity (drainage and erosion weaken it — exactly the side toward which the bike is being pulled).
 
-**Visual identification:** Visible rut channels on a trail surface that is clearly tilted laterally. Rut walls may be asymmetric — firmer on the uphill side, softer or eroded on the downhill side.
+**Visual identification:** Visible ruts on a laterally tilted surface. Rut walls may be asymmetric — firmer uphill, softer/eroded downhill.
 
-**Severity range:** Moderate to significant. The rut adds constraint that can either help (preventing lateral drift) or trap (preventing escape if the rut floor collapses or the downhill wall fails).
+**Severity range:** Moderate to significant.
 
-**Distinct failure pattern:** Downhill rut wall collapse. The bike rides in a rut on off-camber terrain. The lateral force pushes the tyre against the downhill rut wall. The wall has lower structural integrity than the uphill wall (water drainage and erosion weaken the downhill side). The tyre pushes through the downhill wall, and the bike drops sideways off the rut line. The rider loses the rut's lateral constraint and is now on the open off-camber surface at a point where they were relying on the rut for stability.
+**Distinct failure pattern:** Downhill rut wall collapse. Lateral force pushes tyre against the downhill wall; wall fails; bike drops sideways off the rut line and onto open off-camber surface — exactly where the rider was relying on the rut for stability.
 
 ---
 
 ## 3. Bike Behaviour *(MANDATORY)*
 
-This section describes the mechanical response of the motorcycle to off-camber terrain at the physics level. No coaching language, rider intent, or corrective advice — that content belongs in Section 4.
+This section covers mechanics unique to off-camber features. General traction, suspension, and steering behaviour: see Dynamics KB.
 
-### Tyre Contact Patch and Lateral Force
+### Traction Asymmetry
 
-On off-camber terrain, the tyre contact patch is loaded asymmetrically. The downhill edge of the contact patch bears more load than the uphill edge because the gravitational component is directed toward the downhill side. This asymmetric loading reduces the effective contact patch area contributing to lateral resistance and concentrates stress on the downhill tyre edge. At steeper off-camber angles, the tyre may begin to roll off its crown onto its sidewall — a region with less tread compound and lower grip.
+Off-camber loads the tyre contact patch asymmetrically — the downhill edge bears more load. Effective lateral resistance area is reduced and the tyre may roll onto its sidewall at steep angles. The lateral demand scales steeply with angle — a doubling of off-camber angle more than doubles the required lateral resistance. (Exact proportion depends on speed, rider position, and dynamic loading.)
 
-The lateral force that the tyre must resist increases with the off-camber angle. As a rough guide: at gentle angles (around 10°), a modest fraction of the tyre's load acts laterally; at moderate angles (around 20°), roughly a third of the load becomes lateral force; at steep angles (around 30°), roughly half the load is acting sideways. The exact proportion depends on rider position, speed, and dynamic loading, but the key principle is that the lateral demand scales steeply with angle — a doubling of the off-camber angle more than doubles the lateral force the tyre must resist.
+### Balance Mechanics
 
-### Lean Angle Mechanics
+Maintaining balance requires uphill lean roughly proportionate to off-camber angle. A bike remaining vertical on off-camber has its CoM downhill of the contact patches and will fall toward the downhill side. In an off-camber corner, lean must compensate for both camber and cornering forces simultaneously.
 
-On flat terrain, the bike leans into corners and the lean angle is matched by the centripetal acceleration of the turn — the system is in dynamic balance. On off-camber terrain, the bike must lean uphill (toward the high side of the slope) to position the combined centre of mass above the tyre contact patches. If the bike remains vertical on off-camber terrain, the centre of mass is actually downhill of the contact patches, and the bike will fall toward the downhill side.
+### Suspension and Lateral Micro-Displacement
 
-Maintaining balance on off-camber terrain generally requires uphill lean roughly proportionate to the off-camber angle, modified by speed, surface grip, and line. A steeper slope demands more uphill lean. In an off-camber corner, the lean angle must compensate for both the camber and the cornering forces — the required lean is significantly greater than either demand alone.
+Suspension is designed for vertical loads. On off-camber rough terrain, each suspension event also produces a small lateral downhill displacement. Over a long section, these micro-displacements accumulate into visible drift — this is a physics constant, not a technique failure, but its rate is reduced by active uphill correction.
 
-### Suspension Response
+### Braking on Off-Camber
 
-Suspension behaviour on off-camber terrain is asymmetric. The fork and shock are designed to absorb vertical loads (perpendicular to the ground). On off-camber terrain, the load vector is tilted relative to the suspension's designed axis. The suspension absorbs the vertical component of terrain inputs normally but does not resist the lateral component. This means terrain bumps on off-camber produce a lateral displacement in addition to the normal vertical suspension response. Every bump pushes the bike slightly downhill in addition to producing the expected vertical compression.
+Braking simultaneously: (1) unloads the rear tyre via weight-forward transfer, reducing its lateral friction; (2) consumes a share of the front tyre's traction budget for longitudinal deceleration, reducing available lateral resistance. Both effects reduce lateral traction while the off-camber demand remains constant. Engine braking affects only the rear and more progressively than the lever, but still produces weight-forward transfer.
 
-On rough off-camber surfaces, these accumulated lateral displacements add up. Each rock, root, or terrain undulation nudges the bike incrementally downhill. Over a long section, these micro-displacements produce the progressive lateral drift described in the hillside traverse failure pattern — the drift is not a single traction event but an accumulation of hundreds of small lateral inputs that the suspension design does not resist.
+### Speed and Gyroscopic Stability
 
-### Braking Dynamics on Off-Camber
-
-Braking on off-camber terrain produces two simultaneous effects that compound the lateral risk. First, braking shifts weight forward (pitch moment), which unloads the rear tyre. The rear tyre, now carrying less weight, has less lateral friction available — it resists the off-camber force less effectively. Second, the longitudinal braking force consumes a portion of the front tyre's total traction budget, leaving less available for the lateral resistance that the front tyre also needs to provide.
-
-The result is that braking on off-camber terrain reduces the lateral traction available on both tyres simultaneously — the rear through weight transfer and the front through combined-load friction budget. This is why off-camber sections under braking are disproportionately more difficult than either off-camber or braking alone.
-
-Engine braking distributes the retardation force through the rear wheel only and does so more progressively than the brake lever, making it somewhat less likely to break lateral traction abruptly. However, engine braking still produces weight-forward transfer and still unloads the rear tyre.
-
-### Drive Traction on Off-Camber
-
-Under throttle on off-camber terrain, the rear tyre must generate both drive force (longitudinal) and lateral resistance (against the camber). If the combined demand exceeds the available traction, the rear tyre breaks free. The direction of the break depends on which force component was dominant at the failure point — the rear may spin (longitudinal failure) or step out sideways (lateral failure) or both simultaneously. On wet off-camber surfaces, rear wheel step-out under throttle is a common failure mode because the low lateral traction budget is consumed by the camber resistance before the throttle demand is applied.
-
-### Gyroscopic Stability
-
-Forward speed provides gyroscopic stability from both wheels that resists lateral tipping. At higher speeds, the bike is more resistant to falling toward the downhill side. At very low speeds (walking pace, technical crawl), gyroscopic stability is minimal and the bike must be held upright almost entirely by rider balance and footpeg weighting. This speed-stability relationship creates a non-monotonic difficulty curve on off-camber: very slow is hard (no gyroscopic help), moderate speed is the sweet spot (gyroscopic stability assists lateral resistance), and high speed reintroduces difficulty (any traction event at speed develops faster than the rider can correct).
+Speed provides gyroscopic stability that resists lateral tipping. Very low speed = near-zero gyroscopic help; moderate speed = the sweet spot; high speed = traction events develop faster than correction allows. The difficulty curve is non-monotonic — correct speed is the slowest controllable speed that maintains gyroscopic benefit.
 
 ---
 
 ## 4. Technique by Severity *(MANDATORY)*
 
-Severity is defined primarily by observable feature geometry (slope angle, exposure, section length) and surface traction conditions. Rider skill requirement is secondary commentary.
-
 ### Minor (Gentle lateral slope under 10°, manageable surfaces)
 
-**Entry technique:** Recognise the off-camber angle on approach. No specific entry setup required — standard standing position with weight through the pegs is sufficient.
+**Technique:** Standing, weight centred through pegs with slight uphill bias. Smooth throttle and braking inputs. The bike may need a few degrees of uphill lean to track straight.
 
-**Sustained technique:** Maintain standing position with slight weight bias toward the uphill peg. The bike may need a few degrees of uphill lean to track straight. Throttle and braking inputs should be smooth — abrupt inputs on even mild off-camber can trigger a lateral slip that would not occur on flat terrain.
+**Common errors:** Remaining seated — cannot weight pegs independently of bike lean. Overcorrecting — excessive uphill lean reduces downhill tyre contact patch and worsens lateral grip.
 
-**Exit technique:** Allow the body position to return to neutral as the camber flattens. No specific correction needed.
-
-**Common errors:** Remaining seated — seated position prevents the rider from weighting the uphill peg independently of the bike's lean angle. Overcorrecting — riders who notice the off-camber angle may overcompensate with excessive uphill lean, which actually reduces the downhill tyre's contact patch and makes lateral grip worse.
-
-**Mechanical consequence:** On minor off-camber, errors produce slow lateral drift rather than sudden crashes. The drift is recoverable by steering correction on most surfaces.
-
-**Coaching gate:** Basic standing technique (BIOMECH-01) must be confirmed. Peg weighting awareness (BIOMECH-03) is beneficial but not strictly required at minor severity.
+**Coaching gate:** Basic standing technique (BIOMECH-01) confirmed.
 
 ### Moderate (10–20° lateral slope on reduced-traction surfaces)
 
-**Entry technique:** Set speed before the section — speed adjustment within the off-camber zone consumes traction. Establish standing position with deliberate uphill peg weighting before the camber begins. The bike should enter with a slight uphill lean already established.
+**Technique:** Deliberate uphill peg weighting before the camber begins. Upper body slightly uphill of the bike — bike leaned downhill, body counter-leans uphill. This separation of bike lean from body lean is the core technique. Steady speed set before entry. Steering minimal and smooth — track line through weighting and lean, not active steering. Exit: progressively reduce counter-lean as camber flattens.
 
-**Sustained technique:** Active peg weighting through the outside (uphill) peg. The rider's weight goes through the uphill peg to load the uphill edges of both tyre contact patches. Upper body positioned slightly uphill of the bike — the rider leans the bike downhill while keeping their body weight over or slightly uphill of the contact patches. This is the opposite of flat-ground cornering technique where the rider leans with the bike. Throttle must be steady — no acceleration or deceleration within the section unless absolutely necessary. Steering inputs should be minimal and smooth — the bike tracks its line through peg weighting and lean, not through active steering.
+**Common errors:** Weighting the downhill peg (instinctive but loads the wrong tyre edge). Leaning body downhill with the bike instead of counter-leaning. Braking within the section. Looking immediately ahead rather than through the section.
 
-**Exit technique:** Gradually reduce the uphill peg weighting and lean as the camber flattens. Allow the bike to come upright progressively. Abrupt exit correction (standing upright suddenly) can unload the uphill edge of the tyre contact and produce a momentary traction gap.
+**Coaching gate:** Deliberate peg weighting (BIOMECH-03) confirmed — rider must be able to weight a specific peg independently of lean angle.
 
-**Commitment threshold:** Moderate. The rider can stop at most points in the section, but stopping on moderate off-camber requires foot-down on the uphill side and careful balance.
+### Significant (Over 20°, or moderate slope on near-zero traction; continuous exposure)
 
-**Common errors:** Weighting the downhill peg (instinctive but wrong — loads the tyre edge with least grip). Leaning the body downhill with the bike rather than counter-leaning uphill (places the centre of mass on the wrong side). Braking within the section (consumes lateral traction budget). Looking down at the surface immediately in front of the wheel rather than ahead through the section (causes target fixation on the off-camber surface and late response to line changes).
+**Technique:** Entry as far uphill as trail allows. Speed at the slowest controllable speed maintaining gyroscopic stability. Maximum uphill peg weighting with body positioned above or uphill of the contact patches. Arms relaxed — stiff arms convert every micro-bump into a steering input, consuming lateral traction. Manage fatigue on long sections — peg weighting and core engagement are physically demanding and degrade over extended exposure.
 
-**Mechanical consequence:** Downhill peg weighting shifts the combined CoM downhill, increasing the lateral gravitational component on the tyres and reducing the effective traction at the tyre edges where grip is needed. The bike slides toward the downhill edge progressively. On wet surfaces at moderate severity, this error can develop within 2–3 bike lengths from a stable line to a committed slide.
+**Common errors:** Entering too fast. Entering on the downhill line — no recovery width if drift begins. Stiffening arms from fatigue. Overcorrecting with steering inputs (each steering input consumes lateral traction).
 
-**Coaching gate:** Standing peg weighting (BIOMECH-03) must be confirmed. The rider must be able to weight a specific peg independently of the bike's lean angle. Without this skill, the rider cannot generate the uphill lean that maintains traction on moderate off-camber.
-
-### Significant (Over 20° or moderate slope on near-zero traction; continuous exposure)
-
-**Entry technique:** Full commitment to the entry line. Speed must be set before the section — and the correct speed is the slowest controllable speed that maintains gyroscopic stability. On very low-traction surfaces, this may be near-walking pace. The uphill lean and peg weighting must be established before the camber reaches full angle. The entry line should be as far uphill as possible to maximise the available recovery width below.
-
-**Sustained technique:** Maximum uphill peg weighting with the rider's body positioned to keep the combined CoM directly above or slightly uphill of the tyre contact patches. The bike is leaned significantly toward the downhill side while the rider's upper body counter-leans uphill. This separation of bike lean from body lean is the critical technique — it requires core strength and active balance throughout the section. Arms must remain relaxed — gripping the bars tightly on off-camber transfers every micro-bump directly into steering correction, which consumes lateral traction through constant small steering inputs.
-
-At significant severity on long sections, the rider must manage fatigue. Peg weighting and core engagement are physically demanding — calf muscles, ankles, and core fatigue over extended off-camber. Fatigue reduces the precision of weight placement and increases the likelihood of a gradual downhill drift that the rider does not have the energy to correct.
-
-**Exit technique:** If the exit transitions to a different feature (corner, obstacle), the rider must transition from off-camber body position to the new feature's requirements while still managing the camber. This transition is a high-difficulty moment — the rider is changing technique while the lateral force is still present.
-
-**Commitment threshold:** High. At significant severity, stopping on the section may not be feasible — the slope angle and surface traction may not support a static bike. The rider is effectively committed to traversing the full section once entered.
-
-**Common errors:** Entering too fast — speed generates lateral forces in addition to the gravitational lateral component. Entering on a downhill line (not far enough uphill) — leaves no recovery width if drift begins. Allowing arms to stiffen from fatigue — converts every bump to a steering correction input. Overcorrecting with steering — each steering input requires lateral traction, which is the resource most scarce on significant off-camber.
-
-**Mechanical consequence:** At significant severity, a single traction event (one wheel losing lateral grip momentarily) can initiate a committed slide because the recovery traction needed to stop the slide is greater than the traction available. The slide accelerates under gravity — unlike flat-ground slides which decelerate through friction.
-
-**Coaching gate — do not prescribe significant off-camber technique without confirmed prerequisites:** Rider must demonstrate reliable peg weighting with counter-lean body position on moderate off-camber sections. Core-engaged standing position must be sustained, not momentary. If moderate off-camber footage shows the rider seated, death-gripping, or weighting the downhill peg, coaching should address those fundamentals before recommending significant off-camber technique.
+**Coaching gate:** Demonstrated counter-lean body position (body uphill, bike downhill) sustained over a full section. Core engagement maintained, not momentary. If footage shows seated, death-gripping, or downhill-peg weighting, address fundamentals before recommending significant off-camber. **Do not prescribe significant off-camber without confirmed moderate prerequisites.**
 
 ### Major (Extreme angle 30°+, extended distance 50m+, compounded by conditions)
 
-Major off-camber severity is defined by the feature geometry and conditions rather than technique demands. At this level, the available traction on most surfaces is insufficient for reliable lateral resistance regardless of technique quality. Major off-camber represents a terrain constraint rather than a technique challenge — the correct coaching response is often a routing or decision-level intervention (avoid the section, walk the bike, choose an alternative line) rather than a technique instruction. This tier exists for hazard classification and decision-level response, not as a coaching progression target.
+**Technique:** Entry as far uphill as physically possible, minimum speed, full counter-lean and peg weighting. At this severity the rider manages the rate of drift, not elimination of it — keeping drift slow enough that available trail width absorbs it before the exit. At major severity, available traction on most surfaces may be insufficient for reliable lateral resistance regardless of technique quality.
 
-**Entry technique:** If the section must be ridden, the entry line should be as far uphill as physically possible. Speed should be the minimum that maintains balance — near-walking pace. Full uphill body position with maximum peg weighting.
+**Common errors:** Attempting at moderate-severity speeds. Attempting on surfaces where lateral friction coefficient is plainly below the geometric demand (wet smooth rock, frost, ice).
 
-**Sustained technique:** At major severity, the rider is managing at the limit of what the surface can sustain. Even perfect technique may not prevent lateral drift on surfaces where the gravitational lateral component exceeds the available lateral friction. The rider's task is to manage the rate of drift rather than prevent it entirely — keeping the drift slow enough that the available trail width absorbs it before the section exit.
-
-**Common errors:** Attempting to ride major off-camber at moderate-severity speeds. Attempting major off-camber on a surface where the lateral friction coefficient is plainly insufficient (wet smooth rock, frost, ice).
-
-**Coaching gate — do not prescribe this tier without confirmed prerequisites and explicit decision-level assessment:** Stage 9 (Decision Engine) should assess whether the section is rideable before recommending technique. If the slope angle and surface combination indicate that available friction is likely below the required lateral resistance, the coaching response should be: "This section may exceed available traction regardless of technique. Consider dismounting or choosing an alternative route."
+**Coaching gate:** Stage 9 should assess whether the section is rideable before recommending technique. If slope angle and surface conditions indicate available friction is likely below required lateral resistance, coaching output should be: "This section may exceed available traction regardless of technique. Consider dismounting or choosing an alternative route."
 
 ---
 
@@ -269,203 +217,170 @@ Major off-camber severity is defined by the feature geometry and conditions rath
 
 ### Failure Chain: Progressive Lateral Drift (traction / line_choice)
 
-**Trigger:** Rider enters off-camber traverse on a wet or loose surface at the uphill edge of the trail.
+**Trigger:** Rider enters off-camber traverse on wet or loose surface.
 
-**Mechanism:** Each micro-bump, terrain irregularity, or steering correction produces a small lateral displacement downhill. The suspension does not resist lateral inputs. Over the section length, these displacements accumulate. The rider does not perceive any single slip event — each is individually sub-threshold. After 20–50 metres, the accumulated drift has moved the bike from the upper trail edge to the middle or lower trail edge.
+**Mechanism:** Each micro-bump, terrain irregularity, or steering correction produces a small lateral downhill displacement — no single slip event is above the threshold of perception. After 20–50 metres the accumulated drift has moved the bike from upper to middle or lower trail edge.
 
-**Outcome:** The rider now has less recovery width available and is on a more severely off-camber portion of the trail (the trail often has a crown or is steeper at the edges). Attempting to regain the uphill line requires more lateral traction than maintaining the original line — traction that may not be available. The rider continues to drift until they run out of trail width, then either falls to the downhill side (lowside or tip-over) or puts a foot down and stabilises.
+**Outcome:** Rider now has less recovery width and is on a more severely tilted portion of the trail. Regaining uphill position requires more lateral traction than maintaining the original line — traction that may not be available. Rider continues to drift to trail edge → lowside, tip-over, or foot-down.
 
-**Stage 6 classification:** `traction` (primary — cumulative micro-slips), `line_choice` (contributing — the rider did not manage their line through active uphill correction)
+**Stage 6 classification:** `traction` (primary — cumulative micro-slips), `line_choice` (contributing — no active uphill correction)
 
 ### Failure Chain: Off-Camber Corner Washout (traction / technique)
 
-**Trigger:** Rider enters an off-camber corner at a speed and lean angle calibrated for a flat corner.
+**Trigger:** Rider enters off-camber corner at speed and lean angle set for a flat corner.
 
-**Mechanism:** The cornering forces (centripetal, pushing outward) and the off-camber gravitational component (also pushing outward) combine. The total lateral demand on the front tyre exceeds the available lateral friction coefficient. The front wheel pushes wide (understeer) and tracks toward the outside of the corner rather than following the steered line.
+**Mechanism:** Centripetal cornering force and off-camber gravitational component combine. Total lateral demand on the front tyre exceeds available lateral friction. Front wheel pushes wide — tracks toward the outside of the corner rather than the steered line.
 
-**Outcome:** The front wheel drifts outward. If the rider adds lean to compensate, the combined CoM moves further downhill and the tyre rolls onto its sidewall where grip is lower — worsening the slide. If the rider reduces speed (braking), the weight-forward transfer unloads the rear tyre, which may then slide laterally as well. The most common outcome is a front-wheel lowside — the front washes out and the bike falls toward the outside of the corner (downhill).
+**Outcome:** Front drifts outward. Adding lean rolls the tyre onto its sidewall where grip is lower — worsening the slide. Braking to reduce speed unloads the rear, which may also slide. Most common outcome: front-wheel lowside toward the outside of the corner (downhill).
 
-**Stage 6 classification:** `traction` (primary — friction limit exceeded), `technique` (contributing — lean angle and speed not adapted for off-camber)
+**Stage 6 classification:** `traction` (primary — friction limit exceeded), `technique` (contributing — lean and speed not adapted for off-camber)
 
 ### Failure Chain: Braking-Induced Rear Slide on Off-Camber Descent (technique / traction)
 
 **Trigger:** Rider brakes on a descending off-camber section.
 
-**Mechanism:** Braking produces weight-forward transfer, unloading the rear tyre. The rear tyre now has less weight and therefore less lateral friction available to resist the off-camber force. The rear wheel begins sliding downhill while the front wheel (more heavily loaded under braking) tracks straighter. The bike rotates — the rear end moves downhill of the front.
+**Mechanism:** Braking shifts weight forward, unloading the rear tyre. Rear tyre's lateral friction reduces. Rear wheel slides downhill while front tracks straighter. Bike rotates — rear end moves downhill of front.
 
-**Outcome:** If the rider releases the brake and allows the rear to settle, recovery is possible at moderate severity. If the rider continues braking (common instinct on a descent), the rear slide continues and the bike eventually either spins fully around or the rider falls (lowside with the rear downhill).
+**Outcome:** Brake release at moderate severity allows rear to settle — recovery possible. Continued braking → rear continues sliding → spin-out or lowside with rear downhill.
 
 **Stage 6 classification:** `technique` (primary — brake input on off-camber), `traction` (contributing — surface traction insufficient for combined demand)
 
 ### Failure Chain: Surface Transition Mid-Section (decision / traction)
 
-**Trigger:** Off-camber section transitions from a higher-grip surface to a lower-grip surface partway through. Common example: grass on the upper part of the trail, mud at the apex of an off-camber corner where drainage concentrates.
+**Trigger:** Off-camber section transitions from higher-grip to lower-grip surface partway through (e.g., grass to mud at corner apex where drainage concentrates).
 
-**Mechanism:** The rider's technique is calibrated for the entry surface. The transition to a lower-grip surface occurs within the section, often at the most critical point (corner apex, steepest angle). The lateral traction available drops below the lateral force demand at a point where the rider cannot adjust speed, line, or body position in time.
+**Mechanism:** Rider's technique is calibrated for entry surface. Transition to lower-grip surface occurs within the section at a critical point (apex, steepest angle). Lateral traction drops below demand before the rider can adjust speed, line, or body position.
 
-**Outcome:** Sudden lateral drift or lowside at the transition point. The rider's calibration was correct for the entry surface but incorrect for the mid-section surface. The transition gives minimal warning — the surface change may be visible on approach but its traction consequence is not apparent until the tyre contacts it.
+**Outcome:** Sudden lateral drift or lowside at the transition point. Traction consequence of the surface change is not apparent until the tyre contacts it.
 
-**Stage 6 classification:** `decision` (primary — the rider chose to continue through a visible surface change without adjusting), `traction` (contributing — the new surface cannot sustain the lateral demand)
+**Stage 6 classification:** `decision` (primary — rider continued through a visible surface change without adjusting), `traction` (contributing — new surface cannot sustain lateral demand)
 
 ### Pipeline Identification Notes
 
 **Visual indicators for off-camber detection:**
 
-*Approach indicators:*
-- Trail surface visibly tilted laterally — the uphill edge is higher than the downhill edge
-- Hillside terrain visible above and below the trail, indicating a contouring path
-- Trees, posts, or vegetation growing at an angle relative to the trail surface (indicating the trail surface is not level)
+*Approach:*
+- Trail surface visibly tilted laterally — uphill edge higher than downhill edge
+- Hillside terrain above and below the trail indicating a contouring path
+- Trees or vegetation growing at an angle relative to the trail surface
 
-*Execution indicators (in-section):*
-- Rider visibly leaning uphill or counter-leaning against the bike
-- Bike lean angle that does not match the direction of travel (leaning uphill on a straight section)
-- Lateral drift visible — the bike's line moves progressively toward the downhill edge
-- Rear wheel sliding laterally under braking or throttle
+*Execution:*
+- Rider visibly counter-leaning or leaning uphill
+- Bike lean angle that does not match the direction of travel (uphill lean on a straight section)
+- Progressive lateral drift toward downhill edge
+- Rear wheel lateral slide under braking or throttle
 
-*Post-event indicators:*
+*Post-event:*
 - Lowside toward the downhill edge
 - Tip-over on the downhill side
-- Rider putting a foot down on the uphill side to stabilise
+- Rider foot-down on the uphill side to stabilise
 
 **Audio markers:**
-- Tyre scrubbing sound from lateral slip (a sustained high-frequency scraping, different from the brief chirp of a throttle-induced spin)
-- No engine note change specific to off-camber — engine loads do not change from the camber itself (they change from gradient, which may be concurrent)
+- Tyre scrubbing from lateral slip (sustained high-frequency scrape, distinct from brief throttle-spin chirp)
+- No engine note change specific to off-camber (engine loads change from gradient, which may be concurrent)
 
-**Severity indicators — distinguishing minor from significant:**
-- Slope angle: estimated from visible terrain features, vegetation angle, bike lean angle relative to the rider
-- Section length: longer continuous sections indicate higher sustained difficulty
-- Surface type: wet grass, wet rock, or mud on off-camber dramatically increases severity
+**Severity indicators:**
+- Slope angle: estimated from visible terrain, vegetation angle, bike lean relative to rider
+- Section length: longer continuous sections = higher sustained difficulty
+- Surface type: wet grass, wet rock, or mud dramatically increases severity
 - Trail width: narrow trail with exposure below increases consequence
-- Rider body position: rider actively counter-leaning indicates moderate+ severity; rider struggling or foot-down indicates significant+
+- Rider body position: active counter-lean = moderate+; struggling or foot-down = significant+
 
-**Edge cases where Stage 4 classification confidence should be flagged low:**
-- POV footage: off-camber angle is extremely difficult to assess from POV because the camera is attached to the rider's head, which counter-leans against the slope — the horizon in the footage may appear level even on significant off-camber
-- Distant 3rd-person footage: subtle off-camber angles (under 10°) may not be visible at distance
-- Flat trail with drainage crown: very gentle drainage slope (under 5°) should not trigger off-camber classification
+**Edge cases — flag Stage 4 confidence low:**
+- POV footage: off-camber angle is extremely difficult to assess — the camera counter-leans with the rider, horizon may appear level even on significant off-camber; indirect indicators: bike appears to lean relative to vertical background objects
+- Distant 3rd-person footage: subtle angles under 10° may not be visible
+- Flat trail with drainage crown: under 5° drainage slope should not trigger off-camber classification
 
 ### Observability Notes
 
-**1. Reliably confirmable from footage (directly observable):**
-- Off-camber presence: trail surface visibly tilted laterally in 3rd-person footage at medium distance
-- Rider body position: counter-lean or uphill lean visible in 3rd-person footage
-- Lateral drift: progressive line change toward the downhill edge visible in overhead or medium-distance footage
-- Crash direction: lowside toward downhill confirms off-camber as a contributing factor
-- Surface type: wet grass, mud, or rock visible on the off-camber surface
-- Trail width and exposure below the trail
+**1. Reliably confirmable from footage:**
+- Off-camber presence — trail surface visibly tilted in 3rd-person footage at medium distance
+- Rider body position: counter-lean or uphill lean visible
+- Lateral drift: progressive line change toward downhill edge visible in overhead or medium-distance footage
+- Crash direction: lowside toward downhill confirms off-camber as contributing factor
+- Surface type and trail width / exposure
 
-**2. Inferable with caveats (can be estimated but not confirmed):**
-- Off-camber angle: estimated from bike lean, vegetation angle, and terrain context — exact angle is not measurable from footage
-- Section length: estimated from footage duration and rider speed, but the full section may not be captured
-- Whether the rider is weighting the uphill peg (body position suggests it but is not directly confirmable)
-- Surface traction level: estimated from surface type and condition, not measured
-- Whether cumulative micro-drift is occurring (requires sustained footage of the full section; individual micro-slips are not visible)
+**2. Inferable with caveats:**
+- Off-camber angle (estimated from bike lean, vegetation angle, terrain context — not measurable)
+- Section length (estimated from footage duration and speed; full section may not be captured)
+- Whether rider is actively weighting the uphill peg (body position suggests it; not directly confirmable)
+- Surface traction level (estimated from surface type and condition)
+- Cumulative micro-drift (requires sustained footage of full section; individual micro-slips not visible)
 
-**3. Cannot be determined from footage (pipeline must flag as unknown):**
+**3. Cannot be determined from footage:**
 - Exact off-camber angle in degrees
-- Whether the rider's tyre pressure is appropriate for the surface
+- Tyre pressure and compound
 - Sub-surface conditions (root networks, hidden moisture, frozen ground beneath surface layer)
 - Rider fatigue level through a long section
-- Tyre compound and condition (which directly affect lateral friction coefficient)
-- Whether the rider is actively counter-leaning by choice or by instinct
+- Whether counter-lean is by choice or instinct
 
 ---
 
-## 6. Entry Discipline (adapted from Approach & Setup Requirements)
+## 6. Entry Discipline *(adapted from Approach & Setup Requirements)*
 
-> *For continuous features, this section covers what the rider must establish before the off-camber section begins. Adapted from "Approach & Setup Requirements" per schema adaptation rules.*
+> *For continuous features, this section covers what the rider must establish before the off-camber section begins.*
 
-### Speed Selection
+**Speed selection:** Set before entry — not within the section. Correct speed balances gyroscopic stability benefit against reaction time for traction events. On low-traction surfaces (wet grass, mud, wet rock), correct entry speed may be near-walking pace. Speed adjustment within the section consumes lateral traction through braking or acceleration.
 
-Speed must be set before entering the off-camber section. The correct speed for off-camber is determined by the balance between gyroscopic stability (higher speed = more stability) and lateral force management (higher speed = less reaction time for traction events). The sweet spot is typically moderate trail speed — fast enough for gyroscopic benefit, slow enough that any lateral drift develops slowly enough to correct.
+**Line selection:** As far uphill as the trail allows. Every metre of uphill position at entry is a metre of recovery width if drift occurs. On off-camber corners, wide uphill entry maximises available width through the apex where forces compound.
 
-On low-traction surfaces (wet grass, mud, wet rock), the correct entry speed may be near-walking pace. On dry hardpack, moderate trail speed is appropriate. Speed adjustment within the off-camber section consumes lateral traction through braking or acceleration forces — the speed must be right before the section.
-
-### Line Selection
-
-The entry line should be as far uphill as the trail allows. Every metre of uphill position at entry is a metre of recovery width available if drift occurs. Entering on the downhill edge of the trail leaves no margin. On off-camber corners, the entry line should be wide (uphill) to maximise the available width through the apex where cornering and camber forces compound.
-
-### Body Position Setup
-
-Standing with uphill peg weighting must be established before the camber begins. Transitioning from seated to standing within the off-camber section shifts weight unpredictably during the phase where weight placement is most critical. The rider should be standing with the correct peg loaded before the trail surface begins to tilt.
+**Body position setup:** Standing with uphill peg weighting established before the camber begins. Transitioning from seated to standing within the section shifts weight unpredictably during the phase where weight placement is most critical.
 
 ---
 
 ## 7. Terrain & Condition Interaction
 
-**This section flags which Terrain KB entries should be co-retrieved and documents the feature-level interaction. It does not duplicate Terrain KB content.**
+**Wet grass (TERRAIN-04):** Highest-risk surface for off-camber. Available lateral traction on wet grass at moderate off-camber may be below the gravitational lateral component — no technique prevents drift. Surface severity and feature severity multiply rather than add: a moderate-severity dry-grass section may become major severity on wet grass with no geometry change.
 
-### Surface Type × Off-Camber Interaction
+**Mud (TERRAIN-01):** Asymmetric contact patch loading on off-camber concentrates stress on the downhill tyre edge — the point most likely to exceed shear resistance first. Produces directional traction failure toward the downhill side.
 
-**Wet grass (retrieve TERRAIN-04):** The highest-risk surface for UK off-camber riding. Wet grass blade surfaces are near-frictionless (see TERRAIN-04 Section 1). The lateral traction available on wet grass at moderate off-camber angles may be below the gravitational lateral component — meaning no technique can prevent lateral drift. The interaction is multiplicative: grass terrain severity and off-camber feature severity compound rather than add. A section that is moderate severity on dry grass can become major severity on wet grass without any change in geometry.
+**Rock (TERRAIN-03):** Dry textured rock provides moderate lateral traction through mechanical interlock. Wet smooth rock provides very little. Wet rock slab on off-camber is one of the most hazardous terrain-feature combinations — traction coefficient on smooth wet rock may be below the lateral gravitational demand at 15°.
 
-**Mud (retrieve TERRAIN-01):** Mud on off-camber reduces traction through the shear-layer mechanism described in TERRAIN-01. The specific risk on off-camber: the tyre is loaded asymmetrically (downhill edge bearing more weight), and the downhill edge of the contact patch is most likely to break through the surface cohesion first — because the load concentration exceeds the shear resistance at that point. This produces a directional traction failure: the tyre breaks free toward the downhill side preferentially.
+**Hardpack (TERRAIN-02):** Best off-camber performance of common surfaces — high friction coefficient up to the limit, then abrupt break-away with little warning (unlike mud or grass which break progressively).
 
-**Rock (retrieve TERRAIN-03):** Dry textured rock on off-camber provides moderate lateral traction through mechanical interlock. Wet rock on off-camber — particularly smooth or polished rock — provides very little lateral traction. The critical interaction: wet rock slab on off-camber is one of the most hazardous terrain-feature combinations available in off-road riding. The traction coefficient may be below 0.2 on smooth wet rock, while the lateral gravitational demand at 15° is approximately 0.26 of the bike's weight — meaning the physics do not support lateral resistance regardless of technique.
+**Clay (TERRAIN-08):** Saturated clay is particularly hazardous — plastic deformation under lateral load means the tyre cannot find a stable contact surface.
 
-**Hardpack (retrieve TERRAIN-02):** Dry hardpack provides the best off-camber performance of common surfaces — high friction coefficient and sharp break-away characteristics mean the rider has good lateral resistance right up to the friction limit. The risk on hardpack off-camber is the break-away speed: when the friction limit is exceeded on hardpack, the traction loss is abrupt rather than progressive. The rider has less warning than on mud or grass.
+**Condition modifiers:**
+- Wet: reduces lateral traction on all surfaces; severity multiplier highest on smooth surfaces (grass, rock slab, polished hardpack).
+- Frost: near-zero traction in all directions; off-camber frosted terrain effectively unrideable at any meaningful severity. Coaching output should be: dismount or avoid.
+- Seasonal: UK spring = maximum moisture + wet grass = peak off-camber failure period. Autumn = leaf cover acts as lubricant on otherwise grippy surfaces.
 
-**Clay (retrieve TERRAIN-08):** Wet clay on off-camber is particularly hazardous because of clay's non-linear moisture response. Slightly damp clay may provide adequate traction. Saturated clay's friction coefficient drops dramatically and the plastic deformation under lateral load means the tyre cannot find a stable contact — it slides on a continuously deforming surface.
-
-### Condition Modifiers
-
-**Wet conditions:** Reduce lateral traction on all surfaces. The severity multiplier of wet conditions is highest on smooth surfaces (grass, rock slab, polished hardpack) where the lubricating film is most effective. On rough-textured surfaces (coarse rock, dry-soil hardpack), wet conditions reduce traction but not to the same degree.
-
-**Frost:** Near-zero traction in all directions. Off-camber frosted terrain is effectively unrideable at any meaningful severity — the gravitational lateral component exceeds available friction at angles as low as 5–8°. The coaching response for frosted off-camber should be a decision-level constraint: dismount or avoid.
-
-**Seasonal context:** Spring conditions in the UK combine maximum moisture with soft ground and active vegetation growth (wet grass). This is the peak period for off-camber failures. Autumn conditions may produce drier surfaces but with leaf cover that acts as a lubricant on otherwise grippy terrain.
-
-**Compounding Risk:**
-- Off-camber entering directly into a braking zone or descent sharply increases combined traction demand.
-- Off-camber combined with surface transition mid-section magnifies line-holding failure risk.
-- Off-camber immediately after landing or major impact event increases instability before recovery is complete.
+**Compounding risks:**
+- Off-camber entering directly into a braking zone or descent: combined traction demand.
+- Surface transition mid-section: magnifies line-holding failure risk.
+- Off-camber immediately after landing or major impact: instability before recovery is complete.
 
 ---
 
-## 8. Section Exit & Recovery (adapted from Exit, Landing & Recovery)
+## 8. Section Exit & Recovery *(adapted from Exit, Landing & Recovery)*
 
-> *Adapted to "Section Exit & Recovery" for continuous features per schema adaptation rules.*
+> *Adapted to "Section Exit & Recovery" for continuous features.*
 
-### Exit Dynamics
+**Exit dynamics:** Gradual camber change → progressively reduce uphill peg weighting and allow bike to come upright. Abrupt exit → active body position transition required. Exit overcorrection risk: rider continues counter-leaning after camber has flattened — must actively register the change, not rely on feel alone (the body adapts to the camber angle and may not register the transition immediately).
 
-The exit from an off-camber section is the transition from sustained lateral management back to neutral or favourable camber. If the camber change is gradual, the rider progressively reduces uphill peg weighting and allows the bike to come upright. If the exit is abrupt (off-camber section ends at a feature boundary, corner, or level trail), the rider must transition body position quickly.
+**Speed management into exit:** If exit leads to a corner or braking zone, the traction budget that was committed to lateral resistance is now available — but the rider's calibration may still be set for off-camber mode, leading to excessive caution.
 
-The exit overcorrection risk: a rider who has been counter-leaning hard through the section may continue the counter-lean after the camber has flattened, producing an unnecessary lean that itself creates instability on the now-flat terrain. The correction is conscious — the rider must actively register the camber change and adjust, rather than relying on feel alone (because the body has adapted to the camber angle and may not register the transition immediately).
-
-### Speed Management into the Exit
-
-If the off-camber section exits into a corner or braking zone, the rider must manage the transition from lateral-traction-management mode to cornering or braking mode. The traction budget that was consumed by lateral resistance is now available for cornering or braking — but the rider's calibration may still be set for the reduced-budget off-camber mode, leading to excessive caution at the exit.
-
-### Recovery from Within-Section Errors
-
-**Lateral drift recovery:** If the rider has drifted downhill within the section, recovery requires regaining uphill position. This demands more lateral traction than maintaining the original line — the rider must steer uphill, which adds a lateral steering force to the existing gravitational lateral force. On moderate severity and adequate traction surfaces, this is possible with gentle, sustained steering. On significant severity or low-traction surfaces, regaining uphill position may not be feasible — the rider may need to accept the lower line and manage the increased severity.
-
-**Foot-down recovery:** A foot placed on the uphill side stabilises the bike temporarily. The rider can then reassess speed, body position, and line before continuing. This is a valid recovery technique on moderate severity but may not be feasible on significant or major severity where the slope angle makes stable foot placement difficult.
+**Recovery from within-section errors:**
+- Lateral drift: regaining uphill position requires more lateral traction than maintaining the original line. On moderate severity with adequate traction, possible with gentle sustained steering uphill. On significant severity or low traction, may not be feasible — accept the lower line and manage increased severity.
+- Foot-down recovery: uphill foot stabilises the bike temporarily. Valid on moderate severity; may not be feasible on significant or major where slope angle makes stable foot placement difficult.
 
 ---
 
 ## 9. False Reads & Misidentification
 
-### Rider Misreads
+**Dry-calibrated confidence on wet off-camber:** Most common rider misread. Rider applies speed and body position from dry-condition experience to same section in wet conditions. Identical geometry but a fraction of the available lateral traction. Compounded by the off-camber feature directly exploiting reduced traction.
 
-**Dry-calibrated confidence on wet off-camber:** The most common rider misread. A section ridden successfully in dry conditions creates a calibration that the rider applies to the same section in wet conditions. The geometry is identical — only the surface traction has changed. The rider carries the same speed and body position into a section where the available lateral traction is a fraction of the dry value. This is the same calibration failure described in TERRAIN-04 (grass) and TERRAIN-02 (hardpack), but compounded by the off-camber geometry that directly exploits the reduced traction.
+**Underestimating the angle:** Off-camber angles are difficult to assess from the rider's perspective. The brain adjusts perceived horizontal to match the terrain — downplaying the actual angle, especially on gradual-entry sections where the reference frame tilts progressively.
 
-**Underestimating the angle:** Off-camber angles are difficult to assess accurately from the rider's perspective. The rider's natural head-level horizon makes moderate off-camber feel less severe than it is — the brain adjusts the perceived horizontal to match the terrain, downplaying the actual angle. This perceptual error is strongest on gradual-entry off-camber where the rider's reference frame tilts progressively rather than encountering an abrupt angle change.
+**Confusing berm with off-camber:** Rider enters a corner expecting banking and finds off-camber — lean angle, speed, and body position set for a surface that assists the turn, encountering one that opposes it. Typically produces immediate front-wheel push to outside.
 
-**Confusing berm with off-camber:** On unfamiliar terrain, a rider may enter a corner expecting banking (berm) and find off-camber (the slope falls away from the turn). This is a total calibration inversion — the rider's lean angle, speed, and body position are set for a surface that assists the turn, and they encounter a surface that opposes it. The result is typically an immediate front-wheel push to the outside.
+**POV footage:** Hardest feature to detect from POV — camera counter-leans with rider, horizon may appear level on significant off-camber. Indirect indicators: bike appears to lean relative to vertical background objects; rider's hands asymmetrically positioned on bars; trail surface visibly tilted relative to background features.
 
-### Camera/Footage Misclassification Risks
+**Overhead drone footage:** Best camera angle for off-camber assessment — lateral slope clearly visible and line drift trackable.
 
-**POV footage:** Off-camber is the hardest feature to detect from POV footage. The camera is mounted to the rider's head, which counter-leans against the slope — the horizon in the footage may appear level or nearly level even on significant off-camber. Indirect indicators: the bike appears to lean relative to trees and vertical objects in the frame; the rider's hands are asymmetrically positioned on the bars; the trail surface is visibly tilted relative to background features.
+**Low-angle 3rd-person footage:** Effective if camera shows trail cross-section. Less effective looking at the rider head-on (lateral angle foreshortened).
 
-**Overhead drone footage:** The best camera angle for off-camber assessment — the lateral slope is clearly visible from above and the rider's line drift is trackable over time.
-
-**Low-angle 3rd-person footage:** Effective for off-camber detection if the camera is positioned to show the trail cross-section. Less effective if the camera is positioned along the trail looking at the rider head-on, where the lateral angle is foreshortened.
-
-### Condition-Created Ambiguity
-
-**Wet trail that masks the angle:** A trail surface covered in water, mud, or wet leaves may appear flat and level when the actual trail surface beneath is tilted. The standing water or mud fills the low (downhill) side and creates a false level appearance.
-
-**Leaf cover in autumn:** Fallen leaves over a trail surface can hide both the off-camber angle and the surface traction state beneath. The rider sees a leaf-covered trail and cannot assess either the geometry or the grip until they are on it.
+**Wet trail masking angle:** Standing water, mud, or wet leaves fills the low (downhill) side and creates a false level appearance. Leaf cover in autumn hides both the geometry and the surface traction state.
 
 ---
 
@@ -473,30 +388,36 @@ If the off-camber section exits into a corner or braking zone, the rider must ma
 
 ### Minimum Prerequisites by Severity
 
-**Minor:** Standing technique with basic peg awareness (BIOMECH-01). The rider must understand that weight distribution through the pegs affects lateral stability. Active peg weighting (BIOMECH-03) is helpful but not strictly required at minor severity.
+**Minor:** Standing technique (BIOMECH-01). Basic peg awareness helpful but not strictly required.
 
-**Moderate:** Standing technique with deliberate peg weighting (BIOMECH-03) must be confirmed. The rider must demonstrate the ability to weight a specific peg independently of the bike's lean angle — this is the fundamental skill for off-camber riding. Speed discipline — the rider must set speed before the section rather than adjusting within it.
+**Moderate:** Deliberate peg weighting (BIOMECH-03) confirmed — rider must demonstrate weighting a specific peg independently of lean angle. Speed discipline — speed set before the section, not within it.
 
-**Significant:** All moderate prerequisites plus: demonstrated counter-lean body position (body uphill, bike downhill) sustained over a full section, not just momentary. Core engagement and fatigue management for extended sections. Line selection awareness — the rider must demonstrate choosing the uphill entry line. Demonstrated ability to manage braking before sections rather than within them.
+**Significant:** Moderate prerequisites plus: demonstrated counter-lean body position (body uphill, bike downhill) sustained over a full section; core engagement maintained throughout; uphill line selection awareness; braking managed before sections, not within them.
 
-**Major:** All significant prerequisites plus: the coaching system should assess whether the section is rideable before recommending technique. At major severity, the correct coaching output may be a decision recommendation rather than a technique instruction. Prerequisites: demonstrated significant-severity competence with consistent peg weighting and counter-lean, plus judgment about when a section should not be attempted.
+**Major:** Significant prerequisites plus: the coaching system must assess whether the section is rideable before recommending technique. At major severity, the correct output may be a decision recommendation, not a technique instruction. Prerequisites include judgment about when a section should not be attempted.
 
 ### Progression Model
 
-1. Standing peg weighting on flat terrain → 2. Deliberate uphill peg weighting on minor off-camber (dry) → 3. Counter-lean body position on minor off-camber → 4. Moderate off-camber on dry surfaces → 5. Moderate off-camber on wet surfaces → 6. Significant off-camber on dry surfaces → 7. Significant off-camber on wet surfaces → 8. Major severity (by necessity only — not a training target)
+1. Standing peg weighting on flat terrain
+2. Deliberate uphill peg weighting on minor off-camber (dry)
+3. Counter-lean body position on minor off-camber
+4. Moderate off-camber on dry surfaces
+5. Moderate off-camber on wet surfaces
+6. Significant off-camber on dry surfaces
+7. Significant off-camber on wet surfaces
+8. Major severity (by necessity only — not a training target)
 
 ### "Do Not Coach Up" Thresholds
 
-Stage 9 (Decision Engine) should decline to recommend the next severity tier when:
-- The rider's footage shows seated position on off-camber sections (standing with peg weighting is a prerequisite for moderate+)
-- The rider weights the downhill peg (indicates incorrect muscle memory)
-- The rider's footage shows braking within the off-camber section (indicates speed discipline is not established)
-- The rider's line drifts progressively downhill through moderate-severity sections (indicates peg weighting and counter-lean are not effective)
-- The surface conditions indicate major severity — the coaching system should recommend avoidance rather than technique
+Stage 9 should decline to recommend next severity tier when:
+- Footage shows seated position on off-camber sections (standing with peg weighting is a prerequisite for moderate+)
+- Rider weights the downhill peg (incorrect muscle memory)
+- Footage shows braking within the off-camber section (speed discipline not established)
+- Line drifts progressively downhill through moderate-severity sections (peg weighting and counter-lean not effective)
+- Surface conditions indicate major severity — recommend avoidance rather than technique
 
-### Skill Category Tags (Future-Proofing)
+### Skill Category Tags
 
-Prerequisites by tier reference the following skill categories for future Skill Tag and Drill KB integration:
 - `balance_standing` — minor+
 - `peg_weighting_deliberate` — moderate+
 - `counter_lean_sustained` — moderate+
@@ -511,15 +432,15 @@ Prerequisites by tier reference the following skill categories for future Skill 
 
 ### Minimum Technique Required
 
-Off-camber terrain at any coaching-relevant severity requires standing technique with peg weighting awareness (BIOMECH-01, BIOMECH-03). Riders who cannot stand on the pegs and weight a specific peg independently should not attempt off-camber sections above minor severity. At moderate and above, deliberate counter-lean body position and speed discipline are required.
+Standing technique with peg weighting (BIOMECH-01, BIOMECH-03) at any coaching-relevant severity. Riders who cannot weight a specific peg independently should not attempt off-camber above minor severity. Moderate and above require deliberate counter-lean and speed discipline.
 
 ### Equipment Considerations
 
-**Tyres:** Tyre selection has moderate influence on off-camber performance. Tyres with a rounded profile (motocross-style) allow the bike to lean further before rolling onto the sidewall. Tyres with a square profile provide a larger contact patch when upright but transition abruptly to the sidewall at lean. For sustained off-camber riding, a rounded profile provides more predictable grip through the lean range. Tyre pressure reduction (1–2 psi below normal trail pressure) marginally increases the contact patch on the downhill tyre edge but increases the risk of tyre roll off the rim under sustained lateral load.
+**Tyres:** Rounded profile allows more lean before sidewall contact. Square profile provides larger contact patch upright but transitions abruptly. Rounded profile more predictable for sustained off-camber. Marginal pressure reduction (1–2 psi) increases downhill contact patch area but increases tyre roll risk under sustained lateral load.
 
-**Suspension:** Off-camber riding does not place specific demands on suspension setup beyond normal trail settings. However, rough off-camber terrain generates lateral micro-displacements at each suspension event — stiffer compression damping marginally reduces the lateral displacement per event but increases the harshness of the vertical response. There is no optimal suspension setup that solves the lateral displacement problem — it is a fundamental limitation of suspension designed for vertical loads.
+**Suspension:** No specific setup beyond normal trail settings. Rough off-camber generates lateral micro-displacement at each suspension event — stiffer compression damping marginally reduces displacement per event but increases vertical harshness. No optimal setup eliminates the lateral displacement fundamental.
 
-**Handguards and bark busters:** On off-camber terrain in wooded or bush areas, the uphill side of the bike passes close to vegetation, trees, and rock walls. Handguard contact with uphill obstacles can wrench the bars and produce sudden steering inputs on terrain where steering stability is critical.
+**Handguards:** On wooded or bush off-camber, uphill side passes close to vegetation and rock walls. Contact can wrench bars and produce sudden steering inputs on terrain where steering stability is critical.
 
 ### Out-of-Scope Content
 

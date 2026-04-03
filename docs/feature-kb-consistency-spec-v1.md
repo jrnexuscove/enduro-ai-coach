@@ -344,7 +344,10 @@ Before committing any new `terrain_feature` entry, run this check:
 9. **Cross-feature regression check**
    Does this new entry introduce any contradictions with previously committed features — geometry definitions, severity thresholds, or failure mechanisms?
 
-No new feature should be committed until all nine checks pass.
+10. **Compression check**
+    Does this entry pass the four compression tests (crib sheet, duplication, retrieval value, training data)? Are Sections 1, 3, 4, 6, and 8 free of restated concepts and explanatory prose that does not change coaching output?
+
+No new feature should be committed until all ten checks pass.
 
 ---
 
@@ -375,3 +378,72 @@ For **continuous features** (feature_class: continuous), use FEATURE-02 as the p
 Do not trade mechanical precision for stylistic novelty.
 
 If a new feature entry sounds "fresh" but uses different severity logic, different failure vocabulary, different commitment structure, or different observability discipline from locked entries, it is inconsistent and must be revised before commit.
+
+---
+
+## 16. Compression Discipline
+
+Feature KB entries are retrieval assets for a coaching pipeline, not reference manuals. Every paragraph must earn its place by changing what the pipeline would say to a rider.
+
+### The Four Compression Tests
+
+Before committing any feature entry, apply these tests to every section:
+
+**1. Crib sheet test**
+Would a world-class coach need this paragraph on their reference card when reviewing a rider's clip? If not, the model already knows it from training data. Remove it.
+
+**2. Duplication test**
+Is this concept already stated in another section of this entry? Each concept appears once with operational detail. Other sections reference it — they do not restate it. Common duplication zones: entry speed selection restated across Section 1 (commitment profile), Section 4 (technique tiers), and Section 6 (entry discipline). Exit management restated across Section 4, Section 8, and Section 10. Body position restated across Section 4 and Section 6.
+
+**3. Retrieval value test**
+If this paragraph were removed, would the pipeline generate different coaching output for any clip? If the coaching would be identical without it, the paragraph is not earning its place.
+
+**4. Training data test**
+Does the model need to be taught this concept, or does it already know it? The model has general knowledge of motorcycle physics, cornering dynamics, suspension behaviour, traction mechanics, and biomechanics. The KB entry tells the model which specific failure patterns, classification rules, coaching gates, and observability constraints apply to THIS feature. It does not teach undergraduate physics or general riding theory.
+
+### What Must Stay (Non-Compressible Content)
+
+These sections contain pipeline-critical content and must not be thinned beyond operational clarity:
+
+- **Frontmatter** — structured data, retrieval triggers, enums. Never compress.
+- **Classification hard rule and boundary notes** (Section 2) — these determine which KB entry the pipeline retrieves. Must be precise and complete.
+- **Failure chains** (Section 5) — trigger, mechanism, outcome, Stage 6/7 classification. Each chain should be tight but mechanically complete. The mechanism must contain enough detail to distinguish this chain from similar chains in other features.
+- **Coaching gates and prerequisites** (Section 10) — these determine what the pipeline will and will not coach. Must be complete.
+- **Observability notes** (Section 5) — the three-way split (confirmable / inferable / unknown) directly constrains pipeline confidence. Must be complete.
+- **Pipeline identification notes** (Section 5) — visual and audio indicators for Stage 4 detection. Must be complete.
+
+### What Should Be Compressed (High-Value Trim Targets)
+
+These sections are the primary sources of bloat:
+
+- **Section 1 physics explanations** — state the feature's distinct mechanical identity in minimal prose. Remove extended force vector explanations, centripetal decomposition, and "why this is different" narratives beyond a single paragraph. The Primary Observable Signature, Dominant Risk Axis, and Commitment Profile are the operational content. Extended physics belongs in the Dynamics KB, not here.
+- **Section 3 (Bike Behaviour)** — compress to the mechanical responses that are UNIQUE to this feature. Remove general suspension, traction, and steering explanations that apply to all features. If the concept is covered in DYNAMICS-01 through DYNAMICS-10, reference it rather than restating it.
+- **Section 4 (Technique by Severity)** — each tier should cover: key technique points, common errors, coaching gate. Remove narrative explanation of why the technique works. Remove repeated entry/exit guidance already in Sections 6/8. Each severity tier should be concise — the coaching model needs the what, not the why.
+- **Section 6 (Entry Discipline)** — compress to entry-specific decisions not already covered in Section 4. If Section 4 already describes entry technique per tier, Section 6 should only add information that differs from the per-tier guidance. Remove duplicated speed selection, body position, and gear selection content.
+- **Section 7 (Terrain Interaction)** — keep the co-retrieval flags and the interaction effect. Remove extended terrain physics explanations — those belong in the Terrain KB.
+- **Section 8 (Section Exit)** — compress to exit-specific risks and recovery options not already covered in Section 4. Remove duplicated exit management content.
+- **Section 9 (False Reads)** — keep the misidentification scenarios. Remove extended explanation — each false read should be 2-3 sentences: what it looks like, what it actually is, how to discriminate.
+- **Section 11 (Feature Demands)** — keep minimum technique list and out-of-scope pointers. Compress equipment considerations to only items that are feature-specific (e.g., handlebar width for ruts). Remove general equipment notes that apply to all features.
+
+### Variant Discipline
+
+Not every feature needs five variants. Variants earn their place only if they produce:
+- a distinct failure pattern not shared by other variants in the same entry
+- a meaningfully different severity range
+- a different technique requirement
+
+If a variant is just the base feature in different conditions (e.g., "wet berm" vs "dry berm"), handle it as a condition modifier in Section 7, not a full variant in Section 2. Full variants are reserved for forms with genuinely different geometry or mechanics.
+
+### How Entries Should Read
+
+A compressed feature entry should read like a senior coach's operational brief:
+- Here is what this feature is and isn't (classification)
+- Here is what goes wrong and why (failure chains)
+- Here is what to coach and what not to coach at each level (coaching gates)
+- Here is what we can and can't see in footage (observability)
+- Here is how conditions change the picture (terrain interaction flags)
+
+It should NOT read like:
+- A textbook chapter on the physics of this feature
+- A riding instruction manual for this feature
+- An essay about why this feature is interesting or unique
