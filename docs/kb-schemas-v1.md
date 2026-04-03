@@ -1,8 +1,8 @@
 # RideMind KB Entry Schemas — v1.2
 
-> **Status:** Gate 2 PASSED (2026-04-01) — v1.2 schema governance update 2026-04-02
-> **Authority:** These templates define the entry format for all three new knowledge bases. No batch KB generation begins until this document is approved.
-> **Applies to:** Terrain KB, Terrain Feature KB, Bike Dynamics KB
+> **Status:** Gate 2 PASSED (2026-04-01) — v1.3 schema update 2026-04-03 (Domain 16 Machine KB schema added)
+> **Authority:** These templates define the entry format for all new knowledge bases. No batch KB generation begins until this document is approved.
+> **Applies to:** Terrain KB, Terrain Feature KB, Bike Dynamics KB, Machine KB
 > **Pipeline reference:** `docs/pipeline-contracts-v1.md` — all enum values are taken from that document
 
 ### Changelog
@@ -12,6 +12,7 @@
 | v1.0 | 2026-04-01 | Initial schema — Gate 2 PASSED |
 | v1.1 | 2026-04-02 | Locked 11-section body structure with 5 mandatory / 6 flexible sections. Formally defined stage4_surface_condition. Permanently removed surface_variants. Added Observability Notes structure guidance. Added tags formatting rule. |
 | v1.2 | 2026-04-02 | Feature KB 11-section body structure with mandatory/default split, adaptation rules, edge case guidance, feature_class frontmatter field, Commitment & Reversibility Profile sub-block, coaching gates, and skill tag future-proofing hook. |
+| v1.3 | 2026-04-03 | Domain 16 Machine KB schema added. Two-block frontmatter, 8-section body structure, explicit writing rules (no coaching, no pipeline logic, no rider psychology, no improvement language, cause→effect only), inclusion/exclusion guidance, file naming convention with double-dash rider-layer separation. |
 
 ---
 
@@ -518,6 +519,145 @@ content_metadata:
   - Counterfactual patterns: what should have happened at each chain link
 
 **Sections 5–9** — standard format (Coaching Language, Drills, Cross-References, Terrain & Context Variations, Expert Insights)
+
+---
+
+## Schema 4 — Machine KB
+
+**Purpose:** Factual identity, build configuration, and riding-relevant behaviour characteristics for a specific motorcycle model. Provides the machine-layer reference for Stage 8 (Causal Chain Construction). Does NOT contain coaching advice, diagnostic conclusions, or pipeline logic.
+
+**Covers:** Stock bike data and (for MVP) rider modification deltas. In production, stock data only; rider modifications belong on the user profile layer.  
+**Folder:** `knowledge-base/domain-16-machines/`  
+**File naming:**
+- Stock profiles: `[manufacturer]-[model-slug]-[year].md` (e.g. `gasgas-ec300-tpi-2023.md`)
+- Rider-layer profiles (MVP only): `[manufacturer]-[model-slug]-[year]--[rider-slug].md` (e.g. `gasgas-ec300-tpi-2023--jake.md`)
+- Double-dash separates stock machine identity from rider-layer context.  
+**Topic ID pattern:** `MACHINE-[N]`
+
+### Frontmatter Template
+
+```yaml
+---
+# ── BLOCK 1: Pipeline Contract ──────────────────────────────────────────────
+pipeline_contract:
+  kb_type: machine_profile
+  manufacturer: GasGas                          # Manufacturer name
+  model: EC300 TPI                              # Model name and variant
+  year: 2023                                    # Model year
+  platform_family: KTM Group TPI 300 Two-Stroke # Shared platform name, if applicable
+  mod_layer: true                               # true if this file contains a rider modification layer
+
+# ── BLOCK 2: Content Metadata ────────────────────────────────────────────────
+content_metadata:
+  topic_id: MACHINE-01
+  title: "GasGas EC300 TPI 2023"
+  domain: 16
+  status: draft                        # draft | validated
+  version: 1.0
+  last_updated: 2026-04-03
+  # Optional fields — include only if populated:
+  engine_type: 2T                      # 2T | 4T
+  fuel_system_type: TPI                # TPI | carb | TBI | EFI
+  suspension_architecture: PDS         # PDS | linkage | other
+  # If suspension_architecture is 'other', the body text must describe the architecture.
+  # stock_gearing belongs in Section 2 (body), not frontmatter.
+---
+```
+
+### Section Structure
+
+Machine KB entries use an 8-section body structure.
+
+---
+
+**Section 1 — Identity & Platform**
+- Manufacturer, model, year
+- Platform family name and shared models
+- May note shared platform context briefly (e.g. shared engine internals, architecturally significant differences between models in the same family)
+- All actual behaviour description belongs in Sections 3–5, not Section 1
+
+**Section 2 — Stock Build Configuration**
+- Engine architecture (displacement, cycle, induction type, fueling system type)
+- Fueling system (manufacturer, injection type, generation if relevant)
+- Clutch (type, actuation)
+- Gearbox and final drive (ratios or gearing — exact or confirmed assumed, with open items noted)
+- Suspension architecture and stock units (front and rear)
+- Brakes (manufacturer, actuation)
+- Chassis / frame only if directly tied to a stated ride characteristic
+- Stock wheel / tyre setup only if behaviourally relevant
+
+**Section 3 — Engine & Drivetrain Behaviour**
+
+Factual description of:
+- Torque delivery shape — where in the rev range torque builds and how it progresses
+- Throttle response character — how power responds to throttle input across the opening range
+- Low-RPM behaviour — minimum RPM at which the engine delivers usable torque
+- Stall resistance — tendency to stall under load at low RPM
+- Engine braking level — deceleration force produced at the rear wheel on throttle close
+- Rev character / power spread — how power is distributed through the usable RPM range
+- Flywheel / rotational inertia effects — pulse smoothing at the wheel, resistance to stall under brief load spikes, rev response delay on snap-open inputs
+- Clutch dependency — the extent to which clutch modulation is required for torque regulation at low speed and stall prevention
+
+**Section 4 — Suspension & Chassis Behaviour**
+
+Factual description of:
+- Front compliance, support, and deflection behaviour — single and repeated inputs
+- Rear behaviour under drive load — how the chassis responds to throttle application
+- Rear behaviour under braking load — how the chassis responds to brake application
+- Rear behaviour on repeated impacts — damping consistency through impact sequences
+- Rear behaviour under weight transfer — chassis response to load shifts
+- Chassis stability and agility characteristics
+
+**Section 5 — Brake & Control Character**
+
+Factual description of:
+- Front brake engagement character — how braking force builds from initial contact to peak
+- Front brake modulation window — range over which modulation is available
+- Rear brake engagement character and modulation window
+- Clutch engagement character — how drive connects as lever is released
+- Any control trait that affects input timing or feel
+
+**Section 6 — Stock Behaviour Summary**
+- Concise factual synthesis of how the stock bike behaves off-road as a whole
+- No coaching, no interpretation, no recommendations
+- 3–6 sentences maximum
+
+**Section 7 — Modification Layer**
+- Clearly separated from stock content with a section break and architecture note
+- Architecture note at top: state whether this section is MVP-only and where modifications will live in production
+- For each modification:
+  - **Component changed** — part or system being modified
+  - **Stock baseline** — what the stock component produces
+  - **Modified setup** — what replaces or changes it
+  - **Behavioural delta** — factual description of the change in machine behaviour, including:
+    - The condition where the change is observed (e.g. low-speed load, soft terrain, repeated impacts, hard braking, acceleration load)
+    - The direction of change (e.g. increased, reduced, more consistent, less abrupt)
+  - **Scope / interaction notes** — where this change interacts with other systems or has behavioural limits
+- Delta-from-stock only. No restatement of the full machine profile.
+
+**Section 8 — Open Items / Verification Notes**
+- List any unconfirmed specifications, assumed values, or content pending verification
+- Use checkbox format: `- [ ] item`
+
+---
+
+### Writing Rules
+
+1. Every sentence must be factual about the machine or the behaviour its components produce.
+2. Every included fact must affect riding-relevant machine behaviour. If it does not, cut it.
+3. Describe how build creates behaviour. Do not just list parts.
+4. The entry must stand alone. Comparison to other platforms may appear only where technically necessary, and any such comparison is supplementary — the entry's behaviour description must be complete without it. No section defines behaviour mainly by comparison to carb, TBI, Brembo, linkage, or other platforms.
+5. The mods section must be delta-from-stock only. No restatement of the full machine profile.
+6. Avoid absolutes unless truly defensible.
+7. No coaching advice. No "the rider should". No diagnostic conclusions. No pipeline logic.
+8. Do not describe rider behaviour, intent, or psychology. Only describe machine behaviour and mechanical effects. Avoid phrasing like "this encourages", "riders tend to", or "this leads riders to".
+9. Do not describe outcomes in terms of ease, difficulty, or improvement language such as "easier", "harder", "improves control", or "helps with". Describe only the mechanical change in behaviour.
+
+### Inclusion / Exclusion
+
+**Include:** Behaviourally relevant machine facts that affect how the bike responds to rider inputs and terrain.
+
+**Exclude:** Spec-sheet filler, cosmetic details, generic marketing language, and any fact that does not affect ride behaviour.
 
 ---
 
