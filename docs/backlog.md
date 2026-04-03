@@ -22,7 +22,7 @@
 |----|----------|------|--------|------------|
 | FKB-0 | KB | Update Feature KB schema in docs/kb-schemas-v1.md — add body section structure (severity_definition block, technique-by-severity sections, Pipeline ID + Observability Notes per section) | COMPLETE | — |
 | FKB-2 | KB | Generate first 2 Feature KB entries (Jump + Off-camber) for schema validation | COMPLETE | — |
-| FKB-3 | KB | Dual review (Claude + ChatGPT); batch remaining 12 Feature KB entries | Not started | FKB-2 |
+| FKB-3 | KB | Dual review (Claude + ChatGPT); batch remaining 12 Feature KB entries | Not started | — |
 | T5 | Testing | Define Phase 3 scoring framework (finalised 12 metrics) | Not started | — |
 | T6 | Testing | Create ground truth document for all 8 Phase 2 clips | Not started | — |
 

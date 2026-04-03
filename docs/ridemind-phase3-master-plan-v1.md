@@ -583,7 +583,7 @@ Update `docs/kb-schemas-v1.md` to add the Feature KB body section structure. Sch
 
 Generate the first 2 Feature KB entries for schema validation:
 1. `feature-01_jump` — Jump / Launch Features (tabletop, double, triple, kicker)
-2. `feature-02_switchback` — Switchback identification, demands, failure modes
+2. `feature-02_off-camber` — Off-camber / side slope identification, demands, failure modes
 
 Validate against Colin Hill and Mark Crash ground truth before proceeding to batch generation.
 
@@ -630,7 +630,7 @@ Compare against ground truth. Document gaps before proceeding to stages 5–11.
 
 | ID | Task | Priority | Status |
 |----|------|----------|--------|
-| A1 | Define pipeline stage JSON contracts | P0 | Not started |
+| A1 | Define pipeline stage JSON contracts | P0 | COMPLETE |
 | A2 | Design database schema for all KBs | P1 | Not started |
 | A3 | Create mermaid diagram of pipeline flow | P1 | Not started |
 | A4 | Decide model assignment per pipeline stage | P2 | Blocked (needs pipeline testing) |
@@ -641,9 +641,9 @@ Compare against ground truth. Document gaps before proceeding to stages 5–11.
 
 | ID | Task | Priority | Status |
 |----|------|----------|--------|
-| K0a | Generate terrain-01_rock KB entry | P0 | Not started |
+| K0a | Generate terrain-01_rock KB entry | P0 | COMPLETE |
 | K0b | Generate dynamics-01_weight-distribution KB entry | P0 | Not started |
-| K0c | Generate feature-01_jump KB entry | P0 | Not started |
+| K0c | Generate feature-01_jump KB entry | P0 | COMPLETE |
 | K0d | Generate dynamics-02_throttle-management KB entry | P0 | Not started |
 | K4 | Define KB file schema (metadata, tags, cross-refs) | **Done** | 2026-04-01 |
 | K1 | Write Terrain KB — 10 core surface files | P1 | Not started |
