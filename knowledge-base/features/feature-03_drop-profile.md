@@ -48,7 +48,7 @@ content_metadata:
   difficulty_range: [intermediate, advanced]
   related_topics: [BIOMECH-01, BIOMECH-02, DYNAMICS-01, DYNAMICS-04, FEATURE-01, FEATURE-04]
   prerequisites: [BIOMECH-01, DYNAMICS-01]
-  tags: [drop, ledge-drop, step-down-drop, rolloff, blind-drop, vertical, descent, nose-dive, otb, endover, landing, commitment, freefall, edge]
+  tags: [drop, ledge-drop, step-down-drop, rolloff, blind-drop, vertical, descent, nose-dive, otb, landing, commitment, freefall, edge]
   version: 1.0
   last_updated: 2026-04-03
 ---
