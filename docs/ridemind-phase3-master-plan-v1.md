@@ -557,45 +557,40 @@ All 10 Terrain KB entries have been generated and committed to `knowledge-base/d
 - Quality validated via dual review (Claude + ChatGPT) on rock, grass, clay, and mixed entries
 - All entries status: draft — not yet validated against pipeline runs
 
-### Open Decision: Dynamics KB Structure
+### Resolved: Dynamics KB Structure — Option A Locked
 
-Before Dynamics KB generation can begin, one structural decision must be resolved:
-
-**Option A — New domain folder:** Generate 6 new files in `knowledge-base/bike-dynamics/` using the Dynamics KB schema from `docs/kb-schemas-v1.md`.
-
-**Option B — Upgrade existing entries:** Add pipeline frontmatter (`pipeline_contract`, `retrieval_triggers`, `causal_patterns`) to the 26 existing files in Domain 02 (Bike Control) and Domain 03 (Bike Dynamics).
-
-This decision affects scope, effort, and whether existing technique KB entries gain pipeline integration. Must be resolved before Dynamics KB generation begins.
+**Decision (2026-04-01):** Option A — extend existing Domain 02/03 entries. Add pipeline frontmatter (`pipeline_contract`, `retrieval_triggers`, `causal_patterns`) to the 26 existing files in Domain 02 (Bike Control) and Domain 03 (Bike Dynamics). No new domain folder. Work not yet started.
 
 ### Completed: Feature KB Entry List
 
 The Feature KB entry list is locked at 14 entries, organised by geometry (not discipline). Full list with architecture constraints in Section 4.B.
 
-### Step 1: Update Feature KB Schema (P0 — Now)
+### Completed: Machine KB — Domain 16 (Schema + First Two Entries)
 
-Update `docs/kb-schemas-v1.md` to add the Feature KB body section structure. Schema 2 currently has the frontmatter template and section name list but not the full body structure. Required additions:
-- Complete body section structure (equivalent to Terrain KB's 11-section structure)
-- Severity_definition block usage across body sections
-- Technique-by-severity section structure
-- Single-event vs continuous/section feature handling guidance
+Schema 4 (Machine KB) added to `docs/kb-schemas-v1.md` (v1.3, 2026-04-03). Two-block frontmatter, 8-section body. File naming locked: stock = `[mfr]-[model]-[year].md`, rider-layer = `[mfr]-[model]-[year]--[rider].md`. Entries are factual mechanical reference only — no coaching, no pipeline logic.
 
-### Step 2: Generate First Feature KB Entries (P0 — After Step 1)
+- **MACHINE-01:** GasGas EC300 TPI 2023 — `knowledge-base/domain-16-machines/gasgas-ec300-tpi-2023--jake.md`. Includes rider modification layer (MVP only). Committed (0655cc9). **Note: temporary test infrastructure — to be replaced when Machine KB scaling begins.**
+- **MACHINE-02:** GasGas EC300 TBI 2024 — `knowledge-base/domain-16-machines/gasgas-ec300-tbi-2024.md`. Stock-only (`mod_layer: false`). This is the Gate 3 test bike — all current test clips use the TBI model. Committed (ca20c46).
 
-Generate the first 2 Feature KB entries for schema validation:
-1. `feature-01_jump` — Jump / Launch Features (tabletop, double, triple, kicker)
-2. `feature-02_off-camber` — Off-camber / side slope identification, demands, failure modes
+### ~~Step 1: Update Feature KB Schema~~ — COMPLETE
 
-Validate against Colin Hill and Mark Crash ground truth before proceeding to batch generation.
+Schema v1.2 added to `docs/kb-schemas-v1.md` — 11-section body, severity_definition block, technique-by-severity sections, single-event vs continuous handling. Committed.
 
-For KB entry schemas and templates, see `docs/kb-schemas-v1.md`.
+### ~~Step 2: Generate First Feature KB Entries~~ — COMPLETE
 
-### Step 3: Batch Remaining 12 Feature KB Entries (P0 — After Step 2)
+FEATURE-01 (jump) and FEATURE-02 (off-camber) generated and committed. Schema v1.2 validated.
 
-Dual review (Claude + ChatGPT) on first 2 entries, then batch remaining 12 Feature KB entries.
+### Step 3: Batch Remaining Feature KB Entries — IN PROGRESS
 
-### Step 4: Resolve Dynamics KB Structure and Generate Entries (P1 — After Step 3)
+8 of 14 entries committed (FEATURE-01 through FEATURE-08: jump, off-camber, drop, steps/ledges, log crossing, rock garden, rut, berm). All 8 entries passed compression discipline (16% avg reduction, ea68258). Consistency spec updated: Section 16 (Compression Discipline) and check 11 added (b894958).
 
-Resolve the open decision (new files vs upgrade existing Domain 02/03), then generate or upgrade Dynamics KB entries accordingly.
+**Remaining:** 6 entries — FEATURE-09 to FEATURE-14 (off-camber/side slope, switchback, water crossing, gully/ditch/washout, whoops/rhythm sections, elevated beam/plank). FKB-3 dual review not yet done.
+
+**Note:** Compression discipline applies to future entries only. No re-compression of the 8 already-compressed entries.
+
+### Step 4: Dynamics KB — Option A (P1 — After Step 3)
+
+Decision locked: extend existing Domain 02/03 entries with pipeline frontmatter. Work not yet started.
 
 ### Step 5: Design Skill Tag Taxonomy (P1 — Parallel with Steps 3–4)
 
@@ -646,9 +641,9 @@ Compare against ground truth. Document gaps before proceeding to stages 5–11.
 | K0c | Generate feature-01_jump KB entry | P0 | COMPLETE |
 | K0d | Generate dynamics-02_throttle-management KB entry | P0 | Not started |
 | K4 | Define KB file schema (metadata, tags, cross-refs) | **Done** | 2026-04-01 |
-| K1 | Write Terrain KB — 10 core surface files | P1 | Not started |
-| K2 | Write Terrain Feature KB — 8 core feature files | P1 | Not started |
-| K3 | Write Bike Dynamics KB — 6 core concept files | P1 | Not started |
+| K1 | Write Terrain KB — 10 core surface files | P1 | **COMPLETE** (2026-04-02) |
+| K2 | Write Terrain Feature KB — 14 entries (geometry-first) | P1 | **IN PROGRESS** — 8/14 committed (FEATURE-01 to FEATURE-08); 6 remaining |
+| K3 | Write Bike Dynamics KB — extend Domain 02/03 (Option A, 26 files) | P1 | Not started |
 | K5 | Review/QA pass on all new KB files | P1 | Blocked (needs K1–K3) |
 | K6 | Internet-source validation for physics claims | P1 | Blocked (needs K3) |
 | K7 | Write remaining Terrain KB files (15–20 total) | P2 | Blocked (needs K1) |
