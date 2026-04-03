@@ -23,8 +23,9 @@ RideMind is a **physics-aware, terrain-aware, machine-aware riding intelligence 
 - **Feature KB entry list — LOCKED** — 14 entries, organised by geometry (not discipline). Discipline extremes handled by severity tiers within entries.
 - **Feature KB — 8 of 14 entries committed** — FEATURE-01 (jump) through FEATURE-08 (berm). All 8 entries compression-passed (ea68258). Schema v1.2 holding. Next: FKB-3 — dual review + batch generate remaining 6 entries.
 - **Feature KB compression pass — COMPLETE** — All 8 committed entries compressed (16% avg reduction). Consistency spec updated: Section 16 (Compression Discipline) and check 11 (redundant content check) added (b894958).
-- **MACHINE-01 drafted** — GasGas EC300 TPI 2023 at `knowledge-base/domain-16-machines/gasgas-ec300-tpi-jake.md`. Needs cause→effect rewrite pass and ChatGPT review before commit.
-- **Domain 16 architecture — LOCKED:** Stock bike data only. Rider modifications belong on the user profile layer. For MVP, both in one file with clear separation. No schema in `docs/kb-schemas-v1.md` yet.
+- **MACHINE-01 — COMPLETE** — GasGas EC300 TPI 2023 at `knowledge-base/domain-16-machines/gasgas-ec300-tpi-2023--jake.md`. Fully rewritten to Schema 4 (v1.3), PDS corrected to linkage throughout, committed (0655cc9).
+- **MACHINE-02 — COMPLETE** — GasGas EC300 TBI 2024 stock profile at `knowledge-base/domain-16-machines/gasgas-ec300-tbi-2024.md`. Stock-only (`mod_layer: false`), written to Schema 4. This is the Gate 3 test bike — all current test clips use the TBI model. Committed (ca20c46).
+- **Domain 16 architecture — LOCKED:** Stock bike data only. Rider modifications belong on the user profile layer. For MVP, both in one file with clear separation. **Schema 4 added to `docs/kb-schemas-v1.md` (v1.3, 2026-04-03).** File naming locked: stock = `[mfr]-[model]-[year].md`, rider-layer = `[mfr]-[model]-[year]--[rider].md`. Machine KB entries are factual reference only — no coaching, no pipeline logic, no rider psychology, no improvement language.
 
 ### Key Phase 2 Findings
 
@@ -92,8 +93,9 @@ This framework will shape: coaching tone, skill prioritisation, skill tag taxono
 
 - **Stock bike data only.** Rider modifications (suspension setup, power mods, gearing) belong on the user profile layer, not in the KB.
 - **MVP architecture:** Stock data and rider modification placeholders in one file with clear section separation. The user profile layer is not yet built.
+- **Schema 4 — locked.** Machine KB schema added to `docs/kb-schemas-v1.md` (v1.3, 2026-04-03). File naming: stock = `[mfr]-[model]-[year].md`, rider-layer = `[mfr]-[model]-[year]--[rider].md`.
+- **Factual reference only.** Machine KB entries contain factual mechanical behaviour descriptions only — no coaching advice, no pipeline logic, no rider psychology, no improvement language. Every sentence must be a mechanical cause→effect statement.
 - **Compression discipline applies.** Domain 16 entries follow the same cause→effect writing standard as Feature KB entries (Section 16 of consistency spec).
-- **No schema yet.** Domain 16 uses its own file structure. A formal schema entry in `docs/kb-schemas-v1.md` is required before generating further entries.
 
 ## Project Structure
 
@@ -103,7 +105,7 @@ docs/                   # All planning, architecture, and strategy docs (flat st
 knowledge-base/
   domain-01-*/          # Existing technique KB (15 domains, 154+ topics)
   ...
-  domain-16-machines/   # Machine Profiles KB — MACHINE-01 draft (GasGas EC300 TPI 2023, uncommitted)
+  domain-16-machines/   # Machine Profiles KB — 2 entries committed: gasgas-ec300-tpi-2023--jake.md (MACHINE-01), gasgas-ec300-tbi-2024.md (MACHINE-02)
   domain-17-terrain/    # Terrain KB — COMPLETE (10 entries: TERRAIN-01 to TERRAIN-10)
   features/             # Terrain Feature KB — 8 entries committed (FEATURE-01 to FEATURE-08, 6 remaining)
 scripts/
@@ -127,7 +129,7 @@ scripts/
 
 - `docs/ridemind-phase3-master-plan-v1.md` — Source of truth for Phase 3
 - `docs/pipeline-contracts-v1.md` — Stage contracts for the 11-stage reasoning pipeline (Gate 1 output)
-- `docs/kb-schemas-v1.md` — Entry templates for Terrain KB, Feature KB, and Bike Dynamics KB (Gate 2 output)
+- `docs/kb-schemas-v1.md` — Entry templates for Terrain KB, Feature KB, Bike Dynamics KB, and Machine KB (Gate 2 output; v1.3 — Schema 4 added 2026-04-03)
 - `docs/feature-kb-consistency-spec-v1.md` — Cross-feature consistency rules for Feature KB (Section 16: Compression Discipline; 11-check pre-commit audit)
 - `docs/phase2-final-report.md` — Phase 2 evaluation report with settled scores (all 8 clips, 3 models)
 - `docs/phase2-evaluation-framework.md` — Scoring rubric
@@ -146,6 +148,7 @@ scripts/
 - Prefer select-all-and-paste over file downloads
 - Quality over token efficiency — the knowledge base IS the product
 - Never silently reduce quality
+- No line count targets in KB entries — quality, relevance, and mechanical accuracy over arbitrary length ranges
 
 ## Critical Principles
 

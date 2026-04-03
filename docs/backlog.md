@@ -110,11 +110,12 @@
 
 | ID | Task | Status | Blocked By |
 |----|------|--------|------------|
-| D16-1 | Design Domain 16 schema — **Architecture locked:** stock bike data only; rider mods on user profile layer; MVP = one file with clear separation. Formal schema not yet in `docs/kb-schemas-v1.md`. | Not started | — |
-| D16-2 | Generate Domain 16 entries — **MACHINE-01 (GasGas EC300 TPI 2023) drafted** at `knowledge-base/domain-16-machines/gasgas-ec300-tpi-jake.md`, uncommitted | In progress | D16-1 |
-| D16-3 | MACHINE-01 rewrite pass: apply cause→effect discipline + ChatGPT review, then commit | Not started | — |
+| D16-1 | Schema 4 (Machine KB) added to `docs/kb-schemas-v1.md` (v1.3) — two-block frontmatter, 8-section body, file naming convention locked | COMPLETE | — |
+| D16-2 | MACHINE-01 (GasGas EC300 TPI 2023) — committed at `knowledge-base/domain-16-machines/gasgas-ec300-tpi-2023--jake.md` (0655cc9) | COMPLETE | — |
+| D16-3 | MACHINE-01 rewritten to Schema 4 — PDS corrected to linkage (6 locations), cause→effect discipline applied throughout | COMPLETE | — |
+| D16-4 | MACHINE-02 (GasGas EC300 TBI 2024) — stock-only profile, `mod_layer: false`. Gate 3 test bike; all current test clips use TBI model. Committed (ca20c46) | COMPLETE | — |
 
-> Domain 16 is a different KB type from terrain/features/dynamics — structured bike data, not coaching content. Architecture locked (2026-04-03): stock data only; rider mods on user profile layer. No formal schema in `docs/kb-schemas-v1.md` yet.
+> Domain 16 is a different KB type from terrain/features/dynamics — factual machine behaviour data only. Architecture locked: stock data only; rider mods on user profile layer. Schema 4 in `docs/kb-schemas-v1.md` (v1.3). **Note: MACHINE-01 (with modification layer) is MVP/test infrastructure — to be replaced when full Machine KB scaling begins.**
 
 ### Engineering — Reliability
 
@@ -164,6 +165,10 @@
 | FKB-B | Generate FEATURE-03 (drop) through FEATURE-08 (berm) — 6 entries committed | 2026-04-03 |
 | FKB-C | Feature KB compression pass — all 8 entries compressed (16% avg reduction, ea68258) | 2026-04-03 |
 | FKB-S | Consistency spec: Section 16 (Compression Discipline) and check 11 (redundant content check) added (b894958) | 2026-04-03 |
+| D16-1 | Schema 4 (Machine KB) added to `docs/kb-schemas-v1.md` (v1.3) — two-block frontmatter, 8-section body, file naming convention locked | 2026-04-03 |
+| D16-2 | MACHINE-01 committed: `gasgas-ec300-tpi-2023--jake.md` (0655cc9) | 2026-04-03 |
+| D16-3 | MACHINE-01 rewritten to Schema 4 — PDS corrected to linkage, cause→effect discipline applied | 2026-04-03 |
+| D16-4 | MACHINE-02 committed: `gasgas-ec300-tbi-2024.md`, stock-only Gate 3 test bike profile (ca20c46) | 2026-04-03 |
 | K1 | Write Terrain KB — 10 core surface files (Domain 17, TERRAIN-01 to TERRAIN-10) | 2026-04-02 |
 | K0a | Generate terrain-01_rock KB entry (included in K1) | 2026-04-02 |
 | K4 | Define KB entry schemas for all 3 new KBs (Gate 2) | 2026-04-01 |
