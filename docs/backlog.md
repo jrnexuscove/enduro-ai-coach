@@ -1,6 +1,6 @@
 # RideMind — Backlog
 
-**Last updated:** 2026-04-02
+**Last updated:** 2026-04-03
 **Current phase:** Phase 3 — Reasoning Pipeline + KB Build
 **Master plan:** `docs/ridemind-phase3-master-plan-v1.md`
 
@@ -22,7 +22,7 @@
 |----|----------|------|--------|------------|
 | FKB-0 | KB | Update Feature KB schema in docs/kb-schemas-v1.md — add body section structure (severity_definition block, technique-by-severity sections, Pipeline ID + Observability Notes per section) | COMPLETE | — |
 | FKB-2 | KB | Generate first 2 Feature KB entries (Jump + Off-camber) for schema validation | COMPLETE | — |
-| FKB-3 | KB | Dual review (Claude + ChatGPT); batch remaining 12 Feature KB entries | Not started | — |
+| FKB-3 | KB | Dual review (Claude + ChatGPT); batch remaining 6 Feature KB entries (entries 9–14) | Not started | — |
 | T5 | Testing | Define Phase 3 scoring framework (finalised 12 metrics) | Not started | — |
 | T6 | Testing | Create ground truth document for all 8 Phase 2 clips | Not started | — |
 
@@ -46,7 +46,7 @@
 | ID | Task | Status | Blocked By |
 |----|------|--------|------------|
 | K2 | Write Terrain Feature KB — 8–10 entries | Not started | FKB-1 |
-| DYN-D | Resolve Dynamics KB structure decision: new domain folder (6 files) vs upgrade Domain 02/03 (26 files) | Not started | — |
+| DYN-D | Resolve Dynamics KB structure decision: new domain folder (6 files) vs upgrade Domain 02/03 (26 files) — **Option A locked** | COMPLETE | — |
 | K0b | Generate dynamics-01_weight-distribution KB entry | Not started | DYN-D |
 | K0d | Generate dynamics-02_throttle-management KB entry | Not started | DYN-D |
 | K3 | Write Bike Dynamics KB — remaining entries | Not started | DYN-D, K0b, K0d |
@@ -110,10 +110,11 @@
 
 | ID | Task | Status | Blocked By |
 |----|------|--------|------------|
-| D16-1 | Design Domain 16 schema (four-layer architecture: platform family → model-specific → fueling/generation → rider mods) | Not started | K2, K3 |
-| D16-2 | Generate Domain 16 entries (rider mods layer deferred post-MVP) | Not started | D16-1 |
+| D16-1 | Design Domain 16 schema — **Architecture locked:** stock bike data only; rider mods on user profile layer; MVP = one file with clear separation. Formal schema not yet in `docs/kb-schemas-v1.md`. | Not started | — |
+| D16-2 | Generate Domain 16 entries — **MACHINE-01 (GasGas EC300 TPI 2023) drafted** at `knowledge-base/domain-16-machines/gasgas-ec300-tpi-jake.md`, uncommitted | In progress | D16-1 |
+| D16-3 | MACHINE-01 rewrite pass: apply cause→effect discipline + ChatGPT review, then commit | Not started | — |
 
-> Domain 16 is a different KB type from terrain/features/dynamics — structured bike data, not coaching content. No schema exists yet in `docs/kb-schemas-v1.md`. Deferred until Feature and Dynamics KBs are complete.
+> Domain 16 is a different KB type from terrain/features/dynamics — structured bike data, not coaching content. Architecture locked (2026-04-03): stock data only; rider mods on user profile layer. No formal schema in `docs/kb-schemas-v1.md` yet.
 
 ### Engineering — Reliability
 
@@ -160,6 +161,9 @@
 | ID | Task | Completed |
 |----|------|-----------|
 | FKB-1 | Finalise Feature KB entry list — 14 entries locked, geometry-first | 2026-04-02 |
+| FKB-B | Generate FEATURE-03 (drop) through FEATURE-08 (berm) — 6 entries committed | 2026-04-03 |
+| FKB-C | Feature KB compression pass — all 8 entries compressed (16% avg reduction, ea68258) | 2026-04-03 |
+| FKB-S | Consistency spec: Section 16 (Compression Discipline) and check 11 (redundant content check) added (b894958) | 2026-04-03 |
 | K1 | Write Terrain KB — 10 core surface files (Domain 17, TERRAIN-01 to TERRAIN-10) | 2026-04-02 |
 | K0a | Generate terrain-01_rock KB entry (included in K1) | 2026-04-02 |
 | K4 | Define KB entry schemas for all 3 new KBs (Gate 2) | 2026-04-01 |

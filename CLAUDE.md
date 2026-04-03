@@ -1,6 +1,6 @@
 # CLAUDE.md — RideMind Project Context
 
-**Last updated:** 2026-04-02
+**Last updated:** 2026-04-03
 
 ## What is RideMind?
 
@@ -19,9 +19,12 @@ RideMind is a **physics-aware, terrain-aware, machine-aware riding intelligence 
 - **Gate 1 PASSED (2026-04-01)** — 11-stage pipeline approved with reconciliations. Contracts at `docs/pipeline-contracts-v1.md`
 - **Gate 2 PASSED (2026-04-01)** — KB schemas approved with cleanup corrections. Schemas at `docs/kb-schemas-v1.md`
 - **Terrain KB (Domain 17) — COMPLETE** — 10 entries generated and committed (TERRAIN-01 mud through TERRAIN-10 mixed). Dual-reviewed on rock, grass, clay, and mixed entries. All entries status: draft (not yet validated against pipeline runs).
-- **OPEN DECISION — Dynamics KB structure:** New domain folder (6 new files) vs upgrade existing Domain 02/03 entries with pipeline frontmatter (26 upgraded files). Must resolve before generation begins.
+- **Dynamics KB structure — LOCKED (Option A):** Extend existing Domain 02/03 entries with pipeline frontmatter. No separate domain folder.
 - **Feature KB entry list — LOCKED** — 14 entries, organised by geometry (not discipline). Discipline extremes handled by severity tiers within entries.
-- **Feature KB schema validated** — FEATURE-01 (jump, single-event) and FEATURE-02 (off-camber, continuous) committed. Schema v1.2 holding. Next: FKB-3 — dual review FEATURE-01 and FEATURE-02, then batch generate remaining 12 Feature KB entries.
+- **Feature KB — 8 of 14 entries committed** — FEATURE-01 (jump) through FEATURE-08 (berm). All 8 entries compression-passed (ea68258). Schema v1.2 holding. Next: FKB-3 — dual review + batch generate remaining 6 entries.
+- **Feature KB compression pass — COMPLETE** — All 8 committed entries compressed (16% avg reduction). Consistency spec updated: Section 16 (Compression Discipline) and check 11 (redundant content check) added (b894958).
+- **MACHINE-01 drafted** — GasGas EC300 TPI 2023 at `knowledge-base/domain-16-machines/gasgas-ec300-tpi-jake.md`. Needs cause→effect rewrite pass and ChatGPT review before commit.
+- **Domain 16 architecture — LOCKED:** Stock bike data only. Rider modifications belong on the user profile layer. For MVP, both in one file with clear separation. No schema in `docs/kb-schemas-v1.md` yet.
 
 ### Key Phase 2 Findings
 
@@ -47,7 +50,7 @@ An 11-stage reasoning pipeline (contracts at `docs/pipeline-contracts-v1.md`):
 Plus three new knowledge bases:
 - Terrain KB (surfaces, gradients, conditions)
 - Terrain Feature KB — 14 entries locked, geometry-first: jump/launch, drop, steps/ledges, horizontal obstacles, roots crossings, rock garden, rut, berm/banked turn, off-camber/side slope, switchback, water crossing, gully/ditch/washout, whoops/rhythm sections, elevated beam/plank
-- Bike Dynamics KB (2T/4T, traction, throttle, clutch, crash physics)
+- Bike Dynamics KB — **Option A locked:** extend existing Domain 02/03 entries with pipeline frontmatter (26 files upgraded), not a separate domain folder
 
 ### Approval Gates
 
@@ -85,6 +88,13 @@ This framework will shape: coaching tone, skill prioritisation, skill tag taxono
 - **Training drills are NOT feature types.** Cone exercises, pallet practice, and figure-8s are handled via upload UX (rider flags the session as drill practice) and a future drill evaluation system.
 - **Single-event vs continuous/section features.** Single-event features (jump, drop, log, step) behave differently from continuous/section features (off-camber, switchback, rock garden, whoops, beam). This distinction affects retrieval, severity assessment, and coaching timing.
 
+### Domain 16 — Machine Profiles
+
+- **Stock bike data only.** Rider modifications (suspension setup, power mods, gearing) belong on the user profile layer, not in the KB.
+- **MVP architecture:** Stock data and rider modification placeholders in one file with clear section separation. The user profile layer is not yet built.
+- **Compression discipline applies.** Domain 16 entries follow the same cause→effect writing standard as Feature KB entries (Section 16 of consistency spec).
+- **No schema yet.** Domain 16 uses its own file structure. A formal schema entry in `docs/kb-schemas-v1.md` is required before generating further entries.
+
 ## Project Structure
 
 ```
@@ -93,9 +103,9 @@ docs/                   # All planning, architecture, and strategy docs (flat st
 knowledge-base/
   domain-01-*/          # Existing technique KB (15 domains, 154+ topics)
   ...
+  domain-16-machines/   # Machine Profiles KB — MACHINE-01 draft (GasGas EC300 TPI 2023, uncommitted)
   domain-17-terrain/    # Terrain KB — COMPLETE (10 entries: TERRAIN-01 to TERRAIN-10)
-  features/             # NEW — Terrain Feature KB (to be created)
-  bike-dynamics/        # NEW — Bike Dynamics KB (to be created)
+  features/             # Terrain Feature KB — 8 entries committed (FEATURE-01 to FEATURE-08, 6 remaining)
 scripts/
   test-coaching-kb.ts   # GPT-4o test runner (Phase 1/2)
   test-coaching-claude.ts # Claude test runner (Phase 2)
@@ -118,6 +128,7 @@ scripts/
 - `docs/ridemind-phase3-master-plan-v1.md` — Source of truth for Phase 3
 - `docs/pipeline-contracts-v1.md` — Stage contracts for the 11-stage reasoning pipeline (Gate 1 output)
 - `docs/kb-schemas-v1.md` — Entry templates for Terrain KB, Feature KB, and Bike Dynamics KB (Gate 2 output)
+- `docs/feature-kb-consistency-spec-v1.md` — Cross-feature consistency rules for Feature KB (Section 16: Compression Discipline; 11-check pre-commit audit)
 - `docs/phase2-final-report.md` — Phase 2 evaluation report with settled scores (all 8 clips, 3 models)
 - `docs/phase2-evaluation-framework.md` — Scoring rubric
 - `docs/backlog.md` — Current task backlog with gates
