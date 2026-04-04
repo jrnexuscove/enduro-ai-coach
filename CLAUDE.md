@@ -1,6 +1,6 @@
 # CLAUDE.md — RideMind Project Context
 
-**Last updated:** 2026-04-03
+**Last updated:** 2026-04-04
 
 ## What is RideMind?
 
@@ -21,10 +21,11 @@ RideMind is a **physics-aware, terrain-aware, machine-aware riding intelligence 
 - **Terrain KB (Domain 17) — COMPLETE** — 10 entries generated and committed (TERRAIN-01 mud through TERRAIN-10 mixed). Dual-reviewed on rock, grass, clay, and mixed entries. All entries status: draft (not yet validated against pipeline runs).
 - **Dynamics KB structure — LOCKED (Option A):** Extend existing Domain 02/03 entries with pipeline frontmatter. No separate domain folder.
 - **Feature KB entry list — LOCKED** — 14 entries, organised by geometry (not discipline). Discipline extremes handled by severity tiers within entries.
-- **Feature KB — 8 of 14 entries committed** — FEATURE-01 (jump) through FEATURE-08 (berm). All 8 entries compression-passed (ea68258). Schema v1.2 holding. Next: FKB-3 — dual review + batch generate remaining 6 entries.
-- **Feature KB compression pass — COMPLETE** — All 8 committed entries compressed (16% avg reduction). Consistency spec updated: Section 16 (Compression Discipline) and check 11 (redundant content check) added (b894958). Compression discipline applies to future entries only — no re-compression of already-compressed entries.
+- **Feature KB — COMPLETE** — All 14 entries committed: FEATURE-01 (jump) through FEATURE-14 (elevated beam). FEATURE-01–08 compression-passed (16% avg reduction, ea68258); FEATURE-09–14 generated at correct density (183–194 lines each). All 14 entries in `knowledge-base/features/`.
+- **Feature KB compression pass — COMPLETE** — All 8 original entries compressed (16% avg reduction). Consistency spec updated: Section 16 (Compression Discipline) and check 11 (redundant content check) added (b894958). Compression discipline applies to future entries only — no re-compression of already-compressed entries.
 - **MACHINE-01 — COMPLETE** — GasGas EC300 TPI 2023 at `knowledge-base/domain-16-machines/gasgas-ec300-tpi-2023--jake.md`. Fully rewritten to Schema 4 (v1.3), PDS corrected to linkage throughout, committed (0655cc9).
 - **MACHINE-02 — COMPLETE** — GasGas EC300 TBI 2024 stock profile at `knowledge-base/domain-16-machines/gasgas-ec300-tbi-2024.md`. Stock-only (`mod_layer: false`), written to Schema 4. This is the Gate 3 test bike — all current test clips use the TBI model. Committed (ca20c46).
+- **Pipeline v1 — Stages 1–4 IMPLEMENTED AND TESTED (2026-04-04)** — All 8 Phase 2 clips run through the pipeline. Results: 5 pass, 2 partial, 1 fail. Stage 1 (Camera) validated: 8/8 correct — that stage is done. Three prompt-tuning issues identified: severity calibration (consequences under-weighted), event/incident detection flag missing from Stage 3, anti-refusal instructions needed across all stages. Next: targeted prompt fixes, then Stages 5–7. Pipeline code at `pipeline/`.
 - **Domain 16 architecture — LOCKED:** Stock bike data only. Rider modifications belong on the user profile layer. For MVP, both in one file with clear separation. **Schema 4 added to `docs/kb-schemas-v1.md` (v1.3, 2026-04-03).** File naming locked: stock = `[mfr]-[model]-[year].md`, rider-layer = `[mfr]-[model]-[year]--[rider].md`. Machine KB entries are factual reference only — no coaching, no pipeline logic, no rider psychology, no improvement language.
 
 ### Key Phase 2 Findings
@@ -59,7 +60,7 @@ Plus three new knowledge bases:
 |------|--------|--------|
 | Gate 1 — Pipeline stages approved | **PASSED** (2026-04-01) | — |
 | Gate 2 — KB entry schemas approved | **PASSED** (2026-04-01) | — |
-| Gate 3 — Pipeline v1 implemented | NOT PASSED | Phase 3 retest |
+| Gate 3 — Pipeline v1 implemented | **IN PROGRESS** — Stages 1–4 built and tested; prompt tuning + Stages 5–7 remaining | Phase 3 retest |
 
 ## Architectural Decisions (Phase 3)
 
@@ -107,7 +108,8 @@ knowledge-base/
   ...
   domain-16-machines/   # Machine Profiles KB — 2 entries committed: gasgas-ec300-tpi-2023--jake.md (MACHINE-01), gasgas-ec300-tbi-2024.md (MACHINE-02)
   domain-17-terrain/    # Terrain KB — COMPLETE (10 entries: TERRAIN-01 to TERRAIN-10)
-  features/             # Terrain Feature KB — 8 entries committed (FEATURE-01 to FEATURE-08, 6 remaining)
+  features/             # Terrain Feature KB — COMPLETE, 14 entries (FEATURE-01 to FEATURE-14)
+  pipeline/             # Pipeline v1 — Stages 1–4 implemented (model-agnostic, GPT-4o provider)
 scripts/
   test-coaching-kb.ts   # GPT-4o test runner (Phase 1/2)
   test-coaching-claude.ts # Claude test runner (Phase 2)

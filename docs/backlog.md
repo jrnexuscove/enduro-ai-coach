@@ -1,6 +1,6 @@
 # RideMind — Backlog
 
-**Last updated:** 2026-04-03
+**Last updated:** 2026-04-04
 **Current phase:** Phase 3 — Reasoning Pipeline + KB Build
 **Master plan:** `docs/ridemind-phase3-master-plan-v1.md`
 
@@ -12,7 +12,7 @@
 |------|--------|--------|
 | Gate 1 — Pipeline stages approved | **PASSED** (2026-04-01) | — |
 | Gate 2 — KB entry schemas approved | **PASSED** (2026-04-01) | — |
-| Gate 3 — Pipeline v1 implemented | **NOT PASSED** | Phase 3 retest |
+| Gate 3 — Pipeline v1 implemented | **IN PROGRESS** — Stages 1–4 built and tested; prompt tuning + Stages 5–7 remaining | Phase 3 retest |
 
 ---
 
@@ -22,7 +22,7 @@
 |----|----------|------|--------|------------|
 | FKB-0 | KB | Update Feature KB schema in docs/kb-schemas-v1.md — add body section structure (severity_definition block, technique-by-severity sections, Pipeline ID + Observability Notes per section) | COMPLETE | — |
 | FKB-2 | KB | Generate first 2 Feature KB entries (Jump + Off-camber) for schema validation | COMPLETE | — |
-| FKB-3 | KB | Dual review (Claude + ChatGPT); batch remaining 6 Feature KB entries (entries 9–14) | Not started | — |
+| FKB-3 | KB | Dual review (Claude + ChatGPT); batch remaining 6 Feature KB entries (entries 9–14) | COMPLETE | — |
 | T5 | Testing | Define Phase 3 scoring framework (finalised 12 metrics) | Not started | — |
 | T6 | Testing | Create ground truth document for all 8 Phase 2 clips | Not started | — |
 
@@ -57,19 +57,28 @@
 
 | ID | Task | Status | Blocked By |
 |----|------|--------|------------|
-| E1 | Implement Stage 1: Camera Perspective Detection | Not started | — |
-| E2 | Implement Stage 2: Observability Assessment | Not started | — |
-| E3 | Implement Stage 3: Rider Intent / Attempt Detection | Not started | — |
-| E4 | Implement Stage 4: Terrain & Feature Detection | Not started | K0a–K0d |
-| E10 | Build KB loader / query function | Not started | K0a–K0d |
+| E1 | Implement Stage 1: Camera Perspective Detection | **COMPLETE** — 8/8 validated | — |
+| E2 | Implement Stage 2: Observability Assessment | **COMPLETE** | — |
+| E3 | Implement Stage 3: Rider Intent / Attempt Detection | **COMPLETE** — weak on crash/event clips; prompt fix pending | — |
+| E4 | Implement Stage 4: Terrain & Feature Detection | **COMPLETE** — severity calibration prompt fix pending | — |
+| E10 | Build KB loader / query function | **COMPLETE** | — |
+
+### Pipeline — Prompt Tuning (Before Stages 5–7)
+
+| ID | Task | Status | Blocked By |
+|----|------|--------|------------|
+| PROMPT-1 | Stage 4 severity calibration — add consequence/commitment awareness to prompt ("reflects commitment, consequence, speed sensitivity, recovery margin — not just visual size") | Not started | — |
+| PROMPT-2 | Stage 3 event/incident flag — add "event/incident observed" output so crash clips aren't reduced to pre-crash activity only | Not started | — |
+| PROMPT-3 | Anti-refusal instruction — add explicit instruction across all 4 stage prompts (Nick Crash hit refusal at Stage 3) | Not started | — |
+| PROMPT-4 | Re-run nick crash + jimbo crash after prompt fixes to verify improvement | Not started | PROMPT-1, PROMPT-2, PROMPT-3 |
 
 ### Pipeline / Engineering — Stages 5–11 (After Early Validation)
 
 | ID | Task | Status | Blocked By |
 |----|------|--------|------------|
-| E5 | Implement Stage 5: Event Sequencing | Not started | E1–E4 |
-| E6 | Implement Stage 6: Failure Type Classification | Not started | E1–E4 |
-| E7 | Implement Stage 7: Crash Type Classification | Not started | E1–E4 |
+| E5 | Implement Stage 5: Event Sequencing | Not started | PROMPT-1–4 |
+| E6 | Implement Stage 6: Failure Type Classification | Not started | PROMPT-1–4 |
+| E7 | Implement Stage 7: Crash Type Classification | Not started | PROMPT-1–4 |
 | E8 | Implement Stage 8: Causal Chain Construction | Not started | E1–E4 |
 | E9 | Implement Stage 9: Decision Engine / Coaching Strategy Mapping | Not started | E1–E4 |
 | E11 | Implement Stage 10: Coaching Generation (refactor existing) | Not started | E1–E4 |
@@ -80,7 +89,7 @@
 
 | ID | Task | Status | Blocked By |
 |----|------|--------|------------|
-| T1 | Re-run all 8 Phase 2 clips through new pipeline | Not started | Gate 3 |
+| T1 | Re-run all 8 Phase 2 clips through new pipeline | **Stages 1–4 done** — 5 pass, 2 partial, 1 fail. Full retest after all stages complete. | Gate 3 |
 | T2 | Score Phase 3 results against Phase 2 baselines | Not started | T1 |
 | T3 | Write Phase 3 evaluation report | Not started | T2 |
 
@@ -92,9 +101,9 @@
 
 | ID | Task | Status | Blocked By |
 |----|------|--------|------------|
-| V1 | Early validation: run stages 1–4 on Colin Hill | Not started | E1–E4 |
-| V2 | Early validation: run stages 1–4 on Mark Crash | Not started | E1–E4 |
-| V3 | Document validation gaps before building stages 5–11 | Not started | V1, V2 |
+| V1 | Early validation: run stages 1–4 on Colin Hill | **COMPLETE** — Pass | E1–E4 |
+| V2 | Early validation: run stages 1–4 on Mark Crash | **COMPLETE** — Pass (severity soft) | E1–E4 |
+| V3 | Document validation gaps before building stages 5–11 | **COMPLETE** — 3 patterns documented in session handoff (2026-04-04) | V1, V2 |
 
 ### Knowledge Base — Wave 2 (Expansion)
 
@@ -163,6 +172,8 @@
 |----|------|-----------|
 | FKB-1 | Finalise Feature KB entry list — 14 entries locked, geometry-first | 2026-04-02 |
 | FKB-B | Generate FEATURE-03 (drop) through FEATURE-08 (berm) — 6 entries committed | 2026-04-03 |
+| FKB-3 | FEATURE-09 (roots) through FEATURE-14 (elevated beam) — 6 entries generated, ChatGPT-reviewed, committed | 2026-04-04 |
+| E1–E4 | Pipeline v1 Stages 1–4 implemented and tested — all 8 Phase 2 clips run (5 pass, 2 partial, 1 fail; Stage 1 validated 8/8) | 2026-04-04 |
 | FKB-C | Feature KB compression pass — all 8 entries compressed (16% avg reduction, ea68258) | 2026-04-03 |
 | FKB-S | Consistency spec: Section 16 (Compression Discipline) and check 11 (redundant content check) added (b894958) | 2026-04-03 |
 | D16-1 | Schema 4 (Machine KB) added to `docs/kb-schemas-v1.md` (v1.3) — two-block frontmatter, 8-section body, file naming convention locked | 2026-04-03 |
