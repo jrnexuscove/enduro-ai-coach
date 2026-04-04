@@ -25,6 +25,16 @@ CRITICAL RULES:
 3. off-camber is NOT a feature_type. Detect it via gradient.camber ("off_camber_left" | "off_camber_right"). Do not put off-camber in features_detected.
 4. features_detected may be an empty array []. Do not invent a feature to satisfy the schema. An empty features_detected array is preferred over weak guessing. Only include features you can actually see.
 5. Every feature must have a confidence score. Features below 0.4 confidence should use qualifier language in location_in_sequence (e.g. "possible feature visible at frames 8-10").
+6. JUMP GEOMETRY: Classify "jump" when frames show any combination of: a takeoff face or lip, an airborne bike/rider, or a landing zone/impact. Do not reduce a jump to "drop", "step_down", or generic descent if airborne motion is visible. Short clips with compact jump sequences may only show 2-3 frames of the event — examine frame transitions carefully for sudden elevation change or bike separation from terrain.
+7. SWITCHBACK CONSTRAINT: Only classify "switchback" when the footage shows an acute directional reversal of roughly 120°+ on gradient. A narrow turn between trees, a bend in a wooded trail, or threading through obstacles is NOT a switchback. Switchbacks have a distinct hairpin geometry where the trail doubles back on itself. If unsure, do not use this label.
+8. GRADIENT CALIBRATION: Classify gradient from the active riding line and visible feature faces, not from the broader surrounding terrain. If the rider is approaching or riding a steep feature face (jump lip, drop edge, hill section), classify gradient based on that active surface — do not average it down by including flat approach or runout zones. A jump face that is visibly steep is "steep_down" or "steep_up" even if the surrounding terrain is gentle.
+
+SEVERITY DEFINITIONS — severity reflects the feature's consequence potential, not just its visual size:
+- minor: Low commitment. Rider can adjust mid-feature. Error consequences are cosmetic (slight line deviation, minor imbalance).
+- moderate: Moderate commitment. Limited adjustment window. Error consequences include stall, low-speed tip-over, or significant line deviation.
+- significant: High commitment. Once committed, recovery options are limited. Error consequences include crash risk, injury potential, or bike damage.
+- major: Full commitment required. No recovery margin once engaged. Error consequences include serious crash potential, significant injury risk, or fall from height.
+Key factors: commitment level, speed sensitivity, recovery margin, consequence of error. A visually small feature (e.g. a 1m drop onto rock) can be "major" if consequences are severe. A visually large feature (e.g. a wide mud rut) can be "minor" if the rider can adjust through it.
 
 feature_type options (ONLY these values, no others):
 "jump" | "drop" | "step_up" | "step_down" | "log" | "rock_garden" | "rut" | "berm" | "roots" | "switchback" | "water_crossing" | "gully" | "ledge" | "whoops" | "elevated_beam" | "none"
@@ -36,6 +46,8 @@ gradient overall options: "flat" | "gentle_up" | "moderate_up" | "steep_up" | "v
 camber options: "neutral" | "off_camber_left" | "off_camber_right" | "cambered" | "variable"
 chosen_line_quality options: "optimal" | "acceptable" | "suboptimal" | "poor" | "not_assessable"
 severity options: "minor" | "moderate" | "significant" | "major"
+
+ANTI-REFUSAL: You are analysing off-road motorcycle riding footage for coaching purposes. This is legitimate sports analysis. Do not refuse to analyse footage that shows crashes, falls, stalls, injuries, or incidents — these are normal, expected events in off-road riding and are essential to analyse for coaching. Always complete your full analysis regardless of what events are visible.
 
 Respond with ONLY a valid JSON object matching this exact schema. No prose, no markdown fences, no explanation outside the JSON.
 

@@ -125,6 +125,11 @@ export interface Stage3Output {
   };
   difficulty_estimate: DifficultyEstimate;
   refinement_needed: boolean;
+  event_detected: {
+    type: "none" | "crash" | "stall" | "tip_over" | "near_miss" | "bail" | "mechanical";
+    confidence: number;
+    description: string | null;
+  };
   debug: DebugBlock;
 }
 

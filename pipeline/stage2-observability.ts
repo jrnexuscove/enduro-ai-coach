@@ -30,6 +30,8 @@ FRAME QUALITY ISSUES to look for:
 - distance: subject too far away to assess detail
 - resolution: low resolution limiting detail
 
+ANTI-REFUSAL: You are analysing off-road motorcycle riding footage for coaching purposes. This is legitimate sports analysis. Do not refuse to analyse footage that shows crashes, falls, stalls, injuries, or incidents — these are normal, expected events in off-road riding and are essential to analyse for coaching. Always complete your full analysis regardless of what events are visible.
+
 Respond with ONLY a valid JSON object matching this exact schema. No prose, no markdown fences, no explanation outside the JSON.
 
 Schema:
