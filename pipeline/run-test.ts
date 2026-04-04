@@ -1,15 +1,20 @@
 // RideMind Pipeline — Test Runner
 // Usage: npx tsx pipeline/run-test.ts "path/to/video.mp4"
 //
-// Runs the full Stages 1–4 pipeline on a video file and prints:
-//   1. Progress indicators per stage (emitted by runner.ts)
+// Runs the full Stages 1–5 pipeline on a video file and prints:
+//   1. Progress indicators per stage
 //   2. Full PipelineResult as formatted JSON
 //   3. Short human-readable summary
 
 import fs from "fs";
 import { config } from "dotenv";
 import { GPT4oProvider } from "./model-provider.js";
-import { runPipeline } from "./runner.js";
+import { extractFrames } from "./frame-extractor.js";
+import { runStage1 } from "./stage1-camera.js";
+import { runStage2 } from "./stage2-observability.js";
+import { runStage3 } from "./stage3-intent.js";
+import { runStage4 } from "./stage4-terrain-feature.js";
+import { runStage5 } from "./stage5-event-sequencing.js";
 
 config({ path: ".env.local" });
 
@@ -31,18 +36,71 @@ async function main() {
     process.exit(1);
   }
 
-  console.log("=== RideMind Pipeline v1 — Stages 1–4 ===\n");
+  console.log("=== RideMind Pipeline v1 — Stages 1–5 ===\n");
 
   const model = new GPT4oProvider();
-  const result = await runPipeline(videoPath, model);
+  const frameCount = 16;
+
+  console.log(`[Pipeline] Starting — model: ${model.name}, frames: ${frameCount}`);
+  console.log(`[Pipeline] Video: ${videoPath}\n`);
+
+  // Frame extraction
+  console.log("[Pipeline] Extracting frames...");
+  console.time("frame-extraction");
+  const frames = await extractFrames(videoPath, frameCount);
+  console.timeEnd("frame-extraction");
+  console.log();
+
+  // Stage 1 — Camera Perspective Detection
+  console.log("[Stage 1] Camera Perspective Detection...");
+  console.time("stage1");
+  const stage1 = await runStage1(model, frames);
+  console.timeEnd("stage1");
+  console.log(`  → perspective: ${stage1.perspective} (confidence: ${stage1.confidence.toFixed(2)})\n`);
+
+  // Stage 2 — Observability Assessment
+  console.log("[Stage 2] Observability Assessment...");
+  console.time("stage2");
+  const stage2 = await runStage2(model, frames, stage1);
+  console.timeEnd("stage2");
+  console.log(`  → overall confidence: ${stage2.overall_confidence.toFixed(2)}`);
+  console.log(`  → terrain ceiling: ${stage2.confidence_ceilings.terrain_max_confidence.toFixed(2)}`);
+  console.log(`  → body position ceiling: ${stage2.confidence_ceilings.body_position_max_confidence.toFixed(2)}\n`);
+
+  // Stage 3 — Rider Intent Detection
+  console.log("[Stage 3] Rider Intent Detection...");
+  console.time("stage3");
+  const stage3 = await runStage3(model, frames, stage1, stage2);
+  console.timeEnd("stage3");
+  console.log(`  → intent: ${stage3.intent_category} (confidence: ${stage3.confidence.toFixed(2)})`);
+  console.log(`  → "${stage3.primary_intent}"\n`);
+
+  // Stage 4 — Terrain & Feature Detection
+  console.log("[Stage 4] Terrain & Feature Detection...");
+  console.time("stage4");
+  const stage4 = await runStage4(model, frames, stage1, stage2, stage3);
+  console.timeEnd("stage4");
+  console.log(`  → surface: ${stage4.surface.primary_type} / ${stage4.surface.condition} (traction: ${stage4.surface.traction_estimate})`);
+  console.log(`  → gradient: ${stage4.gradient.overall} / camber: ${stage4.gradient.camber}`);
+  console.log(`  → features detected: ${stage4.features_detected.length}\n`);
+
+  // Stage 5 — Event Sequencing
+  console.log("[Stage 5] Event Sequencing...");
+  console.time("stage5");
+  const stage5 = await runStage5(model, frames, stage1, stage2, stage3, stage4);
+  console.timeEnd("stage5");
+  console.log(`  → segments: ${stage5.segments.length}`);
+  console.log(`  → critical moment: segment ${stage5.critical_moment.segment_id}`);
+  console.log(`  → outcome: ${stage5.outcome.result}\n`);
+
+  console.log("[Pipeline] Complete.\n");
 
   // Full result JSON
+  const result = { stage1, stage2, stage3, stage4, stage5 };
   console.log("=== FULL PIPELINE RESULT ===\n");
   console.log(JSON.stringify(result, null, 2));
 
   // Summary
-  const { stage1, stage2, stage3, stage4 } = result;
-
   console.log("\n=== SUMMARY ===\n");
 
   console.log("STAGE 1 — Camera Perspective");
@@ -91,6 +149,19 @@ async function main() {
     });
   }
   console.log();
+
+  console.log("STAGE 5 — Event Sequencing");
+  console.log(`  Outcome:         ${stage5.outcome.result} (confidence: ${stage5.outcome.confidence.toFixed(2)})`);
+  const criticalDesc = stage5.critical_moment.description.length > 100
+    ? stage5.critical_moment.description.slice(0, 97) + "..."
+    : stage5.critical_moment.description;
+  console.log(`  Critical moment: ${criticalDesc}`);
+  console.log(`  Segments (${stage5.segments.length}):`);
+  stage5.segments.forEach((s) => {
+    console.log(`    ${s.segment_id}. [${s.phase}] ${s.frame_range}`);
+  });
+  console.log();
+
   console.log("=== END ===\n");
 }
 

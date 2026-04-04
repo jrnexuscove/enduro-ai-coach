@@ -234,6 +234,55 @@ export interface Stage4Output {
 }
 
 // ————————————————————————————————————————————
+// Stage 5 — Event Sequencing
+// ————————————————————————————————————————————
+
+export type SegmentPhase =
+  | "approach"
+  | "setup"
+  | "execution"
+  | "transition"
+  | "failure_point"
+  | "recovery"
+  | "outcome"
+  | "post_event";
+
+export type BodyPosition = "standing" | "seated" | "transitioning" | "not_visible";
+export type ThrottleState = "accelerating" | "steady" | "decelerating" | "off" | "unknown";
+export type BalanceState = "stable" | "unstable" | "losing_balance" | "fallen" | "not_assessable";
+export type OutcomeResult = "clean" | "stall" | "bail" | "crash" | "stuck" | "partial_completion" | "unknown";
+
+export interface EventSegment {
+  segment_id: number;
+  phase: SegmentPhase;
+  description: string;
+  frame_range: string;
+  rider_state: {
+    body_position: BodyPosition;
+    throttle_state: ThrottleState;
+    balance_state: BalanceState;
+  };
+  key_observations: string[];
+  audio_markers: string[];
+}
+
+export interface Stage5Output {
+  stage: "event_sequencing";
+  segments: EventSegment[];
+  critical_moment: {
+    segment_id: number;
+    description: string;
+    timestamp_estimate: string | null;
+  };
+  outcome: {
+    result: OutcomeResult;
+    confidence: number;
+    outcome_evidence: string[];
+  };
+  debug: DebugBlock;
+}
+
+// ————————————————————————————————————————————
 // Pipeline Result
 // ————————————————————————————————————————————
 
@@ -242,6 +291,7 @@ export interface PipelineResult {
   stage2: Stage2Output;
   stage3: Stage3Output;
   stage4: Stage4Output;
+  stage5?: Stage5Output;
 }
 
 // ————————————————————————————————————————————
@@ -303,8 +353,8 @@ export function requireKeys(
 }
 
 /**
- * Executes a stage call with one retry on parse or validation failure.
- * On first failure, prepends a schema-reminder to the user prompt before retrying.
+ * Executes a stage call with two retries on parse, validation, or refusal failure.
+ * First retry prepends a schema-reminder; second retry prepends a stronger JSON-only demand.
  */
 export async function executeStageCall<T>(
   model: ModelProvider,
@@ -317,18 +367,37 @@ export async function executeStageCall<T>(
   const retryPrefix =
     "Your previous response was not valid JSON matching the required schema. " +
     "Return ONLY a valid JSON object with no prose or markdown.\n\n";
+  const secondRetryPrefix =
+    "Your previous response was not valid JSON. You MUST respond with ONLY a valid JSON object. " +
+    "No text before or after. No apologies. No explanations. Just the JSON object matching the schema.\n\n";
+
+  const refusalPhrases = [
+    "I can't assist",
+    "I'm unable to",
+    "I cannot help",
+    "I'm sorry, but I can't",
+    "I can't help with",
+  ];
 
   let lastError: unknown;
 
-  for (let attempt = 0; attempt < 2; attempt++) {
-    const effectivePrompt = attempt === 0 ? userPrompt : retryPrefix + userPrompt;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    let effectivePrompt = userPrompt;
+    if (attempt === 1) effectivePrompt = retryPrefix + userPrompt;
+    if (attempt === 2) effectivePrompt = secondRetryPrefix + userPrompt;
     try {
       const raw = await model.analyzeFrames(systemPrompt, effectivePrompt, frames);
+      if (refusalPhrases.some((phrase) => raw.includes(phrase))) {
+        console.warn(`  [${stageLabel}] Refusal detected, retrying...`);
+        throw new Error(`${stageLabel}: Model refused to respond`);
+      }
       return validateAndNormalize(raw);
     } catch (err) {
       lastError = err;
       if (attempt === 0) {
         console.log(`  [${stageLabel}] Response invalid, retrying once...`);
+      } else if (attempt === 1) {
+        console.log(`  [${stageLabel}] Response invalid again, retrying (attempt 3)...`);
       }
     }
   }
