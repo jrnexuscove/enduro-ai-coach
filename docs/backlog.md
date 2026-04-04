@@ -1,6 +1,6 @@
 # RideMind — Backlog
 
-**Last updated:** 2026-04-04
+**Last updated:** 2026-04-04 (prompt tuning complete)
 **Current phase:** Phase 3 — Reasoning Pipeline + KB Build
 **Master plan:** `docs/ridemind-phase3-master-plan-v1.md`
 
@@ -12,7 +12,7 @@
 |------|--------|--------|
 | Gate 1 — Pipeline stages approved | **PASSED** (2026-04-01) | — |
 | Gate 2 — KB entry schemas approved | **PASSED** (2026-04-01) | — |
-| Gate 3 — Pipeline v1 implemented | **IN PROGRESS** — Stages 1–4 built and tested; prompt tuning + Stages 5–7 remaining | Phase 3 retest |
+| Gate 3 — Pipeline v1 implemented | **IN PROGRESS** — Stages 1–4 built, tested, and prompt-tuned; Stages 5–7 remaining | Phase 3 retest |
 
 ---
 
@@ -59,26 +59,27 @@
 |----|------|--------|------------|
 | E1 | Implement Stage 1: Camera Perspective Detection | **COMPLETE** — 8/8 validated | — |
 | E2 | Implement Stage 2: Observability Assessment | **COMPLETE** | — |
-| E3 | Implement Stage 3: Rider Intent / Attempt Detection | **COMPLETE** — weak on crash/event clips; prompt fix pending | — |
-| E4 | Implement Stage 4: Terrain & Feature Detection | **COMPLETE** — severity calibration prompt fix pending | — |
+| E3 | Implement Stage 3: Rider Intent / Attempt Detection | **COMPLETE** — event_detected field added (crash/stall/bail/near_miss/tip_over/mechanical), anti-refusal applied | — |
+| E4 | Implement Stage 4: Terrain & Feature Detection | **COMPLETE** — consequence-based severity, jump geometry, switchback constraint, gradient calibration, anti-refusal applied | — |
 | E10 | Build KB loader / query function | **COMPLETE** | — |
 
 ### Pipeline — Prompt Tuning (Before Stages 5–7)
 
 | ID | Task | Status | Blocked By |
 |----|------|--------|------------|
-| PROMPT-1 | Stage 4 severity calibration — add consequence/commitment awareness to prompt ("reflects commitment, consequence, speed sensitivity, recovery margin — not just visual size") | Not started | — |
-| PROMPT-2 | Stage 3 event/incident flag — add "event/incident observed" output so crash clips aren't reduced to pre-crash activity only | Not started | — |
-| PROMPT-3 | Anti-refusal instruction — add explicit instruction across all 4 stage prompts (Nick Crash hit refusal at Stage 3) | Not started | — |
-| PROMPT-4 | Re-run nick crash + jimbo crash after prompt fixes to verify improvement | Not started | PROMPT-1, PROMPT-2, PROMPT-3 |
+| PROMPT-1 | Stage 4 severity calibration — consequence-based severity definitions added to prompt | **DONE** | — |
+| PROMPT-2 | Stage 3 event/incident flag — event_detected field added (type, confidence, description) | **DONE** | — |
+| PROMPT-3 | Anti-refusal instruction — applied across all 4 stage prompts | **DONE** | — |
+| PROMPT-4 | Re-run 4 clips after prompt fixes — 3/4 pass; Nick crash partial (jump detected, event_detected inconsistent — low observability + model variance) | **DONE** | PROMPT-1, PROMPT-2, PROMPT-3 |
 
 ### Pipeline / Engineering — Stages 5–11 (After Early Validation)
 
 | ID | Task | Status | Blocked By |
 |----|------|--------|------------|
-| E5 | Implement Stage 5: Event Sequencing | Not started | PROMPT-1–4 |
-| E6 | Implement Stage 6: Failure Type Classification | Not started | PROMPT-1–4 |
-| E7 | Implement Stage 7: Crash Type Classification | Not started | PROMPT-1–4 |
+| E5–7 | **Build Stages 5–7: Event Sequencing, Failure Type Classification, Crash Type Classification** | **NEXT PRIORITY** | PROMPT-1–4 ✓ |
+| E5 | Implement Stage 5: Event Sequencing | Not started | — |
+| E6 | Implement Stage 6: Failure Type Classification | Not started | — |
+| E7 | Implement Stage 7: Crash Type Classification | Not started | — |
 | E8 | Implement Stage 8: Causal Chain Construction | Not started | E1–E4 |
 | E9 | Implement Stage 9: Decision Engine / Coaching Strategy Mapping | Not started | E1–E4 |
 | E11 | Implement Stage 10: Coaching Generation (refactor existing) | Not started | E1–E4 |
@@ -154,6 +155,12 @@
 | DRILL-3 | Training mode in upload UX: rider flags upload as practice/drill session vs trail riding | Not started | Post-MVP |
 | DRILL-4 | Progression tracking system: track skill tag improvement over time across sessions | Not started | Post-MVP |
 
+### Engineering — Future Considerations
+
+| ID | Task | Status | Notes |
+|----|------|--------|-------|
+| FC-1 | Investigate denser frame sampling for short/compact event clips | Not started | Evidence from Nick crash retest: jump visible but event_detected inconsistent — may be a frame coverage issue for compact single-event features. Test with 2× frame density before attributing to model variance alone. |
+
 ### Non-Blocking Cleanup (do anytime)
 
 | ID | Task | Status | Notes |
@@ -174,6 +181,7 @@
 | FKB-B | Generate FEATURE-03 (drop) through FEATURE-08 (berm) — 6 entries committed | 2026-04-03 |
 | FKB-3 | FEATURE-09 (roots) through FEATURE-14 (elevated beam) — 6 entries generated, ChatGPT-reviewed, committed | 2026-04-04 |
 | E1–E4 | Pipeline v1 Stages 1–4 implemented and tested — all 8 Phase 2 clips run (5 pass, 2 partial, 1 fail; Stage 1 validated 8/8) | 2026-04-04 |
+| PROMPT-1–4 | Pipeline prompt tuning — Stage 3 event_detected, Stage 4 severity/geometry, anti-refusal across all stages. Retest: 3/4 pass (2068821) | 2026-04-04 |
 | FKB-C | Feature KB compression pass — all 8 entries compressed (16% avg reduction, ea68258) | 2026-04-03 |
 | FKB-S | Consistency spec: Section 16 (Compression Discipline) and check 11 (redundant content check) added (b894958) | 2026-04-03 |
 | D16-1 | Schema 4 (Machine KB) added to `docs/kb-schemas-v1.md` (v1.3) — two-block frontmatter, 8-section body, file naming convention locked | 2026-04-03 |
