@@ -1,6 +1,6 @@
 # RideMind — Backlog
 
-**Last updated:** 2026-04-04 (prompt tuning complete)
+**Last updated:** 2026-04-04 (Stages 5–7 implemented)
 **Current phase:** Phase 3 — Reasoning Pipeline + KB Build
 **Master plan:** `docs/ridemind-phase3-master-plan-v1.md`
 
@@ -12,7 +12,7 @@
 |------|--------|--------|
 | Gate 1 — Pipeline stages approved | **PASSED** (2026-04-01) | — |
 | Gate 2 — KB entry schemas approved | **PASSED** (2026-04-01) | — |
-| Gate 3 — Pipeline v1 implemented | **IN PROGRESS** — Stages 1–4 built, tested, and prompt-tuned; Stages 5–7 remaining | Phase 3 retest |
+| Gate 3 — Pipeline v1 implemented | **IN PROGRESS** — Stages 1–7 built; Stages 1–6 tested and validated; Stage 7 not yet wired into runner; Stages 8–11 remaining | Phase 3 retest |
 
 ---
 
@@ -71,26 +71,29 @@
 | PROMPT-2 | Stage 3 event/incident flag — event_detected field added (type, confidence, description) | **DONE** | — |
 | PROMPT-3 | Anti-refusal instruction — applied across all 4 stage prompts | **DONE** | — |
 | PROMPT-4 | Re-run 4 clips after prompt fixes — 3/4 pass; Nick crash partial (jump detected, event_detected inconsistent — low observability + model variance) | **DONE** | PROMPT-1, PROMPT-2, PROMPT-3 |
+| PROMPT-5 | Failure hierarchy rule — added to Stage 6 SYSTEM_PROMPT as Rule 8: airborne failures classify as technique (not terrain/traction); priority ordering for momentum vs traction vs line_choice | **DONE** | E6 |
 
 ### Pipeline / Engineering — Stages 5–11 (After Early Validation)
 
 | ID | Task | Status | Blocked By |
 |----|------|--------|------------|
-| E5–7 | **Build Stages 5–7: Event Sequencing, Failure Type Classification, Crash Type Classification** | **NEXT PRIORITY** | PROMPT-1–4 ✓ |
-| E5 | Implement Stage 5: Event Sequencing | Not started | — |
-| E6 | Implement Stage 6: Failure Type Classification | Not started | — |
-| E7 | Implement Stage 7: Crash Type Classification | Not started | — |
-| E8 | Implement Stage 8: Causal Chain Construction | Not started | E1–E4 |
-| E9 | Implement Stage 9: Decision Engine / Coaching Strategy Mapping | Not started | E1–E4 |
-| E11 | Implement Stage 10: Coaching Generation (refactor existing) | Not started | E1–E4 |
-| E12 | Implement Stage 11: Coaching Safety Validation | Not started | E1–E4 |
-| E13 | Wire pipeline into existing test runner CLI | Not started | E1–E12 |
+| E5–7 | **Build Stages 5–7: Event Sequencing, Failure Type Classification, Crash Type Classification** | **COMPLETE** | PROMPT-1–4 ✓ |
+| E-RELIA | Reliability hardening: 2-retry loop with escalating repair prompts; JSON extraction from mixed responses (direct → strip fences → brace extract); refusal detection; deterministic timestamps | **COMPLETE** | — |
+| E5 | Implement Stage 5: Event Sequencing | **COMPLETE** — chronological phase segmentation, sequence-not-causality enforcement, airborne failure-point rule, audio markers per segment, critical_moment | — |
+| E6 | Implement Stage 6: Failure Type Classification | **COMPLETE** — symptom vs root cause separation, failure hierarchy rule (Rule 8), airborne failure rule, contributing factors with primary/contributing/possible roles | — |
+| E7 | Implement Stage 7: Crash Type Classification | **COMPLETE** — conditional crash-only activation, mechanism-based types (otb/lowside/highside/tip_over/stall_drop/slide/ejection), crash_type clamping | — |
+| E-WIRE7 | Wire Stage 7 into run-test.ts; test on Mark Crash (expect crash_occurred true, otb or ejection) and Colin Hill (expect crash_occurred false) | **CURRENT PRIORITY** | E7 |
+| E8 | Implement Stage 8: Causal Chain Construction | Not started | E-WIRE7 |
+| E9 | Implement Stage 9: Decision Engine / Coaching Strategy Mapping | Not started | E8 |
+| E11 | Implement Stage 10: Coaching Generation (refactor existing) | Not started | E9, COACH-1, SKILL-1 |
+| E12 | Implement Stage 11: Coaching Safety Validation | Not started | E11 |
+| E13 | Wire full pipeline (Stages 1–11) into test runner CLI | Not started | E12 |
 
 ### Testing & Evaluation
 
 | ID | Task | Status | Blocked By |
 |----|------|--------|------------|
-| T1 | Re-run all 8 Phase 2 clips through new pipeline | **Stages 1–4 done** — 5 pass, 2 partial, 1 fail. Full retest after all stages complete. | Gate 3 |
+| T1 | Re-run all 8 Phase 2 clips through new pipeline | **Stages 1–6 done** — 5 pass, 2 partial, 1 fail on initial run. Stage 7 validation in progress. Full 8-clip retest after all stages complete. | Gate 3 |
 | T2 | Score Phase 3 results against Phase 2 baselines | Not started | T1 |
 | T3 | Write Phase 3 evaluation report | Not started | T2 |
 
@@ -133,7 +136,9 @@
 |----|------|--------|------------|
 | E12 | Increase Gemini token budget for classification steps | Not started | — |
 | E13 | Add retry logic for Gemini upload failures | Not started | — |
-| E14 | Investigate GPT-4o visual refusal causes | Not started | — |
+| E14 | Investigate GPT-4o visual refusal causes | **PARTIAL** — confirmed as known intermittent model behaviour; 2-retry loop with repair prompts added as mitigation. Root cause not fully investigated. | — |
+| V4 | Resolve Colin Hill outcome variance: stall vs stuck vs crash classification inconsistency across pipeline runs | Not started | E-WIRE7 |
+| AUDIO-1 | Audio extraction implementation: extract engine RPM pattern, rider speech, impact sounds as structured input for pipeline stages 3–8 | Not started | — |
 
 ### Testing — Expansion
 
@@ -182,6 +187,11 @@
 | FKB-3 | FEATURE-09 (roots) through FEATURE-14 (elevated beam) — 6 entries generated, ChatGPT-reviewed, committed | 2026-04-04 |
 | E1–E4 | Pipeline v1 Stages 1–4 implemented and tested — all 8 Phase 2 clips run (5 pass, 2 partial, 1 fail; Stage 1 validated 8/8) | 2026-04-04 |
 | PROMPT-1–4 | Pipeline prompt tuning — Stage 3 event_detected, Stage 4 severity/geometry, anti-refusal across all stages. Retest: 3/4 pass (2068821) | 2026-04-04 |
+| E5 | Stage 5: Event Sequencing — chronological phase segmentation, sequence-not-causality enforcement, airborne failure-point rule | 2026-04-04 |
+| E6 | Stage 6: Failure Type Classification — symptom vs root cause separation, failure hierarchy rule, airborne failure rule, contributing factor roles | 2026-04-04 |
+| E7 | Stage 7: Crash Type Classification — conditional crash-only activation, mechanism-based classification (otb/lowside/highside/tip_over/stall_drop/slide/ejection) | 2026-04-04 |
+| E-RELIA | Reliability hardening — 2-retry loop, JSON extraction waterfall, refusal detection (6ef6ada) | 2026-04-04 |
+| PROMPT-5 | Failure hierarchy rule added to Stage 6 SYSTEM_PROMPT (Rule 8): airborne → technique; momentum/traction/line_choice priority ordering | 2026-04-04 |
 | FKB-C | Feature KB compression pass — all 8 entries compressed (16% avg reduction, ea68258) | 2026-04-03 |
 | FKB-S | Consistency spec: Section 16 (Compression Discipline) and check 11 (redundant content check) added (b894958) | 2026-04-03 |
 | D16-1 | Schema 4 (Machine KB) added to `docs/kb-schemas-v1.md` (v1.3) — two-block frontmatter, 8-section body, file naming convention locked | 2026-04-03 |

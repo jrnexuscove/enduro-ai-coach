@@ -326,6 +326,45 @@ export interface Stage6Output {
 }
 
 // ————————————————————————————————————————————
+// Stage 7 — Crash Type Classification
+// ————————————————————————————————————————————
+
+export type CrashType =
+  | "otb"
+  | "lowside"
+  | "highside"
+  | "tip_over"
+  | "stall_drop"
+  | "slide"
+  | "ejection"
+  | "none"
+  | "unknown";
+
+export type SeverityEstimate = "none" | "minor" | "moderate" | "serious" | "unknown";
+
+export interface Stage7Output {
+  stage: "crash_type_classification";
+  crash_occurred: boolean;
+  crash_type: CrashType | null;
+  crash_mechanism: string | null;
+  severity_estimate: SeverityEstimate;
+  crash_phase: string | null;
+  body_dynamics: {
+    rider_separation: boolean | null;
+    direction_of_fall: string | null;
+    bike_behaviour: string | null;
+  };
+  confidence: number;
+  audio_crash_evidence: {
+    impact_detected: boolean;
+    impact_description: string | null;
+    post_crash_audio: string | null;
+  };
+  not_applicable_reason: string | null;
+  debug: DebugBlock;
+}
+
+// ————————————————————————————————————————————
 // Pipeline Result
 // ————————————————————————————————————————————
 
@@ -336,6 +375,7 @@ export interface PipelineResult {
   stage4: Stage4Output;
   stage5?: Stage5Output;
   stage6?: Stage6Output;
+  stage7?: Stage7Output;
 }
 
 // ————————————————————————————————————————————
