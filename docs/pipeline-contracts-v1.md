@@ -362,7 +362,7 @@ Stage 4 then performs the deeper structured terrain pass. Intent may be refined 
   },
   "features_detected": [
     {
-      "feature_type": "string — jump | drop | step_up | step_down | log | rock_garden | rut | berm | roots | switchback | water_crossing | gully | ledge | none",
+      "feature_type": "string — jump | drop | step_up | step_down | log | rock_garden | rut | berm | roots | switchback | water_crossing | gully | ledge | whoops | elevated_beam | none",
       "location_in_sequence": "string — e.g. 'visible at frames 4-6', 'midway through clip'",
       "severity": "string — minor | moderate | significant | major",
       "confidence": "number — 0.0 to 1.0"
@@ -392,6 +392,7 @@ Stage 4 then performs the deeper structured terrain pass. Intent may be refined 
 - `traction_estimate` must account for both surface type and condition.
 - Confidence values must respect Stage 2 `terrain_max_confidence` ceiling.
 - Audio cues (gravel crunch, mud squelch, engine labouring) should inform surface and gradient assessment.
+- Note: off-camber is not a feature_type — it is detected via gradient.camber field and triggers retrieval of FEATURE-02 off-camber profile.
 
 ### Example (Colin Hill)
 
