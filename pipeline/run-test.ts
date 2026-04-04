@@ -1,7 +1,7 @@
 // RideMind Pipeline — Test Runner
 // Usage: npx tsx pipeline/run-test.ts "path/to/video.mp4"
 //
-// Runs the full Stages 1–5 pipeline on a video file and prints:
+// Runs the full Stages 1–6 pipeline on a video file and prints:
 //   1. Progress indicators per stage
 //   2. Full PipelineResult as formatted JSON
 //   3. Short human-readable summary
@@ -15,6 +15,7 @@ import { runStage2 } from "./stage2-observability.js";
 import { runStage3 } from "./stage3-intent.js";
 import { runStage4 } from "./stage4-terrain-feature.js";
 import { runStage5 } from "./stage5-event-sequencing.js";
+import { runStage6 } from "./stage6-failure-type.js";
 
 config({ path: ".env.local" });
 
@@ -36,7 +37,7 @@ async function main() {
     process.exit(1);
   }
 
-  console.log("=== RideMind Pipeline v1 — Stages 1–5 ===\n");
+  console.log("=== RideMind Pipeline v1 — Stages 1–6 ===\n");
 
   const model = new GPT4oProvider();
   const frameCount = 16;
@@ -93,10 +94,22 @@ async function main() {
   console.log(`  → critical moment: segment ${stage5.critical_moment.segment_id}`);
   console.log(`  → outcome: ${stage5.outcome.result}\n`);
 
+  // Stage 6 — Failure Type Classification
+  console.log("[Stage 6] Failure Type Classification...");
+  console.time("stage6");
+  const stage6 = await runStage6(model, stage1, stage2, stage3, stage4, stage5);
+  console.timeEnd("stage6");
+  console.log(`  → failure_occurred: ${stage6.failure_occurred}`);
+  console.log(`  → failure_type: ${stage6.failure_type} (confidence: ${stage6.confidence.toFixed(2)})`);
+  const rootCauseShort = stage6.symptoms_vs_root.likely_root_cause.length > 100
+    ? stage6.symptoms_vs_root.likely_root_cause.slice(0, 97) + "..."
+    : stage6.symptoms_vs_root.likely_root_cause;
+  console.log(`  → likely_root_cause: ${rootCauseShort}\n`);
+
   console.log("[Pipeline] Complete.\n");
 
   // Full result JSON
-  const result = { stage1, stage2, stage3, stage4, stage5 };
+  const result = { stage1, stage2, stage3, stage4, stage5, stage6 };
   console.log("=== FULL PIPELINE RESULT ===\n");
   console.log(JSON.stringify(result, null, 2));
 
@@ -160,6 +173,26 @@ async function main() {
   stage5.segments.forEach((s) => {
     console.log(`    ${s.segment_id}. [${s.phase}] ${s.frame_range}`);
   });
+  console.log();
+
+  console.log("STAGE 6 — Failure Type Classification");
+  console.log(`  Failure occurred: ${stage6.failure_occurred}`);
+  console.log(`  Failure type:     ${stage6.failure_type} (confidence: ${stage6.confidence.toFixed(2)})`);
+  const rootCauseSummary = stage6.symptoms_vs_root.likely_root_cause.length > 100
+    ? stage6.symptoms_vs_root.likely_root_cause.slice(0, 97) + "..."
+    : stage6.symptoms_vs_root.likely_root_cause;
+  console.log(`  Root cause:       ${rootCauseSummary}`);
+  console.log(`  Factors (${stage6.contributing_factors.length}):`);
+  if (stage6.contributing_factors.length === 0) {
+    console.log("    none");
+  } else {
+    stage6.contributing_factors.forEach((f) => {
+      console.log(`    - [${f.role}] ${f.factor}`);
+    });
+  }
+  if (!stage6.failure_occurred && stage6.no_failure_note) {
+    console.log(`  No-failure note:  ${stage6.no_failure_note}`);
+  }
   console.log();
 
   console.log("=== END ===\n");

@@ -283,6 +283,49 @@ export interface Stage5Output {
 }
 
 // ————————————————————————————————————————————
+// Stage 6 — Failure Type Classification
+// ————————————————————————————————————————————
+
+export type FailureType =
+  | "technique"
+  | "decision"
+  | "momentum"
+  | "traction"
+  | "mechanical"
+  | "line_choice"
+  | "fitness"
+  | "none"
+  | "unknown";
+
+export type ContributingRole = "primary" | "contributing" | "possible";
+
+export interface ContributingFactor {
+  factor: string;
+  role: ContributingRole;
+  evidence: string[];
+}
+
+export interface Stage6Output {
+  stage: "failure_type_classification";
+  failure_occurred: boolean;
+  failure_type: FailureType;
+  confidence: number;
+  failure_description: string | null;
+  contributing_factors: ContributingFactor[];
+  symptoms_vs_root: {
+    observed_symptoms: string[];
+    likely_root_cause: string;
+    root_cause_confidence: number;
+  };
+  audio_failure_cues: {
+    engine_behaviour: string | null;
+    impact_correlation: string | null;
+  };
+  no_failure_note: string | null;
+  debug: DebugBlock;
+}
+
+// ————————————————————————————————————————————
 // Pipeline Result
 // ————————————————————————————————————————————
 
@@ -292,6 +335,7 @@ export interface PipelineResult {
   stage3: Stage3Output;
   stage4: Stage4Output;
   stage5?: Stage5Output;
+  stage6?: Stage6Output;
 }
 
 // ————————————————————————————————————————————
