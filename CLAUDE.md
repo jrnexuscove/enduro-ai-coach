@@ -179,3 +179,28 @@ scripts/
 3. **Architecture over models.** Structured reasoning improves output regardless of which model fills each role.
 4. **Coaching safety is a constraint, not a preference.** Advice that would reproduce a crash must be blocked.
 5. **Gate discipline.** No work proceeds past an approval gate until it is explicitly approved.
+
+## Memory Protocol
+
+- Call mempalace_status on session start
+- Use mempalace_search before answering questions about past work
+- Use mempalace_add_drawer and mempalace_kg_add when making decisions
+- Write a diary entry with mempalace_diary_write at end of sessions
+
+## Installed Tools
+
+### MemPalace MCP
+Memory and session continuity. Call `mempalace_status` on startup and `mempalace_diary_write` on session close, per `scripts/session-start.md` and `scripts/session-close.md`.
+
+### Context7 MCP
+Always use for library and framework documentation lookups instead of relying on training data. Use for Next.js, TypeScript, and any npm packages. Call `resolve-library-id` then `query-docs` before referencing any external API.
+
+### TypeScript LSP
+Use for jump-to-definition, find-references, and type checking across the pipeline. Prefer LSP queries over grep when navigating types and interfaces.
+
+### UI/UX Pro Max
+Activate for all frontend and UI work. Run `--design-system` before building any new page or component. Persist the design system to `design-system/MASTER.md`.
+
+## Tool Usage Rules
+
+Before writing any code that uses an external library or framework API, check Context7 for current documentation. Before building any UI component or page, activate the UI/UX Pro Max skill.
