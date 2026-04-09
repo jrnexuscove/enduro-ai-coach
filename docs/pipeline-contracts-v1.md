@@ -866,7 +866,16 @@ Deferred to v2: `suppressions`, `intervention_type` taxonomy, drill selection lo
       "action": "string — what the coaching must do about this"
     }
   ],
-  "clip_disposition": "string — coaching_needed | positive_reinforcement | safety_critical | low_observability_caveat"
+  "clip_disposition": "string — coaching_needed | positive_reinforcement | safety_critical | low_observability_caveat",
+  "primary_domain": "string — CoachingDomain enum: body_position | throttle_control | clutch_control | braking | line_choice | speed_management | balance. Single domain addressing root cause.",
+  "secondary_domains": ["string — CoachingDomain[]. Domains addressing contributing factors. Max 2."],
+  "coaching_constraints": {
+    "rider_intent": "string — from Stage 3 primary_intent",
+    "terrain_context": "string — from Stage 4 surface + gradient summary",
+    "max_points": 3
+  },
+  "skill_tags": ["string — SkillTag[]. 1-3 specific skill tags from the Skill Tag Taxonomy (docs/skill-tag-taxonomy-v1.md). Must belong to a declared coaching_domain. Max 3."],
+  "tag_confidence": "string — high | medium | low | null. Confidence in skill tag assignment. null when no tags assigned."
 }
 ```
 
@@ -877,6 +886,12 @@ Deferred to v2: `suppressions`, `intervention_type` taxonomy, drill selection lo
 - For `clean` outcome clips, `clip_disposition` should be `positive_reinforcement` and coaching should lead with what went well.
 - `recommended_tone` must account for crash severity. Serious crashes get `serious` or `cautious`, not `encouraging`.
 - `risk_flags` with `critical` severity must be addressed in coaching output regardless of priority order (e.g. "rider was not wearing a helmet").
+- `primary_domain` must use one of the 7 valid `CoachingDomain` values: `body_position`, `throttle_control`, `clutch_control`, `braking`, `line_choice`, `speed_management`, `balance`. `timing` and `commitment` are not valid domains — timing-related skills are captured as `skill_tags` within their parent domain, and commitment is captured as the `line_commitment` skill tag.
+- `skill_tags` must be mechanism-focused (what the rider did), not outcome-focused (what happened). See `docs/skill-tag-taxonomy-v1.md` for the full tag vocabulary and selection heuristics.
+- Each `skill_tag` must belong to either the `primary_domain` or a `secondary_domains` entry. Tags from undeclared domains are invalid.
+- Maximum 3 `skill_tags`. In compound failures, prefer tags with the highest counterfactual leverage — the earliest corrections most likely to change the outcome.
+- For `positive_reinforcement` clips, `skill_tags` may describe demonstrated strengths.
+- `tag_confidence` is `null` when `skill_tags` is empty. Otherwise constrained by Stage 2 observability ceilings.
 
 ### Example (Colin Hill)
 
@@ -904,9 +919,20 @@ Deferred to v2: `suppressions`, `intervention_type` taxonomy, drill selection lo
   ],
   "recommended_tone": "encouraging",
   "risk_flags": [],
-  "clip_disposition": "coaching_needed"
+  "clip_disposition": "coaching_needed",
+  "primary_domain": "body_position",
+  "secondary_domains": ["speed_management"],
+  "coaching_constraints": {
+    "rider_intent": "steep rocky hill climb",
+    "terrain_context": "rocky, steep_up gradient",
+    "max_points": 3
+  },
+  "skill_tags": ["fore_aft_weight_distribution", "standing_position", "entry_speed_judgement"],
+  "tag_confidence": "high"
 }
 ```
+
+> For full domain definitions, skill tag vocabulary, domain boundary rules, tag selection heuristics, and worked examples, see `docs/skill-tag-taxonomy-v1.md`
 
 ---
 
