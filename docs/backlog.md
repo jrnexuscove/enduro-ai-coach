@@ -1,6 +1,6 @@
 # RideMind — Backlog
 
-**Last updated:** 2026-04-04 (Stages 5–7 implemented)
+**Last updated:** 2026-04-09 (Stages 8–9 built and validated)
 **Current phase:** Phase 3 — Reasoning Pipeline + KB Build
 **Master plan:** `docs/ridemind-phase3-master-plan-v1.md`
 
@@ -12,7 +12,7 @@
 |------|--------|--------|
 | Gate 1 — Pipeline stages approved | **PASSED** (2026-04-01) | — |
 | Gate 2 — KB entry schemas approved | **PASSED** (2026-04-01) | — |
-| Gate 3 — Pipeline v1 implemented | **IN PROGRESS** — Stages 1–7 built; Stages 1–6 tested and validated; Stage 7 not yet wired into runner; Stages 8–11 remaining | Phase 3 retest |
+| Gate 3 — Pipeline v1 implemented | **IN PROGRESS** — 9/11 stages built and validated; blocked on COACH-1 + SKILL-1 before Stage 10; Stages 10–11 remaining | Phase 3 retest |
 
 ---
 
@@ -34,8 +34,8 @@
 
 | ID | Task | Status | Blocked By |
 |----|------|--------|------------|
-| COACH-1 | Define RideMind coaching persona and philosophy — Three Pillars framework (Balance, Body Position, Power Delivery & Collection) as foundational coaching model. Principles: fundamentals mastered on flat ground before terrain; pillars are interconnected; "deliver and collect" — speed of transition between max and min power is the skill. Shapes coaching tone, skill prioritisation, drill sequencing, progression logic, and Stage 10 framing. Must be complete before Stage 10 is built. | Not started | — |
-| SKILL-1 | Design skill tag taxonomy: map failure types to skill tags (e.g. balance_low_speed, momentum_control, line_commitment). Must be complete before Stage 10 is built. | Not started | COACH-1 |
+| COACH-1 | Define RideMind coaching persona and philosophy — Three Pillars framework (Balance, Body Position, Power Delivery & Collection) as foundational coaching model. Principles: fundamentals mastered on flat ground before terrain; pillars are interconnected; "deliver and collect" — speed of transition between max and min power is the skill. Shapes coaching tone, skill prioritisation, drill sequencing, progression logic, and Stage 10 framing. Must be complete before Stage 10 is built. | **CURRENT PRIORITY** | — |
+| SKILL-1 | Design skill tag taxonomy: map failure types to skill tags (e.g. balance_low_speed, momentum_control, line_commitment). Must be complete before Stage 10 is built. | **NEXT — after COACH-1** | COACH-1 |
 | A2 | Design database schema for all KBs | Not started | Gate 1 |
 | A3 | Create mermaid diagram of pipeline flow | Not started | Gate 1 |
 | A5 | Design observability confidence scoring system | Not started | Gate 1 |
@@ -63,7 +63,7 @@
 | E4 | Implement Stage 4: Terrain & Feature Detection | **COMPLETE** — consequence-based severity, jump geometry, switchback constraint, gradient calibration, anti-refusal applied | — |
 | E10 | Build KB loader / query function | **COMPLETE** | — |
 
-### Pipeline — Prompt Tuning (Before Stages 5–7)
+### Pipeline — Prompt Tuning
 
 | ID | Task | Status | Blocked By |
 |----|------|--------|------------|
@@ -72,6 +72,7 @@
 | PROMPT-3 | Anti-refusal instruction — applied across all 4 stage prompts | **DONE** | — |
 | PROMPT-4 | Re-run 4 clips after prompt fixes — 3/4 pass; Nick crash partial (jump detected, event_detected inconsistent — low observability + model variance) | **DONE** | PROMPT-1, PROMPT-2, PROMPT-3 |
 | PROMPT-5 | Failure hierarchy rule — added to Stage 6 SYSTEM_PROMPT as Rule 8: airborne failures classify as technique (not terrain/traction); priority ordering for momentum vs traction vs line_choice | **DONE** | E6 |
+| PT-7 | Stage 7 crash_type run-to-run variance — otb vs ejection inconsistency on Mark Crash across pipeline runs; investigate prompt anchoring or confidence-weighted selection | Not started | E-WIRE7 ✓ |
 
 ### Pipeline / Engineering — Stages 5–11 (After Early Validation)
 
@@ -82,10 +83,10 @@
 | E5 | Implement Stage 5: Event Sequencing | **COMPLETE** — chronological phase segmentation, sequence-not-causality enforcement, airborne failure-point rule, audio markers per segment, critical_moment | — |
 | E6 | Implement Stage 6: Failure Type Classification | **COMPLETE** — symptom vs root cause separation, failure hierarchy rule (Rule 8), airborne failure rule, contributing factors with primary/contributing/possible roles | — |
 | E7 | Implement Stage 7: Crash Type Classification | **COMPLETE** — conditional crash-only activation, mechanism-based types (otb/lowside/highside/tip_over/stall_drop/slide/ejection), crash_type clamping | — |
-| E-WIRE7 | Wire Stage 7 into run-test.ts; test on Mark Crash (expect crash_occurred true, otb or ejection) and Colin Hill (expect crash_occurred false) | **CURRENT PRIORITY** | E7 |
-| E8 | Implement Stage 8: Causal Chain Construction | Not started | E-WIRE7 |
-| E9 | Implement Stage 9: Decision Engine / Coaching Strategy Mapping | Not started | E8 |
-| E11 | Implement Stage 10: Coaching Generation (refactor existing) | Not started | E9, COACH-1, SKILL-1 |
+| E-WIRE7 | Wire Stage 7 into run-test.ts; test on Mark Crash (crash_occurred true) and Colin Hill (crash_occurred false, Stage 7 skipped correctly) | **COMPLETE** | E7 ✓ |
+| E8 | Implement Stage 8: Causal Chain Construction | **COMPLETE** | E-WIRE7 ✓ |
+| E9 | Implement Stage 9: Decision Engine / Coaching Strategy Mapping | **COMPLETE** — one primary, max two secondary; observability soft gate, actionability filter, safety pre-flagging; excluded factors logged; validated on Mark Crash (body_position primary, throttle_control secondary) and Colin Hill (speed_management primary, line_choice secondary) | E8 ✓ |
+| E11 | Implement Stage 10: Coaching Generation (refactor existing) | Not started | COACH-1, SKILL-1 |
 | E12 | Implement Stage 11: Coaching Safety Validation | Not started | E11 |
 | E13 | Wire full pipeline (Stages 1–11) into test runner CLI | Not started | E12 |
 
@@ -93,7 +94,7 @@
 
 | ID | Task | Status | Blocked By |
 |----|------|--------|------------|
-| T1 | Re-run all 8 Phase 2 clips through new pipeline | **Stages 1–6 done** — 5 pass, 2 partial, 1 fail on initial run. Stage 7 validation in progress. Full 8-clip retest after all stages complete. | Gate 3 |
+| T1 | Re-run all 8 Phase 2 clips through new pipeline | **Stages 1–9 validated on Mark Crash and Colin Hill** — Full 8-clip retest after Stage 11 complete. | Gate 3 |
 | T2 | Score Phase 3 results against Phase 2 baselines | Not started | T1 |
 | T3 | Write Phase 3 evaluation report | Not started | T2 |
 
@@ -187,6 +188,9 @@
 | FKB-3 | FEATURE-09 (roots) through FEATURE-14 (elevated beam) — 6 entries generated, ChatGPT-reviewed, committed | 2026-04-04 |
 | E1–E4 | Pipeline v1 Stages 1–4 implemented and tested — all 8 Phase 2 clips run (5 pass, 2 partial, 1 fail; Stage 1 validated 8/8) | 2026-04-04 |
 | PROMPT-1–4 | Pipeline prompt tuning — Stage 3 event_detected, Stage 4 severity/geometry, anti-refusal across all stages. Retest: 3/4 pass (2068821) | 2026-04-04 |
+| E-WIRE7 | Stage 7 wired into runner — Mark Crash: crash_occurred true; Colin Hill: crash_occurred false, Stage 7 skipped correctly | 2026-04-09 |
+| E8 | Stage 8: Causal Chain Construction — implemented and validated | 2026-04-09 |
+| E9 | Stage 9: Decision Engine — Mark Crash: body_position primary, throttle_control secondary; Colin Hill: speed_management primary, line_choice secondary | 2026-04-09 |
 | E5 | Stage 5: Event Sequencing — chronological phase segmentation, sequence-not-causality enforcement, airborne failure-point rule | 2026-04-04 |
 | E6 | Stage 6: Failure Type Classification — symptom vs root cause separation, failure hierarchy rule, airborne failure rule, contributing factor roles | 2026-04-04 |
 | E7 | Stage 7: Crash Type Classification — conditional crash-only activation, mechanism-based classification (otb/lowside/highside/tip_over/stall_drop/slide/ejection) | 2026-04-04 |

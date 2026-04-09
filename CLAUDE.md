@@ -1,6 +1,6 @@
 # CLAUDE.md — RideMind Project Context
 
-**Last updated:** 2026-04-04 (Stages 5–7 implemented)
+**Last updated:** 2026-04-09 (Stages 8–9 built and validated)
 
 ## What is RideMind?
 
@@ -25,14 +25,16 @@ RideMind is a **physics-aware, terrain-aware, machine-aware riding intelligence 
 - **Feature KB compression pass — COMPLETE** — All 8 original entries compressed (16% avg reduction). Consistency spec updated: Section 16 (Compression Discipline) and check 11 (redundant content check) added (b894958). Compression discipline applies to future entries only — no re-compression of already-compressed entries.
 - **MACHINE-01 — COMPLETE** — GasGas EC300 TPI 2023 at `knowledge-base/domain-16-machines/gasgas-ec300-tpi-2023--jake.md`. Fully rewritten to Schema 4 (v1.3), PDS corrected to linkage throughout, committed (0655cc9).
 - **MACHINE-02 — COMPLETE** — GasGas EC300 TBI 2024 stock profile at `knowledge-base/domain-16-machines/gasgas-ec300-tbi-2024.md`. Stock-only (`mod_layer: false`), written to Schema 4. This is the Gate 3 test bike — all current test clips use the TBI model. Committed (ca20c46).
-- **Pipeline v1 — Stages 1–7 IMPLEMENTED; Stages 1–6 TESTED AND VALIDATED (2026-04-04)** — All 8 Phase 2 clips run through Stages 1–4 (initial run: 5 pass, 2 partial, 1 fail; Stage 1 validated 8/8). Stages 5–7 implemented this session. Validated on Mark Crash (technique failure, airborne instability) and Colin Hill (traction failure, steep rocky surface). Stage 7 built but not yet wired into runner. Pipeline code at `pipeline/`. Key implementation details per stage:
+- **Pipeline v1 — Stages 1–9 IMPLEMENTED AND VALIDATED (2026-04-09)** — All 9 stages built and tested. Stages 1–4 run on all 8 Phase 2 clips (initial run: 5 pass, 2 partial, 1 fail; Stage 1 validated 8/8). Stages 5–9 validated on Mark Crash (body_position primary, throttle_control secondary) and Colin Hill (speed_management primary, line_choice secondary; Stage 7 skipped correctly — no crash). Blocked on COACH-1 + SKILL-1 before Stage 10. Pipeline code at `pipeline/`. Key implementation details per stage:
   - **Stage 3:** `event_detected` field (crash/stall/bail/near_miss/tip_over/mechanical + confidence + description); fallback shape and type clamping; anti-refusal applied.
   - **Stage 4:** Consequence-based severity definitions; jump geometry rules; switchback constraint (switchback→gradient.camber not features_detected); gradient calibration; anti-refusal applied.
   - **Stage 5:** Chronological phase segmentation; sequence-not-causality enforcement (event timeline, not causal chain); airborne failure-point rule; audio markers per segment; critical_moment identification.
   - **Stage 6:** Symptom vs root cause separation enforced; failure hierarchy rule (bike dynamics > technique > momentum > traction); airborne failure rule (technique over terrain when failure is mid-air); contributing factors with primary/contributing/possible roles.
-  - **Stage 7:** Conditional crash-only activation; mechanism-based crash types (otb/lowside/highside/tip_over/stall_drop/slide/ejection); crash_type clamped to allowed values; not_applicable_reason enforced for non-crash clips.
+  - **Stage 7:** Conditional crash-only activation; mechanism-based crash types (otb/lowside/highside/tip_over/stall_drop/slide/ejection); crash_type clamped to allowed values; not_applicable_reason enforced for non-crash clips. Known variance: otb vs ejection on Mark Crash across runs (PT-7).
+  - **Stage 8:** Causal chain construction from Stage 6 failure classification and Stage 5 event sequence.
+  - **Stage 9:** Selection/prioritisation — one primary coaching focus, max two secondary points; observability soft gate, actionability filter, safety pre-flagging; excluded factors logged with reasons; domain-contradiction sanity check (warning only for MVP).
   - **Reliability hardening:** 2-retry loop with escalating repair prompts; JSON extraction from mixed responses (direct parse → strip fences → brace extraction); refusal detection; deterministic timestamps. GPT-4o intermittent refusal is a known model behaviour issue — handled by retry logic. Anti-refusal instruction applied across all stages.
-  - **Next:** Wire Stage 7 into runner, test on Mark Crash + Colin Hill, then build Stages 8–11.
+  - **Next:** Build COACH-1 (coaching persona document) and SKILL-1 (skill tag taxonomy), then Stage 10.
 - **Domain 16 architecture — LOCKED:** Stock bike data only. Rider modifications belong on the user profile layer. For MVP, both in one file with clear separation. **Schema 4 added to `docs/kb-schemas-v1.md` (v1.3, 2026-04-03).** File naming locked: stock = `[mfr]-[model]-[year].md`, rider-layer = `[mfr]-[model]-[year]--[rider].md`. Machine KB entries are factual reference only — no coaching, no pipeline logic, no rider psychology, no improvement language.
 
 ### Key Phase 2 Findings
@@ -67,7 +69,7 @@ Plus three new knowledge bases:
 |------|--------|--------|
 | Gate 1 — Pipeline stages approved | **PASSED** (2026-04-01) | — |
 | Gate 2 — KB entry schemas approved | **PASSED** (2026-04-01) | — |
-| Gate 3 — Pipeline v1 implemented | **IN PROGRESS** — Stages 1–7 built; Stages 1–6 tested and validated; Stage 7 not yet wired into runner; Stages 8–11 remaining | Phase 3 retest |
+| Gate 3 — Pipeline v1 implemented | **IN PROGRESS** — 9/11 stages built and validated; blocked on COACH-1 (coaching persona) + SKILL-1 (skill tag taxonomy) before Stage 10; Stages 10–11 remaining | Phase 3 retest |
 
 ## Architectural Decisions (Phase 3)
 
@@ -116,7 +118,7 @@ knowledge-base/
   domain-16-machines/   # Machine Profiles KB — 2 entries committed: gasgas-ec300-tpi-2023--jake.md (MACHINE-01), gasgas-ec300-tbi-2024.md (MACHINE-02)
   domain-17-terrain/    # Terrain KB — COMPLETE (10 entries: TERRAIN-01 to TERRAIN-10)
   features/             # Terrain Feature KB — COMPLETE, 14 entries (FEATURE-01 to FEATURE-14)
-  pipeline/             # Pipeline v1 — Stages 1–7 implemented (model-agnostic, GPT-4o provider); Stage 7 not yet wired into runner
+  pipeline/             # Pipeline v1 — Stages 1–9 implemented and validated (model-agnostic, GPT-4o provider)
 scripts/
   test-coaching-kb.ts   # GPT-4o test runner (Phase 1/2)
   test-coaching-claude.ts # Claude test runner (Phase 2)

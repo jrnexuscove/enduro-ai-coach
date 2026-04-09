@@ -71,7 +71,7 @@ type CoachingDomain =
 
 **`braking`** — Deceleration through front brake, rear brake, and engine braking. Covers modulation of each input independently, front/rear balance, and use of engine compression for speed control.
 
-**`speed_management`** — Global energy management — how fast the rider enters features, carries momentum through sections, and adapts speed to changing terrain. This is a *physical outcome skill*, not a planning abstraction.
+**`speed_management`** — Global energy management — how fast the rider enters features, carries momentum through sections, and adapts speed to changing terrain. This is a *directly coachable execution skill* governing energy and momentum management, not merely a planning abstraction.
 
 **`line_choice`** — Spatial decision-making — reading available lines, selecting one, committing to it, and adjusting if needed. This is a *directly coachable and observable execution skill*, not a cognitive abstraction.
 
