@@ -1,6 +1,6 @@
 # RideMind — Backlog
 
-**Last updated:** 2026-04-09 (Stages 8–9 built and validated)
+**Last updated:** 2026-04-09 (Gate 3 passed — Stages 1–9 decision engine validated)
 **Current phase:** Phase 3 — Reasoning Pipeline + KB Build
 **Master plan:** `docs/ridemind-phase3-master-plan-v1.md`
 
@@ -12,7 +12,7 @@
 |------|--------|--------|
 | Gate 1 — Pipeline stages approved | **PASSED** (2026-04-01) | — |
 | Gate 2 — KB entry schemas approved | **PASSED** (2026-04-01) | — |
-| Gate 3 — Pipeline v1 implemented | **IN PROGRESS** — 9/11 stages built and validated; blocked on COACH-1 + SKILL-1 before Stage 10; Stages 10–11 remaining | Phase 3 retest |
+| Gate 3 — Pipeline v1 implemented | **PASSED (decision engine architecture, 2026-04-09)** — Stages 1–9 validated across three discriminator clips (Mark Crash, Colin Hill, Clutch Scream). Stages 10–11 remaining; blocked on COACH-1 + SKILL-1 before Stage 10. | Phase 3 retest |
 
 ---
 
@@ -85,10 +85,11 @@
 | E7 | Implement Stage 7: Crash Type Classification | **COMPLETE** — conditional crash-only activation, mechanism-based types (otb/lowside/highside/tip_over/stall_drop/slide/ejection), crash_type clamping | — |
 | E-WIRE7 | Wire Stage 7 into run-test.ts; test on Mark Crash (crash_occurred true) and Colin Hill (crash_occurred false, Stage 7 skipped correctly) | **COMPLETE** | E7 ✓ |
 | E8 | Implement Stage 8: Causal Chain Construction | **COMPLETE** | E-WIRE7 ✓ |
-| E9 | Implement Stage 9: Decision Engine / Coaching Strategy Mapping | **COMPLETE** — one primary, max two secondary; observability soft gate, actionability filter, safety pre-flagging; excluded factors logged; validated on Mark Crash (body_position primary, throttle_control secondary) and Colin Hill (speed_management primary, line_choice secondary) | E8 ✓ |
-| E11 | Implement Stage 10: Coaching Generation (refactor existing) | Not started | COACH-1, SKILL-1 |
+| E9 | Implement Stage 9: Decision Engine / Coaching Strategy Mapping | **COMPLETE** — one primary, max two secondary; observability soft gate, actionability filter, safety pre-flagging; Primary Cause Interpretation Rule (trace to earliest controllable mechanism); validated on three discriminator clips: Mark Crash (body_position primary, fore_aft_weight_distribution tag, 0.90 confidence), Colin Hill (speed_management primary — correct graceful degradation), Clutch Scream (no hallucination, observability_limited true) | E8 ✓ |
+| E11 | Implement Stage 10: Coaching Generation (refactor existing) | **CURRENT PRIORITY** | COACH-1, SKILL-1 |
 | E12 | Implement Stage 11: Coaching Safety Validation | Not started | E11 |
 | E13 | Wire full pipeline (Stages 1–11) into test runner CLI | Not started | E12 |
+| PERC-1 | Multi-model perception layer design — audio/dynamics sensing for clutch detection (gpt-4o-audio-preview or dedicated audio stage), Gemini integration for body position confidence, signal fusion into Stages 5/6; eliminates remaining perception gaps identified in three-clip discriminator test | Not started | Gate 3 ✓ |
 
 ### Testing & Evaluation
 
@@ -139,6 +140,7 @@
 | E13 | Add retry logic for Gemini upload failures | Not started | — |
 | E14 | Investigate GPT-4o visual refusal causes | **PARTIAL** — confirmed as known intermittent model behaviour; 2-retry loop with repair prompts added as mitigation. Root cause not fully investigated. | — |
 | V4 | Resolve Colin Hill outcome variance: stall vs stuck vs crash classification inconsistency across pipeline runs | Not started | E-WIRE7 |
+| V5 | Colin Hill re-validation after multi-model perception layer — body position detection and clutch/audio sensing expected to improve primary cause accuracy on ambiguous clips | Not started | PERC-1 |
 | AUDIO-1 | Audio extraction implementation: extract engine RPM pattern, rider speech, impact sounds as structured input for pipeline stages 3–8 | Not started | — |
 
 ### Testing — Expansion
@@ -190,7 +192,8 @@
 | PROMPT-1–4 | Pipeline prompt tuning — Stage 3 event_detected, Stage 4 severity/geometry, anti-refusal across all stages. Retest: 3/4 pass (2068821) | 2026-04-04 |
 | E-WIRE7 | Stage 7 wired into runner — Mark Crash: crash_occurred true; Colin Hill: crash_occurred false, Stage 7 skipped correctly | 2026-04-09 |
 | E8 | Stage 8: Causal Chain Construction — implemented and validated | 2026-04-09 |
-| E9 | Stage 9: Decision Engine — Mark Crash: body_position primary, throttle_control secondary; Colin Hill: speed_management primary, line_choice secondary | 2026-04-09 |
+| E9 | Stage 9: Decision Engine — three-clip discriminator test passed: Mark Crash (body_position primary, fore_aft_weight_distribution tag, 0.90 confidence), Colin Hill (speed_management primary — graceful degradation), Clutch Scream (no hallucination, observability_limited true) | 2026-04-09 |
+| PCIR | Primary Cause Interpretation Rule — trace to earliest controllable rider mechanism rather than failure_type's obvious domain mapping; patched into Stage 9 SYSTEM_PROMPT | 2026-04-09 |
 | E5 | Stage 5: Event Sequencing — chronological phase segmentation, sequence-not-causality enforcement, airborne failure-point rule | 2026-04-04 |
 | E6 | Stage 6: Failure Type Classification — symptom vs root cause separation, failure hierarchy rule, airborne failure rule, contributing factor roles | 2026-04-04 |
 | E7 | Stage 7: Crash Type Classification — conditional crash-only activation, mechanism-based classification (otb/lowside/highside/tip_over/stall_drop/slide/ejection) | 2026-04-04 |

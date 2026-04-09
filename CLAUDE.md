@@ -1,6 +1,6 @@
 # CLAUDE.md — RideMind Project Context
 
-**Last updated:** 2026-04-09 (Stages 8–9 built and validated)
+**Last updated:** 2026-04-09 (Gate 3 passed — Stages 1–9 decision engine validated)
 
 ## What is RideMind?
 
@@ -25,16 +25,17 @@ RideMind is a **physics-aware, terrain-aware, machine-aware riding intelligence 
 - **Feature KB compression pass — COMPLETE** — All 8 original entries compressed (16% avg reduction). Consistency spec updated: Section 16 (Compression Discipline) and check 11 (redundant content check) added (b894958). Compression discipline applies to future entries only — no re-compression of already-compressed entries.
 - **MACHINE-01 — COMPLETE** — GasGas EC300 TPI 2023 at `knowledge-base/domain-16-machines/gasgas-ec300-tpi-2023--jake.md`. Fully rewritten to Schema 4 (v1.3), PDS corrected to linkage throughout, committed (0655cc9).
 - **MACHINE-02 — COMPLETE** — GasGas EC300 TBI 2024 stock profile at `knowledge-base/domain-16-machines/gasgas-ec300-tbi-2024.md`. Stock-only (`mod_layer: false`), written to Schema 4. This is the Gate 3 test bike — all current test clips use the TBI model. Committed (ca20c46).
-- **Pipeline v1 — Stages 1–9 IMPLEMENTED AND VALIDATED (2026-04-09)** — All 9 stages built and tested. Stages 1–4 run on all 8 Phase 2 clips (initial run: 5 pass, 2 partial, 1 fail; Stage 1 validated 8/8). Stages 5–9 validated on Mark Crash (body_position primary, throttle_control secondary) and Colin Hill (speed_management primary, line_choice secondary; Stage 7 skipped correctly — no crash). Blocked on COACH-1 + SKILL-1 before Stage 10. Pipeline code at `pipeline/`. Key implementation details per stage:
+- **Pipeline v1 — Stages 1–9 IMPLEMENTED AND VALIDATED (2026-04-09)** — All 9 stages built and tested. Stages 1–4 run on all 8 Phase 2 clips (initial run: 5 pass, 2 partial, 1 fail; Stage 1 validated 8/8). Stages 5–9 validated across three discriminator clips: Mark Crash (body_position primary, fore_aft_weight_distribution tag, 0.90 confidence — correct), Colin Hill (speed_management primary — correct graceful degradation under weak body position perception), Clutch Scream (did not hallucinate clutch_control; observability_limited: true — correct). Key finding: architecture reasons correctly from upstream evidence. Remaining quality gaps are perception problems (body position detection, clutch/audio sensing), not reasoning problems. Pipeline code at `pipeline/`. Key implementation details per stage:
   - **Stage 3:** `event_detected` field (crash/stall/bail/near_miss/tip_over/mechanical + confidence + description); fallback shape and type clamping; anti-refusal applied.
   - **Stage 4:** Consequence-based severity definitions; jump geometry rules; switchback constraint (switchback→gradient.camber not features_detected); gradient calibration; anti-refusal applied.
   - **Stage 5:** Chronological phase segmentation; sequence-not-causality enforcement (event timeline, not causal chain); airborne failure-point rule; audio markers per segment; critical_moment identification.
   - **Stage 6:** Symptom vs root cause separation enforced; failure hierarchy rule (bike dynamics > technique > momentum > traction); airborne failure rule (technique over terrain when failure is mid-air); contributing factors with primary/contributing/possible roles.
   - **Stage 7:** Conditional crash-only activation; mechanism-based crash types (otb/lowside/highside/tip_over/stall_drop/slide/ejection); crash_type clamped to allowed values; not_applicable_reason enforced for non-crash clips. Known variance: otb vs ejection on Mark Crash across runs (PT-7).
   - **Stage 8:** Causal chain construction from Stage 6 failure classification and Stage 5 event sequence.
-  - **Stage 9:** Selection/prioritisation — one primary coaching focus, max two secondary points; observability soft gate, actionability filter, safety pre-flagging; excluded factors logged with reasons; domain-contradiction sanity check (warning only for MVP).
+  - **Stage 9:** Selection/prioritisation — one primary coaching focus, max two secondary points; observability soft gate, actionability filter, safety pre-flagging; excluded factors logged with reasons; domain-contradiction sanity check (warning only for MVP). Primary Cause Interpretation Rule: traces to earliest controllable rider mechanism in the causal chain (e.g. body_position for momentum failure caused by poor posture), not the failure_type's obvious domain mapping.
   - **Reliability hardening:** 2-retry loop with escalating repair prompts; JSON extraction from mixed responses (direct parse → strip fences → brace extraction); refusal detection; deterministic timestamps. GPT-4o intermittent refusal is a known model behaviour issue — handled by retry logic. Anti-refusal instruction applied across all stages.
-  - **Next:** Build COACH-1 (coaching persona document) and SKILL-1 (skill tag taxonomy), then Stage 10.
+  - **Next:** Build Stage 10 (Coaching Generation), then Stage 11 (Coaching Safety Validation). COACH-1 and SKILL-1 required before Stage 10.
+  - **Future priority:** Multi-model perception layer — audio/dynamics sensing for clutch detection, Gemini integration for body position confidence, signal fusion into Stages 5/6. Colin Hill re-validation after this is available.
 - **Domain 16 architecture — LOCKED:** Stock bike data only. Rider modifications belong on the user profile layer. For MVP, both in one file with clear separation. **Schema 4 added to `docs/kb-schemas-v1.md` (v1.3, 2026-04-03).** File naming locked: stock = `[mfr]-[model]-[year].md`, rider-layer = `[mfr]-[model]-[year]--[rider].md`. Machine KB entries are factual reference only — no coaching, no pipeline logic, no rider psychology, no improvement language.
 
 ### Key Phase 2 Findings
@@ -69,7 +70,7 @@ Plus three new knowledge bases:
 |------|--------|--------|
 | Gate 1 — Pipeline stages approved | **PASSED** (2026-04-01) | — |
 | Gate 2 — KB entry schemas approved | **PASSED** (2026-04-01) | — |
-| Gate 3 — Pipeline v1 implemented | **IN PROGRESS** — 9/11 stages built and validated; blocked on COACH-1 (coaching persona) + SKILL-1 (skill tag taxonomy) before Stage 10; Stages 10–11 remaining | Phase 3 retest |
+| Gate 3 — Pipeline v1 implemented | **PASSED (decision engine architecture, 2026-04-09)** — Stages 1–9 validated across three discriminator clips (Mark Crash, Colin Hill, Clutch Scream). Stages 10–11 remaining; blocked on COACH-1 + SKILL-1 before Stage 10. | Phase 3 retest |
 
 ## Architectural Decisions (Phase 3)
 
