@@ -556,6 +556,24 @@ export interface Stage10Output {
 }
 
 // ————————————————————————————————————————————
+// Stage 11 — Safety & Contradiction Validation
+// ————————————————————————————————————————————
+
+export interface Stage11Output {
+  stage: "safety_validation";
+  safe: boolean;
+  flags: {
+    speed_risk: boolean;
+    contradiction: boolean;
+    severity_mismatch: boolean;
+    observability_overreach: boolean;
+  };
+  issues: string[];
+  confidence_adjustment: number | null;
+  debug: DebugBlock;
+}
+
+// ————————————————————————————————————————————
 // Pipeline Result
 // ————————————————————————————————————————————
 
@@ -570,6 +588,7 @@ export interface PipelineResult {
   stage8?: Stage8Output;
   stage9?: Stage9Output;
   stage10?: Stage10Output;
+  stage11?: Stage11Output;
 }
 
 // ————————————————————————————————————————————

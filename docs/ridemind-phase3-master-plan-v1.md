@@ -602,19 +602,18 @@ All 8 stages implemented as TypeScript functions with structured JSON output, wi
 - Colin Hill: Stage 6 = momentum, Stage 7 = skipped (correct), Stage 8 = momentum primary cause with terrain as enabling condition, no crash mechanism in outcome_pathway
 - 5/8 Phase 2 clips pass clean through Stages 1–4; 2 partial, 1 fail (prompt tuning items, not architecture issues)
 
-### In Progress: Pipeline Stage 9 (Coaching Decision Engine)
+### Complete: Pipeline Stages 9–11
 
-Stage 9 built, not yet tested. Selection and prioritisation stage — decides what to coach from Stage 8's causal chain. Outputs structured coaching decisions (domain, variable, goal, confidence) for Stage 10. One primary focus, max two secondary points, actionability filter, observability soft gate, safety pre-flagging. Excluded factors logged with reasons.
+Stage 9 validated on three discriminator clips: Mark Crash (body_position primary, fore_aft_weight_distribution tag, 0.90 confidence), Colin Hill (speed_management primary — correct graceful degradation), Clutch Scream (no hallucination, observability_limited true). Primary Cause Interpretation Rule live.
 
-### Not Yet Started: Pipeline Stages 10–11
+Stage 10 implemented: `rider_facing_summary` + `technical_coach_note` voice rules embedded in prompt. Observability-gated confidence, drift check against Stage 9, business rule validation. Three-clip validated.
 
-- **Stage 10 — Coaching Generation:** Produces rider-facing coaching text from Stage 9 decisions. Depends on coaching persona document and skill tag taxonomy (neither built yet).
-- **Stage 11 — Coaching Safety Validation:** Cross-checks coaching output against failure diagnosis and crash type. Prevents contradictory or dangerous advice.
+Stage 11 implemented: validator-only architecture. Does not rewrite coaching — checks output against failure diagnosis, crash type, and causal chain. Hard fail conditions: `contradiction` or `speed_risk` force `safe: false`; `severity_mismatch` forces `safe: false` when Stage 7 severity is `serious`. FAIL-path not yet live-tested (Stage 10 prompt controls have produced safe outputs; synthetic fail fixture needed before production reliance on Stage 11).
 
 ### Not Yet Started: Dynamics KB (Option A), Skill Tag Taxonomy
 
 - Dynamics KB (extend Domain 02/03 with pipeline frontmatter) — work not started
-- Skill tag taxonomy — design document not started; required before Stage 10 implementation
+- Skill tag taxonomy — taxonomy lives in types.ts SkillTag enum for v1; standalone reference doc deferred post-MVP
 
 ---
 
@@ -663,9 +662,9 @@ Stage 9 built, not yet tested. Selection and prioritisation stage — decides wh
 | E7 | Implement Stage 7: Crash Type Classification | P1 | **COMPLETE** — conditional, both paths validated |
 | E-WIRE7 | Wire Stage 7 into runner and test | P1 | **COMPLETE** — Mark Crash (otb ✓), Colin Hill (skipped ✓) |
 | E8 | Implement Stage 8: Causal Chain Construction | P1 | **COMPLETE** — code-enforced Stage 6 mapping, both paths validated |
-| E9 | Implement Stage 9: Coaching Decision Engine | P1 | **BUILT** — not yet tested |
-| E10 | Implement Stage 10: Coaching Generation | P1 | Not started — blocked on coaching persona + skill tag taxonomy |
-| E11 | Implement Stage 11: Coaching Safety Validation | P1 | Not started |
+| E9 | Implement Stage 9: Coaching Decision Engine | P1 | **COMPLETE** — validated on three discriminator clips: Mark Crash (body_position primary, 0.90 confidence), Colin Hill (speed_management primary, graceful degradation), Clutch Scream (no hallucination, observability_limited true) |
+| E10 | Implement Stage 10: Coaching Generation | P1 | **COMPLETE** — coaching generation with voice rules embedded in prompt; three-clip validated (Colin Hill, Mark Crash, Clutch Scream) |
+| E11 | Implement Stage 11: Coaching Safety Validation | P1 | **COMPLETE** — validator-only architecture; hard fail on contradiction/speed_risk; three-clip validated |
 | E-RELIA | Reliability hardening (all stages) | P1 | **COMPLETE** — retries, JSON extraction, refusal detection |
 | E-ANTI | Anti-refusal instructions (all stages) | P1 | **COMPLETE** |
 | E12 | Build KB loader / query function | P1 | Not started |
@@ -689,7 +688,7 @@ Stage 9 built, not yet tested. Selection and prioritisation stage — decides wh
 
 | ID | Task | Priority | Status |
 |----|------|----------|--------|
-| T1 | Re-run all 8 Phase 2 clips through full pipeline | P1 | Blocked (needs E9–E11) |
+| T1 | Re-run all 8 Phase 2 clips through full pipeline | P1 | Not started — pipeline complete; full 8-clip retest is next validation milestone |
 | T2 | Score Phase 3 results against Phase 2 baselines | P1 | Blocked (needs T1) |
 | T3 | Write Phase 3 evaluation report | P1 | Blocked (needs T2) |
 | T4 | Expand test corpus to 20+ clips | P2 | Not started |
@@ -700,8 +699,8 @@ Stage 9 built, not yet tested. Selection and prioritisation stage — decides wh
 
 | ID | Task | Priority | Status |
 |----|------|----------|--------|
-| P1 | Design skill tag taxonomy (mapping table in docs/) | P1 | Not started — required before Stage 10 |
-| P2 | Write coaching persona document (Three Pillars framework) | P1 | Not started — required before Stage 10 |
+| P1 | Design skill tag taxonomy (mapping table in docs/) | P1 | **DEFERRED (post-MVP)** — taxonomy in types.ts SkillTag enum for v1 |
+| P2 | Write coaching persona document (Three Pillars framework) | P1 | **DEFERRED (post-MVP)** — voice rules embedded in Stage 10 prompt for v1 |
 | P3 | Pipeline speed optimisation (parallel stages, model-per-stage) | P2 | Not started — post Gate 3 |
 
 ---
@@ -716,3 +715,4 @@ Stage 9 built, not yet tested. Selection and prioritisation stage — decides wh
 | 1.3 | 2026-04-02 | Terrain KB complete (10 entries, Domain 17). Feature KB is now P0. Dynamics KB open decision documented (new files vs upgrade existing Domain 02/03). Section 6 execution steps updated to reflect current position. |
 | 1.4 | 2026-04-02 | Feature KB entry list locked (14 entries, geometry-first). Three-system architecture added to Section 2. Section 4.B updated with 14-entry list, architecture constraints, single-event vs section distinction. Section 4.D added (Skill Tag Layer). Section 6 execution steps updated: schema update is Step 1, skill tag taxonomy added as Step 5, validation moved to Step 7. |
 | 1.5 | 2026-04-09 | Major update: Section 6 and 7 rewritten to reflect current state. Feature KB complete (14/14). Pipeline Stages 1–8 built, tested, validated. Stage 9 built (not yet tested). Prompt tuning backlog added. Pre-requisites for remaining stages added. Backlog items updated with completion status. |
+| 1.6 | 2026-04-09 | Session 2 update: All 11 pipeline stages complete. Stage 9 validated (three discriminator clips). Stage 10 implemented (coaching generation, voice rules in prompt). Stage 11 implemented (validator-only, hard fail conditions). COACH-1/SKILL-1 deferred to post-MVP. T1 unblocked. Section 6 status and backlog updated. |

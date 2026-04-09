@@ -1,6 +1,6 @@
 # CLAUDE.md — RideMind Project Context
 
-**Last updated:** 2026-04-09 (Gate 3 passed — Stages 1–9 decision engine validated)
+**Last updated:** 2026-04-09 (Stages 1–11 pipeline fully implemented and validated)
 
 ## What is RideMind?
 
@@ -25,7 +25,7 @@ RideMind is a **physics-aware, terrain-aware, machine-aware riding intelligence 
 - **Feature KB compression pass — COMPLETE** — All 8 original entries compressed (16% avg reduction). Consistency spec updated: Section 16 (Compression Discipline) and check 11 (redundant content check) added (b894958). Compression discipline applies to future entries only — no re-compression of already-compressed entries.
 - **MACHINE-01 — COMPLETE** — GasGas EC300 TPI 2023 at `knowledge-base/domain-16-machines/gasgas-ec300-tpi-2023--jake.md`. Fully rewritten to Schema 4 (v1.3), PDS corrected to linkage throughout, committed (0655cc9).
 - **MACHINE-02 — COMPLETE** — GasGas EC300 TBI 2024 stock profile at `knowledge-base/domain-16-machines/gasgas-ec300-tbi-2024.md`. Stock-only (`mod_layer: false`), written to Schema 4. This is the Gate 3 test bike — all current test clips use the TBI model. Committed (ca20c46).
-- **Pipeline v1 — Stages 1–9 IMPLEMENTED AND VALIDATED (2026-04-09)** — All 9 stages built and tested. Stages 1–4 run on all 8 Phase 2 clips (initial run: 5 pass, 2 partial, 1 fail; Stage 1 validated 8/8). Stages 5–9 validated across three discriminator clips: Mark Crash (body_position primary, fore_aft_weight_distribution tag, 0.90 confidence — correct), Colin Hill (speed_management primary — correct graceful degradation under weak body position perception), Clutch Scream (did not hallucinate clutch_control; observability_limited: true — correct). Key finding: architecture reasons correctly from upstream evidence. Remaining quality gaps are perception problems (body position detection, clutch/audio sensing), not reasoning problems. Pipeline code at `pipeline/`. Key implementation details per stage:
+- **Pipeline v1 — Stages 1–11 FULLY IMPLEMENTED AND VALIDATED (2026-04-09)** — All 11 stages built and tested. Stages 1–4 run on all 8 Phase 2 clips (initial run: 5 pass, 2 partial, 1 fail; Stage 1 validated 8/8). Stages 5–9 validated across three discriminator clips: Mark Crash (body_position primary, fore_aft_weight_distribution tag, 0.90 confidence — correct), Colin Hill (speed_management primary — correct graceful degradation under weak body position perception), Clutch Scream (did not hallucinate clutch_control; observability_limited: true — correct). Key finding: architecture reasons correctly from upstream evidence. Remaining quality gaps are perception problems (body position detection, clutch/audio sensing), not reasoning problems. Pipeline code at `pipeline/`. Key implementation details per stage:
   - **Stage 3:** `event_detected` field (crash/stall/bail/near_miss/tip_over/mechanical + confidence + description); fallback shape and type clamping; anti-refusal applied.
   - **Stage 4:** Consequence-based severity definitions; jump geometry rules; switchback constraint (switchback→gradient.camber not features_detected); gradient calibration; anti-refusal applied.
   - **Stage 5:** Chronological phase segmentation; sequence-not-causality enforcement (event timeline, not causal chain); airborne failure-point rule; audio markers per segment; critical_moment identification.
@@ -34,7 +34,8 @@ RideMind is a **physics-aware, terrain-aware, machine-aware riding intelligence 
   - **Stage 8:** Causal chain construction from Stage 6 failure classification and Stage 5 event sequence.
   - **Stage 9:** Selection/prioritisation — one primary coaching focus, max two secondary points; observability soft gate, actionability filter, safety pre-flagging; excluded factors logged with reasons; domain-contradiction sanity check (warning only for MVP). Primary Cause Interpretation Rule: traces to earliest controllable rider mechanism in the causal chain (e.g. body_position for momentum failure caused by poor posture), not the failure_type's obvious domain mapping.
   - **Reliability hardening:** 2-retry loop with escalating repair prompts; JSON extraction from mixed responses (direct parse → strip fences → brace extraction); refusal detection; deterministic timestamps. GPT-4o intermittent refusal is a known model behaviour issue — handled by retry logic. Anti-refusal instruction applied across all stages.
-  - **Next:** Build Stage 10 (Coaching Generation), then Stage 11 (Coaching Safety Validation). COACH-1 and SKILL-1 required before Stage 10.
+  - **Stage 10:** Coaching generation — `rider_facing_summary` (direct, actionable) + `technical_coach_note` (mechanism explanation); observability-gated confidence; drift check against Stage 9 primary category; business rule validation. Voice rules embedded in prompt (not standalone COACH-1 doc for v1). Three-clip validated.
+  - **Stage 11:** Validator-only — checks coaching output against failure diagnosis, crash type, and causal chain. Does not rewrite or regenerate. Hard fail conditions: `contradiction` or `speed_risk` force `safe: false`; `severity_mismatch` forces `safe: false` when Stage 7 severity is `serious`. Business rules: flags require supporting issues; `confidence_adjustment` without flags is invalid. Three-clip validated; FAIL-path not yet live-tested.
   - **Future priority:** Multi-model perception layer — audio/dynamics sensing for clutch detection, Gemini integration for body position confidence, signal fusion into Stages 5/6. Colin Hill re-validation after this is available.
 - **Domain 16 architecture — LOCKED:** Stock bike data only. Rider modifications belong on the user profile layer. For MVP, both in one file with clear separation. **Schema 4 added to `docs/kb-schemas-v1.md` (v1.3, 2026-04-03).** File naming locked: stock = `[mfr]-[model]-[year].md`, rider-layer = `[mfr]-[model]-[year]--[rider].md`. Machine KB entries are factual reference only — no coaching, no pipeline logic, no rider psychology, no improvement language.
 
@@ -70,7 +71,7 @@ Plus three new knowledge bases:
 |------|--------|--------|
 | Gate 1 — Pipeline stages approved | **PASSED** (2026-04-01) | — |
 | Gate 2 — KB entry schemas approved | **PASSED** (2026-04-01) | — |
-| Gate 3 — Pipeline v1 implemented | **PASSED (decision engine architecture, 2026-04-09)** — Stages 1–9 validated across three discriminator clips (Mark Crash, Colin Hill, Clutch Scream). Stages 10–11 remaining; blocked on COACH-1 + SKILL-1 before Stage 10. | Phase 3 retest |
+| Gate 3 — Pipeline v1 implemented | **PASSED (2026-04-09)** — All 11 stages implemented and validated. Stages 1–9 validated on three discriminator clips (Mark Crash, Colin Hill, Clutch Scream). Stages 10–11 implemented and three-clip validated. FAIL-path not yet live-tested on Stage 11. Full 8-clip retest pending. | Phase 3 retest |
 
 ## Architectural Decisions (Phase 3)
 
@@ -108,6 +109,15 @@ This framework will shape: coaching tone, skill prioritisation, skill tag taxono
 - **Factual reference only.** Machine KB entries contain factual mechanical behaviour descriptions only — no coaching advice, no pipeline logic, no rider psychology, no improvement language. Every sentence must be a mechanical cause→effect statement.
 - **Compression discipline applies.** Domain 16 entries follow the same cause→effect writing standard as Feature KB entries (Section 16 of consistency spec).
 
+### Stage 11 — Validator-Only Architecture
+
+- **Validator-only for v1.** Stage 11 checks coaching output but does not rewrite or regenerate it. No `corrected_coaching` field in the schema.
+- **Single responsibility:** Stage 10 owns coaching generation. Stage 11 owns validation only.
+- **Hard fail conditions:** `contradiction: true` or `speed_risk: true` always force `safe: false`. `severity_mismatch: true` forces `safe: false` only when Stage 7 severity is `serious` (v1 known gap: Stage 7 not currently passed into Stage 11 business rules — severity_mismatch enforcement is weaker than prompt logic).
+- **Business rules:** Flags must have supporting issues. `confidence_adjustment` without flags is invalid. Flags without `confidence_adjustment` is accepted.
+- **FAIL-path not yet live-tested.** Stage 10 prompt controls have produced safe outputs across all tested clips. Synthetic fail fixture required before relying on Stage 11 in production.
+- **Future correction path (v2):** Stage 11 failure reasons fed back to Stage 10 for one retry (max 1, then hard fail). Stage 7 severity wired into Stage 11 business rules for stricter `severity_mismatch` enforcement.
+
 ## Project Structure
 
 ```
@@ -119,7 +129,7 @@ knowledge-base/
   domain-16-machines/   # Machine Profiles KB — 2 entries committed: gasgas-ec300-tpi-2023--jake.md (MACHINE-01), gasgas-ec300-tbi-2024.md (MACHINE-02)
   domain-17-terrain/    # Terrain KB — COMPLETE (10 entries: TERRAIN-01 to TERRAIN-10)
   features/             # Terrain Feature KB — COMPLETE, 14 entries (FEATURE-01 to FEATURE-14)
-  pipeline/             # Pipeline v1 — Stages 1–9 implemented and validated (model-agnostic, GPT-4o provider)
+  pipeline/             # Pipeline v1 — Stages 1–11 implemented and validated (model-agnostic, GPT-4o provider)
 scripts/
   test-coaching-kb.ts   # GPT-4o test runner (Phase 1/2)
   test-coaching-claude.ts # Claude test runner (Phase 2)

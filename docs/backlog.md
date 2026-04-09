@@ -1,6 +1,6 @@
 # RideMind — Backlog
 
-**Last updated:** 2026-04-09 (Gate 3 passed — Stages 1–9 decision engine validated)
+**Last updated:** 2026-04-09 (Stages 1–11 pipeline fully implemented and validated)
 **Current phase:** Phase 3 — Reasoning Pipeline + KB Build
 **Master plan:** `docs/ridemind-phase3-master-plan-v1.md`
 
@@ -12,7 +12,7 @@
 |------|--------|--------|
 | Gate 1 — Pipeline stages approved | **PASSED** (2026-04-01) | — |
 | Gate 2 — KB entry schemas approved | **PASSED** (2026-04-01) | — |
-| Gate 3 — Pipeline v1 implemented | **PASSED (decision engine architecture, 2026-04-09)** — Stages 1–9 validated across three discriminator clips (Mark Crash, Colin Hill, Clutch Scream). Stages 10–11 remaining; blocked on COACH-1 + SKILL-1 before Stage 10. | Phase 3 retest |
+| Gate 3 — Pipeline v1 implemented | **PASSED (2026-04-09)** — All 11 stages implemented and validated. Stages 1–9 validated on three discriminator clips (Mark Crash, Colin Hill, Clutch Scream). Stages 10–11 implemented and three-clip validated. FAIL-path not yet live-tested on Stage 11. Full 8-clip retest pending. | Phase 3 retest |
 
 ---
 
@@ -34,12 +34,13 @@
 
 | ID | Task | Status | Blocked By |
 |----|------|--------|------------|
-| COACH-1 | Define RideMind coaching persona and philosophy — Three Pillars framework (Balance, Body Position, Power Delivery & Collection) as foundational coaching model. Principles: fundamentals mastered on flat ground before terrain; pillars are interconnected; "deliver and collect" — speed of transition between max and min power is the skill. Shapes coaching tone, skill prioritisation, drill sequencing, progression logic, and Stage 10 framing. Must be complete before Stage 10 is built. | **CURRENT PRIORITY** | — |
-| SKILL-1 | Design skill tag taxonomy: map failure types to skill tags (e.g. balance_low_speed, momentum_control, line_commitment). Must be complete before Stage 10 is built. | **NEXT — after COACH-1** | COACH-1 |
+| COACH-1 | Define RideMind coaching persona and philosophy — Three Pillars framework (Balance, Body Position, Power Delivery & Collection) as foundational coaching model. Principles: fundamentals mastered on flat ground before terrain; pillars are interconnected; "deliver and collect" — speed of transition between max and min power is the skill. Shapes coaching tone, skill prioritisation, drill sequencing, progression logic, and Stage 10 framing. Voice rules embedded directly in Stage 10 prompt for v1. Standalone persona doc deferred until voice consistency tuning across full product. | **DEFERRED (post-MVP)** | — |
+| SKILL-1 | Design skill tag taxonomy: map failure types to skill tags (e.g. balance_low_speed, momentum_control, line_commitment). Taxonomy lives in types.ts SkillTag enum for v1. Standalone reference doc may be useful later but not blocking. | **DEFERRED (post-MVP)** | — |
 | A2 | Design database schema for all KBs | Not started | Gate 1 |
 | A3 | Create mermaid diagram of pipeline flow | Not started | Gate 1 |
 | A5 | Design observability confidence scoring system | Not started | Gate 1 |
 | A6 | Define coaching tone mapping rules (outcome → tone) | Not started | Gate 1 |
+| S11-CON | Add Stage 11 contract to docs/pipeline-contracts-v1.md — validator-only architecture, four checks, hard fail conditions, no coaching rewriting | Not started | — |
 
 ### Knowledge Base — Wave 1 (Core Files)
 
@@ -86,9 +87,9 @@
 | E-WIRE7 | Wire Stage 7 into run-test.ts; test on Mark Crash (crash_occurred true) and Colin Hill (crash_occurred false, Stage 7 skipped correctly) | **COMPLETE** | E7 ✓ |
 | E8 | Implement Stage 8: Causal Chain Construction | **COMPLETE** | E-WIRE7 ✓ |
 | E9 | Implement Stage 9: Decision Engine / Coaching Strategy Mapping | **COMPLETE** — one primary, max two secondary; observability soft gate, actionability filter, safety pre-flagging; Primary Cause Interpretation Rule (trace to earliest controllable mechanism); validated on three discriminator clips: Mark Crash (body_position primary, fore_aft_weight_distribution tag, 0.90 confidence), Colin Hill (speed_management primary — correct graceful degradation), Clutch Scream (no hallucination, observability_limited true) | E8 ✓ |
-| E11 | Implement Stage 10: Coaching Generation (refactor existing) | **CURRENT PRIORITY** | COACH-1, SKILL-1 |
-| E12 | Implement Stage 11: Coaching Safety Validation | Not started | E11 |
-| E13 | Wire full pipeline (Stages 1–11) into test runner CLI | Not started | E12 |
+| E11 | Implement Stage 10: Coaching Generation (refactor existing) | **COMPLETE** — voice rules embedded in prompt; three-clip validated | — |
+| E12 | Implement Stage 11: Coaching Safety Validation | **COMPLETE** — validator-only; hard fail on contradiction/speed_risk; three-clip validated | — |
+| E13 | Wire full pipeline (Stages 1–11) into test runner CLI | **COMPLETE** — all stages wired in pipeline/run-test.ts | — |
 | PERC-1 | Multi-model perception layer design — audio/dynamics sensing for clutch detection (gpt-4o-audio-preview or dedicated audio stage), Gemini integration for body position confidence, signal fusion into Stages 5/6; eliminates remaining perception gaps identified in three-clip discriminator test | Not started | Gate 3 ✓ |
 
 ### Testing & Evaluation
@@ -98,6 +99,7 @@
 | T1 | Re-run all 8 Phase 2 clips through new pipeline | **Stages 1–9 validated on Mark Crash and Colin Hill** — Full 8-clip retest after Stage 11 complete. | Gate 3 |
 | T2 | Score Phase 3 results against Phase 2 baselines | Not started | T1 |
 | T3 | Write Phase 3 evaluation report | Not started | T2 |
+| S11-FIX | Create synthetic Stage 11 fail fixture — test speed_risk, contradiction, and observability_overreach fail paths; FAIL-path not yet proven in live testing | Not started | — |
 
 ---
 
@@ -142,6 +144,8 @@
 | V4 | Resolve Colin Hill outcome variance: stall vs stuck vs crash classification inconsistency across pipeline runs | Not started | E-WIRE7 |
 | V5 | Colin Hill re-validation after multi-model perception layer — body position detection and clutch/audio sensing expected to improve primary cause accuracy on ambiguous clips | Not started | PERC-1 |
 | AUDIO-1 | Audio extraction implementation: extract engine RPM pattern, rider speech, impact sounds as structured input for pipeline stages 3–8 | Not started | — |
+| S11-V2A | Wire Stage 7 severity into Stage 11 business rules — stricter severity_mismatch enforcement (v2; currently Stage 7 not passed into Stage 11) | Not started | — |
+| S11-V2B | Stage 11 retry loop: feed failure reasons back to Stage 10, max 1 retry then hard fail (v2 correction path) | Not started | — |
 
 ### Testing — Expansion
 
@@ -215,6 +219,9 @@
 | — | Phase 2 evaluation report | 2026-04-01 |
 | — | Phase 3 master plan | 2026-04-01 |
 | — | Knowledge base domains 1–15 (154+ technique files) | Previously |
+| E11 | Stage 10: Coaching Generation — voice rules embedded in prompt, observability-gated confidence, drift check, business rule validation; three-clip validated | 2026-04-09 |
+| E12 | Stage 11: Coaching Safety Validation — validator-only architecture, hard fail on contradiction/speed_risk, three-clip validated | 2026-04-09 |
+| E13 | Wire full pipeline (Stages 1–11) into test runner CLI — all stages wired in pipeline/run-test.ts | 2026-04-09 |
 
 ---
 

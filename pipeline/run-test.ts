@@ -1,7 +1,7 @@
 // RideMind Pipeline — Test Runner
 // Usage: npx tsx pipeline/run-test.ts "path/to/video.mp4"
 //
-// Runs the full Stages 1–9 pipeline on a video file and prints:
+// Runs the full Stages 1–11 pipeline on a video file and prints:
 //   1. Progress indicators per stage
 //   2. Full PipelineResult as formatted JSON
 //   3. Short human-readable summary
@@ -11,6 +11,7 @@ import { config } from "dotenv";
 import { type Stage7Output } from "./types.js";
 import { runStage9 } from "./stage9-coaching-decision.js";
 import { runStage10, validateStage10BusinessRules } from "./stage10-coaching-generation.js";
+import { runStage11 } from "./stage11-safety-validation.js";
 import { GPT4oProvider } from "./model-provider.js";
 import { extractFrames } from "./frame-extractor.js";
 import { runStage1 } from "./stage1-camera.js";
@@ -42,7 +43,7 @@ async function main() {
     process.exit(1);
   }
 
-  console.log("=== RideMind Pipeline v1 — Stages 1–10 ===\n");
+  console.log("=== RideMind Pipeline v1 — Stages 1–11 ===\n");
 
   const model = new GPT4oProvider();
   const frameCount = 16;
@@ -185,10 +186,41 @@ async function main() {
   }
   console.log();
 
-  console.log("[Pipeline] Complete.\n");
+  // Stage 11 — Safety & Contradiction Validation (unconditional — runs on all clips)
+  console.log("[Stage 11] Safety & Contradiction Validation...");
+  console.time("stage11");
+  const stage11 = await runStage11(model, stage2, stage6, stage7, stage8, stage9, stage10);
+  console.timeEnd("stage11");
+
+  console.log(`  → safe: ${stage11.safe}`);
+  if (stage11.issues.length > 0) {
+    console.log(`  → issues (${stage11.issues.length}):`);
+    stage11.issues.forEach((issue) => {
+      const short = issue.length > 100 ? issue.slice(0, 97) + "..." : issue;
+      console.log(`    - ${short}`);
+    });
+  }
+  if (stage11.confidence_adjustment !== null) {
+    console.log(`  → confidence_adjustment: ${stage11.confidence_adjustment.toFixed(2)}`);
+  }
+  console.log();
+
+  if (!stage11.safe) {
+    console.warn("[Pipeline] SAFETY GATE FAILED — Stage 11 blocked output.");
+    console.warn("[Pipeline] Flags:", JSON.stringify(stage11.flags));
+    console.warn("[Pipeline] Issues:");
+    stage11.issues.forEach((issue) => console.warn(`  - ${issue}`));
+    console.log();
+  }
+
+  if (stage11.safe) {
+    console.log("[Pipeline] Complete.\n");
+  } else {
+    console.log("[Pipeline] Complete — output blocked by Stage 11 safety gate.\n");
+  }
 
   // Full result JSON
-  const result = { stage1, stage2, stage3, stage4, stage5, stage6, stage7, stage8, stage9, stage10 };
+  const result = { stage1, stage2, stage3, stage4, stage5, stage6, stage7, stage8, stage9, stage10, stage11 };
   console.log("=== FULL PIPELINE RESULT ===\n");
   console.log(JSON.stringify(result, null, 2));
 
@@ -380,6 +412,32 @@ async function main() {
     console.log(`  Drift warning:     category "${stage10.primary_focus.category}" != Stage 9 "${stage10.source_trace.primary_stage9_category}"`);
   } else {
     console.log(`  Drift check:       passed`);
+  }
+  console.log();
+
+  console.log("STAGE 11 — Safety & Contradiction Validation");
+  console.log(`  Safe:              ${stage11.safe ? "PASS" : "FAIL"}`);
+  console.log(`  Flags:`);
+  console.log(`    speed_risk:          ${stage11.flags.speed_risk}`);
+  console.log(`    contradiction:       ${stage11.flags.contradiction}`);
+  console.log(`    severity_mismatch:   ${stage11.flags.severity_mismatch}`);
+  console.log(`    observability_overreach: ${stage11.flags.observability_overreach}`);
+  if (stage11.issues.length === 0) {
+    console.log(`  Issues:            none`);
+  } else {
+    console.log(`  Issues (${stage11.issues.length}):`);
+    stage11.issues.forEach((issue) => {
+      const issueShort = issue.length > 120 ? issue.slice(0, 117) + "..." : issue;
+      console.log(`    - ${issueShort}`);
+    });
+  }
+  if (stage11.confidence_adjustment !== null) {
+    console.log(`  Confidence adj:    cap at ${stage11.confidence_adjustment.toFixed(2)}`);
+  } else {
+    console.log(`  Confidence adj:    none`);
+  }
+  if (!stage11.safe) {
+    console.log(`  *** PIPELINE OUTPUT BLOCKED — coaching failed safety validation ***`);
   }
   console.log();
 
