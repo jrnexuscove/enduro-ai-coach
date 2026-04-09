@@ -28,6 +28,11 @@ Before touching Claude Code, write (or ask Claude chat to produce) a session sum
 
 ### Next Action
 - (the single most important thing to do next session)
+
+### Tool Issues
+- MemPalace MCP: (OK / degraded / not connected — note any impact)
+- Context7 MCP: (OK / not connected — note if any library code was written without docs lookup)
+- TypeScript LSP: (active / not available — note if grep fallback was needed)
 ```
 
 **This is the authority document.** The Claude Code prompt below will reconcile the repo files against this summary.
@@ -101,9 +106,29 @@ If something is wrong or missing, correct it before approving.
 
 ---
 
-## Step 4 — Final Verification (Optional but Recommended)
+## Step 4 — Write MemPalace Diary Entry
 
-After the commit, run the Session Start procedure prompt (from scripts/session-start.md) to verify the files are now consistent. This takes 30 seconds and catches any update errors.
+After the files are committed, write a MemPalace diary entry to preserve session continuity. Paste into Claude Code:
+```
+Write a MemPalace diary entry for this session using mempalace_diary_write. Include:
+
+- Date: [DATE]
+- What was completed this session (brief bullet list)
+- Key decisions made (each with the reason)
+- Next action for next session
+- Tool issues: [paste the Tool Issues section from your session summary, or "None"]
+- Any mempalace drawers or KG entries that need updating based on today's work
+
+Write the diary entry now.
+```
+
+> **Note:** If MemPalace was unavailable this session, skip this step and note it in the session summary for next session.
+
+---
+
+## Step 5 — Final Verification (Optional but Recommended)
+
+After the diary entry, run the Session Start procedure prompt (from scripts/session-start.md) to verify the files are now consistent. This takes 30 seconds and catches any update errors.
 
 ---
 

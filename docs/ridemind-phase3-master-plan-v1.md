@@ -491,7 +491,7 @@ No work proceeds past a gate until it is explicitly approved.
 |------|--------|----------------------|--------|
 | **Gate 1 — Pipeline Approved** | **PASSED** (2026-04-01) | Stage names, order, purpose, outputs, dependencies | All KB generation, all engineering |
 | **Gate 2 — KB Schema Approved** | **PASSED** (2026-04-01) | Entry template structure for each KB domain | Batch KB generation |
-| **Gate 3 — Pipeline v1 Implemented** | NOT PASSED | All 11 stages wired and producing structured output | Phase 3 retest |
+| **Gate 3 — Pipeline v1 Implemented** | **PASSED (2026-04-09)** — All 11 stages implemented and validated. Stages 1–9 validated on three discriminator clips (Mark Crash, Colin Hill, Clutch Scream). Stages 10–11 implemented and three-clip validated. FAIL-path not yet live-tested on Stage 11. Full 8-clip retest pending. | All 11 stages wired and producing structured output | Phase 3 retest |
 
 ### Phase 3A: Foundation (Weeks 1–2)
 
@@ -548,7 +548,7 @@ No work proceeds past a gate until it is explicitly approved.
 
 ## 6. Current Execution State
 
-Gates 1 and 2 are both passed. Gate 3 (Pipeline v1 Implemented) is in progress — 9 of 11 stages built, 8 validated.
+All three gates are passed. Gate 3 (Pipeline v1 Implemented) passed 2026-04-09 — all 11 stages built, implemented, and validated across three discriminator clips. Full 8-clip retest is the next milestone.
 
 ### Completed: Terrain KB (Domain 17)
 

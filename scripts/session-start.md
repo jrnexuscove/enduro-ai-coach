@@ -6,9 +6,34 @@
 
 ---
 
+## Step 0 — Tool Verification
+
+Before file checks, verify the tool stack is operational. Include these checks at the top of the session start prompt (already integrated below).
+
+| Tool | How to verify | Action if missing |
+|------|--------------|-------------------|
+| **MemPalace MCP** | `mempalace_status` | Warn — session continuity degraded; proceed without memory recall |
+| **Context7 MCP** | `resolve-library-id` with any test library name (e.g. `next`) | Warn — do NOT write library/framework code without docs lookup; note it in diary |
+| **TypeScript LSP** | Check if LSP tools are available in session context | Warn — fall back to grep for type/symbol lookup |
+| **UI/UX Pro Max** | No startup check — activates on demand for UI work only | N/A |
+
+If any tool is missing, report it prominently at the top of the state report and note it in the session close diary entry.
+
+---
+
 ## Prompt — Paste into Claude Code
 ```
-Session start — state verification. Do NOT make any changes. Read and report only.
+Session start — tool verification + state check. Do NOT make any changes. Read and report only.
+
+STEP 0 — TOOL VERIFICATION
+Run these checks and report status for each:
+1. Call mempalace_status — report: OK / warning / error (include any summary it returns)
+2. Call Context7 resolve-library-id with the query "next" — report: connected (got a result) / not connected (error or no response)
+3. Report whether TypeScript LSP tools are available in this session — report: active / not available
+
+If any tool is unavailable, flag it at the top of your report as: ⚠ TOOL MISSING: [name] — [impact]
+
+---
 
 Read these files and answer the following:
 
