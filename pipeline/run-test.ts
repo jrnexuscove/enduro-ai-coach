@@ -1,13 +1,15 @@
 // RideMind Pipeline — Test Runner
 // Usage: npx tsx pipeline/run-test.ts "path/to/video.mp4"
 //
-// Runs the full Stages 1–6 pipeline on a video file and prints:
+// Runs the full Stages 1–9 pipeline on a video file and prints:
 //   1. Progress indicators per stage
 //   2. Full PipelineResult as formatted JSON
 //   3. Short human-readable summary
 
 import fs from "fs";
 import { config } from "dotenv";
+import { type Stage7Output } from "./types.js";
+import { runStage9 } from "./stage9-coaching-decision.js";
 import { GPT4oProvider } from "./model-provider.js";
 import { extractFrames } from "./frame-extractor.js";
 import { runStage1 } from "./stage1-camera.js";
@@ -16,6 +18,8 @@ import { runStage3 } from "./stage3-intent.js";
 import { runStage4 } from "./stage4-terrain-feature.js";
 import { runStage5 } from "./stage5-event-sequencing.js";
 import { runStage6 } from "./stage6-failure-type.js";
+import { runStage7 } from "./stage7-crash-type.js";
+import { runStage8 } from "./stage8-causal-chain.js";
 
 config({ path: ".env.local" });
 
@@ -37,7 +41,7 @@ async function main() {
     process.exit(1);
   }
 
-  console.log("=== RideMind Pipeline v1 — Stages 1–6 ===\n");
+  console.log("=== RideMind Pipeline v1 — Stages 1–9 ===\n");
 
   const model = new GPT4oProvider();
   const frameCount = 16;
@@ -106,10 +110,48 @@ async function main() {
     : stage6.symptoms_vs_root.likely_root_cause;
   console.log(`  → likely_root_cause: ${rootCauseShort}\n`);
 
+  // Stage 7 — Crash Type Classification (conditional)
+  const crashSignalled =
+    stage5.outcome.result === "crash" || stage3.event_detected.type === "crash";
+  let stage7: Stage7Output | null = null;
+
+  if (crashSignalled) {
+    console.log("[Stage 7] Crash Type Classification...");
+    console.time("stage7");
+    stage7 = await runStage7(model, stage1, stage2, stage3, stage4, stage5, stage6);
+    console.timeEnd("stage7");
+    console.log(`  → crash_occurred: ${stage7.crash_occurred}`);
+    console.log(`  → crash_type: ${stage7.crash_type} (confidence: ${stage7.confidence.toFixed(2)})\n`);
+  } else {
+    console.log("[Stage 7] Skipped — no crash in Stage 3 or Stage 5\n");
+  }
+
+  // Stage 8 — Causal Chain Construction (unconditional — runs on all clips)
+  console.log("[Stage 8] Causal Chain Construction...");
+  console.time("stage8");
+  const stage8 = await runStage8(model, stage1, stage2, stage3, stage4, stage5, stage6, stage7);
+  console.timeEnd("stage8");
+  console.log(`  → outcome_status: ${stage8.outcome_status}`);
+  console.log(`  → primary_cause: ${stage8.primary_cause.failure_type} — ${(stage8.primary_cause.factor || "none").slice(0, 80)}`);
+  console.log(`  → overall_confidence: ${stage8.overall_confidence.toFixed(2)}\n`);
+
+  // Stage 9 — Coaching Decision Engine (unconditional — runs on all clips)
+  console.log("[Stage 9] Coaching Decision Engine...");
+  console.time("stage9");
+  const stage9 = await runStage9(model, stage2, stage3, stage4, stage8);
+  console.timeEnd("stage9");
+  console.log(`  → coaching_required: ${stage9.coaching_required}`);
+  if (stage9.primary_focus) {
+    console.log(`  → primary_focus: ${stage9.primary_focus.coaching_domain} — ${stage9.primary_focus.target_variable}`);
+  } else {
+    console.log(`  → primary_focus: none`);
+  }
+  console.log();
+
   console.log("[Pipeline] Complete.\n");
 
   // Full result JSON
-  const result = { stage1, stage2, stage3, stage4, stage5, stage6 };
+  const result = { stage1, stage2, stage3, stage4, stage5, stage6, stage7, stage8, stage9 };
   console.log("=== FULL PIPELINE RESULT ===\n");
   console.log(JSON.stringify(result, null, 2));
 
@@ -193,6 +235,85 @@ async function main() {
   if (!stage6.failure_occurred && stage6.no_failure_note) {
     console.log(`  No-failure note:  ${stage6.no_failure_note}`);
   }
+  console.log();
+
+  console.log("STAGE 7 — Crash Type Classification");
+  if (stage7) {
+    console.log(`  Crash occurred:  ${stage7.crash_occurred}`);
+    console.log(`  Crash type:      ${stage7.crash_type ?? "n/a"}`);
+    console.log(`  Mechanism:       ${stage7.crash_mechanism ?? "n/a"}`);
+    console.log(`  Severity:        ${stage7.severity_estimate}`);
+    console.log(`  Confidence:      ${stage7.confidence.toFixed(2)}`);
+    console.log(`  Direction:       ${stage7.body_dynamics.direction_of_fall ?? "n/a"}`);
+    if (stage7.audio_crash_evidence.impact_detected) {
+      console.log(`  Impact audio:    ${stage7.audio_crash_evidence.impact_description ?? "detected"}`);
+    }
+  } else {
+    console.log("  Skipped — no crash detected in Stage 3 or Stage 5");
+  }
+  console.log();
+
+  console.log("STAGE 8 — Causal Chain Construction");
+  console.log(`  Outcome status:    ${stage8.outcome_status}`);
+  console.log(`  Overall conf:      ${stage8.overall_confidence.toFixed(2)}`);
+  console.log(`  Primary cause:     ${stage8.primary_cause.failure_type} (confidence: ${stage8.primary_cause.confidence.toFixed(2)})`);
+  const factorStr = stage8.primary_cause.factor || "none";
+  const factorShort = factorStr.length > 100 ? factorStr.slice(0, 97) + "..." : factorStr;
+  console.log(`  Factor:            ${factorShort}`);
+  console.log(`  Trigger identified: ${stage8.trigger_event.identified}`);
+  if (stage8.trigger_event.identified && stage8.trigger_event.description) {
+    const trigStr = stage8.trigger_event.description || "";
+    const trigDesc = trigStr.length > 100 ? trigStr.slice(0, 97) + "..." : trigStr;
+    console.log(`  Trigger desc:      ${trigDesc}`);
+  }
+  console.log(`  Contributing factors (${stage8.contributing_factors.length}):`);
+  if (stage8.contributing_factors.length === 0) {
+    console.log("    none");
+  } else {
+    const top = stage8.contributing_factors[0];
+    console.log(`    Top: [${top.causal_role}] ${(top.factor || "").slice(0, 80)}`);
+  }
+  const setupStr = stage8.causal_summary.setup_conditions || "";
+  const mechStr = stage8.causal_summary.failure_mechanism || "";
+  const pathStr = stage8.causal_summary.outcome_pathway || "";
+  console.log(`  Setup conditions:  ${setupStr.slice(0, 100)}`);
+  console.log(`  Failure mechanism: ${mechStr.slice(0, 100)}`);
+  console.log(`  Outcome pathway:   ${pathStr.slice(0, 100)}`);
+  if (stage8.counterfactual.key_variable) {
+    console.log(`  Counterfactual:    [${stage8.counterfactual.variable_category}] ${(stage8.counterfactual.key_variable || "").slice(0, 80)}`);
+  } else {
+    console.log(`  Counterfactual:    none identified`);
+  }
+  console.log();
+
+  console.log("STAGE 9 — Coaching Decision Engine");
+  console.log(`  Coaching required: ${stage9.coaching_required ? "yes" : "no"}`);
+  if (stage9.coaching_required && stage9.primary_focus) {
+    const pfDomain = stage9.primary_focus.coaching_domain ?? "null";
+    const pfTarget = stage9.primary_focus.target_variable || "(none)";
+    const pfGoal = stage9.primary_focus.change_goal || "(none)";
+    const pfGoalShort = pfGoal.length > 80 ? pfGoal.slice(0, 77) + "..." : pfGoal;
+    console.log(`  Primary focus:     ${pfDomain} | ${pfTarget} | ${pfGoalShort}`);
+    console.log(`  Primary conf:      ${stage9.primary_focus.confidence.toFixed(2)}${stage9.primary_focus.observability_limited ? " (obs. limited)" : ""}`);
+    console.log(`  Applicable phase:  ${stage9.primary_focus.applicable_phase || "(none)"}`);
+  } else {
+    console.log(`  Primary focus:     none`);
+  }
+  const secDomains = stage9.secondary_points.map((s) => s.coaching_domain).join(", ") || "none";
+  console.log(`  Secondary points:  ${stage9.secondary_points.length} — [${secDomains}]`);
+  console.log(`  Excluded factors:  ${stage9.excluded_factors.length}`);
+  if (stage9.safety_flags.length === 0) {
+    console.log(`  Safety flags:      0`);
+  } else {
+    console.log(`  Safety flags:      ${stage9.safety_flags.length}`);
+    stage9.safety_flags.forEach((sf) => {
+      const riskShort = sf.risk.length > 80 ? sf.risk.slice(0, 77) + "..." : sf.risk;
+      console.log(`    [${sf.flag_type}] ${sf.coaching_point}: ${riskShort}`);
+    });
+  }
+  const intentShort = (stage9.coaching_constraints.rider_intent || "").slice(0, 60);
+  const terrainShort = (stage9.coaching_constraints.terrain_context || "").slice(0, 60);
+  console.log(`  Constraints:       intent=${intentShort} | terrain=${terrainShort}`);
   console.log();
 
   console.log("=== END ===\n");

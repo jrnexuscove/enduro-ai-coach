@@ -365,6 +365,124 @@ export interface Stage7Output {
 }
 
 // ————————————————————————————————————————————
+// Stage 8 — Causal Chain Construction
+// ————————————————————————————————————————————
+
+export type CausalRole = "enabling_condition" | "amplifier" | "constraint" | "destabiliser";
+export type InfluenceLevel = "high" | "moderate" | "low";
+export type OutcomeStatus = "clean" | "compromised" | "failed";
+export type CounterfactualCategory =
+  | "technique"
+  | "momentum"
+  | "traction"
+  | "line_choice"
+  | "body_position"
+  | "throttle"
+  | "braking";
+
+export interface EvidenceRef {
+  stage: string;  // "stage3", "stage5", etc.
+  field: string;
+  value: string;
+}
+
+export interface Stage8ContributingFactor {
+  factor: string;
+  category: "terrain" | "technique" | "momentum" | "traction" | "bike_dynamics" | "environmental";
+  causal_role: CausalRole;
+  influence: InfluenceLevel;
+  confidence: number;
+  evidence_refs: EvidenceRef[];
+}
+
+export interface Stage8Output {
+  primary_cause: {
+    failure_type: "bike_dynamics" | "technique" | "momentum" | "traction" | "none";
+    factor: string;
+    confidence: number;
+    evidence_refs: EvidenceRef[];
+  };
+  trigger_event: {
+    identified: boolean;
+    description: string | null;
+    confidence: number | null;
+    evidence_refs: EvidenceRef[];
+  };
+  contributing_factors: Stage8ContributingFactor[];
+  causal_summary: {
+    setup_conditions: string;
+    failure_mechanism: string;
+    outcome_pathway: string;
+  };
+  counterfactual: {
+    key_variable: string | null;
+    variable_category: CounterfactualCategory | null;
+    likely_effect_on_outcome: string | null;
+    confidence: number | null;
+  };
+  outcome_status: OutcomeStatus;
+  overall_confidence: number;
+}
+
+// ————————————————————————————————————————————
+// Stage 9 — Coaching Decision Engine
+// ————————————————————————————————————————————
+
+export type CoachingDomain =
+  | "body_position"
+  | "throttle_control"
+  | "clutch_control"
+  | "braking"
+  | "line_choice"
+  | "speed_management"
+  | "balance"
+  | "timing"
+  | "commitment";
+
+export type ExclusionReason =
+  | "not_actionable"
+  | "low_observability"
+  | "low_confidence"
+  | "peripheral"
+  | "too_advanced";
+
+export type FlagType = "caution" | "contraindicated";
+
+export interface Stage9Output {
+  coaching_required: boolean;
+  primary_focus: {
+    coaching_domain: CoachingDomain | null;
+    target_variable: string;
+    problem_mechanism: string;
+    change_goal: string;
+    applicable_phase: string;
+    confidence: number;
+    observability_limited: boolean;
+  } | null;
+  secondary_points: Array<{
+    coaching_domain: CoachingDomain;
+    target_variable: string;
+    change_goal: string;
+    confidence: number;
+    observability_limited: boolean;
+  }>;
+  excluded_factors: Array<{
+    factor: string;
+    exclusion_reason: ExclusionReason;
+  }>;
+  safety_flags: Array<{
+    coaching_point: string;
+    risk: string;
+    flag_type: FlagType;
+  }>;
+  coaching_constraints: {
+    rider_intent: string;
+    terrain_context: string;
+    max_points: number;
+  };
+}
+
+// ————————————————————————————————————————————
 // Pipeline Result
 // ————————————————————————————————————————————
 
@@ -376,6 +494,8 @@ export interface PipelineResult {
   stage5?: Stage5Output;
   stage6?: Stage6Output;
   stage7?: Stage7Output;
+  stage8?: Stage8Output;
+  stage9?: Stage9Output;
 }
 
 // ————————————————————————————————————————————
