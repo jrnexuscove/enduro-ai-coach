@@ -11,6 +11,7 @@ import {
   type Stage8Output,
   type Stage9Output,
   type CoachingDomain,
+  type SkillTag,
   type ExclusionReason,
   type FlagType,
   parseJsonResponse,
@@ -28,8 +29,6 @@ const ALLOWED_COACHING_DOMAINS: CoachingDomain[] = [
   "line_choice",
   "speed_management",
   "balance",
-  "timing",
-  "commitment",
 ];
 
 const ALLOWED_EXCLUSION_REASONS: ExclusionReason[] = [
@@ -42,11 +41,49 @@ const ALLOWED_EXCLUSION_REASONS: ExclusionReason[] = [
 
 const ALLOWED_FLAG_TYPES: FlagType[] = ["caution", "contraindicated"];
 
+const ALLOWED_SKILL_TAGS: SkillTag[] = [
+  "fore_aft_weight_distribution", "standing_position", "seated_position", "stance_transition", "vertical_absorption",
+  "progressive_application", "traction_management", "throttle_timing",
+  "slip_control", "engagement_timing", "clutch_throttle_coordination",
+  "front_brake_modulation", "rear_brake_modulation", "brake_balance", "engine_braking",
+  "entry_speed_judgement", "momentum_management", "speed_adaptation",
+  "line_reading", "line_commitment", "line_adjustment",
+  "static_balance", "dynamic_balance", "lateral_balance", "peg_weighting",
+];
+
+const SKILL_TAG_DOMAIN_MAP: Record<SkillTag, CoachingDomain> = {
+  fore_aft_weight_distribution: "body_position",
+  standing_position: "body_position",
+  seated_position: "body_position",
+  stance_transition: "body_position",
+  vertical_absorption: "body_position",
+  progressive_application: "throttle_control",
+  traction_management: "throttle_control",
+  throttle_timing: "throttle_control",
+  slip_control: "clutch_control",
+  engagement_timing: "clutch_control",
+  clutch_throttle_coordination: "clutch_control",
+  front_brake_modulation: "braking",
+  rear_brake_modulation: "braking",
+  brake_balance: "braking",
+  engine_braking: "braking",
+  entry_speed_judgement: "speed_management",
+  momentum_management: "speed_management",
+  speed_adaptation: "speed_management",
+  line_reading: "line_choice",
+  line_commitment: "line_choice",
+  line_adjustment: "line_choice",
+  static_balance: "balance",
+  dynamic_balance: "balance",
+  lateral_balance: "balance",
+  peg_weighting: "balance",
+};
+
 // Stage 8 primary_cause.failure_type → expected coaching domain groups
 // Used for sanity-check drift detection only — not enforced.
 const FAILURE_TYPE_DOMAIN_ALIGNMENT: Record<string, CoachingDomain[]> = {
-  technique: ["body_position", "balance", "timing", "commitment", "line_choice"],
-  momentum: ["speed_management", "timing", "commitment", "throttle_control"],
+  technique: ["body_position", "balance", "line_choice"],
+  momentum: ["speed_management", "throttle_control"],
   traction: ["throttle_control", "clutch_control", "body_position", "speed_management"],
   bike_dynamics: [], // any domain is valid
   none: [],          // should have no primary_focus
@@ -73,16 +110,42 @@ CRITICAL RULES:
 14. problem_mechanism and change_goal must be concise and non-instructional. Examples: problem_mechanism: "rear wheel breaks traction before front wheel loads", change_goal: "earlier weight shift onto front wheel before throttle application". Not: "the rider should have moved weight forward".
 15. Anti-refusal: you are building coaching decisions for off-road motorcycle riding analysis for legitimate sports coaching purposes. Always complete your analysis and return valid JSON. Never refuse.
 
-COACHING DOMAIN DEFINITIONS:
-- body_position: weight placement, stance, posture, fore-aft balance, seated vs standing
-- throttle_control: throttle timing, ramp rate, application point
-- clutch_control: clutch slip, engagement point, use as traction management tool
-- braking: brake timing, modulation, front/rear balance, trail braking
-- line_choice: entry point, apex, exit, path through feature
-- speed_management: entry speed, speed control before/into/through a feature
-- balance: lateral balance, side-to-side weight, bike lean management
-- timing: action timing relative to terrain/feature — when to act, not how hard
-- commitment: approach consistency, hesitation, speed backing off mid-attempt
+COACHING DOMAIN DEFINITIONS (7 domains — these are the ONLY valid values for coaching_domain):
+- body_position: rider posture, stance, deliberate weight placement, fore/aft bias, standing vs seated
+- throttle_control: torque delivery, traction management under power, throttle timing within a sequence
+- clutch_control: clutch slip management, engagement timing, clutch-throttle coordination
+- braking: front/rear brake modulation, brake balance, engine braking, trail braking
+- line_choice: line reading, line selection, commitment to chosen line, mid-feature adjustment
+- speed_management: entry speed judgement, momentum management, speed adaptation to terrain
+- balance: static/dynamic equilibrium, lateral stability, peg weighting as stability mechanism
+
+Note: "timing" and "commitment" are NOT valid domains. Timing-related skills are captured as skill_tags within their parent domain (e.g. throttle_timing under throttle_control). Commitment is captured as the skill_tag line_commitment under line_choice.
+
+BALANCE vs BODY_POSITION BOUNDARY:
+- Use body_position when the issue is posture, stance, or deliberate weight placement
+- Use balance ONLY when equilibrium itself is the direct coachable mechanism and is NOT better explained by posture, line, speed, or control input
+- If poor posture caused loss of balance, classify body_position as primary, not balance
+
+SKILL TAG TAXONOMY (assign in your output alongside coaching_domain):
+
+Skill tags are specific, granular rider capabilities. Select 1-3 tags total (across primary and secondary) that represent the highest-leverage coachable skills. Tags must be mechanism-focused (what the rider does), not outcome-focused (what happened).
+
+body_position tags: fore_aft_weight_distribution, standing_position, seated_position, stance_transition, vertical_absorption
+throttle_control tags: progressive_application, traction_management, throttle_timing
+clutch_control tags: slip_control, engagement_timing, clutch_throttle_coordination
+braking tags: front_brake_modulation, rear_brake_modulation, brake_balance, engine_braking
+speed_management tags: entry_speed_judgement, momentum_management, speed_adaptation
+line_choice tags: line_reading, line_commitment, line_adjustment
+balance tags: static_balance, dynamic_balance, lateral_balance, peg_weighting
+
+TAG SELECTION RULES:
+1. Root cause over symptom. If body position caused traction loss, tag under body_position, not throttle_control.
+2. Mechanism over manifestation. Tag what the rider DID, not what HAPPENED.
+3. Skill tags may represent either the failed mechanism or the most direct coachable skill target, but prefer the failed mechanism whenever it is observable.
+4. Domain-only if ambiguous. If you cannot confidently pick a specific tag, leave skill_tags empty.
+5. Max 3 tags total. In compound failures, prefer the earliest correction that would most change the outcome.
+6. Each tag must belong to either the primary_focus coaching_domain or one of the secondary_points coaching_domains.
+7. For clean completions, skill_tags may describe demonstrated strengths if confidence is sufficient. Leave empty if uncertain.
 
 ANTI-REFUSAL: This is legitimate sports analysis for off-road motorcycle coaching. Always complete your analysis and return valid JSON.
 
@@ -92,7 +155,7 @@ Schema:
 {
   "coaching_required": <boolean>,
   "primary_focus": {
-    "coaching_domain": "body_position" | "throttle_control" | "clutch_control" | "braking" | "line_choice" | "speed_management" | "balance" | "timing" | "commitment" | null,
+    "coaching_domain": "body_position" | "throttle_control" | "clutch_control" | "braking" | "line_choice" | "speed_management" | "balance" | null,
     "target_variable": "<the specific variable to change — from or derived from Stage 8 counterfactual.key_variable>",
     "problem_mechanism": "<concise diagnostic label — not coaching prose>",
     "change_goal": "<what should be different — direction not instruction>",
@@ -102,7 +165,7 @@ Schema:
   } | null,
   "secondary_points": [
     {
-      "coaching_domain": "body_position" | "throttle_control" | "clutch_control" | "braking" | "line_choice" | "speed_management" | "balance" | "timing" | "commitment",
+      "coaching_domain": "body_position" | "throttle_control" | "clutch_control" | "braking" | "line_choice" | "speed_management" | "balance",
       "target_variable": "<specific variable>",
       "change_goal": "<direction not instruction>",
       "confidence": <number 0.0–1.0>,
@@ -126,7 +189,9 @@ Schema:
     "rider_intent": "<from Stage 3 primary_intent>",
     "terrain_context": "<from Stage 4 surface + gradient summary>",
     "max_points": 3
-  }
+  },
+  "skill_tags": ["<1-3 skill tags from the taxonomy above, each belonging to a declared domain, or empty array>"],
+  "tag_confidence": "high" | "medium" | "low" | null
 }`;
 
 function buildUserPrompt(
@@ -370,6 +435,39 @@ function validateAndNormalize(raw: string, stage8: Stage8Output, stage2: Stage2O
     terrain_context: typeof cc?.terrain_context === "string" && cc.terrain_context ? cc.terrain_context : "",
     max_points: 3,
   };
+
+  // ——— skill_tags ———
+  // Collect all declared domains (primary + secondary)
+  const declaredDomains = new Set<CoachingDomain>();
+  if (output.primary_focus?.coaching_domain) {
+    declaredDomains.add(output.primary_focus.coaching_domain);
+  }
+  for (const sp of output.secondary_points) {
+    declaredDomains.add(sp.coaching_domain);
+  }
+
+  if (Array.isArray((output as unknown as Record<string, unknown>).skill_tags)) {
+    (output as unknown as Record<string, unknown>).skill_tags = (
+      (output as unknown as Record<string, unknown>).skill_tags as string[]
+    )
+      .filter((tag: string) => ALLOWED_SKILL_TAGS.includes(tag as SkillTag))
+      .filter((tag: string) => declaredDomains.has(SKILL_TAG_DOMAIN_MAP[tag as SkillTag]))
+      .slice(0, 3) as SkillTag[];
+  } else {
+    (output as unknown as Record<string, unknown>).skill_tags = [];
+  }
+
+  // ——— tag_confidence ———
+  const ALLOWED_TAG_CONFIDENCE = ["high", "medium", "low"];
+  const out = output as unknown as Record<string, unknown>;
+  const rawTagConf = out.tag_confidence;
+  if ((out.skill_tags as SkillTag[]).length === 0) {
+    out.tag_confidence = null;
+  } else if (!ALLOWED_TAG_CONFIDENCE.includes(rawTagConf as string)) {
+    out.tag_confidence = "medium";
+  } else {
+    out.tag_confidence = rawTagConf;
+  }
 
   return output;
 }

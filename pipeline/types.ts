@@ -435,9 +435,16 @@ export type CoachingDomain =
   | "braking"
   | "line_choice"
   | "speed_management"
-  | "balance"
-  | "timing"
-  | "commitment";
+  | "balance";
+
+export type SkillTag =
+  | "fore_aft_weight_distribution" | "standing_position" | "seated_position" | "stance_transition" | "vertical_absorption"
+  | "progressive_application" | "traction_management" | "throttle_timing"
+  | "slip_control" | "engagement_timing" | "clutch_throttle_coordination"
+  | "front_brake_modulation" | "rear_brake_modulation" | "brake_balance" | "engine_braking"
+  | "entry_speed_judgement" | "momentum_management" | "speed_adaptation"
+  | "line_reading" | "line_commitment" | "line_adjustment"
+  | "static_balance" | "dynamic_balance" | "lateral_balance" | "peg_weighting";
 
 export type ExclusionReason =
   | "not_actionable"
@@ -480,6 +487,8 @@ export interface Stage9Output {
     terrain_context: string;
     max_points: number;
   };
+  skill_tags: SkillTag[];
+  tag_confidence: "high" | "medium" | "low" | null;
 }
 
 // ————————————————————————————————————————————
