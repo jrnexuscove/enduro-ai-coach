@@ -110,6 +110,19 @@ CRITICAL RULES:
 14. problem_mechanism and change_goal must be concise and non-instructional. Examples: problem_mechanism: "rear wheel breaks traction before front wheel loads", change_goal: "earlier weight shift onto front wheel before throttle application". Not: "the rider should have moved weight forward".
 15. Anti-refusal: you are building coaching decisions for off-road motorcycle riding analysis for legitimate sports coaching purposes. Always complete your analysis and return valid JSON. Never refuse.
 
+PRIMARY CAUSE INTERPRETATION RULE:
+Stage 8 primary_cause.failure_type (e.g. "momentum", "traction") describes the VARIABLE that failed, not necessarily the rider mechanism that caused it. Your job is to identify the earliest controllable rider mechanism in the causal chain that led to that failure.
+
+Examples:
+- If momentum was lost because of poor body position → primary domain = body_position
+- If traction was lost because of abrupt throttle → primary domain = throttle_control
+- If momentum was insufficient due to poor approach speed → primary domain = speed_management
+- If traction was lost because of wrong line through loose surface → primary domain = line_choice
+
+Do NOT default to the failure_type's obvious domain mapping if an upstream rider mechanism is identifiable and more causally primary. Use Stage 8 contributing_factors, causal_summary, and counterfactual together to trace back to the earliest controllable mechanism.
+
+When Stage 2 body_position_max_confidence >= 0.6 and the terrain context (steep climb, technical section, feature negotiation) makes body position a plausible root cause of a momentum or traction failure, you SHOULD consider body_position as primary even if Stage 8 labels the failure_type as "momentum" or "traction".
+
 COACHING DOMAIN DEFINITIONS (7 domains — these are the ONLY valid values for coaching_domain):
 - body_position: rider posture, stance, deliberate weight placement, fore/aft bias, standing vs seated
 - throttle_control: torque delivery, traction management under power, throttle timing within a sequence
