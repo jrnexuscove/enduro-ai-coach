@@ -146,6 +146,8 @@ async function main() {
   } else {
     console.log(`  → primary_focus: none`);
   }
+  const progressTags = stage9.skill_tags && stage9.skill_tags.length > 0 ? stage9.skill_tags.join(", ") : "none";
+  console.log(`  → skill_tags: [${progressTags}] | confidence: ${stage9.tag_confidence ?? "null"}`);
   console.log();
 
   console.log("[Pipeline] Complete.\n");
@@ -311,6 +313,9 @@ async function main() {
       console.log(`    [${sf.flag_type}] ${sf.coaching_point}: ${riskShort}`);
     });
   }
+  const summaryTags = stage9.skill_tags && stage9.skill_tags.length > 0 ? stage9.skill_tags.join(", ") : "none";
+  console.log(`  Skill tags:        [${summaryTags}]`);
+  console.log(`  Tag confidence:    ${stage9.tag_confidence ?? "null"}`);
   const intentShort = (stage9.coaching_constraints.rider_intent || "").slice(0, 60);
   const terrainShort = (stage9.coaching_constraints.terrain_context || "").slice(0, 60);
   console.log(`  Constraints:       intent=${intentShort} | terrain=${terrainShort}`);
