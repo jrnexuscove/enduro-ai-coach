@@ -492,6 +492,70 @@ export interface Stage9Output {
 }
 
 // ————————————————————————————————————————————
+// Stage 10 — Coaching Generation
+// ————————————————————————————————————————————
+
+export type CoachingCategory =
+  | "speed_management"
+  | "body_position"
+  | "line_choice"
+  | "braking_control"
+  | "clutch_control"
+  | "traction_management"
+  | "vision_timing"
+  | "commitment_decision"
+  | "bike_balance"
+  | "other";
+
+export interface Stage10Output {
+  stage: "coaching_generation";
+  coaching_required: boolean;
+  confidence: number;
+  observability_limited: boolean;
+
+  source_trace: {
+    primary_stage9_category: string;
+    primary_stage9_subcategory: string | null;
+    stage9_confidence: number;
+  };
+
+  kb_entries_used: string[];
+
+  rider_facing_summary: string | null;
+  technical_coach_note: string | null;
+
+  primary_focus: {
+    category: string;
+    subcategory: string | null;
+    title: string;
+    why_it_matters: string;
+    what_to_change: string;
+    key_cues: string[];
+  } | null;
+
+  secondary_focuses: Array<{
+    category: string;
+    subcategory: string | null;
+    title: string;
+    why_it_matters: string;
+    what_to_change: string | null;
+  }>;
+
+  scenario_explanation: string | null;
+  next_attempt_plan: string[];
+
+  drills: Array<{
+    name: string;
+    purpose: string;
+    how_to_do_it: string;
+    progression: string | null;
+  }>;
+
+  uncertainty_statement: string | null;
+  debug: DebugBlock;
+}
+
+// ————————————————————————————————————————————
 // Pipeline Result
 // ————————————————————————————————————————————
 
@@ -505,6 +569,7 @@ export interface PipelineResult {
   stage7?: Stage7Output;
   stage8?: Stage8Output;
   stage9?: Stage9Output;
+  stage10?: Stage10Output;
 }
 
 // ————————————————————————————————————————————

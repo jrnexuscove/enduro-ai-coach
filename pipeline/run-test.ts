@@ -10,6 +10,7 @@ import fs from "fs";
 import { config } from "dotenv";
 import { type Stage7Output } from "./types.js";
 import { runStage9 } from "./stage9-coaching-decision.js";
+import { runStage10, validateStage10BusinessRules } from "./stage10-coaching-generation.js";
 import { GPT4oProvider } from "./model-provider.js";
 import { extractFrames } from "./frame-extractor.js";
 import { runStage1 } from "./stage1-camera.js";
@@ -41,7 +42,7 @@ async function main() {
     process.exit(1);
   }
 
-  console.log("=== RideMind Pipeline v1 — Stages 1–9 ===\n");
+  console.log("=== RideMind Pipeline v1 — Stages 1–10 ===\n");
 
   const model = new GPT4oProvider();
   const frameCount = 16;
@@ -150,10 +151,44 @@ async function main() {
   console.log(`  → skill_tags: [${progressTags}] | confidence: ${stage9.tag_confidence ?? "null"}`);
   console.log();
 
+  // Stage 10 — Coaching Generation (unconditional — runs on all clips)
+  let stage10BusinessErrors: string[] = [];
+
+  console.log("[Stage 10] Coaching Generation...");
+  console.time("stage10");
+  const stage10 = await runStage10(model, stage1, stage2, stage3, stage4, stage5, stage6, stage7, stage8, stage9);
+  console.timeEnd("stage10");
+
+  // Business rule validation
+  stage10BusinessErrors = validateStage10BusinessRules(stage10);
+  if (stage10BusinessErrors.length > 0) {
+    console.warn(`  [Stage 10] Business rule violations (${stage10BusinessErrors.length}):`);
+    stage10BusinessErrors.forEach((e) => console.warn(`    - ${e}`));
+  }
+
+  // Stage 9 drift check
+  if (stage10.primary_focus && stage10.primary_focus.category !== stage10.source_trace.primary_stage9_category) {
+    console.warn(
+      `  [Stage 10] DRIFT WARNING: primary category "${stage10.primary_focus.category}" does not match Stage 9 "${stage10.source_trace.primary_stage9_category}"`
+    );
+  }
+
+  console.log(`  → coaching_required: ${stage10.coaching_required}`);
+  console.log(`  → confidence: ${stage10.confidence.toFixed(2)}`);
+  if (stage10.primary_focus) {
+    const s10Title = stage10.primary_focus.title.length > 80
+      ? stage10.primary_focus.title.slice(0, 77) + "..."
+      : stage10.primary_focus.title;
+    console.log(`  → primary_focus: ${stage10.primary_focus.category} — ${s10Title}`);
+  } else {
+    console.log(`  → primary_focus: none`);
+  }
+  console.log();
+
   console.log("[Pipeline] Complete.\n");
 
   // Full result JSON
-  const result = { stage1, stage2, stage3, stage4, stage5, stage6, stage7, stage8, stage9 };
+  const result = { stage1, stage2, stage3, stage4, stage5, stage6, stage7, stage8, stage9, stage10 };
   console.log("=== FULL PIPELINE RESULT ===\n");
   console.log(JSON.stringify(result, null, 2));
 
@@ -319,6 +354,33 @@ async function main() {
   const intentShort = (stage9.coaching_constraints.rider_intent || "").slice(0, 60);
   const terrainShort = (stage9.coaching_constraints.terrain_context || "").slice(0, 60);
   console.log(`  Constraints:       intent=${intentShort} | terrain=${terrainShort}`);
+  console.log();
+
+  console.log("STAGE 10 — Coaching Generation");
+  console.log(`  Coaching required: ${stage10.coaching_required ? "yes" : "no"}`);
+  console.log(`  Confidence:        ${stage10.confidence.toFixed(2)}`);
+  console.log(`  Observability ltd: ${stage10.observability_limited ? "yes" : "no"}`);
+  if (stage10.coaching_required && stage10.primary_focus) {
+    const s10TitleFull = stage10.primary_focus.title.length > 80
+      ? stage10.primary_focus.title.slice(0, 77) + "..."
+      : stage10.primary_focus.title;
+    console.log(`  Primary focus:     ${stage10.primary_focus.category} — ${s10TitleFull}`);
+    console.log(`  Drills:            ${stage10.drills.length}`);
+    console.log(`  Uncertainty stmt:  ${stage10.uncertainty_statement ? "present" : "none"}`);
+  } else {
+    console.log(`  Primary focus:     none`);
+  }
+  if (stage10BusinessErrors.length > 0) {
+    console.log(`  Business rule warnings (${stage10BusinessErrors.length}):`);
+    stage10BusinessErrors.forEach((e) => console.log(`    - ${e}`));
+  } else {
+    console.log(`  Business rules:    all passed`);
+  }
+  if (stage10.primary_focus && stage10.primary_focus.category !== stage10.source_trace.primary_stage9_category) {
+    console.log(`  Drift warning:     category "${stage10.primary_focus.category}" != Stage 9 "${stage10.source_trace.primary_stage9_category}"`);
+  } else {
+    console.log(`  Drift check:       passed`);
+  }
   console.log();
 
   console.log("=== END ===\n");
