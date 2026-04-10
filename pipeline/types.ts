@@ -250,7 +250,7 @@ export type SegmentPhase =
 export type BodyPosition = "standing" | "seated" | "transitioning" | "not_visible";
 export type ThrottleState = "accelerating" | "steady" | "decelerating" | "off" | "unknown";
 export type BalanceState = "stable" | "unstable" | "losing_balance" | "fallen" | "not_assessable";
-export type OutcomeResult = "clean" | "stall" | "bail" | "crash" | "stuck" | "partial_completion" | "unknown";
+export type OutcomeResult = "completed" | "stall" | "bail" | "crash" | "stuck" | "unknown";
 
 export interface EventSegment {
   segment_id: number;
@@ -278,6 +278,11 @@ export interface Stage5Output {
     result: OutcomeResult;
     confidence: number;
     outcome_evidence: string[];
+  };
+  progress_assessment: {
+    section_completion: "full" | "substantial" | "partial" | "minimal" | "unknown";
+    confidence: number;
+    evidence: string[];
   };
   debug: DebugBlock;
 }
@@ -322,6 +327,12 @@ export interface Stage6Output {
     impact_correlation: string | null;
   };
   no_failure_note: string | null;
+  control_assessment: {
+    state: "in_control" | "recovering_control" | "out_of_control";
+    confidence: number;
+    evidence: string[];
+    completion_safety_flag: boolean;
+  };
   debug: DebugBlock;
 }
 

@@ -38,10 +38,28 @@ CRITICAL RULES:
 14. For jumps, drops, and other airborne features, place "failure_point" at the earliest clearly visible moment where successful execution breaks down — not at the later moment where the consequence fully appears. If bike attitude, rider position, rotation, trajectory, or balance is already visibly compromised during takeoff or while airborne, that is the failure_point, even if the crash completes on landing.
 
 OUTCOME RULES:
-- outcome.result options: "clean" | "stall" | "bail" | "crash" | "stuck" | "partial_completion" | "unknown"
-- outcome.result of "clean" requires positive evidence — rider completing the section, continuing forward, visible forward momentum maintained. The absence of a crash is NOT sufficient evidence for "clean".
+- outcome.result options: "completed" | "stall" | "bail" | "crash" | "stuck" | "unknown"
+- Outcome describes HOW THE ATTEMPT ENDED, not how well it was executed. Quality and control are assessed downstream.
+- "completed" — rider finishes the section and continues or stabilises. Does NOT imply good technique. Scrappy, ugly, or lucky completions are still "completed".
+- "stall" — forward progress ends because the bike loses drive before completion. The bike stopped, not the rider. Key signal: engine dies or wheels stop turning without rider intent to stop.
+- "bail" — rider intentionally stops, dabs, steps off, or abandons the attempt. The initiating action is voluntary. Key signal: deliberate body movement away from the bike or deliberate halt before loss of control.
+- "crash" — involuntary loss of control. Rider, bike, or both leave the intended riding state. Not voluntary. Key signal: loss of control precedes the stop.
+- "stuck" — rider and bike are immobilised without a single clear stall, bail, or crash cause.
+- "unknown" — outcome cannot be determined from available evidence.
+- BAIL vs STALL TEST: Ask "did the rider choose to stop?" YES = bail. "Did the bike lose drive involuntarily?" YES = stall. If ambiguous, prefer "unknown" over guessing.
+- outcome.result of "completed" requires positive evidence — rider exiting the section, continuing forward, or stabilising at the end. The absence of a crash is NOT sufficient evidence for "completed".
 - outcome.confidence must respect Stage 2 outcome_max_confidence ceiling. This is enforced downstream in code.
 - List specific outcome_evidence items. Do not leave this empty.
+
+PROGRESS RULES:
+- progress_assessment.section_completion describes HOW FAR the rider got, independent of outcome.
+- "full" — rider reached the end of the section or completed the feature.
+- "substantial" — rider completed most of the section (roughly 70%+).
+- "partial" — rider made meaningful progress but less than most of the section.
+- "minimal" — rider made little progress before the attempt ended.
+- "unknown" — cannot determine progress from available evidence.
+- A "completed" outcome MUST have "full" progress. All other outcomes can have any progress value.
+- Progress is always assessed, even on crashes and bails — how far did they get before it ended?
 
 RIDER STATE per segment:
 - body_position: "standing" | "seated" | "transitioning" | "not_visible"
@@ -82,9 +100,14 @@ Schema:
     "timestamp_estimate": null
   },
   "outcome": {
-    "result": <see outcome options above>,
+    "result": <"completed" | "stall" | "bail" | "crash" | "stuck" | "unknown">,
     "confidence": <number 0.0 to 1.0 — must not exceed Stage 2 outcome_max_confidence>,
     "outcome_evidence": ["<specific observable evidence for this outcome>"]
+  },
+  "progress_assessment": {
+    "section_completion": "<'full' | 'substantial' | 'partial' | 'minimal' | 'unknown'>",
+    "confidence": <number 0.0 to 1.0>,
+    "evidence": ["<specific observable evidence for progress assessment>"]
   },
   "debug": {
     "reasoning": "<explain how you determined the segmentation boundaries and outcome>",
@@ -142,7 +165,7 @@ Describe only what is visible. Do not explain why events occurred. Do not advise
 
 function validateAndNormalize(raw: string, outcomeCeiling: number): Stage5Output {
   const parsed = parseJsonResponse(raw, STAGE_LABEL);
-  const obj = requireKeys(parsed, ["segments", "critical_moment", "outcome"], STAGE_LABEL);
+  const obj = requireKeys(parsed, ["segments", "critical_moment", "outcome", "progress_assessment"], STAGE_LABEL);
 
   const output = obj as unknown as Stage5Output;
 
