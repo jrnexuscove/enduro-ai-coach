@@ -1,6 +1,6 @@
 # CLAUDE.md — RideMind Project Context
 
-**Last updated:** 2026-04-09 (Stages 1–11 pipeline fully implemented and validated)
+**Last updated:** 2026-04-10 (T1 full 8-clip retest complete; S6/S7 are next targets)
 
 ## What is RideMind?
 
@@ -35,8 +35,10 @@ RideMind is a **physics-aware, terrain-aware, machine-aware riding intelligence 
   - **Stage 9:** Selection/prioritisation — one primary coaching focus, max two secondary points; observability soft gate, actionability filter, safety pre-flagging; excluded factors logged with reasons; domain-contradiction sanity check (warning only for MVP). Primary Cause Interpretation Rule: traces to earliest controllable rider mechanism in the causal chain (e.g. body_position for momentum failure caused by poor posture), not the failure_type's obvious domain mapping.
   - **Reliability hardening:** 2-retry loop with escalating repair prompts; JSON extraction from mixed responses (direct parse → strip fences → brace extraction); refusal detection; deterministic timestamps. GPT-4o intermittent refusal is a known model behaviour issue — handled by retry logic. Anti-refusal instruction applied across all stages.
   - **Stage 10:** Coaching generation — `rider_facing_summary` (direct, actionable) + `technical_coach_note` (mechanism explanation); observability-gated confidence; drift check against Stage 9 primary category; business rule validation. Voice rules embedded in prompt (not standalone COACH-1 doc for v1). Three-clip validated.
-  - **Stage 11:** Validator-only — checks coaching output against failure diagnosis, crash type, and causal chain. Does not rewrite or regenerate. Hard fail conditions: `contradiction` or `speed_risk` force `safe: false`; `severity_mismatch` forces `safe: false` when Stage 7 severity is `serious`. Business rules: flags require supporting issues; `confidence_adjustment` without flags is invalid. Three-clip validated; FAIL-path not yet live-tested.
+  - **Stage 11:** Validator-only — checks coaching output against failure diagnosis, crash type, and causal chain. Does not rewrite or regenerate. Hard fail conditions: `contradiction` or `speed_risk` force `safe: false`; `severity_mismatch` forces `safe: false` when Stage 7 severity is `serious`. Business rules: flags require supporting issues; `confidence_adjustment` without flags is invalid. FAIL-path validated via S11-FIX synthetic fixtures (4/4 pass). S11 locked — no changes unless new failure modes emerge.
   - **Future priority:** Multi-model perception layer — audio/dynamics sensing for clutch detection, Gemini integration for body position confidence, signal fusion into Stages 5/6. Colin Hill re-validation after this is available.
+- **T1 — Full 8-clip retest COMPLETE (2026-04-10).** All 8 Phase 2 clips run through complete pipeline (32.9 min). S11 8/8 safe. Per-clip results: Colin Hill (S6=momentum/wrong, S7=skipped, safe), Clutch Scream (S6=momentum/wrong, S7=yes/minor, safe+overreach), Fall Bulgario (S6=momentum/partial, S7=missed fall, safe), Jimbo Crash (S6=line_choice/correct, S7=missed crash, safe), Long Hill (S6=momentum/false positive, S7=skipped, safe), Nick Crash (S6=none/false negative, S7=skipped, safe+overreach), Steep Hill Bail (S6=technique/correct, S7=yes/minor, safe — reference clip), Mark Crash (S6=technique/correct, S7=yes/moderate, safe). Primary finding: S6 defaults to momentum on 5/8 clips — root cause logic not triggering correctly. S7 trigger too narrow — missed crashes on Jimbo Crash and Nick Crash.
+- **Next targets (post-T1):** S6 prompt patch is P0 — four rules: outcome gate, evidence requirement, crash override, momentum demotion. S7 recall fix is secondary P0. Regression test clips: Long Hill, Nick Crash, Colin Hill, Steep Hill Bail. Do NOT touch S10, S11, or KB retrieval — not current bottlenecks.
 - **Domain 16 architecture — LOCKED:** Stock bike data only. Rider modifications belong on the user profile layer. For MVP, both in one file with clear separation. **Schema 4 added to `docs/kb-schemas-v1.md` (v1.3, 2026-04-03).** File naming locked: stock = `[mfr]-[model]-[year].md`, rider-layer = `[mfr]-[model]-[year]--[rider].md`. Machine KB entries are factual reference only — no coaching, no pipeline logic, no rider psychology, no improvement language.
 
 ### Key Phase 2 Findings
@@ -71,7 +73,7 @@ Plus three new knowledge bases:
 |------|--------|--------|
 | Gate 1 — Pipeline stages approved | **PASSED** (2026-04-01) | — |
 | Gate 2 — KB entry schemas approved | **PASSED** (2026-04-01) | — |
-| Gate 3 — Pipeline v1 implemented | **PASSED (2026-04-09)** — All 11 stages implemented and validated. Stages 1–9 validated on three discriminator clips (Mark Crash, Colin Hill, Clutch Scream). Stages 10–11 implemented and three-clip validated. FAIL-path not yet live-tested on Stage 11. Full 8-clip retest pending. | Phase 3 retest |
+| Gate 3 — Pipeline v1 implemented | **PASSED (2026-04-09)** — All 11 stages implemented and validated. S11-FIX validated (4/4 synthetic fixtures, 2/2 unit tests). S11-CON contract updated (2026-04-10). T1 full 8-clip retest COMPLETE (2026-04-10) — S11 8/8 safe. Primary findings: S6 defaults to momentum on 5/8 clips (false positive on Long Hill, false negative on Nick Crash); S7 trigger too narrow (missed crash on Jimbo Crash and Nick Crash). | Phase 3 retest |
 
 ## Architectural Decisions (Phase 3)
 
@@ -115,7 +117,8 @@ This framework will shape: coaching tone, skill prioritisation, skill tag taxono
 - **Single responsibility:** Stage 10 owns coaching generation. Stage 11 owns validation only.
 - **Hard fail conditions:** `contradiction: true` or `speed_risk: true` always force `safe: false`. `severity_mismatch: true` forces `safe: false` only when Stage 7 severity is `serious` (v1 known gap: Stage 7 not currently passed into Stage 11 business rules — severity_mismatch enforcement is weaker than prompt logic).
 - **Business rules:** Flags must have supporting issues. `confidence_adjustment` without flags is invalid. Flags without `confidence_adjustment` is accepted.
-- **FAIL-path not yet live-tested.** Stage 10 prompt controls have produced safe outputs across all tested clips. Synthetic fail fixture required before relying on Stage 11 in production.
+- **FAIL-path validated (S11-FIX, 2026-04-10).** Synthetic fixtures: 4/4 pass (speed_risk, contradiction, observability_overreach fail paths). S11 is locked — no changes unless new failure modes emerge.
+- **T1 full 8-clip retest complete (2026-04-10).** S11 8/8 safe. Overreach flagged on Clutch Scream and Nick Crash (correct behaviour).
 - **Future correction path (v2):** Stage 11 failure reasons fed back to Stage 10 for one retry (max 1, then hard fail). Stage 7 severity wired into Stage 11 business rules for stricter `severity_mismatch` enforcement.
 
 ## Project Structure

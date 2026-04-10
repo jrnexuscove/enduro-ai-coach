@@ -7,7 +7,14 @@
       "Bash(wc -l c:/Projects/Enduro-AI-Coach/knowledge-base/09-performance-metrics/*.md c:/Projects/Enduro-AI-Coach/knowledge-base/10-training-skill-development/*.md)",
       "Bash(wc -l c:/Projects/Enduro-AI-Coach/knowledge-base/11-mental-performance/*.md c:/Projects/Enduro-AI-Coach/knowledge-base/12-bike-setup-environment/*.md)",
       "Bash(git add:*)",
-      "mcp__mempalace__mempalace_diary_write"
+      "mcp__mempalace__mempalace_diary_write",
+      "Bash(npx -y @upstash/context7-mcp@latest --version)",
+      "Bash(cmd.exe /c \"claude mcp list\")",
+      "Bash(cmd.exe /c \"npx -y @upstash/context7-mcp@latest --version\")",
+      "Bash(cmd.exe /c \"npx --version\")",
+      "Bash(cmd.exe /c \"type C:\\\\Users\\\\rigge\\\\.claude.json\")",
+      "mcp__mempalace__mempalace_diary_read",
+      "mcp__context7__resolve-library-id"
     ]
   }
 }

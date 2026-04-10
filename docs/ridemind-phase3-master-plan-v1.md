@@ -548,7 +548,7 @@ No work proceeds past a gate until it is explicitly approved.
 
 ## 6. Current Execution State
 
-All three gates are passed. Gate 3 (Pipeline v1 Implemented) passed 2026-04-09 — all 11 stages built, implemented, and validated across three discriminator clips. Full 8-clip retest is the next milestone.
+All three gates are passed. Gate 3 (Pipeline v1 Implemented) passed 2026-04-09. T1 full 8-clip retest COMPLETE (2026-04-10). S6 prompt patch is the next action.
 
 ### Completed: Terrain KB (Domain 17)
 
@@ -609,6 +609,29 @@ Stage 9 validated on three discriminator clips: Mark Crash (body_position primar
 Stage 10 implemented: `rider_facing_summary` + `technical_coach_note` voice rules embedded in prompt. Observability-gated confidence, drift check against Stage 9, business rule validation. Three-clip validated.
 
 Stage 11 implemented: validator-only architecture. Does not rewrite coaching — checks output against failure diagnosis, crash type, and causal chain. Hard fail conditions: `contradiction` or `speed_risk` force `safe: false`; `severity_mismatch` forces `safe: false` when Stage 7 severity is `serious`. FAIL-path not yet live-tested (Stage 10 prompt controls have produced safe outputs; synthetic fail fixture needed before production reliance on Stage 11).
+
+### Completed: T1 — Full 8-clip Retest (2026-04-10)
+
+All 8 Phase 2 clips run through the complete 11-stage pipeline. Total run time: 32.9 min. S11 8/8 safe.
+
+| Clip | S6 | S7 | S11 | Verdict |
+|---|---|---|---|---|
+| Colin Hill | momentum (wrong) | skipped | safe | symptom over root cause |
+| Clutch Scream | momentum (wrong) | yes/minor | safe, overreach flagged | symptom over root cause |
+| Fall Bulgario | momentum (partial) | missed fall | safe | shallow but plausible |
+| Jimbo Crash | line_choice (correct) | missed crash | safe | good result despite S7 miss |
+| Long Hill | momentum (false positive) | skipped | safe | coached clean completion as failure |
+| Nick Crash | none (false negative) | skipped | safe, overreach flagged | missed crash entirely |
+| Steep Hill Bail | technique (correct) | yes/minor | safe | best result — reference clip |
+| Mark Crash | technique (correct) | yes/moderate | safe | correct full chain |
+
+**Primary findings:**
+- S6 defaults to momentum on 5/8 clips — root cause logic not triggering correctly. False positive on Long Hill (clean completion wrongly classified as failure). False negative on Nick Crash (crash missed entirely).
+- S7 trigger too narrow — missed crash classification on Jimbo Crash and Nick Crash.
+- S11 8/8 safe across all clips. Overreach correctly flagged on Clutch Scream and Nick Crash. S11 locked — no changes.
+- Architecture is sound. Remaining gaps are prompt/perception problems, not structural problems.
+
+**Next actions:** S6-PATCH (P0) — four prompt rules: outcome gate, evidence requirement, crash override, momentum demotion. Regression test on Long Hill, Nick Crash, Colin Hill, Steep Hill Bail. S7-RECALL (P0, blocked by S6-PATCH). Do not touch S10, S11, or KB retrieval.
 
 ### Not Yet Started: Dynamics KB (Option A), Skill Tag Taxonomy
 
@@ -688,7 +711,9 @@ Stage 11 implemented: validator-only architecture. Does not rewrite coaching —
 
 | ID | Task | Priority | Status |
 |----|------|----------|--------|
-| T1 | Re-run all 8 Phase 2 clips through full pipeline | P1 | Not started — pipeline complete; full 8-clip retest is next validation milestone |
+| T1 | Re-run all 8 Phase 2 clips through full pipeline | P1 | **COMPLETE (2026-04-10)** — 32.9 min; S11 8/8 safe; see Section 6 T1 findings |
+| S6-PATCH | Stage 6 prompt patch — outcome gate, evidence requirement, crash override, momentum demotion. Regression: Long Hill, Nick Crash, Colin Hill, Steep Hill Bail. **Next session first action.** | P0 | Not started |
+| S7-RECALL | Stage 7 crash recall fix — trigger condition too narrow; investigate run-test.ts signal, S5/S3 event vocabulary | P0 | Not started — blocked by S6-PATCH |
 | T2 | Score Phase 3 results against Phase 2 baselines | P1 | Blocked (needs T1) |
 | T3 | Write Phase 3 evaluation report | P1 | Blocked (needs T2) |
 | T4 | Expand test corpus to 20+ clips | P2 | Not started |
@@ -716,3 +741,4 @@ Stage 11 implemented: validator-only architecture. Does not rewrite coaching —
 | 1.4 | 2026-04-02 | Feature KB entry list locked (14 entries, geometry-first). Three-system architecture added to Section 2. Section 4.B updated with 14-entry list, architecture constraints, single-event vs section distinction. Section 4.D added (Skill Tag Layer). Section 6 execution steps updated: schema update is Step 1, skill tag taxonomy added as Step 5, validation moved to Step 7. |
 | 1.5 | 2026-04-09 | Major update: Section 6 and 7 rewritten to reflect current state. Feature KB complete (14/14). Pipeline Stages 1–8 built, tested, validated. Stage 9 built (not yet tested). Prompt tuning backlog added. Pre-requisites for remaining stages added. Backlog items updated with completion status. |
 | 1.6 | 2026-04-09 | Session 2 update: All 11 pipeline stages complete. Stage 9 validated (three discriminator clips). Stage 10 implemented (coaching generation, voice rules in prompt). Stage 11 implemented (validator-only, hard fail conditions). COACH-1/SKILL-1 deferred to post-MVP. T1 unblocked. Section 6 status and backlog updated. |
+| 1.7 | 2026-04-10 | T1 complete — full 8-clip retest (32.9 min), S11 8/8 safe. S11-FIX and S11-CON closed. T1 findings: S6 momentum default on 5/8 clips, S7 trigger too narrow. S6-PATCH and S7-RECALL added as P0. T1 findings table and next-actions added to Section 6. |

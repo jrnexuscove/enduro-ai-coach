@@ -1,6 +1,6 @@
 # RideMind — Backlog
 
-**Last updated:** 2026-04-09 (Stages 1–11 pipeline fully implemented and validated)
+**Last updated:** 2026-04-10 (T1 complete; S6-PATCH and S7-RECALL added as P0)
 **Current phase:** Phase 3 — Reasoning Pipeline + KB Build
 **Master plan:** `docs/ridemind-phase3-master-plan-v1.md`
 
@@ -12,7 +12,7 @@
 |------|--------|--------|
 | Gate 1 — Pipeline stages approved | **PASSED** (2026-04-01) | — |
 | Gate 2 — KB entry schemas approved | **PASSED** (2026-04-01) | — |
-| Gate 3 — Pipeline v1 implemented | **PASSED (2026-04-09)** — All 11 stages implemented and validated. Stages 1–9 validated on three discriminator clips (Mark Crash, Colin Hill, Clutch Scream). Stages 10–11 implemented and three-clip validated. FAIL-path not yet live-tested on Stage 11. Full 8-clip retest pending. | Phase 3 retest |
+| Gate 3 — Pipeline v1 implemented | **PASSED (2026-04-09)** — All 11 stages implemented and validated. S11-FIX validated (4/4 synthetic fixtures, 2/2 unit tests). T1 full 8-clip retest COMPLETE (2026-04-10) — S11 8/8 safe. | Phase 3 retest |
 
 ---
 
@@ -25,6 +25,8 @@
 | FKB-3 | KB | Dual review (Claude + ChatGPT); batch remaining 6 Feature KB entries (entries 9–14) | COMPLETE | — |
 | T5 | Testing | Define Phase 3 scoring framework (finalised 12 metrics) | Not started | — |
 | T6 | Testing | Create ground truth document for all 8 Phase 2 clips | Not started | — |
+| S6-PATCH | Pipeline | Stage 6 prompt patch — four rules: (1) outcome gate (don't classify failure if clip shows clean completion), (2) evidence requirement (failure_type must cite specific observed evidence), (3) crash override (crash event forces technique or bike_dynamics, not momentum), (4) momentum demotion (momentum only when entry speed is the clear primary variable). Regression test on Long Hill, Nick Crash, Colin Hill, Steep Hill Bail. **NEXT SESSION FIRST ACTION.** | Not started | — |
+| S7-RECALL | Pipeline | Stage 7 crash recall fix — trigger condition too narrow; missed crash classification on Jimbo Crash and Nick Crash. Investigate signal condition in run-test.ts, S5/S3 event vocabulary, or both. | Not started | S6-PATCH |
 
 ---
 
@@ -40,7 +42,7 @@
 | A3 | Create mermaid diagram of pipeline flow | Not started | Gate 1 |
 | A5 | Design observability confidence scoring system | Not started | Gate 1 |
 | A6 | Define coaching tone mapping rules (outcome → tone) | Not started | Gate 1 |
-| S11-CON | Add Stage 11 contract to docs/pipeline-contracts-v1.md — validator-only architecture, four checks, hard fail conditions, no coaching rewriting | Not started | — |
+| S11-CON | Add Stage 11 contract to docs/pipeline-contracts-v1.md — validator-only architecture, four checks, hard fail conditions, no coaching rewriting | **COMPLETE (2026-04-10)** — contract fully replaced; Appendices A/B/C updated; Gates 2+3 marked PASSED | — |
 
 ### Knowledge Base — Wave 1 (Core Files)
 
@@ -96,10 +98,10 @@
 
 | ID | Task | Status | Blocked By |
 |----|------|--------|------------|
-| T1 | Re-run all 8 Phase 2 clips through new pipeline | **Stages 1–9 validated on Mark Crash and Colin Hill** — Full 8-clip retest after Stage 11 complete. | Gate 3 |
+| T1 | Re-run all 8 Phase 2 clips through new pipeline | **COMPLETE (2026-04-10)** — 32.9 min. S11 8/8 safe. Findings: S6 defaults to momentum 5/8 clips (false positive Long Hill, false negative Nick Crash); S7 trigger too narrow (missed crash on Jimbo+Nick); Steep Hill Bail = reference clip (full correct chain). | Gate 3 |
 | T2 | Score Phase 3 results against Phase 2 baselines | Not started | T1 |
 | T3 | Write Phase 3 evaluation report | Not started | T2 |
-| S11-FIX | Create synthetic Stage 11 fail fixture — test speed_risk, contradiction, and observability_overreach fail paths; FAIL-path not yet proven in live testing | Not started | — |
+| S11-FIX | Create synthetic Stage 11 fail fixture — test speed_risk, contradiction, and observability_overreach fail paths | **COMPLETE (2026-04-10)** — 4/4 synthetic fixtures pass; 2/2 unit tests pass; S11 locked | — |
 
 ---
 
@@ -222,6 +224,9 @@
 | E11 | Stage 10: Coaching Generation — voice rules embedded in prompt, observability-gated confidence, drift check, business rule validation; three-clip validated | 2026-04-09 |
 | E12 | Stage 11: Coaching Safety Validation — validator-only architecture, hard fail on contradiction/speed_risk, three-clip validated | 2026-04-09 |
 | E13 | Wire full pipeline (Stages 1–11) into test runner CLI — all stages wired in pipeline/run-test.ts | 2026-04-09 |
+| S11-FIX | Synthetic Stage 11 fail fixture — 4/4 fixtures pass (speed_risk, contradiction, observability_overreach); 2/2 unit tests pass; FAIL-path validated; S11 locked | 2026-04-10 |
+| S11-CON | Stage 11 contract added to docs/pipeline-contracts-v1.md — validator-only architecture, four checks, hard fail conditions; Appendices A/B/C updated; Gates 2+3 marked PASSED | 2026-04-10 |
+| T1 | Full 8-clip retest through complete pipeline (Stages 1–11) — 32.9 min; S11 8/8 safe; findings: S6 momentum default 5/8, S7 trigger too narrow; Steep Hill Bail = reference clip | 2026-04-10 |
 
 ---
 
