@@ -251,7 +251,7 @@ function validateAndNormalize(raw: string): Stage11Output {
   return output;
 }
 
-export function validateStage11BusinessRules(output: Stage11Output): string[] {
+export function validateStage11BusinessRules(output: Stage11Output, stage7: Stage7Output | null): string[] {
   const errors: string[] = [];
 
   const anyFlag =
@@ -264,24 +264,29 @@ export function validateStage11BusinessRules(output: Stage11Output): string[] {
     errors.push("flags raised but no issues provided — every flag must have an explanation");
   }
 
+  // severity_mismatch is a hard fail only when Stage 7 confirms a serious crash
+  const severityMismatchIsHardFail =
+    output.flags.severity_mismatch &&
+    stage7?.crash_occurred === true &&
+    stage7?.severity_estimate === "serious";
+
   if (!output.safe) {
-    const hasHardFail = output.flags.contradiction || output.flags.speed_risk;
-    // severity_mismatch alone only fails when severity is serious — we can't verify
-    // the serious/moderate distinction here without Stage 7 input, so we accept
-    // severity_mismatch as a valid fail reason too. Known v1 gap — Stage 7 could be
-    // passed into business rules in a future version for stricter enforcement.
-    if (!hasHardFail && !output.flags.severity_mismatch) {
-      errors.push("safe=false but no hard-fail flag (contradiction, speed_risk, or severity_mismatch) is raised");
+    const hasHardFail =
+      output.flags.contradiction || output.flags.speed_risk || severityMismatchIsHardFail;
+    if (!hasHardFail) {
+      errors.push(
+        "safe=false but no hard-fail condition met — requires contradiction, speed_risk, or severity_mismatch with a serious crash"
+      );
     }
   }
 
+  // contradiction → always hard fail; safe=true is never valid when contradiction is raised
   if (output.safe && output.flags.contradiction) {
     errors.push("safe=true but contradiction flag is raised — contradiction is always a hard fail");
   }
 
-  if (output.safe && output.flags.speed_risk) {
-    errors.push("safe=true but speed_risk flag is raised — unsafe speed escalation is a hard fail");
-  }
+  // speed_risk is warning-only — safe=true + speed_risk=true is valid when coaching
+  // includes qualifying constraints; the model determines whether advice was qualified
 
   if (!anyFlag && output.confidence_adjustment !== null) {
     errors.push("confidence_adjustment set but no flags raised — adjustment requires a flag");
@@ -307,7 +312,7 @@ export async function runStage11(
     STAGE_LABEL,
     (raw) => {
       const output = validateAndNormalize(raw);
-      const errors = validateStage11BusinessRules(output);
+      const errors = validateStage11BusinessRules(output, stage7);
       if (errors.length > 0) {
         throw new Error(`${STAGE_LABEL} business rule validation failed:\n- ${errors.join("\n- ")}`);
       }
