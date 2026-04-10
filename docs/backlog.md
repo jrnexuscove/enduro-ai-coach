@@ -1,6 +1,6 @@
 # RideMind — Backlog
 
-**Last updated:** 2026-04-10 (T1 complete; S6-PATCH and S7-RECALL added as P0)
+**Last updated:** 2026-04-10 (S6/S7 fixes committed; UI v1 Milestone 1 running)
 **Current phase:** Phase 3 — Reasoning Pipeline + KB Build
 **Master plan:** `docs/ridemind-phase3-master-plan-v1.md`
 
@@ -25,8 +25,11 @@
 | FKB-3 | KB | Dual review (Claude + ChatGPT); batch remaining 6 Feature KB entries (entries 9–14) | COMPLETE | — |
 | T5 | Testing | Define Phase 3 scoring framework (finalised 12 metrics) | Not started | — |
 | T6 | Testing | Create ground truth document for all 8 Phase 2 clips | Not started | — |
-| S6-PATCH | Pipeline | Stage 6 prompt patch — four rules: (1) outcome gate (don't classify failure if clip shows clean completion), (2) evidence requirement (failure_type must cite specific observed evidence), (3) crash override (crash event forces technique or bike_dynamics, not momentum), (4) momentum demotion (momentum only when entry speed is the clear primary variable). Regression test on Long Hill, Nick Crash, Colin Hill, Steep Hill Bail. **NEXT SESSION FIRST ACTION.** | Not started | — |
-| S7-RECALL | Pipeline | Stage 7 crash recall fix — trigger condition too narrow; missed crash classification on Jimbo Crash and Nick Crash. Investigate signal condition in run-test.ts, S5/S3 event vocabulary, or both. | Not started | S6-PATCH |
+| S6-PATCH | Pipeline | Stage 6 prompt patch — four rules: (1) outcome gate, (2) evidence requirement, (3) crash override, (4) momentum demotion. | **COMMITTED (36b1274, 2026-04-10)** | — |
+| S7-RECALL | Pipeline | Stage 7 crash recall fix — trigger broadened to include bail/stuck/tip_over outcomes and fallen/losing_balance segment states. | **COMMITTED (36b1274, 2026-04-10)** | S6-PATCH ✓ |
+| S6-REG | Pipeline | Regression test S6 patch on Long Hill, Nick Crash, Colin Hill, Steep Hill Bail. **NEXT SESSION FIRST ACTION.** | Not started | S6-PATCH ✓ |
+| UI-WIRE-1 | UI | Wire real pipeline into UI API route — set USE_MOCK = false, connect `runFullPipeline` + `formatResult` in `app/api/analyze/route.ts` | Not started | S6-REG |
+| UI-TEST-1 | UI | Run all 8 known test clips through the UI and evaluate coaching output as a rider | Not started | UI-WIRE-1 |
 
 ---
 
@@ -107,6 +110,20 @@
 
 ## P2 — Important but Not Blocking
 
+### UI / Product (near-term)
+
+| ID | Task | Status | Blocked By |
+|----|------|--------|------------|
+| UI-MOBILE | Fix mobile access — determine correct WiFi IP, check Windows Firewall for port 3000 | Not started | — |
+| UI-CONF | Replace confidence % with plain English (high/moderate/limited) per ui-standards.md | Not started | UI-TEST-1 |
+| UI-ERROR | Error and fallback UX — intelligent failure messages when analysis fails or confidence is low | Not started | UI-WIRE-1 |
+| UI-DEBUG | Internal debug mode — developer toggle to inspect stage outputs without exposing to users | Not started | UI-WIRE-1 |
+| UI-FEEDBACK | Feedback capture — clip id, result shown, processing time, user rating, correction input | Not started | UI-TEST-1 |
+| DOC-PRINCIPLES | Product principles doc — trust, clarity, safety, uncertainty, scope | Not started | — |
+| DOC-MVP | v1 acceptance criteria — what counts as done for MVP | Not started | — |
+| DOC-ERROR | Error philosophy doc — how system behaves when unsure or failing | Not started | — |
+| DOC-INSTRUMENT | Instrumentation plan — usage and quality signals to capture | Not started | — |
+
 ### Early Validation
 
 | ID | Task | Status | Blocked By |
@@ -159,6 +176,20 @@
 ---
 
 ## P3 — Non-Blocking Improvements
+
+### Visual / Future Product (post coaching quality proven)
+
+| ID | Task | Status | Notes |
+|----|------|--------|-------|
+| UI-VIS-1 | Visual coaching result screen — video playback with timestamp markers at failure/technique moments | Not started | Core product experience; gated on coaching quality |
+| UI-VIS-2 | Visual body position guidance — correct vs incorrect position diagrams/animations | Not started | Post UI-VIS-1 |
+| UI-PROFILE-1 | Rider/bike profile system — onboarding flow: height, weight, discipline, bike details, mods | Not started | Connects to Machine KB |
+| UI-DISC | Riding discipline selection — enduro, trials, motocross, adventure | Not started | Part of UI-PROFILE-1 |
+| UI-BIKE | Bike profile input (brand, model, year, mods) — connects to Machine KB | Not started | Part of UI-PROFILE-1 |
+| UI-AVATAR | Rider avatar generation from uploaded photo | Not started | Part of onboarding |
+| UI-DASH | Post-coaching dashboard — training tips, gym exercises, relevant YouTube technique videos | Not started | Post coaching quality proven |
+| UI-ONBOARD | Onboarding animation/welcome flow | Not started | Post-MVP |
+| UI-VOICE | Coaching content style guide — voice, length, structure, consistency across clips | Not started | Before scale |
 
 ### Post-MVP: Drill & Training System
 
@@ -227,6 +258,10 @@
 | S11-FIX | Synthetic Stage 11 fail fixture — 4/4 fixtures pass (speed_risk, contradiction, observability_overreach); 2/2 unit tests pass; FAIL-path validated; S11 locked | 2026-04-10 |
 | S11-CON | Stage 11 contract added to docs/pipeline-contracts-v1.md — validator-only architecture, four checks, hard fail conditions; Appendices A/B/C updated; Gates 2+3 marked PASSED | 2026-04-10 |
 | T1 | Full 8-clip retest through complete pipeline (Stages 1–11) — 32.9 min; S11 8/8 safe; findings: S6 momentum default 5/8, S7 trigger too narrow; Steep Hill Bail = reference clip | 2026-04-10 |
+| S6-PATCH | S6 Rules 9-12 committed (36b1274) — outcome gate, evidence requirement, crash override, momentum demotion | 2026-04-10 |
+| S7-RECALL | S7 trigger broadened (36b1274) — bail/stuck/tip_over outcomes and fallen/losing_balance states added | 2026-04-10 |
+| S3-ANTI | S3 anti-refusal block committed (36b1274) — crash/incident legitimacy framing added | 2026-04-10 |
+| UI-M1 | UI v1 Milestone 1 (mock data) — page.tsx state machine, API route, 4 components, lib/types.ts, lib/format-result.ts, docs/ui-standards.md; running at localhost:3000 | 2026-04-10 |
 
 ---
 

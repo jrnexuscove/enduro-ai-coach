@@ -2,8 +2,22 @@
 
 **Status:** Active
 **Created:** 2026-04-01
+**Last updated:** 2026-04-10
 **Owner:** Jake (Nexus Cove)
 **Purpose:** Single source of truth for the next phase of RideMind development
+
+## Current Milestone Status (2026-04-10)
+
+| Milestone | Status |
+|-----------|--------|
+| Gate 1 — Pipeline stages approved | PASSED (2026-04-01) |
+| Gate 2 — KB entry schemas approved | PASSED (2026-04-01) |
+| Gate 3 — Pipeline v1 implemented | PASSED (2026-04-09) — All 11 stages. T1 8-clip retest complete. |
+| S6/S7 prompt fixes | COMMITTED (36b1274, 2026-04-10) — regression test pending |
+| UI v1 Milestone 1 | COMPLETE (4855734, 2026-04-10) — mock data, running at localhost:3000 |
+| UI v1 Milestone 2 | NOT STARTED — wire real pipeline (USE_MOCK = false), run 8 test clips |
+
+**Next action:** S6-REG regression test (Long Hill, Nick Crash, Colin Hill, Steep Hill Bail), then wire real pipeline into UI.
 
 ---
 
@@ -548,7 +562,7 @@ No work proceeds past a gate until it is explicitly approved.
 
 ## 6. Current Execution State
 
-All three gates are passed. Gate 3 (Pipeline v1 Implemented) passed 2026-04-09. T1 full 8-clip retest COMPLETE (2026-04-10). S6 prompt patch is the next action.
+All three gates are passed. Gate 3 (Pipeline v1 Implemented) passed 2026-04-09. T1 full 8-clip retest COMPLETE (2026-04-10). S6/S7 prompt fixes COMMITTED (36b1274, 2026-04-10) — regression test is the next action. UI v1 Milestone 1 COMPLETE (4855734, 2026-04-10) — running at localhost:3000 with mock data.
 
 ### Completed: Terrain KB (Domain 17)
 
@@ -631,7 +645,35 @@ All 8 Phase 2 clips run through the complete 11-stage pipeline. Total run time: 
 - S11 8/8 safe across all clips. Overreach correctly flagged on Clutch Scream and Nick Crash. S11 locked — no changes.
 - Architecture is sound. Remaining gaps are prompt/perception problems, not structural problems.
 
-**Next actions:** S6-PATCH (P0) — four prompt rules: outcome gate, evidence requirement, crash override, momentum demotion. Regression test on Long Hill, Nick Crash, Colin Hill, Steep Hill Bail. S7-RECALL (P0, blocked by S6-PATCH). Do not touch S10, S11, or KB retrieval.
+**Next actions (updated 2026-04-10):** S6-PATCH and S7-RECALL committed (36b1274). Regression test (S6-REG) is the immediate next action on Long Hill, Nick Crash, Colin Hill, Steep Hill Bail. After passing, wire real pipeline into UI (USE_MOCK = false). Do not touch S10, S11, or KB retrieval.
+
+### Completed: S6/S7 Prompt Fixes (36b1274, 2026-04-10)
+
+- **S6 Rules 9-12:** Outcome gate (don't classify failure if clip shows clean completion), evidence requirement (failure_type must cite specific observed evidence), crash override (crash event forces technique or bike_dynamics, not momentum), momentum demotion (momentum only when entry speed is the clear primary variable).
+- **S3 anti-refusal:** Crash/incident legitimacy framing to fix GPT-4o refusal on Nick Crash.
+- **S7 trigger broadened:** Adds bail/stuck/tip_over outcomes and fallen/losing_balance segment states to the crash trigger condition.
+- Regression test (S6-REG) pending — Long Hill, Nick Crash, Colin Hill, Steep Hill Bail.
+
+### Completed: UI v1 Milestone 1 (4855734, 2026-04-10)
+
+Single-page state machine running at localhost:3000 with mock data. Architecture: three-layer separation — pipeline output → `lib/format-result.ts` → UI components (presentation only). Pipeline changes must not break UI.
+
+**Files:**
+- `app/page.tsx` — state machine (idle→ready→processing→result→error)
+- `app/api/analyze/route.ts` — POST handler with USE_MOCK flag (real pipeline stub commented in)
+- `components/upload-dropzone.tsx` — drag/drop, 500MB cap
+- `components/processing-state.tsx` — spinner with cycling stage labels
+- `components/result-summary.tsx` — 4-chip grid (intent, terrain, failure, confidence)
+- `components/coaching-card.tsx` — orange left-border coaching card
+- `lib/types.ts` — AnalysisResult UI contract
+- `lib/format-result.ts` — pipeline output → UI output mapper
+- `docs/ui-standards.md` — mobile-first design rules, v1 scope boundaries
+
+**Key decisions:**
+- **Option B:** UI first, KB retrieval as quality upgrade after the product loop works
+- **Mobile-first:** 375px design first (riders use this on phone post-ride)
+- **Current UI is a test harness** — text output is sufficient for pipeline dev; real product requires video replay, failure markers, and visual body position guidance
+- **Product insight:** "Riders need to be shown, not told" — the real product must show video replay with failure point markers, visual corrections, and animated guidance
 
 ### Not Yet Started: Dynamics KB (Option A), Skill Tag Taxonomy
 

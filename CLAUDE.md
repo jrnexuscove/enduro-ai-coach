@@ -1,6 +1,6 @@
 # CLAUDE.md — RideMind Project Context
 
-**Last updated:** 2026-04-10 (T1 full 8-clip retest complete; S6/S7 are next targets)
+**Last updated:** 2026-04-10 (S6/S7 fixes committed; UI v1 Milestone 1 running with mock data)
 
 ## What is RideMind?
 
@@ -38,7 +38,12 @@ RideMind is a **physics-aware, terrain-aware, machine-aware riding intelligence 
   - **Stage 11:** Validator-only — checks coaching output against failure diagnosis, crash type, and causal chain. Does not rewrite or regenerate. Hard fail conditions: `contradiction` or `speed_risk` force `safe: false`; `severity_mismatch` forces `safe: false` when Stage 7 severity is `serious`. Business rules: flags require supporting issues; `confidence_adjustment` without flags is invalid. FAIL-path validated via S11-FIX synthetic fixtures (4/4 pass). S11 locked — no changes unless new failure modes emerge.
   - **Future priority:** Multi-model perception layer — audio/dynamics sensing for clutch detection, Gemini integration for body position confidence, signal fusion into Stages 5/6. Colin Hill re-validation after this is available.
 - **T1 — Full 8-clip retest COMPLETE (2026-04-10).** All 8 Phase 2 clips run through complete pipeline (32.9 min). S11 8/8 safe. Per-clip results: Colin Hill (S6=momentum/wrong, S7=skipped, safe), Clutch Scream (S6=momentum/wrong, S7=yes/minor, safe+overreach), Fall Bulgario (S6=momentum/partial, S7=missed fall, safe), Jimbo Crash (S6=line_choice/correct, S7=missed crash, safe), Long Hill (S6=momentum/false positive, S7=skipped, safe), Nick Crash (S6=none/false negative, S7=skipped, safe+overreach), Steep Hill Bail (S6=technique/correct, S7=yes/minor, safe — reference clip), Mark Crash (S6=technique/correct, S7=yes/moderate, safe). Primary finding: S6 defaults to momentum on 5/8 clips — root cause logic not triggering correctly. S7 trigger too narrow — missed crashes on Jimbo Crash and Nick Crash.
-- **Next targets (post-T1):** S6 prompt patch is P0 — four rules: outcome gate, evidence requirement, crash override, momentum demotion. S7 recall fix is secondary P0. Regression test clips: Long Hill, Nick Crash, Colin Hill, Steep Hill Bail. Do NOT touch S10, S11, or KB retrieval — not current bottlenecks.
+- **S6/S7 fixes COMMITTED (36b1274, 2026-04-10):** S6 Rules 9-12 added (outcome gate, evidence requirement, crash override, momentum demotion). S3 anti-refusal block added (crash/incident legitimacy framing). S7 trigger broadened to include bail/stuck/tip_over outcomes and fallen/losing_balance segment states. Regression test (Long Hill, Nick Crash, Colin Hill, Steep Hill Bail) — **pending, next session first action.**
+- **UI v1 Milestone 1 COMPLETE (4855734, 2026-04-10)** — Single-page state machine (idle→ready→processing→result→error) running at localhost:3000 with mock data. Files: `app/page.tsx`, `app/api/analyze/route.ts` (USE_MOCK flag), `components/upload-dropzone.tsx`, `components/processing-state.tsx`, `components/result-summary.tsx`, `components/coaching-card.tsx`, `lib/types.ts`, `lib/format-result.ts`, `docs/ui-standards.md`. Current UI is a **test harness** — sufficient for pipeline dev and coaching quality validation. The real product requires video replay, failure markers, and visual body position guidance.
+- **Option B confirmed:** UI first, KB retrieval after. Build the product loop before wiring KB into Stage 10. KB retrieval becomes a quality upgrade behind a working interface.
+- **Mobile-first, desktop-compatible:** Riders primarily use RideMind on phone after rides. Design for 375px first. Documented in `docs/ui-standards.md`.
+- **Three-layer separation:** pipeline output (raw/internal) → `lib/format-result.ts` (formatter) → UI components (presentation only). Pipeline changes must not break UI.
+- **Next action:** Wire real pipeline into UI (set USE_MOCK = false, connect `runFullPipeline` + `formatResult`), run 8 test clips through UI, evaluate coaching quality as a rider. Do NOT touch S10, S11, or KB retrieval.
 - **Domain 16 architecture — LOCKED:** Stock bike data only. Rider modifications belong on the user profile layer. For MVP, both in one file with clear separation. **Schema 4 added to `docs/kb-schemas-v1.md` (v1.3, 2026-04-03).** File naming locked: stock = `[mfr]-[model]-[year].md`, rider-layer = `[mfr]-[model]-[year]--[rider].md`. Machine KB entries are factual reference only — no coaching, no pipeline logic, no rider psychology, no improvement language.
 
 ### Key Phase 2 Findings
@@ -125,7 +130,19 @@ This framework will shape: coaching tone, skill prioritisation, skill tag taxono
 
 ```
 app/                    # Next.js app (App Router, not src/app/)
+  api/analyze/          # POST handler — pipeline entry point (USE_MOCK flag)
+  page.tsx              # Single-page state machine: idle→ready→processing→result→error
+  layout.tsx            # Root layout
+components/             # UI components (presentation only — no pipeline logic)
+  upload-dropzone.tsx   # Drag/drop with file validation, 500MB cap
+  processing-state.tsx  # Spinner with cycling stage labels
+  result-summary.tsx    # 4-chip grid: intent, terrain, failure, confidence
+  coaching-card.tsx     # Orange left-border coaching output card
+lib/                    # Shared utilities
+  types.ts              # AnalysisResult type (UI contract)
+  format-result.ts      # Pipeline output → UI output mapper
 docs/                   # All planning, architecture, and strategy docs (flat structure)
+  ui-standards.md       # Mobile-first design rules, v1 scope boundaries
 knowledge-base/
   domain-01-*/          # Existing technique KB (15 domains, 154+ topics)
   ...
@@ -138,7 +155,9 @@ scripts/
   test-coaching-claude.ts # Claude test runner (Phase 2)
   test-coaching-gemini.ts # Gemini test runner (Phase 2)
   phase2-batch-runner.ts  # Batch runner for Phase 2
+  t1-batch-runner.ts    # T1 full 8-clip batch runner
   phase2-results/       # Phase 2 raw outputs
+  t1-results.json       # T1 full retest results
 ```
 
 ## Tech Stack
@@ -159,9 +178,12 @@ scripts/
 - `docs/phase2-final-report.md` — Phase 2 evaluation report with settled scores (all 8 clips, 3 models)
 - `docs/phase2-evaluation-framework.md` — Scoring rubric
 - `docs/backlog.md` — Current task backlog with gates
+- `docs/ui-standards.md` — Mobile-first design rules, v1 scope boundaries
 - `docs/architecture-principles.md` — System design principles
 - `docs/mvp-scope.md` — MVP definition
 - `docs/product-vision.md` — Long-term vision
+- `lib/types.ts` — AnalysisResult UI contract (pipeline output → UI boundary)
+- `lib/format-result.ts` — Pipeline output → UI output mapper
 
 ## Working With Jake
 

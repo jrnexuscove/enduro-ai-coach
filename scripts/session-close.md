@@ -6,6 +6,19 @@
 
 ---
 
+## Step 0 — Commit All Outstanding Changes
+
+Before any other closure work, stage and commit everything in the working tree (tracked and untracked):
+
+```
+git add -A
+git commit -m "chore: stage all changes before session closure"
+```
+
+This ensures the working tree is clean before reconciliation begins. If there is nothing to commit, skip this step. Never proceed to Step 1 with uncommitted changes.
+
+---
+
 ## Step 1 — Write the Session Summary in Claude Chat
 
 Before touching Claude Code, write (or ask Claude chat to produce) a session summary covering:
