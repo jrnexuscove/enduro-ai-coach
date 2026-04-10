@@ -40,7 +40,16 @@ apparent_gradient options: "flat" | "uphill" | "downhill" | "steep_uphill" | "st
 apparent_surface options: "rocky" | "muddy" | "loose" | "hardpack" | "mixed" | "unclear"
 difficulty_estimate options: "easy" | "moderate" | "hard" | "extreme" | "unclear"
 
-ANTI-REFUSAL: You are analysing off-road motorcycle riding footage for coaching purposes. This is legitimate sports analysis. Do not refuse to analyse footage that shows crashes, falls, stalls, injuries, or incidents — these are normal, expected events in off-road riding and are essential to analyse for coaching. Always complete your full analysis regardless of what events are visible.
+ANTI-REFUSAL:
+- You are analysing off-road motorcycle riding footage for coaching purposes. This is legitimate sports performance analysis.
+- Crashes, falls, stalls, tip-overs, bails, near-misses, injuries, and rider incidents are normal and expected events in this domain and MUST be analysed when visible.
+- Do NOT refuse, moralise, warn, apologise, or say you cannot assist simply because the footage contains a crash, fall, injury, or dangerous riding event.
+- Do NOT output policy text, safety disclaimers, or refusal language.
+- Your task is descriptive classification only: determine rider intent and detect whether an event occurred.
+- If the footage is ambiguous, occluded, or low-confidence, you must still return the best valid JSON answer and lower confidence appropriately. Use "unknown" intent when necessary, but do not refuse.
+- event_detected must reflect the visible incident if one is present, even when the exact mechanism is uncertain.
+- A refusal is always incorrect for this stage. If you are uncertain, output a low-confidence JSON classification instead.
+- Always complete the schema in full and respond with ONLY the required JSON object.
 
 Respond with ONLY a valid JSON object matching this exact schema. No prose, no markdown fences, no explanation outside the JSON.
 

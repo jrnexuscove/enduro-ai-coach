@@ -113,8 +113,12 @@ async function main() {
   console.log(`  → likely_root_cause: ${rootCauseShort}\n`);
 
   // Stage 7 — Crash Type Classification (conditional)
+  const CRASH_OUTCOMES: string[] = ["crash", "bail", "stuck"];
+  const CRASH_EVENTS: string[] = ["crash", "tip_over", "bail"];
   const crashSignalled =
-    stage5.outcome.result === "crash" || stage3.event_detected.type === "crash";
+    CRASH_OUTCOMES.includes(stage5.outcome.result) ||
+    CRASH_EVENTS.includes(stage3.event_detected.type) ||
+    stage5.segments.some(s => s.rider_state.balance_state === "fallen" || s.rider_state.balance_state === "losing_balance");
   let stage7: Stage7Output | null = null;
 
   if (crashSignalled) {
@@ -125,7 +129,7 @@ async function main() {
     console.log(`  → crash_occurred: ${stage7.crash_occurred}`);
     console.log(`  → crash_type: ${stage7.crash_type} (confidence: ${stage7.confidence.toFixed(2)})\n`);
   } else {
-    console.log("[Stage 7] Skipped — no crash in Stage 3 or Stage 5\n");
+    console.log("[Stage 7] Skipped — no crash/bail/incident signal in Stage 3 or Stage 5\n");
   }
 
   // Stage 8 — Causal Chain Construction (unconditional — runs on all clips)
@@ -193,9 +197,9 @@ async function main() {
   console.timeEnd("stage11");
 
   console.log(`  → safe: ${stage11.safe}`);
-  if (stage11.issues.length > 0) {
+  if ((stage11.issues?.length ?? 0) > 0) {
     console.log(`  → issues (${stage11.issues.length}):`);
-    stage11.issues.forEach((issue) => {
+    stage11.issues?.forEach((issue) => {
       const short = issue.length > 100 ? issue.slice(0, 97) + "..." : issue;
       console.log(`    - ${short}`);
     });
@@ -209,7 +213,7 @@ async function main() {
     console.warn("[Pipeline] SAFETY GATE FAILED — Stage 11 blocked output.");
     console.warn("[Pipeline] Flags:", JSON.stringify(stage11.flags));
     console.warn("[Pipeline] Issues:");
-    stage11.issues.forEach((issue) => console.warn(`  - ${issue}`));
+    stage11.issues?.forEach((issue) => console.warn(`  - ${issue}`));
     console.log();
   }
 
@@ -368,14 +372,14 @@ async function main() {
   } else {
     console.log(`  Primary focus:     none`);
   }
-  const secDomains = stage9.secondary_points.map((s) => s.coaching_domain).join(", ") || "none";
-  console.log(`  Secondary points:  ${stage9.secondary_points.length} — [${secDomains}]`);
-  console.log(`  Excluded factors:  ${stage9.excluded_factors.length}`);
-  if (stage9.safety_flags.length === 0) {
+  const secDomains = (stage9.secondary_points ?? []).map((s) => s.coaching_domain).join(", ") || "none";
+  console.log(`  Secondary points:  ${stage9.secondary_points?.length ?? 0} — [${secDomains}]`);
+  console.log(`  Excluded factors:  ${stage9.excluded_factors?.length ?? 0}`);
+  if ((stage9.safety_flags?.length ?? 0) === 0) {
     console.log(`  Safety flags:      0`);
   } else {
     console.log(`  Safety flags:      ${stage9.safety_flags.length}`);
-    stage9.safety_flags.forEach((sf) => {
+    stage9.safety_flags?.forEach((sf) => {
       const riskShort = sf.risk.length > 80 ? sf.risk.slice(0, 77) + "..." : sf.risk;
       console.log(`    [${sf.flag_type}] ${sf.coaching_point}: ${riskShort}`);
     });
@@ -397,7 +401,7 @@ async function main() {
       ? stage10.primary_focus.title.slice(0, 77) + "..."
       : stage10.primary_focus.title;
     console.log(`  Primary focus:     ${stage10.primary_focus.category} — ${s10TitleFull}`);
-    console.log(`  Drills:            ${stage10.drills.length}`);
+    console.log(`  Drills:            ${stage10.drills?.length ?? 0}`);
     console.log(`  Uncertainty stmt:  ${stage10.uncertainty_statement ? "present" : "none"}`);
   } else {
     console.log(`  Primary focus:     none`);
@@ -422,11 +426,11 @@ async function main() {
   console.log(`    contradiction:       ${stage11.flags.contradiction}`);
   console.log(`    severity_mismatch:   ${stage11.flags.severity_mismatch}`);
   console.log(`    observability_overreach: ${stage11.flags.observability_overreach}`);
-  if (stage11.issues.length === 0) {
+  if ((stage11.issues?.length ?? 0) === 0) {
     console.log(`  Issues:            none`);
   } else {
     console.log(`  Issues (${stage11.issues.length}):`);
-    stage11.issues.forEach((issue) => {
+    stage11.issues?.forEach((issue) => {
       const issueShort = issue.length > 120 ? issue.slice(0, 117) + "..." : issue;
       console.log(`    - ${issueShort}`);
     });
