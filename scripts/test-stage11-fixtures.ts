@@ -149,6 +149,12 @@ const stage6WhiskyThrottle: Stage6Output = {
     impact_correlation: "Impact sound precedes RPM spike by approximately 0.2 seconds",
   },
   no_failure_note: null,
+  control_assessment: {
+    state: "out_of_control",
+    confidence: 0.85,
+    evidence: ["Involuntary throttle surge caused uncontrolled forward pitch", "OTB crash indicates complete loss of control"],
+    completion_safety_flag: false,
+  },
   debug: DBG,
 };
 
@@ -175,6 +181,12 @@ const stage6ExcessiveSpeed: Stage6Output = {
     impact_correlation: "Rock impact immediately precedes steering loss",
   },
   no_failure_note: null,
+  control_assessment: {
+    state: "out_of_control",
+    confidence: 0.80,
+    evidence: ["Excessive entry speed caused front wheel deflection and loss of steering", "Forward pitch consistent with speed-induced overrun"],
+    completion_safety_flag: false,
+  },
   debug: DBG,
 };
 
@@ -192,6 +204,12 @@ const stage6NoCrash: Stage6Output = {
   },
   audio_failure_cues: { engine_behaviour: null, impact_correlation: null },
   no_failure_note: "Clean trail section — coaching is technique observation only, not failure correction",
+  control_assessment: {
+    state: "in_control",
+    confidence: 0.70,
+    evidence: ["No failure detected — rider completed section without incident"],
+    completion_safety_flag: true,
+  },
   debug: DBG,
 };
 

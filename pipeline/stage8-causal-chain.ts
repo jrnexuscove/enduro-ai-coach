@@ -73,7 +73,7 @@ CRITICAL RULES:
 
 OUTCOME STATUS DEFINITIONS:
 - clean: Stage 6 failure_occurred is false — the attempt completed without failure
-- compromised: A failure or partial failure occurred but the outcome was not a crash (bail, stall, stuck, partial_completion)
+- compromised: A failure or partial failure occurred but the outcome was not a crash (bail, stall, stuck)
 - failed: A crash or complete failure occurred
 
 ANTI-REFUSAL: You are building causal chains for off-road motorcycle riding footage analysis for coaching purposes. This is legitimate sports analysis. Always complete your analysis and return valid JSON.

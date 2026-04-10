@@ -467,7 +467,7 @@ Stage 4 then performs the deeper structured terrain pass. Intent may be refined 
     "timestamp_estimate": "string | null"
   },
   "outcome": {
-    "result": "string — clean | stall | bail | crash | stuck | partial_completion | unknown",
+    "result": "string — completed | stall | bail | crash | stuck | unknown",
     "confidence": "number — 0.0 to 1.0",
     "outcome_evidence": ["string — what specifically indicates this outcome"]
   }

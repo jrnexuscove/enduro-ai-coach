@@ -148,7 +148,7 @@ function validateAndNormalize(raw: string): Stage6Output {
   const parsed = parseJsonResponse(raw, STAGE_LABEL);
   const obj = requireKeys(
     parsed,
-    ["failure_occurred", "failure_type", "confidence", "symptoms_vs_root"],
+    ["failure_occurred", "failure_type", "confidence", "symptoms_vs_root", "control_assessment"],
     STAGE_LABEL
   );
 
@@ -167,6 +167,16 @@ function validateAndNormalize(raw: string): Stage6Output {
   // Default no_failure_note if failure did not occur and note is absent
   if (!output.failure_occurred && !output.no_failure_note) {
     output.no_failure_note = "No failure analysis available";
+  }
+
+  // Default control_assessment if absent or malformed
+  if (!output.control_assessment || typeof output.control_assessment !== "object") {
+    output.control_assessment = {
+      state: "out_of_control",
+      confidence: 0,
+      evidence: [],
+      completion_safety_flag: false,
+    };
   }
 
   return output;
