@@ -1,6 +1,6 @@
 # RideMind — Backlog
 
-**Last updated:** 2026-04-10 (S6/S7 fixes committed; UI v1 Milestone 1 running)
+**Last updated:** 2026-04-10 (S5/S6 outcome redesign complete; perception viability experiment queued)
 **Current phase:** Phase 3 — Reasoning Pipeline + KB Build
 **Master plan:** `docs/ridemind-phase3-master-plan-v1.md`
 
@@ -27,9 +27,28 @@
 | T6 | Testing | Create ground truth document for all 8 Phase 2 clips | Not started | — |
 | S6-PATCH | Pipeline | Stage 6 prompt patch — four rules: (1) outcome gate, (2) evidence requirement, (3) crash override, (4) momentum demotion. | **COMMITTED (36b1274, 2026-04-10)** | — |
 | S7-RECALL | Pipeline | Stage 7 crash recall fix — trigger broadened to include bail/stuck/tip_over outcomes and fallen/losing_balance segment states. | **COMMITTED (36b1274, 2026-04-10)** | S6-PATCH ✓ |
-| S6-REG | Pipeline | Regression test S6 patch on Long Hill, Nick Crash, Colin Hill, Steep Hill Bail. **NEXT SESSION FIRST ACTION.** | Not started | S6-PATCH ✓ |
-| UI-WIRE-1 | UI | Wire real pipeline into UI API route — set USE_MOCK = false, connect `runFullPipeline` + `formatResult` in `app/api/analyze/route.ts` | Not started | S6-REG |
+| S6-REG | Pipeline | Regression test S6 patch on Long Hill, Nick Crash, Colin Hill, Steep Hill Bail. | **COMPLETE (2026-04-10) — 1/4 pass** (after S6 Rules 9-12). Long Hill PASS (outcome gate held). Nick Crash FAIL (S3+S5 missed crash). Colin Hill FAIL (bail misread as stall → S6 momentum logically correct on bad input). Steep Hill Bail FAIL (line_choice plausible but expectation gap). Root finding: S6 Rules 9-12 working correctly — failures are S5 perception errors. | S6-PATCH ✓ |
+| S5S6-REG2 | Pipeline | Regression after S5/S6 outcome semantics redesign (completed/stall/bail/crash/stuck/unknown; progress_assessment; control_assessment). | **COMPLETE (2026-04-10) — 1/4 pass.** Long Hill **PASS** (S5=completed, outcome gate held). Nick Crash **FAIL** (perception limit — models cannot see crash-after-jumps from still frames). Colin Hill **FAIL** (S3→S5 stall bias — dismount misread as stall, making S6 momentum correct on bad input). Steep Hill Bail **mixed** (crash correctly detected; S6 taxonomy gap — technique vs unknown across runs). **Conclusion: S5/S6 prompt iteration PAUSED — diminishing returns at prompt layer. Bottleneck is model perception, not reasoning logic.** | S6-REG ✓ |
+| UI-WIRE-1 | UI | Wire real pipeline into UI API route — set USE_MOCK = false, connect `runFullPipeline` + `formatResult` in `app/api/analyze/route.ts` | Not started | S5S6-REG2 |
 | UI-TEST-1 | UI | Run all 8 known test clips through the UI and evaluate coaching output as a rider | Not started | UI-WIRE-1 |
+
+---
+
+## Perception Viability Experiment (P0)
+
+**Goal:** Determine whether any current model can reliably perceive riding events before investing further in pipeline prompt engineering. Run before wiring real pipeline into UI.
+
+| ID | Task | Status | Notes |
+|----|------|--------|-------|
+| PVE-1 | Build perception test script — 3 clips × 3 models (GPT-4o, Gemini 2.5 Flash, Claude), no pipeline, single structured observation prompt | Not started | Prompt asks for: outcome, key events, terrain, rider state, confidence. No staging or chaining. |
+| PVE-2 | Run test on Nick Crash, Colin Hill, Steep Hill Bail | Not started | PVE-1 |
+| PVE-3 | Score results against ground truth: 6 criteria — rider objective, outcome, event sequence, terrain/features, visibility handling, hallucination — each 0/1/2 with evidence note | Not started | PVE-2 |
+| PVE-GATE | Decision gate: route to action based on results | Not started | PVE-3 |
+
+**Decision gate logic:**
+- If one model sees clearly and consistently → route S1–S5 perception stages to that model; resume pipeline investment
+- If all models are inconsistent on ambiguous clips → need CV layer, video-native model, or higher frame density before further pipeline prompt work
+- If all models fail on factual events → rethink frame strategy (density, resolution, temporal coverage) before any model routing decision
 
 ---
 
@@ -205,6 +224,17 @@
 | ID | Task | Status | Notes |
 |----|------|--------|-------|
 | FC-1 | Investigate denser frame sampling for short/compact event clips | Not started | Evidence from Nick crash retest: jump visible but event_detected inconsistent — may be a frame coverage issue for compact single-event features. Test with 2× frame density before attributing to model variance alone. |
+| FC-2 | Long-term architecture exploration: deterministic CV layer (YOLO / motion tracking / pose estimation) for factual perception + LLM for reasoning and coaching | Not started | Motivated by S5/S6 regression findings — LLM vision is non-deterministic on ambiguous clips. CV gives deterministic bounding boxes, speed estimation, and rider pose; LLM reasons over that structured input. Likely required for production reliability. |
+| FC-3 | Video-native model evaluation: test models with native video input (vs. extracted frames) for event detection and timing accuracy | Not started | Current approach: 16 still frames → narrative. Video-native models may perceive motion, timing, and body dynamics more reliably. Evaluate when available. |
+| FC-4 | Sensor data as future input: IMU/GPS data from ride computers (RideLinc, TwoNav etc.) as structured factual input to supplement or replace LLM perception | Not started | IMU gives ground truth speed, lean angle, and g-force at crash moment. Would eliminate perception uncertainty for kinematic events. Long-term roadmap item. |
+
+### Long-term Architecture Exploration
+
+| ID | Task | Status | Notes |
+|----|------|--------|-------|
+| LTA-1 | Deterministic CV layer (YOLO / motion tracking / pose estimation) for factual perception + LLM for reasoning and coaching | Not started | Motivated by S5/S6 regression — LLM vision is non-deterministic on ambiguous clips. See also FC-2. |
+| LTA-2 | Video-native model evaluation — test models with native video input vs. extracted frames for event detection and timing | Not started | Current approach (16 still frames → narrative) may be a structural ceiling. See also FC-3. |
+| LTA-3 | Sensor data as future perception input — IMU/GPS data (RideLinc, TwoNav) as structured factual input to supplement or replace LLM perception | Not started | IMU gives ground truth speed, lean angle, g-force at crash moment. Long-term roadmap. See also FC-4. |
 
 ### Non-Blocking Cleanup (do anytime)
 
@@ -262,6 +292,17 @@
 | S7-RECALL | S7 trigger broadened (36b1274) — bail/stuck/tip_over outcomes and fallen/losing_balance states added | 2026-04-10 |
 | S3-ANTI | S3 anti-refusal block committed (36b1274) — crash/incident legitimacy framing added | 2026-04-10 |
 | UI-M1 | UI v1 Milestone 1 (mock data) — page.tsx state machine, API route, 4 components, lib/types.ts, lib/format-result.ts, docs/ui-standards.md; running at localhost:3000 | 2026-04-10 |
+
+---
+
+## Unit Economics & Cost Tracking
+
+- OpenAI API cost for Phase 3 testing (Mar 26–Apr 10): $19.56 / 494 requests / 7.17M input tokens
+- Estimated cost per full clip analysis: ~$0.40–0.50 (11 stages, mix of vision + text calls)
+- Multi-model architecture should reduce cost further — expensive vision models only for perception stages (S1–S4), cheap text models for reasoning stages (S5–S11)
+- Key cost levers: frame sampling rate, frame resolution, model selection per stage, KB retrieval payload size, retry logic
+- Unit economics modelling needed before pricing model is committed — track cost per analysis as pipeline evolves
+- OpenAI billing is periodic threshold-based, not per-request — bank charges appear in batches
 
 ---
 

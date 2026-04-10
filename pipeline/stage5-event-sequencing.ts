@@ -40,16 +40,19 @@ CRITICAL RULES:
 OUTCOME RULES:
 - outcome.result options: "completed" | "stall" | "bail" | "crash" | "stuck" | "unknown"
 - Outcome describes HOW THE ATTEMPT ENDED, not how well it was executed. Quality and control are assessed downstream.
-- "completed" — rider finishes the section and continues or stabilises. Does NOT imply good technique. Scrappy, ugly, or lucky completions are still "completed".
-- "stall" — forward progress ends because the bike loses drive before completion. The bike stopped, not the rider. Key signal: engine dies or wheels stop turning without rider intent to stop.
-- "bail" — rider intentionally stops, dabs, steps off, or abandons the attempt. The initiating action is voluntary. Key signal: deliberate body movement away from the bike or deliberate halt before loss of control.
+- "completed" — rider finishes the visible section, tops out, or passes through the core obstacle and continues or stabilises. Does NOT imply good technique. Scrappy, ugly, slow, dabby, or unstable completions are still "completed". A rider who reaches the end of the visible terrain and slows down or wobbles at the top has completed. Do not require clean or confident execution for "completed".
+- "stall" — forward progress ends because the bike loses mechanical drive BEFORE the rider abandons the attempt. The bike stopped, not the rider. Key signal: engine dies, revs drop involuntarily, or wheels stop turning without any deliberate rider halt. "stall" requires positive observable evidence that drive died first — weight coming off the bike, the rider's feet dropping as a reactive response to drive loss, or clearly audible/visible engine note drop. Do not classify "stall" based on the bike slowing or stopping alone.
+- "bail" — rider voluntarily halts, steps off, or abandons the attempt BEFORE any clear involuntary failure. The initiating action is the rider choosing to stop. Key signal: feet coming off the pegs or body deliberately moving away from the bike. A stabilising dab (one foot down briefly while continuing) is NOT bail — bail requires a clear voluntary abandonment of the attempt.
 - "crash" — involuntary loss of control. Rider, bike, or both leave the intended riding state. Not voluntary. Key signal: loss of control precedes the stop.
 - "stuck" — rider and bike are immobilised without a single clear stall, bail, or crash cause.
 - "unknown" — outcome cannot be determined from available evidence.
-- BAIL vs STALL TEST: Ask "did the rider choose to stop?" YES = bail. "Did the bike lose drive involuntarily?" YES = stall. If ambiguous, prefer "unknown" over guessing.
-- outcome.result of "completed" requires positive evidence — rider exiting the section, continuing forward, or stabilising at the end. The absence of a crash is NOT sufficient evidence for "completed".
+- BAIL vs STALL TEST: The key question is sequence and agency. Did the bike lose drive before the rider acted? → stall. Did the rider choose to stop before the bike failed? → bail. If the sequence is not clearly observable from the frames — i.e. you cannot tell whether the drive died first or the rider chose to stop first — classify as "unknown". Do not guess between bail and stall; unknown is the correct answer when ambiguous.
+- STALL EVIDENCE REQUIREMENT: Do not classify "stall" unless at least one of these is directly observable: (1) engine note drops or dies, (2) rear wheel visibly stops turning before rider feet leave pegs, (3) bike loses drive on a section the rider was still attempting, (4) rider feet drop reactively after the bike stops, not before.
+- outcome.result of "completed" requires positive evidence — rider exiting the section, continuing forward, topping out, or stabilising at the end. The absence of a crash is NOT sufficient evidence for "completed".
 - outcome.confidence must respect Stage 2 outcome_max_confidence ceiling. This is enforced downstream in code.
 - List specific outcome_evidence items. Do not leave this empty.
+
+END-OF-CLIP RULE: The final frames of a clip often show the bike settling, slowing, or the rider stabilising after successfully completing a section. Do not interpret end-of-clip deceleration, balance adjustment, camera movement, or minor instability as evidence of stall or failure. If the rider has passed through the core obstacle or section before this settling behaviour occurs, the outcome is "completed". Apply this rule whenever the apparent "failure" only appears in the last 1-3 frames of the clip.
 
 PROGRESS RULES:
 - progress_assessment.section_completion describes HOW FAR the rider got, independent of outcome.

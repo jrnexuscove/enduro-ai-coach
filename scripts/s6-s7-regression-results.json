@@ -1,0 +1,164 @@
+[
+  {
+    "id": "long-hill",
+    "label": "Long Hill",
+    "status": "pass",
+    "error": null,
+    "stage5_outcome": "completed",
+    "stage5_progress": "substantial",
+    "stage3_event": "none",
+    "stage7_triggered": false,
+    "s6": {
+      "failure_occurred": false,
+      "failure_type": "none",
+      "confidence": 0.8,
+      "failure_description": null,
+      "likely_root_cause": null,
+      "root_cause_confidence": 0,
+      "contributing_factors": [],
+      "no_failure_note": "The rider successfully navigated the uphill section with stable progression and no visible signs of control loss. Closest risk could have been the minor roots, but they did not impact the ride.",
+      "control_assessment": {
+        "state": "in_control",
+        "confidence": 0.9,
+        "evidence": [
+          "Rider state stable",
+          "Continuous movement uphill",
+          "No incidents reported"
+        ],
+        "completion_safety_flag": false
+      }
+    },
+    "s7": null,
+    "elapsed_ms": 140006
+  },
+  {
+    "id": "nick-crash",
+    "label": "Nick Crash",
+    "status": "fail",
+    "error": null,
+    "stage5_outcome": "completed",
+    "stage5_progress": "full",
+    "stage3_event": "none",
+    "stage7_triggered": false,
+    "s6": {
+      "failure_occurred": false,
+      "failure_type": "none",
+      "confidence": 0.4,
+      "failure_description": null,
+      "likely_root_cause": null,
+      "root_cause_confidence": 0,
+      "contributing_factors": [],
+      "no_failure_note": "The rider successfully completed the section, navigating the moderate jump with a smooth landing and continuing without incident. The closest risk was the jump itself, handled well by maintaining control.",
+      "control_assessment": {
+        "state": "in_control",
+        "confidence": 0.4,
+        "evidence": [
+          "Rider lands smoothly",
+          "Continues along the path"
+        ],
+        "completion_safety_flag": false
+      }
+    },
+    "s7": null,
+    "elapsed_ms": 91390
+  },
+  {
+    "id": "colin-hill",
+    "label": "Colin Hill",
+    "status": "fail",
+    "error": null,
+    "stage5_outcome": "stall",
+    "stage5_progress": "substantial",
+    "stage3_event": "stall",
+    "stage7_triggered": true,
+    "s6": {
+      "failure_occurred": true,
+      "failure_type": "momentum",
+      "confidence": 0.85,
+      "failure_description": "The rider failed to maintain sufficient forward momentum to complete the steep, rocky climb, resulting in a stall.",
+      "likely_root_cause": "Insufficient speed or throttle application to maintain momentum on the steep and rocky terrain.",
+      "root_cause_confidence": 0.8,
+      "contributing_factors": [
+        {
+          "factor": "momentum loss during climb",
+          "role": "primary",
+          "evidence": [
+            "critical moment in segment 3 where momentum decreases significantly",
+            "bike slowing significantly in segment 3"
+          ]
+        },
+        {
+          "factor": "suboptimal line choice",
+          "role": "contributing",
+          "evidence": [
+            "line options indicating a suboptimal line was chosen"
+          ]
+        }
+      ],
+      "no_failure_note": null,
+      "control_assessment": {
+        "state": "out_of_control",
+        "confidence": 0.9,
+        "evidence": [
+          "rider's balance state is losing_balance in segment 3",
+          "rider is transitioning and fallen in segment 4"
+        ],
+        "completion_safety_flag": false
+      }
+    },
+    "s7": {
+      "crash_occurred": true,
+      "crash_type": "stall_drop",
+      "crash_mechanism": "The rider was attempting to climb a steep, rocky hill but lost momentum, causing the bike to stall and the rider to dismount as balance was lost.",
+      "severity_estimate": "minor",
+      "confidence": 0.85
+    },
+    "elapsed_ms": 184883
+  },
+  {
+    "id": "steep-hill-bail",
+    "label": "Steep Hill Bail",
+    "status": "fail",
+    "error": null,
+    "stage5_outcome": "crash",
+    "stage5_progress": "partial",
+    "stage3_event": "tip_over",
+    "stage7_triggered": true,
+    "s6": {
+      "failure_occurred": true,
+      "failure_type": "unknown",
+      "confidence": 0.7,
+      "failure_description": "The rider tipped over on a steep, narrow trail resulting in a crash, primarily due to loss of balance.",
+      "likely_root_cause": "Rider failed to maintain balance while riding on a steep, narrow trail.",
+      "root_cause_confidence": 0.7,
+      "contributing_factors": [
+        {
+          "factor": "loss of balance",
+          "role": "primary",
+          "evidence": [
+            "Segment 3: Bike begins to tip over, indicating loss of balance.",
+            "Segment 4: Bike on the ground, off the main trail."
+          ]
+        }
+      ],
+      "no_failure_note": null,
+      "control_assessment": {
+        "state": "out_of_control",
+        "confidence": 0.8,
+        "evidence": [
+          "Segment 3: Losing balance.",
+          "Segment 4: Balance state is fallen."
+        ],
+        "completion_safety_flag": true
+      }
+    },
+    "s7": {
+      "crash_occurred": true,
+      "crash_type": "tip_over",
+      "crash_mechanism": "The rider lost balance on a steep, narrow trail and the bike tipped over, landing on its side off the main path.",
+      "severity_estimate": "minor",
+      "confidence": 0.8
+    },
+    "elapsed_ms": 127662
+  }
+]
