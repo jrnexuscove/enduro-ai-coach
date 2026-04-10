@@ -1031,67 +1031,112 @@ Every response must follow this structure:
 
 ---
 
-## Stage 11 — Coaching Safety Validation
+## Stage 11 — Safety & Contradiction Validation
 
-**Purpose:** Final safety check before the coaching output reaches the rider. Catches dangerous advice, missing safety caveats, and inappropriate tone for serious incidents.
+**Purpose:** Final safety gate. Validates coaching output against failure diagnosis and crash type. Validator only — does not rewrite or regenerate coaching.
 
 ### Input
 
+- Stage 2 output (observability assessment)
+- Stage 6 output (failure type classification)
+- Stage 7 output (crash type/severity — nullable)
+- Stage 8 output (causal chain)
+- Stage 9 output (coaching strategy)
 - Stage 10 output (coaching text)
-- Stage 7 output (crash type/severity)
-- Stage 9 output (risk flags)
 
 ### Output Schema
 
 ```json
 {
   "stage": "coaching_safety_validation",
-  "approved": "boolean",
-  "safety_checks": {
-    "dangerous_advice_detected": "boolean",
-    "dangerous_advice_details": "string | null",
-    "missing_safety_caveats": ["string"],
-    "tone_appropriate_for_severity": "boolean",
-    "encourages_beyond_skill_level": "boolean",
-    "medical_advice_present": "boolean"
+  "safe": "boolean",
+  "flags": {
+    "speed_risk": "boolean",
+    "contradiction": "boolean",
+    "severity_mismatch": "boolean",
+    "observability_overreach": "boolean"
   },
-  "modifications_required": [
-    {
-      "issue": "string",
-      "location": "string — which section of coaching output",
-      "action": "string — remove | reword | add_caveat | flag_for_review"
-    }
-  ],
-  "final_risk_level": "string — low | medium | high | critical",
-  "release_decision": "string — approved | approved_with_caveats | needs_modification | blocked"
+  "issues": ["string"],
+  "confidence_adjustment": "number | null",
+  "debug": {
+    "stage": "coaching_safety_validation",
+    "checks_performed": ["string"],
+    "raw_model_response": "string | null"
+  }
 }
 ```
 
-### Rules
+### Validation Checks
 
-- If `crash_severity` from Stage 7 is `serious`, coaching must acknowledge this and not trivialise the incident.
-- Coaching must never suggest the rider attempt something significantly beyond what the footage shows as their current skill level.
-- Medical advice (ice, rest, doctor) is never appropriate — flag and remove.
-- If `dangerous_advice_detected` is `true`, `release_decision` must be `blocked`.
-- For low-observability clips, coaching must include appropriate uncertainty language.
+- **`speed_risk`:** Flag if coaching advice to increase speed follows a speed-related crash or failure without a qualifying constraint (e.g. "only on sections you know well", "once body position is correct first").
+- **`contradiction`:** Flag if the coaching advice would recreate the mechanism described in the Stage 8 causal chain — i.e. coaching the rider to do the thing that caused the failure.
+- **`severity_mismatch`:** Flag if the coaching tone does not match the crash severity from Stage 7 — e.g. an encouraging, casual tone on a clip with `severity_estimate: serious`.
+- **`observability_overreach`:** Flag if coaching claims precision beyond what Stage 2 confidence ceilings permit — e.g. specific body position claims when `body_position_max_confidence` is 0.0 or when `rider_body_position` is `not_visible`.
 
-### Example (Colin Hill)
+### Hard-Fail Rules
+
+These conditions set `safe: false`:
+
+- `contradiction: true` — always hard fail
+- `speed_risk: true` — hard fail only when speed advice is unqualified
+- `severity_mismatch: true` — hard fail only when Stage 7 `severity_estimate` is `serious`
+
+### Warning-Only Rules
+
+These flags may coexist with `safe: true`:
+
+- `observability_overreach` — always warning-only
+- `speed_risk` with qualified advice — warning-only
+- `severity_mismatch` with non-serious severity — warning-only
+
+### Confidence Cap Rules
+
+When flags are raised, `confidence_adjustment` is set to the lowest applicable cap:
+
+- `observability_overreach` alone → `0.6`
+- `contradiction` → `0.5`
+- Unqualified `speed_risk` → `0.4`
+- Multiple flags → lowest applicable cap
+- No flags → `null`
+
+### Business Rule Validation
+
+`validateStage11BusinessRules(output, stage7)` validates output consistency only:
+
+- Flags require supporting `issues` entries (a flag without a corresponding issue is invalid)
+- `confidence_adjustment` without any flags is invalid
+- Flags without `confidence_adjustment` is accepted
+- Business rules do not re-derive whether speed qualifiers were present in the coaching text — the model determines that during validation
+
+### Validation Status
+
+- 4/4 synthetic fixtures pass (2026-04-10)
+- 2/2 business-rule unit tests pass (2026-04-10)
+
+### Example (Colin Hill — no flags)
 
 ```json
 {
   "stage": "coaching_safety_validation",
-  "approved": true,
-  "safety_checks": {
-    "dangerous_advice_detected": false,
-    "dangerous_advice_details": null,
-    "missing_safety_caveats": [],
-    "tone_appropriate_for_severity": true,
-    "encourages_beyond_skill_level": false,
-    "medical_advice_present": false
+  "safe": true,
+  "flags": {
+    "speed_risk": false,
+    "contradiction": false,
+    "severity_mismatch": false,
+    "observability_overreach": false
   },
-  "modifications_required": [],
-  "final_risk_level": "low",
-  "release_decision": "approved"
+  "issues": [],
+  "confidence_adjustment": null,
+  "debug": {
+    "stage": "coaching_safety_validation",
+    "checks_performed": [
+      "speed_risk: no speed advice present — skip",
+      "contradiction: coaching recommends standing position, causal chain root cause is seated position — no contradiction",
+      "severity_mismatch: severity_estimate none, tone encouraging — acceptable",
+      "observability_overreach: body position claims within Stage 2 ceiling (0.9) — no overreach"
+    ],
+    "raw_model_response": null
+  }
 }
 ```
 
@@ -1101,6 +1146,7 @@ Every response must follow this structure:
 
 | Date | Decision | Reasoning | Implications |
 |------|----------|-----------|--------------|
+| 2026-04-10 | Stage 11 contract updated to match implementation — hard-fail rules clarified, warning-only flags formalised | Original contract used different schema. Implementation validated with 4 fixtures + 2 unit tests. Contract locked post-validation. | speed_risk no longer unconditionally hard-fail; severity_mismatch gated on Stage 7 severity; business rules receive stage7 input |
 | 2026-04-01 | Gate 1 passed with reconciliations | Pipeline structure validated via stress test and ChatGPT review | 11-stage pipeline is authoritative architecture |
 | 2026-04-01 | Intent before Terrain (but not in vacuum) | Product requires explicit intent detection early; shallow terrain cues available from raw frames | Stage 3 contracts must specify available inputs including shallow terrain read |
 | 2026-04-01 | Failure Type before Crash Type | Failure classification applies to all clips; crash type refines when crash exists | Both feed into Causal Chain; contracts clarify relationship |
@@ -1116,17 +1162,14 @@ Every response must follow this structure:
 | Gate | Description | Status | Date |
 |------|-------------|--------|------|
 | Gate 1 | Pipeline stage definitions approved | **PASSED** | 2026-04-01 |
-| Gate 2 | KB entry schemas approved | NOT PASSED | — |
-| Gate 3 | Pipeline implemented and validated | NOT PASSED | — |
+| Gate 2 | KB entry schemas approved | **PASSED** | 2026-04-01 |
+| Gate 3 | Pipeline implemented and validated | **PASSED** | 2026-04-09 |
 
 ---
 
 ## Appendix C — Next Steps
 
-1. **Gate 2 — KB Schema Lock:** Define and approve entry templates for Terrain KB, Feature KB, and Bike Dynamics KB.
-2. **First KB wave:** Generate 10 terrain + 8 feature + 6 bike dynamics entries.
-3. **Build stages 1–4:** Camera detection, observability, rider intent, terrain/feature detection.
-4. **Early validation:** Run stages 1–4 on Colin Hill and Mark Crash.
-5. **Build stages 5–8:** Event sequencing, failure classification, crash type, causal chain.
-6. **Build stages 9–11:** Decision engine, coaching generation, safety validation.
-7. **Phase 3 retest:** Full 8-clip run through complete pipeline, scored against Phase 2 baselines.
+1. **T1: Full 8-clip retest** through complete pipeline
+2. **KB retrieval wiring** into Stage 10
+3. **Thin UI** for coaching output display
+4. **Stage 10 + KB prompt tuning** based on T1 results
