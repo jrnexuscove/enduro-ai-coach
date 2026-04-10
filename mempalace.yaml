@@ -1,0 +1,35 @@
+wing: enduro_ai_coach
+rooms:
+- name: app
+  description: Files from app/
+  keywords:
+  - app
+  - app
+- name: documentation
+  description: Files from docs/
+  keywords:
+  - documentation
+  - docs
+- name: knowledge_base
+  description: Files from knowledge-base/
+  keywords:
+  - knowledge_base
+  - knowledge-base
+- name: pipeline
+  description: Files from pipeline/
+  keywords:
+  - pipeline
+  - pipeline
+- name: public
+  description: Files from public/
+  keywords:
+  - public
+  - public
+- name: scripts
+  description: Files from scripts/
+  keywords:
+  - scripts
+  - scripts
+- name: general
+  description: Files that don't fit other rooms
+  keywords: []
