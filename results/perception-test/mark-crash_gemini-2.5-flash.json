@@ -1,0 +1,23 @@
+{
+  "clip": "mark-crash",
+  "model": "gemini-2.5-flash",
+  "model_id": "gemini-2.5-flash",
+  "frames_extracted": 16,
+  "frame_dimensions": "1920x1080",
+  "prompt_version": "perception_v1",
+  "response_raw": "Here is a description of the visually observable elements in the frames:\n\n### 1. Rider objective & context\nA rider on an off-road motorcycle is navigating a dirt track on a hillside. The track is marked with white poles or tape. Two individuals are visible observing from a distant ridge at the top of the hill.\n\n### 2. Rider\nThe rider is wearing a red helmet, a dark blue or black long-sleeved jacket, and red pants. The rider is operating an orange or red off-road motorcycle. Initially, the rider",
+  "response_parsed": {
+    "rider_objective_context": "A rider on an off-road motorcycle is navigating a dirt track on a hillside. The track is marked with white poles or tape. Two individuals are visible observing from a distant ridge at the top of the hill.\n\n###",
+    "rider": "The rider is wearing a red helmet, a dark blue or black long-sleeved jacket, and red pants. The rider is operating an orange or red off-road motorcycle. Initially, the rider",
+    "terrain_environment": "",
+    "events": "",
+    "outcome": "",
+    "unclear_not_visible": ""
+  },
+  "duration_ms": 14974,
+  "token_usage": {
+    "input": 4232,
+    "output": 113
+  },
+  "timestamp": "2026-04-12T19:44:46.687Z"
+}

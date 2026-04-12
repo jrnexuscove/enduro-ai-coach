@@ -1,0 +1,23 @@
+{
+  "clip": "long-hill",
+  "model": "gpt-4o",
+  "model_id": "gpt-4o",
+  "frames_extracted": 16,
+  "frame_dimensions": "1920x1080",
+  "prompt_version": "perception_v1",
+  "response_raw": "1. Rider objective & context\n   - The frames show a motorcycle navigating through a forested area on a dirt trail.\n\n2. Rider\n   - The rider is not visible, but the motorcycle's handlebars and part of the front fender are visible, indicating the rider's perspective.\n\n3. Terrain & environment\n   - The terrain is a forested area with a dirt trail covered in leaves and some rocks. The trail appears to be uphill and surrounded by trees.\n\n4. Events\n   - The motorcycle progresses along the trail, moving through the forested environment.\n\n5. Outcome\n   - The motorcycle continues along the trail without any visible incidents.\n\n6. Unclear or not visible\n   - The rider is not visible. The specific destination or endpoint of the trail is not visible.",
+  "response_parsed": {
+    "rider_objective_context": "- The frames show a motorcycle navigating through a forested area on a dirt trail.",
+    "rider": "- The rider is not visible, but the motorcycle's handlebars and part of the front fender are visible, indicating the rider's perspective.",
+    "terrain_environment": "- The terrain is a forested area with a dirt trail covered in leaves and some rocks. The trail appears to be uphill and surrounded by trees.",
+    "events": "- The motorcycle progresses along the trail, moving through the forested environment.",
+    "outcome": "- The motorcycle continues along the trail without any visible incidents.",
+    "unclear_not_visible": "- The rider is not visible. The specific destination or endpoint of the trail is not visible."
+  },
+  "duration_ms": 48281,
+  "token_usage": {
+    "input": 17785,
+    "output": 160
+  },
+  "timestamp": "2026-04-12T19:43:15.537Z"
+}

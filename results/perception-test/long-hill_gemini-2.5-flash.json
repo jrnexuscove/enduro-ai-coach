@@ -1,0 +1,23 @@
+{
+  "clip": "long-hill",
+  "model": "gemini-2.5-flash",
+  "model_id": "gemini-2.5-flash",
+  "frames_extracted": 16,
+  "frame_dimensions": "1920x1080",
+  "prompt_version": "perception_v1",
+  "response_raw": "Here is a description of the visually observable elements in the frames:\n\n1.  **Rider objective & context**\n    The frames show a first-person perspective from an off-road motorcycle, indicating it is being ridden on an unpaved track. The motorcycle is ascending a steep, forested incline.\n\n2.  **Rider**\n    Parts of the rider's gloved hands are visible on the handlebars. The gloves are red and black. The rest of the rider's body is not visible.\n\n3.  **Terrain & environment**\n    The terrain is an uphill dirt track, predominantly covered with a thick layer of dry, brown fallen leaves. Some exposed rocks and roots are visible on the track. The track is narrow and winds through a dense forest composed of tall trees, including both conifers (with green needles) and deciduous trees (mostly bare of leaves). In the first frame, a wider dirt road is visible to the right, lower down, and distant hills or mountains are visible under a partly cloudy sky. In subsequent frames, the sky is visible as overcast or bright white through the tree canopy.\n\n4.  **Events**\n    The motorcycle is moving forward and uphill along the track. The camera, mounted on the motorcycle, shows the handlebars and the red front fender. The perspective shifts slightly across the frames, indicating steering and continuous movement. Leaves are visibly disturbed and kicked up by the front of the motorcycle in several frames, particularly from frame 12 onwards.\n\n5.  **Outcome**\n    The motorcycle continues to ascend the uphill track through the forest. No final outcome, such as reaching the top, stopping, or any incident, is visible within the provided sequence of frames.\n\n6.  **Unclear or not visible**\n    The rider's full body, face, and most of their protective gear (e.g., helmet, boots, chest protector) are not visible. The specific speed of the motorcycle is not discernible. The exact condition of the ground beneath the leaf litter (e.g., mud, hardpack, loose dirt) is largely occluded. The presence of other individuals or vehicles is not visible. The specific make or model of the motorcycle is not fully visible. The exact time of day beyond daylight is not clear. The specific geographical location is not visible.",
+  "response_parsed": {
+    "rider_objective_context": "",
+    "rider": "",
+    "terrain_environment": "",
+    "events": "",
+    "outcome": "",
+    "unclear_not_visible": ""
+  },
+  "duration_ms": 11497,
+  "token_usage": {
+    "input": 4232,
+    "output": 478
+  },
+  "timestamp": "2026-04-12T19:43:27.035Z"
+}

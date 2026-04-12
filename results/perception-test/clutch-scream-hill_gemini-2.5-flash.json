@@ -1,0 +1,23 @@
+{
+  "clip": "clutch-scream-hill",
+  "model": "gemini-2.5-flash",
+  "model_id": "gemini-2.5-flash",
+  "frames_extracted": 16,
+  "frame_dimensions": "1920x1080",
+  "prompt_version": "perception_v1",
+  "response_raw": "Here is a description of the visually observable elements in the provided frames:\n\n### 1. Rider objective & context\nThe frames depict a sequence from an off-road motorcycle activity in a forest. The initial frames show a motorcycle, from which the camera is mounted, following other motorcycles uphill. The later frames show the camera motorcycle's perspective as it navigates or observes the terrain, concluding with the camera motorcycle lying on its side.\n\n### 2. Rider\n*   **Camera Rider:** The rider of the motorcycle carrying the camera is not visible in any frame. Parts of their motorcycle (handlebars, front fender, fuel tank) are visible in frames 1-7, 9, 11, and 12. In frames 15-16, the camera motorcycle is lying on its side.\n*   **Other Rider(s):**\n    *   One rider is visible on a red motorcycle with \"GASGAS\" branding in frames 1-3, ascending a hill. The rider is wearing a helmet and dark riding gear.\n    *   Another red motorcycle (or the same one further away) is visible in frames 5-6, also ascending.\n    *   Multiple riders and motorcycles are visible further up the hill in frame 7, appearing to be stationary or moving slowly.\n\n### 3. Terrain & environment\nThe environment is a dense forest characterized by numerous tall, slender trees with dark trunks, consistent with conifers. The ground is covered in dark brown dirt, fallen leaves, pine needles, and various sizes of branches and logs. The terrain is consistently uphill in the initial frames (1-7), with a visible dirt track or path. Frames 8-14 show a",
+  "response_parsed": {
+    "rider_objective_context": "The frames depict a sequence from an off-road motorcycle activity in a forest. The initial frames show a motorcycle, from which the camera is mounted, following other motorcycles uphill. The later frames show the camera motorcycle's perspective as it navigates or observes the terrain, concluding with the camera motorcycle lying on its side.\n\n###",
+    "rider": "*   **Camera Rider:** The rider of the motorcycle carrying the camera is not visible in any frame. Parts of their motorcycle (handlebars, front fender, fuel tank) are visible in frames 1-7, 9, 11, and 12. In frames 15-16, the camera motorcycle is lying on its side.\n*   **Other Rider(s):**\n    *   One rider is visible on a red motorcycle with \"GASGAS\" branding in frames 1-3, ascending a hill. The rider is wearing a helmet and dark riding gear.\n    *   Another red motorcycle (or the same one further away) is visible in frames 5-6, also ascending.\n    *   Multiple riders and motorcycles are visible further up the hill in frame 7, appearing to be stationary or moving slowly.\n\n###",
+    "terrain_environment": "The environment is a dense forest characterized by numerous tall, slender trees with dark trunks, consistent with conifers. The ground is covered in dark brown dirt, fallen leaves, pine needles, and various sizes of branches and logs. The terrain is consistently uphill in the initial frames (1-7), with a visible dirt track or path. Frames 8-14 show a",
+    "events": "",
+    "outcome": "",
+    "unclear_not_visible": ""
+  },
+  "duration_ms": 13970,
+  "token_usage": {
+    "input": 4232,
+    "output": 355
+  },
+  "timestamp": "2026-04-12T19:39:12.526Z"
+}

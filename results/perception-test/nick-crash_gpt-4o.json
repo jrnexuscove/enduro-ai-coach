@@ -1,0 +1,23 @@
+{
+  "clip": "nick-crash",
+  "model": "gpt-4o",
+  "model_id": "gpt-4o",
+  "frames_extracted": 16,
+  "frame_dimensions": "1920x886",
+  "prompt_version": "perception_v1",
+  "response_raw": "1. Rider objective & context\n   - The rider is on an off-road motorcycle navigating a dirt trail with elevation changes.\n\n2. Rider\n   - The rider is wearing protective gear and is on a motorcycle.\n\n3. Terrain & environment\n   - The terrain is a hilly, open area with dirt trails and sparse vegetation. The environment appears to be a natural, outdoor setting with hills and a cloudy sky.\n\n4. Events\n   - The rider is seen moving along a dirt trail, ascending a hill, and then descending.\n\n5. Outcome\n   - The rider continues along the trail, moving out of the frame.\n\n6. Unclear or not visible\n   - Specific details about the rider's actions or any obstacles on the trail are not visible.",
+  "response_parsed": {
+    "rider_objective_context": "- The rider is on an off-road motorcycle navigating a dirt trail with elevation changes.",
+    "rider": "- The rider is wearing protective gear and is on a motorcycle.",
+    "terrain_environment": "- The terrain is a hilly, open area with dirt trails and sparse vegetation. The environment appears to be a natural, outdoor setting with hills and a cloudy sky.",
+    "events": "- The rider is seen moving along a dirt trail, ascending a hill, and then descending.",
+    "outcome": "- The rider continues along the trail, moving out of the frame.",
+    "unclear_not_visible": "- Specific details about the rider's actions or any obstacles on the trail are not visible."
+  },
+  "duration_ms": 12769,
+  "token_usage": {
+    "input": 23225,
+    "output": 154
+  },
+  "timestamp": "2026-04-12T19:34:58.780Z"
+}

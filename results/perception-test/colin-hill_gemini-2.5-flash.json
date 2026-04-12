@@ -1,0 +1,23 @@
+{
+  "clip": "colin-hill",
+  "model": "gemini-2.5-flash",
+  "model_id": "gemini-2.5-flash",
+  "frames_extracted": 16,
+  "frame_dimensions": "1920x3412",
+  "prompt_version": "perception_v1",
+  "response_raw": "1. Rider objective & context**\nThe rider is operating an off-road motorcycle on a dirt track within a forested, hilly environment. The sequence of frames depicts the rider first approaching, then ascending, and subsequently descending a steep, rocky incline.\n\n**2. Rider**\nThe rider is wearing a full-face helmet, predominantly pink/red with white markings. Protective gear includes a dark",
+  "response_parsed": {
+    "rider_objective_context": "The rider is operating an off-road motorcycle on a dirt track within a forested, hilly environment. The sequence of frames depicts the rider first approaching, then ascending, and subsequently descending a steep, rocky incline.\n\n**",
+    "rider": "The rider is wearing a full-face helmet, predominantly pink/red with white markings. Protective gear includes a dark",
+    "terrain_environment": "",
+    "events": "",
+    "outcome": "",
+    "unclear_not_visible": ""
+  },
+  "duration_ms": 15876,
+  "token_usage": {
+    "input": 4232,
+    "output": 80
+  },
+  "timestamp": "2026-04-12T19:36:19.877Z"
+}

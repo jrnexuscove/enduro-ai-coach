@@ -1,0 +1,23 @@
+{
+  "clip": "steep-hill-bail",
+  "model": "gemini-2.5-flash",
+  "model_id": "gemini-2.5-flash",
+  "frames_extracted": 16,
+  "frame_dimensions": "1920x1080",
+  "prompt_version": "perception_v1",
+  "response_raw": "Here is a description of the visually observable elements in the frames:\n\n1.  **Rider objective & context**\n    The initial frames show a dirt path in a wooded area, with a narrower trail leading uphill. Subsequent frames show a first-person perspective from an off-road motorcycle, indicating the rider is navigating or attempting to navigate an uphill, narrow, leaf-covered trail in a forest.\n\n2.  **Rider**\n    A rider's left hand, wearing a red and black glove, is visible on the handlebar in frames 3 through 13. A rider's left foot, wearing a boot with red accents, is visible in frame 16, positioned near the fallen motorcycle. The rider's face and the rest of their body are not visible.\n\n3.  **Terrain & environment**\n    The environment is a dense forest or wooded area, predominantly featuring bare deciduous trees, suggesting a late autumn or winter season. The ground is extensively covered with dry, brown leaves and some patches of dry, light-colored grass. The terrain is an uphill slope, with a narrow dirt trail winding through the trees and leaf litter. The trail surface appears to be loose dirt and leaves. Branches and small logs are present on the ground and across the trail in various places. The sky is overcast.\n\n4.  **Events**\n    Frames 1 and 2 show a static view of a wider dirt path at the base of a hill, with a narrower trail ascending into the woods. Frames 3 through 13 show a motorcycle ascending this steep, narrow, leaf-covered trail from a first-person perspective. The handlebars are visible and appear to be actively steered as the motorcycle moves uphill. Frames 14 through 16 show the motorcycle lying on its left side on the ground, amidst leaves and branches. The motorcycle is stationary in these final frames.\n\n5.  **Outcome**\n    The motorcycle is observed lying on its left side on the uphill trail, surrounded by leaves and branches.\n\n6.  **Unclear or not visible**\n    The exact cause of the motorcycle ending up on its side is not visible. The rider's full body, face, and specific actions immediately preceding or during the motorcycle coming to rest on its side are not visible. The condition of the rider after the event is not visible. The speed of the motorcycle during the ascent is not explicitly visible. The full extent of any damage to the motorcycle is not visible. The specific model or engine size of the \"GASGAS\" motorcycle is not visible.",
+  "response_parsed": {
+    "rider_objective_context": "",
+    "rider": "",
+    "terrain_environment": "",
+    "events": "",
+    "outcome": "",
+    "unclear_not_visible": ""
+  },
+  "duration_ms": 15973,
+  "token_usage": {
+    "input": 4232,
+    "output": 529
+  },
+  "timestamp": "2026-04-12T19:37:25.619Z"
+}

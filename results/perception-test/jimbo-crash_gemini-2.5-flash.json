@@ -1,0 +1,23 @@
+{
+  "clip": "jimbo-crash",
+  "model": "gemini-2.5-flash",
+  "model_id": "gemini-2.5-flash",
+  "frames_extracted": 16,
+  "frame_dimensions": "1920x1694",
+  "prompt_version": "perception_v1",
+  "response_raw": "Here is a description of the visually observable elements in the frames:\n\n1.  **Rider objective & context**\n    The rider is operating an off-road motorcycle on a dirt path through a forest. The path appears to be a trail.\n\n2.  **Rider**\n    The rider is wearing lime green/yellow and black gloves. A black and yellow helmet is partially visible in later frames. The rider's hands are on the handlebars for most of the sequence. In frames 9-11, the rider's right hand is seen gripping a tree trunk.\n\n3.  **Terrain & environment**\n    The environment is a forest with numerous bare trees, suggesting a deciduous forest in a season without leaves. The ground is covered with brown fallen leaves and dirt. A visible dirt path or trail winds through the trees. The terrain appears to be sloped, possibly downhill. Multiple tree trunks are close to the path.\n\n4.  **Events**\n    Frames 1-4 show the motorcycle moving forward on a trail through the forest. Frames 5-8 show the motorcycle making contact with a tree on the left side. The camera view shifts downwards and to the left, and the motorcycle's front wheel and fender become obscured. The left side of the motorcycle and the rider's left arm are very close to the tree. Frames 9-15 show the motorcycle stopped or moving very slowly, positioned between two tree trunks. The rider's right hand is seen gripping the right tree trunk in frames 9-11. The handlebars are turned to the right in frames 9-12, then straighten slightly. Frame 16 shows the motorcycle moving away from the trees, with the handlebars turned sharply to the left.\n\n5.  **Outcome**\n    The motorcycle came to a stop between two trees after making contact with one. The rider appears to be repositioning the motorcycle. The motorcycle remains upright at the end of the sequence.\n\n6.  **Unclear or not visible**\n    The rider's full body, face, and specific clothing (other than gloves and helmet color) are not visible. The exact speed of the motorcycle is not visible. The specific cause of the motorcycle making contact with the tree is not visible. Any damage to the motorcycle or injury to the rider is not visible. The full extent of the trail ahead or behind is not visible. The specific make or model of the motorcycle is not explicitly visible. The specific time of day or precise weather conditions are not explicitly visible.",
+  "response_parsed": {
+    "rider_objective_context": "",
+    "rider": "",
+    "terrain_environment": "",
+    "events": "",
+    "outcome": "",
+    "unclear_not_visible": ""
+  },
+  "duration_ms": 15155,
+  "token_usage": {
+    "input": 4232,
+    "output": 524
+  },
+  "timestamp": "2026-04-12T19:41:50.430Z"
+}

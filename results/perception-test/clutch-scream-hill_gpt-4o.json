@@ -1,0 +1,23 @@
+{
+  "clip": "clutch-scream-hill",
+  "model": "gpt-4o",
+  "model_id": "gpt-4o",
+  "frames_extracted": 16,
+  "frame_dimensions": "1920x1080",
+  "prompt_version": "perception_v1",
+  "response_raw": "1. Rider objective & context\n   - The rider appears to be navigating through a forested area on an off-road motorcycle.\n\n2. Rider\n   - The rider is wearing a helmet and protective gear. The motorcycle is red with visible branding.\n\n3. Terrain & environment\n   - The environment is a forest with numerous trees and a dirt path. The ground is covered with leaves, branches, and some rocks.\n\n4. Events\n   - The rider is seen moving through the forest, navigating between trees and over uneven terrain. At one point, the motorcycle is on the ground.\n\n5. Outcome\n   - The motorcycle is shown lying on its side on the ground.\n\n6. Unclear or not visible\n   - The specific actions leading to the motorcycle being on the ground are not visible. The rider's exact movements and expressions are not clear.",
+  "response_parsed": {
+    "rider_objective_context": "- The rider appears to be navigating through a forested area on an off-road motorcycle.",
+    "rider": "- The rider is wearing a helmet and protective gear. The motorcycle is red with visible branding.",
+    "terrain_environment": "- The environment is a forest with numerous trees and a dirt path. The ground is covered with leaves, branches, and some rocks.",
+    "events": "- The rider is seen moving through the forest, navigating between trees and over uneven terrain. At one point, the motorcycle is on the ground.",
+    "outcome": "- The motorcycle is shown lying on its side on the ground.",
+    "unclear_not_visible": "- The specific actions leading to the motorcycle being on the ground are not visible. The rider's exact movements and expressions are not clear."
+  },
+  "duration_ms": 11895,
+  "token_usage": {
+    "input": 17785,
+    "output": 172
+  },
+  "timestamp": "2026-04-12T19:38:58.555Z"
+}

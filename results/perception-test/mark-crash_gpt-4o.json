@@ -1,0 +1,23 @@
+{
+  "clip": "mark-crash",
+  "model": "gpt-4o",
+  "model_id": "gpt-4o",
+  "frames_extracted": 16,
+  "frame_dimensions": "1920x1080",
+  "prompt_version": "perception_v1",
+  "response_raw": "1. Rider objective & context\n   - The rider is navigating a downhill slope on an off-road motorcycle.\n\n2. Rider\n   - The rider is wearing a red helmet and dark clothing. They are on a red motorcycle.\n\n3. Terrain & environment\n   - The terrain is rocky and uneven with patches of grass and dirt. There are visible tracks and a small hill in the background.\n\n4. Events\n   - The rider descends the slope, becomes airborne, and then lands. The motorcycle tips forward, causing the rider to fall off and slide on the ground.\n\n5. Outcome\n   - The rider falls off the motorcycle and ends up on the ground with the motorcycle beside them.\n\n6. Unclear or not visible\n   - The specific reason for the fall is not visible. The rider's condition after the fall is not clear.",
+  "response_parsed": {
+    "rider_objective_context": "- The rider is navigating a downhill slope on an off-road motorcycle.",
+    "rider": "- The rider is wearing a red helmet and dark clothing. They are on a red motorcycle.",
+    "terrain_environment": "- The terrain is rocky and uneven with patches of grass and dirt. There are visible tracks and a small hill in the background.",
+    "events": "- The rider descends the slope, becomes airborne, and then lands. The motorcycle tips forward, causing the rider to fall off and slide on the ground.",
+    "outcome": "- The rider falls off the motorcycle and ends up on the ground with the motorcycle beside them.",
+    "unclear_not_visible": "- The specific reason for the fall is not visible. The rider's condition after the fall is not clear."
+  },
+  "duration_ms": 13171,
+  "token_usage": {
+    "input": 17785,
+    "output": 171
+  },
+  "timestamp": "2026-04-12T19:44:31.711Z"
+}
