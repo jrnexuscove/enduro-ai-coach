@@ -290,7 +290,7 @@ async function extractFrames(clip: ClipDef): Promise<FrameExtractionResult> {
         .seekInput(timestamps[i])
         .frames(1)
         .output(outputPath)
-        .size("1920x?")
+        .size("1920x1080?")  // cap both dims — portrait videos (rotate=90 metadata) otherwise scale to ~1920x3413
         .on("end", () => resolve())
         .on("error", (err: Error) => reject(err))
         .run();
@@ -323,13 +323,19 @@ async function getFrameDimensions(framePath: string): Promise<string> {
 // ---------------------------------------------------------------------------
 
 function parseResponse(raw: string): ParsedResponse {
+  // Gemini uses several heading formats depending on the run:
+  //   "1. Heading"         — bare numbered (e.g. nick-crash)
+  //   "1.  **Heading**"    — bold-numbered (e.g. steep-hill-bail, jimbo-crash, long-hill)
+  //   "### 1. Heading"     — H3-numbered (e.g. clutch-scream, fall-bulgario)
+  // \*{0,2}\s* skips optional ** markers between the number and heading text.
+  // [^*:\n]* stops before closing ** so contentStart lands after the full heading.
   const headings: Array<{ field: keyof ParsedResponse; pattern: RegExp }> = [
-    { field: "rider_objective_context", pattern: /1\.\s*Rider objective[^:\n]*/i },
-    { field: "rider",                   pattern: /2\.\s*Rider(?!\s+objective)[^:\n]*/i },
-    { field: "terrain_environment",     pattern: /3\.\s*Terrain[^:\n]*/i },
-    { field: "events",                  pattern: /4\.\s*Events[^:\n]*/i },
-    { field: "outcome",                 pattern: /5\.\s*Outcome[^:\n]*/i },
-    { field: "unclear_not_visible",     pattern: /6\.\s*Unclear[^:\n]*/i },
+    { field: "rider_objective_context", pattern: /1\.\s*\*{0,2}\s*Rider objective[^*:\n]*/i },
+    { field: "rider",                   pattern: /2\.\s*\*{0,2}\s*Rider(?!\s+objective)[^*:\n]*/i },
+    { field: "terrain_environment",     pattern: /3\.\s*\*{0,2}\s*Terrain[^*:\n]*/i },
+    { field: "events",                  pattern: /4\.\s*\*{0,2}\s*Events[^*:\n]*/i },
+    { field: "outcome",                 pattern: /5\.\s*\*{0,2}\s*Outcome[^*:\n]*/i },
+    { field: "unclear_not_visible",     pattern: /6\.\s*\*{0,2}\s*Unclear[^*:\n]*/i },
   ];
 
   const result: ParsedResponse = {
@@ -355,7 +361,10 @@ function parseResponse(raw: string): ParsedResponse {
       if (nextMatch) contentEnd = nextMatch.index;
     }
 
-    result[field] = raw.slice(contentStart, contentEnd).replace(/^[\s:]+/, "").trimEnd();
+    result[field] = raw.slice(contentStart, contentEnd)
+      .replace(/^[\s:*]+/, "")       // strip leading whitespace, colons, ** markers
+      .replace(/\s*[#*]+\s*$/, "")   // strip trailing ### or ** (next-heading prefix leaked in)
+      .trimEnd();
   }
 
   return result;

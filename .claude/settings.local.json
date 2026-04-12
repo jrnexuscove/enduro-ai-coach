@@ -16,7 +16,9 @@
       "mcp__mempalace__mempalace_diary_read",
       "mcp__context7__resolve-library-id",
       "mcp__mempalace__mempalace_search",
-      "mcp__context7__query-docs"
+      "mcp__context7__query-docs",
+      "Bash(ffprobe \"C:\\\\Users\\\\rigge\\\\OneDrive\\\\Videos\\\\Enduro ai coach test clips\\\\colin hill.mp4\")",
+      "Bash(c:/Projects/Enduro-AI-Coach/node_modules/ffprobe-static/bin/win32/x64/ffprobe.exe \"C:\\\\Users\\\\rigge\\\\OneDrive\\\\Videos\\\\Enduro ai coach test clips\\\\colin hill.mp4\")"
     ]
   }
 }
