@@ -1,6 +1,6 @@
 # RideMind — Backlog
 
-**Last updated:** 2026-04-10 (S5/S6 outcome redesign complete; perception viability experiment queued)
+**Last updated:** 2026-04-12 (PVE complete; Claude Sonnet locked as primary perception model; Vision Layer spec next)
 **Current phase:** Phase 3 — Reasoning Pipeline + KB Build
 **Master plan:** `docs/ridemind-phase3-master-plan-v1.md`
 
@@ -29,26 +29,29 @@
 | S7-RECALL | Pipeline | Stage 7 crash recall fix — trigger broadened to include bail/stuck/tip_over outcomes and fallen/losing_balance segment states. | **COMMITTED (36b1274, 2026-04-10)** | S6-PATCH ✓ |
 | S6-REG | Pipeline | Regression test S6 patch on Long Hill, Nick Crash, Colin Hill, Steep Hill Bail. | **COMPLETE (2026-04-10) — 1/4 pass** (after S6 Rules 9-12). Long Hill PASS (outcome gate held). Nick Crash FAIL (S3+S5 missed crash). Colin Hill FAIL (bail misread as stall → S6 momentum logically correct on bad input). Steep Hill Bail FAIL (line_choice plausible but expectation gap). Root finding: S6 Rules 9-12 working correctly — failures are S5 perception errors. | S6-PATCH ✓ |
 | S5S6-REG2 | Pipeline | Regression after S5/S6 outcome semantics redesign (completed/stall/bail/crash/stuck/unknown; progress_assessment; control_assessment). | **COMPLETE (2026-04-10) — 1/4 pass.** Long Hill **PASS** (S5=completed, outcome gate held). Nick Crash **FAIL** (perception limit — models cannot see crash-after-jumps from still frames). Colin Hill **FAIL** (S3→S5 stall bias — dismount misread as stall, making S6 momentum correct on bad input). Steep Hill Bail **mixed** (crash correctly detected; S6 taxonomy gap — technique vs unknown across runs). **Conclusion: S5/S6 prompt iteration PAUSED — diminishing returns at prompt layer. Bottleneck is model perception, not reasoning logic.** | S6-REG ✓ |
-| UI-WIRE-1 | UI | Wire real pipeline into UI API route — set USE_MOCK = false, connect `runFullPipeline` + `formatResult` in `app/api/analyze/route.ts` | Not started | S5S6-REG2 |
+| VISION-LAYER-1 | Pipeline | Vision Layer MVP spec — Stage 0 observability gating; Claude Sonnet as default perception model; route A (Claude only) vs route B (Gemini audio-check on uncertain outcomes); filming guidance requirement | Not started | PVE-GATE ✓ |
+| UI-WIRE-1 | UI | Wire real pipeline into UI API route — set USE_MOCK = false, connect `runFullPipeline` + `formatResult` in `app/api/analyze/route.ts`; use Claude Sonnet as perception model | Not started | VISION-LAYER-1 |
 | UI-TEST-1 | UI | Run all 8 known test clips through the UI and evaluate coaching output as a rider | Not started | UI-WIRE-1 |
 
 ---
 
-## Perception Viability Experiment (P0)
+## Perception Viability Experiment (P0) — COMPLETE
 
-**Goal:** Determine whether any current model can reliably perceive riding events before investing further in pipeline prompt engineering. Run before wiring real pipeline into UI.
+**Goal:** Determine whether any current model can reliably perceive riding events before investing further in pipeline prompt engineering.
 
 | ID | Task | Status | Notes |
 |----|------|--------|-------|
-| PVE-1 | Build perception test script — 3 clips × 3 models (GPT-4o, Gemini 2.5 Flash, Claude), no pipeline, single structured observation prompt | Not started | Prompt asks for: outcome, key events, terrain, rider state, confidence. No staging or chaining. |
-| PVE-2 | Run test on Nick Crash, Colin Hill, Steep Hill Bail | Not started | PVE-1 |
-| PVE-3 | Score results against ground truth: 6 criteria — rider objective, outcome, event sequence, terrain/features, visibility handling, hallucination — each 0/1/2 with evidence note | Not started | PVE-2 |
-| PVE-GATE | Decision gate: route to action based on results | Not started | PVE-3 |
+| PVE-1 | Build perception test script — standalone harness, 3 models, no pipeline, `perception_v1` prompt | **COMPLETE (2026-04-12)** | `scripts/perception-test.ts` |
+| PVE-2 | Run full 8-clip × 3-model frame suite + 8-clip Gemini video track | **COMPLETE (2026-04-12)** | 32 runs total. Results in `results/perception-test/` |
+| PVE-3 | Score all 32 runs against ground truth | **COMPLETE (2026-04-12)** | `results/perception-test/pve-scores-v1.md` |
+| PVE-GATE | Decision gate: architecture call based on results | **COMPLETE (2026-04-12)** | Claude Sonnet primary. GPT-4o excluded. Gemini video = audio-check only. |
 
-**Decision gate logic:**
-- If one model sees clearly and consistently → route S1–S5 perception stages to that model; resume pipeline investment
-- If all models are inconsistent on ambiguous clips → need CV layer, video-native model, or higher frame density before further pipeline prompt work
-- If all models fail on factual events → rethink frame strategy (density, resolution, temporal coverage) before any model routing decision
+**Decision gate outcome:**
+- Claude Sonnet = primary perception model for MVP (69.8%, safest ambiguity handling)
+- GPT-4o excluded — 45.8%, confident hallucination is a pipeline-poisoning risk
+- Gemini video NOT a replacement for frames — net delta −1 (wins some POV clips, loses on others); narrow role as audio-check on uncertain-outcome clips
+- Footage type dominates: POV ~8.1/12, distant 3rd-person ~3.5/12 — structural constraint, not a model problem
+- Colin Hill bail is structurally invisible (4/12 across three Gemini configs) — camera geometry problem; do not attempt to fix with prompting
 
 ---
 
@@ -133,6 +136,7 @@
 
 | ID | Task | Status | Blocked By |
 |----|------|--------|------------|
+| UPLOAD-GUIDE-1 | Add filming guidance to upload screen — "POV or close-range footage gives best results"; backed by PVE data (POV avg 8.1/12 vs distant 3rd-person 3.5/12 across all models) | Not started | UI-WIRE-1 |
 | UI-MOBILE | Fix mobile access — determine correct WiFi IP, check Windows Firewall for port 3000 | Not started | — |
 | UI-CONF | Replace confidence % with plain English (high/moderate/limited) per ui-standards.md | Not started | UI-TEST-1 |
 | UI-ERROR | Error and fallback UX — intelligent failure messages when analysis fails or confidence is low | Not started | UI-WIRE-1 |
@@ -181,6 +185,9 @@
 | E14 | Investigate GPT-4o visual refusal causes | **PARTIAL** — confirmed as known intermittent model behaviour; 2-retry loop with repair prompts added as mitigation. Root cause not fully investigated. | — |
 | V4 | Resolve Colin Hill outcome variance: stall vs stuck vs crash classification inconsistency across pipeline runs | Not started | E-WIRE7 |
 | V5 | Colin Hill re-validation after multi-model perception layer — body position detection and clutch/audio sensing expected to improve primary cause accuracy on ambiguous clips | Not started | PERC-1 |
+| GEMINI-AUDIO-1 | Gemini audio-check track design — when and how to trigger secondary Gemini video call for uncertain outcome classification; define trigger conditions and output contract | Not started | VISION-LAYER-1 |
+| SDK-MIGRATE-1 | Google SDK migration from `@google/generative-ai` to `@google/genai` (flagged in landscape review 2026-04-12) | Not started | — |
+| GPT54-EVAL | GPT-5.4 evaluation for reasoning stages S5–S9 — landscape review flagged improved structured output; test on 3 clips before committing | Not started | — |
 | AUDIO-1 | Audio extraction implementation: extract engine RPM pattern, rider speech, impact sounds as structured input for pipeline stages 3–8 | Not started | — |
 | S11-V2A | Wire Stage 7 severity into Stage 11 business rules — stricter severity_mismatch enforcement (v2; currently Stage 7 not passed into Stage 11) | Not started | — |
 | S11-V2B | Stage 11 retry loop: feed failure reasons back to Stage 10, max 1 retry then hard fail (v2 correction path) | Not started | — |
@@ -235,6 +242,16 @@
 | LTA-1 | Deterministic CV layer (YOLO / motion tracking / pose estimation) for factual perception + LLM for reasoning and coaching | Not started | Motivated by S5/S6 regression — LLM vision is non-deterministic on ambiguous clips. See also FC-2. |
 | LTA-2 | Video-native model evaluation — test models with native video input vs. extracted frames for event detection and timing | Not started | Current approach (16 still frames → narrative) may be a structural ceiling. See also FC-3. |
 | LTA-3 | Sensor data as future perception input — IMU/GPS data (RideLinc, TwoNav) as structured factual input to supplement or replace LLM perception | Not started | IMU gives ground truth speed, lean angle, g-force at crash moment. Long-term roadmap. See also FC-4. |
+
+### Technology Landscape
+
+| ID | Task | Status | Notes |
+|----|------|--------|-------|
+| LANDSCAPE-REV | Monthly technology landscape review — scan models, CV tools, and video AI against RideMind requirements | **RECURRING** — next due 2026-05-12 | First review at `docs/landscape-review.md` (2026-04-12) |
+| TWLABS-BENCH | TwelveLabs Pegasus 1.2 benchmark — run 3 PVE clips through video-native pipeline; compare event detection vs frame-based approach | Not started | Low priority; gated on production stability |
+| YOLO26-POC | YOLO26 pose estimation PoC — validate body position detection on 1–2 clips; inform long-term CV layer architecture | Not started | Low priority; see FC-2/LTA-1 |
+
+---
 
 ### Non-Blocking Cleanup (do anytime)
 

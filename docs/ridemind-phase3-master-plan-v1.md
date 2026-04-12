@@ -15,11 +15,11 @@
 | Gate 3 — Pipeline v1 implemented | PASSED (2026-04-09) — All 11 stages. T1 8-clip retest complete. |
 | S6/S7 prompt fixes | COMMITTED (36b1274, 2026-04-10) — S6-REG complete (1/4 pass); S5S6-REG2 complete (1/4 pass) |
 | S5 stall/bail/completed disambiguation | COMMITTED (b48daf0, 2026-04-10) — positive-evidence rule, end-of-clip deceleration rule |
-| Perception viability experiment | IN PROGRESS — spec + ground truth complete; script not yet built |
+| Perception viability experiment | COMPLETE (2026-04-12) — 32 runs; Claude 69.8%, Gemini frames 66.7%, Gemini video 65.6%, GPT-4o 45.8%. Decision: Claude Sonnet primary. |
 | UI v1 Milestone 1 | COMPLETE (4855734, 2026-04-10) — mock data, running at localhost:3000 |
 | UI v1 Milestone 2 | NOT STARTED — wire real pipeline (USE_MOCK = false), run 8 test clips |
 
-**Next action:** PVE-1 — build `scripts/perception-test.ts` (3 clips × 3 models, no pipeline, `perception_v1` prompt). After perception gate: UI-WIRE-1 (wire real pipeline into UI).
+**Next action:** VISION-LAYER-1 — Vision Layer MVP spec (Stage 0 observability gating, Claude Sonnet default, route A/B). Then UI-WIRE-1 (wire real pipeline, Claude as perception model).
 
 ---
 
@@ -676,6 +676,34 @@ Single-page state machine running at localhost:3000 with mock data. Architecture
 - **Mobile-first:** 375px design first (riders use this on phone post-ride)
 - **Current UI is a test harness** — text output is sufficient for pipeline dev; real product requires video replay, failure markers, and visual body position guidance
 - **Product insight:** "Riders need to be shown, not told" — the real product must show video replay with failure point markers, visual corrections, and animated guidance
+
+### Completed: Perception Viability Experiment (2026-04-12)
+
+32-run experiment: 8 clips × 3 models (frame-based) + 8 clips Gemini video track via Files API. Script: `scripts/perception-test.ts`. Results: `results/perception-test/`. Scores: `results/perception-test/pve-scores-v1.md`.
+
+| Clip | Camera | GPT-4o | Gemini frames | Claude | Gemini video | Video delta |
+|------|--------|--------|---------------|--------|--------------|-------------|
+| Colin Hill | 3rd-person, mid | 2 | 4 | 7 | 4 | = |
+| Nick Crash | 3rd-person, distant | 2 | 4 | 4 | 7 | +3 |
+| Steep Hill Bail | POV | 10 | 11 | 11 | 7 | −4 |
+| Clutch Scream Hill | POV | 5 | 10 | 10 | 8 | −2 |
+| Jimbo Crash | POV | 5 | 8 | 7 | 8 | = |
+| Mark Crash | 3rd-person, close | 9 | 9 | 11 | 8 | −1 |
+| Fall Bulgario | POV | 4 | 8 | 9 | 10 | +2 |
+| Long Hill | POV | 7 | 10 | 8 | 11 | +1 |
+| **Total** | | **44/96 (45.8%)** | **64/96 (66.7%)** | **67/96 (69.8%)** | **63/96 (65.6%)** | **−1** |
+
+**Decisions locked:**
+- Claude Sonnet = primary perception model for MVP (69.8%, safest ambiguity handling)
+- GPT-4o excluded from primary perception path — confident hallucination on ambiguous clips poisons the reasoning pipeline
+- Gemini video is NOT a replacement for frames (net delta −1); narrow role as audio-check on uncertain-outcome clips only
+- Gemini 2.5 Flash `thinkingBudget: 0` for structured observation tasks
+- Footage type dominates model choice — POV ~8.1/12, distant 3rd-person ~3.5/12; structural constraint
+- Colin Hill bail structurally invisible (4/12 across three Gemini configs) — camera geometry problem, not a prompt problem
+- User filming guidance ("POV or close-range preferred") is a product requirement, backed by empirical data
+- Monthly technology landscape review established; first review `docs/landscape-review.md`
+
+---
 
 ### Not Yet Started: Dynamics KB (Option A), Skill Tag Taxonomy
 

@@ -1,6 +1,6 @@
 # CLAUDE.md — RideMind Project Context
 
-**Last updated:** 2026-04-10 (S5/S6 outcome semantics redesign complete; perception viability experiment up next)
+**Last updated:** 2026-04-12 (PVE complete; Claude Sonnet locked as primary perception model; Vision Layer MVP spec next)
 
 ## What is RideMind?
 
@@ -45,23 +45,40 @@ RideMind is a **physics-aware, terrain-aware, machine-aware riding intelligence 
 - **Option B confirmed:** UI first, KB retrieval after. Build the product loop before wiring KB into Stage 10. KB retrieval becomes a quality upgrade behind a working interface.
 - **Mobile-first, desktop-compatible:** Riders primarily use RideMind on phone after rides. Design for 375px first. Documented in `docs/ui-standards.md`.
 - **Three-layer separation:** pipeline output (raw/internal) → `lib/format-result.ts` (formatter) → UI components (presentation only). Pipeline changes must not break UI.
-- **Next action:** Perception viability experiment — raw model comparison (GPT-4o, Gemini 2.5 Flash, Claude) on 3 clips (Nick Crash, Colin Hill, Steep Hill Bail) with no pipeline, single structured observation prompt. Goal: determine whether any current model can reliably perceive riding events before investing further in prompt engineering. Decision gate: if one model sees clearly → route perception stages to that model; if all are inconsistent → need CV layer or video-native model before further pipeline work.
+- **Perception Viability Experiment — COMPLETE (2026-04-12).** 32-run experiment across 8 clips: 24 frame-based runs (8 clips × 3 models) + 8 Gemini video runs. Decision gate passed. Final scores: Claude Sonnet 69.8% (67/96) | Gemini 2.5 Flash frames 66.7% (64/96) | Gemini video 65.6% (63/96) | GPT-4o 45.8% (44/96). Script at `scripts/perception-test.ts`. Results at `results/perception-test/`. Scores at `results/perception-test/pve-scores-v1.md`.
+- **Perception architecture — LOCKED:** Claude Sonnet is the primary perception model for MVP. Safest ambiguity handling, least likely to inject false facts into the reasoning pipeline. GPT-4o excluded from primary perception path — confident hallucination on ambiguous clips is a pipeline-poisoning risk. Gemini video is NOT a replacement for frames (net delta −1 across 8 clips); has a narrow role as optional audio-check on clips where outcome classification is uncertain.
+- **Footage type insight:** POV clips average ~8.1/12, distant 3rd-person ~3.5/12 across all models and configurations. This is a structural constraint, not a model problem. Camera geometry dominates model choice. Colin Hill bail is structurally invisible — 4/12 across three different Gemini configurations (frames pre-fix, frames post-fix, video). Stop trying to fix Colin Hill with prompting; it is a camera geometry problem.
+- **Gemini thinkingBudget:** Gemini 2.5 Flash thinking should be disabled for structured observation tasks. `thinkingBudget: 0` is the correct setting — thinking tokens consume output budget without improving structured output.
+- **Monthly landscape review — ESTABLISHED.** First review complete 2026-04-12 at `docs/landscape-review.md`. Scanned: GPT-5.4, Gemini 2.5/3.1, TwelveLabs Pegasus 1.2, YOLO26, Qwen3-VL. Next review due 2026-05-12.
+- **User filming guidance is a product requirement.** "POV or close-range preferred" belongs on the upload screen, backed by empirical PVE data (POV avg 8.1/12 vs distant 3rd-person 3.5/12 across all models).
+- **Next action:** Vision Layer MVP spec — design Stage 0 observability gating with Claude Sonnet as default perception model; define route A (Claude only) vs route B (Gemini audio-check on uncertain outcomes). Then UI-WIRE-1.
 - **Domain 16 architecture — LOCKED:** Stock bike data only. Rider modifications belong on the user profile layer. For MVP, both in one file with clear separation. **Schema 4 added to `docs/kb-schemas-v1.md` (v1.3, 2026-04-03).** File naming locked: stock = `[mfr]-[model]-[year].md`, rider-layer = `[mfr]-[model]-[year]--[rider].md`. Machine KB entries are factual reference only — no coaching, no pipeline logic, no rider psychology, no improvement language.
 
-### Perception Viability Experiment
+### Perception Viability Experiment — COMPLETE (2026-04-12)
 
-- **Status:** Spec complete, ground truth written for all 8 clips, script not yet built
+- **Status:** COMPLETE — decision gate passed
 - **Spec:** `docs/perception-test-spec-v1.md`
 - **Ground truth:** `results/perception-test/ground-truth/` — 8 files covering all Phase 2 clips
-- **Test scope:** 3 clips (Nick Crash, Colin Hill, Steep Hill Bail) × 3 models (GPT-4o, Gemini 2.5 Flash, Claude Sonnet) = 9 runs
+- **Script:** `scripts/perception-test.ts` — standalone harness, isolated from pipeline
+- **Scope executed:** 8 clips × 3 models (frame-based) + 8 clips × Gemini video track = 32 runs total
 - **Prompt version:** `perception_v1` — structured headings, no pipeline/KB/coaching, anti-hallucination instruction, explicit "Unclear or not visible" section
 - **Scoring:** 6 criteria — rider objective, outcome, event sequence, terrain/features, visibility handling, hallucination — each 0/1/2 with evidence note
-- **Decision gate:** results determine whether to route perception to best model, rethink frame strategy, or explore CV layer
-- **Key design decisions:**
-  - "Rider objective & context" is heading 1 — intent frames all other observations
-  - Same 16 frames to all models (no Gemini video shortcut) — fair cross-model comparison
-  - Visibility handling scored separately from hallucination — false certainty is a distinct failure mode
-  - All 8 clips have ground truth ready for Phase 2 expansion
+
+**Final results (four-track comparison):**
+
+| Clip | Camera | GPT-4o | Gemini frames | Claude | Gemini video | Video delta |
+|------|--------|--------|---------------|--------|--------------|-------------|
+| Colin Hill | 3rd-person, mid | 2 | 4 | 7 | 4 | = |
+| Nick Crash | 3rd-person, distant | 2 | 4 | 4 | 7 | +3 |
+| Steep Hill Bail | POV | 10 | 11 | 11 | 7 | −4 |
+| Clutch Scream Hill | POV | 5 | 10 | 10 | 8 | −2 |
+| Jimbo Crash | POV | 5 | 8 | 7 | 8 | = |
+| Mark Crash | 3rd-person, close | 9 | 9 | 11 | 8 | −1 |
+| Fall Bulgario | POV | 4 | 8 | 9 | 10 | +2 |
+| Long Hill | POV | 7 | 10 | 8 | 11 | +1 |
+| **Total** | | **44/96 (45.8%)** | **64/96 (66.7%)** | **67/96 (69.8%)** | **63/96 (65.6%)** | **−1** |
+
+**Decision gate outcome:** Claude Sonnet primary perception model. Gemini video not a replacement for frames. GPT-4o excluded from primary path. Details captured in "Where We Are" bullets above.
 
 ### Key Phase 2 Findings
 
@@ -173,8 +190,11 @@ scripts/
   test-coaching-gemini.ts # Gemini test runner (Phase 2)
   phase2-batch-runner.ts  # Batch runner for Phase 2
   t1-batch-runner.ts    # T1 full 8-clip batch runner
+  perception-test.ts    # PVE standalone harness — 3-model frame + Gemini video track
   phase2-results/       # Phase 2 raw outputs
   t1-results.json       # T1 full retest results
+results/
+  perception-test/      # PVE results — 32 JSON files + pve-scores-v1.md + ground-truth/
 ```
 
 ## Tech Stack
@@ -196,6 +216,7 @@ scripts/
 - `docs/phase2-evaluation-framework.md` — Scoring rubric
 - `docs/backlog.md` — Current task backlog with gates
 - `docs/ui-standards.md` — Mobile-first design rules, v1 scope boundaries
+- `docs/landscape-review.md` — Monthly technology landscape review (first: 2026-04-12)
 - `docs/architecture-principles.md` — System design principles
 - `docs/mvp-scope.md` — MVP definition
 - `docs/product-vision.md` — Long-term vision
