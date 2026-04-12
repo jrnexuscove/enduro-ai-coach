@@ -14,10 +14,12 @@
     "outcome": "- The rider falls off the motorcycle and ends up on the ground with the motorcycle beside them.",
     "unclear_not_visible": "- The specific reason for the fall is not visible. The rider's condition after the fall is not clear."
   },
-  "duration_ms": 13171,
+  "duration_ms": 37644,
   "token_usage": {
     "input": 17785,
-    "output": 171
+    "output": 171,
+    "think_tokens": 0,
+    "finish_reason": "n/a"
   },
-  "timestamp": "2026-04-12T19:44:31.711Z"
+  "timestamp": "2026-04-12T21:04:56.051Z"
 }

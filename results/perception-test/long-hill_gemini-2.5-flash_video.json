@@ -1,0 +1,25 @@
+{
+  "clip": "long-hill",
+  "model": "gemini-2.5-flash",
+  "model_id": "gemini-2.5-flash",
+  "frames_extracted": 0,
+  "frame_dimensions": "1920x1080",
+  "prompt_version": "perception_v1",
+  "response_raw": "Here's a description of the frames:\n\n1. Rider objective & context\nThe rider is participating in off-road motorcycle riding, likely as a recreational activity. The rider is attempting to ascend a steep, leaf-covered incline in a forest.\n\n2. Rider\nThe rider is wearing a helmet, goggles, and protective gear including a red and black jacket, gloves, and pants. The rider is operating a red dirt bike. The rider is visible in the first frame, and their hands and the front of the motorcycle are visible in subsequent frames.\n\n3. Terrain & environment\nThe terrain is a steep, upward-sloping hill covered in dry, brown leaves and some scattered rocks and branches. There is a narrow, worn path visible through the leaves. The environment is a dense forest with tall, slender trees, some with green foliage and others bare. The sky is overcast. In the first frame, a wider dirt road is visible at the bottom of the incline, and distant hills or mountains are visible in the background.\n\n4. Events\nIn the first frame, three riders are gathered on a dirt road. The rider whose perspective is shown then turns onto a steep, leaf-covered incline. The rider begins to ascend the incline, with the camera shaking and the sound of the motorcycle engine revving. The rider continues to ascend the hill, navigating through the trees and over the leaf-covered ground. The rider's hands are visible on the handlebars, operating the controls.\n\n5. Outcome\nThe rider successfully ascends the steep, leaf-covered incline.\n\n6. Unclear or not visible\nThe exact speed of the motorcycle is not visible. The full extent of the trail or the destination is not visible. The faces of the riders are not clearly visible due to helmets and distance.",
+  "response_parsed": {
+    "rider_objective_context": "The rider is participating in off-road motorcycle riding, likely as a recreational activity. The rider is attempting to ascend a steep, leaf-covered incline in a forest.",
+    "rider": "The rider is wearing a helmet, goggles, and protective gear including a red and black jacket, gloves, and pants. The rider is operating a red dirt bike. The rider is visible in the first frame, and their hands and the front of the motorcycle are visible in subsequent frames.",
+    "terrain_environment": "The terrain is a steep, upward-sloping hill covered in dry, brown leaves and some scattered rocks and branches. There is a narrow, worn path visible through the leaves. The environment is a dense forest with tall, slender trees, some with green foliage and others bare. The sky is overcast. In the first frame, a wider dirt road is visible at the bottom of the incline, and distant hills or mountains are visible in the background.",
+    "events": "In the first frame, three riders are gathered on a dirt road. The rider whose perspective is shown then turns onto a steep, leaf-covered incline. The rider begins to ascend the incline, with the camera shaking and the sound of the motorcycle engine revving. The rider continues to ascend the hill, navigating through the trees and over the leaf-covered ground. The rider's hands are visible on the handlebars, operating the controls.",
+    "outcome": "The rider successfully ascends the steep, leaf-covered incline.",
+    "unclear_not_visible": "The exact speed of the motorcycle is not visible. The full extent of the trail or the destination is not visible. The faces of the riders are not clearly visible due to helmets and distance."
+  },
+  "duration_ms": 315527,
+  "token_usage": {
+    "input": 16919,
+    "output": 367,
+    "think_tokens": 0,
+    "finish_reason": "STOP"
+  },
+  "timestamp": "2026-04-12T21:03:43.345Z"
+}

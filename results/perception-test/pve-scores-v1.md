@@ -153,17 +153,17 @@ Criterion 6 (Hallucination) is inverted: **2 = no hallucination, 1 = minor, 0 = 
 
 #### Colin Hill × Gemini 2.5 Flash
 
-> ⚠️ **Technical failure — response truncated at 80 output tokens (was 57 tokens on prior run).** `maxOutputTokens` fix reduced the problem for most clips but Colin Hill remains severely truncated — likely due to the non-standard 1920×3412 frame dimensions. Only a fragment of sections 1–2 is present; sections 3–6 are absent.
+> ℹ️ **Re-run after thinking token bug fix.** Previous run was truncated at 80 output tokens; this run produced 447 tokens with all 6 sections present. Duration: 6.7s; think_tokens: 0; finish_reason: STOP.
 
 | # | Criterion | Score | Evidence note |
 |---|-----------|:-----:|---------------|
-| 1 | Rider objective | **1** | "First approaching, then ascending" — direction correct; "subsequently descending" is wrong (rider bailed, did not descend) |
-| 2 | Outcome | **0** | Section absent — response truncated before reaching it |
-| 3 | Event sequence | **0** | Section absent — response truncated before reaching it |
-| 4 | Terrain / features | **0** | Section absent — response truncated before reaching it |
-| 5 | Visibility handling | **0** | Section absent — response truncated before reaching it |
-| 6 | Hallucination | **1** | "Subsequently descending" is wrong; single false claim in an otherwise short fragment |
-| | **Total** | **2 / 12** | |
+| 1 | Rider objective | **1** | "Ascending a hill or mountain slope; forested, rocky environment" — uphill direction and terrain type correct; hill climb attempt framing absent; berm at beginning not mentioned |
+| 2 | Outcome | **0** | "Motorcycle continues to move forward and ascend the trail, kicking up dust. The rider remains on the motorcycle throughout the visible sequence." — rider bailed |
+| 3 | Event sequence | **1** | Gets: approaching camera, passing camera, continuing up trail, rear wheel kicking up dust (frames 3–15), navigating a turn; rear wheel dust consistent with wheel spin during struggle; bail sequence entirely absent |
+| 4 | Terrain / features | **1** | "Loose rocks and gravel, winding and ascending trail, tall pine forest, dry reddish-brown foliage" — rocky, winding, dry correct; berm and tree roots absent |
+| 5 | Visibility handling | **1** | Standard limits noted (speed, make/model, facial features); clip-specific visibility issue (rider briefly behind two trees) not acknowledged |
+| 6 | Hallucination | **0** | "Rider remains on the motorcycle throughout the visible sequence" — confident false claim; rider bailed. "Transitions to a standing position" — rider remained seated throughout; foot off peg ≠ standing |
+| | **Total** | **4 / 12** | |
 
 ---
 
@@ -441,17 +441,17 @@ Criterion 6 (Hallucination) is inverted: **2 = no hallucination, 1 = minor, 0 = 
 
 #### Mark Crash × Gemini 2.5 Flash
 
-> ⚠️ **Technical failure — response truncated at 113 output tokens.** Section 1 is present (partial); section 2 is cut off mid-sentence; sections 3–6 are absent. Gemini capability cannot be assessed from this run.
+> ℹ️ **Re-run after thinking token bug fix.** Previous run was truncated at 113 output tokens; this run produced 453 tokens with all 6 sections present. Duration: 6.6s; think_tokens: 0; finish_reason: STOP.
 
 | # | Criterion | Score | Evidence note |
 |---|-----------|:-----:|---------------|
-| 1 | Rider objective | **1** | "Navigating a dirt track on a hillside; track marked with white poles or tape; two individuals observing from distant ridge" — partial; correctly identifies marked course and spectators but no descent/jump framing |
-| 2 | Outcome | **0** | Section absent — truncated before reaching it |
-| 3 | Event sequence | **0** | Section absent — truncated before reaching it |
-| 4 | Terrain / features | **0** | Section absent — truncated before reaching it |
-| 5 | Visibility handling | **0** | Section absent — truncated before reaching it |
-| 6 | Hallucination | **2** | Available content (marked course, spectators, rider gear) is accurate and consistent with video evidence |
-| | **Total** | **3 / 12** | |
+| 1 | Rider objective | **1** | "Navigating a dirt track in a hilly, open environment; track marked with white flags; individuals on distant ridge" — marked course and spectators correct; descent and jump at bottom not framed as the primary objective |
+| 2 | Outcome | **2** | "Rider and motorcycle fall to the ground and slide to a stop. Rider lying on their left side. Rider raises right arm." — crash correctly identified with post-crash state |
+| 3 | Event sequence | **2** | Frame-specific: downhill slope → front wheel lifts frames 6–7 (jump/airborne) → tilted left frame 8 → falls to side with rider attached frame 9 → slides to stop frame 13 → rider raises arm frames 14–15 — full structural sequence captured; mechanism (weight-back → rebound → overrotation) not named |
+| 4 | Terrain / features | **1** | "Loose dirt, gravel, larger rocks, dark grey-brown; tracks/ruts; hilly backdrop; flags/markers visible" — rocky/loose terrain correct; shaley hill and jump at bottom (key terrain feature) not identified |
+| 5 | Visibility handling | **1** | Speed and facial expression valid; "reason for front wheel lifting not visible" over-hedges on a clear clip — ground truth states nothing is unclear |
+| 6 | Hallucination | **2** | All claims consistent with visual evidence; "front wheel lifts" is an accurate description of the jump airborne phase; no fabricated elements |
+| | **Total** | **9 / 12** | |
 
 ---
 
@@ -476,17 +476,17 @@ Cells = total score out of 12. Rows ordered by clip difficulty (hardest first).
 | Clip | Camera | GPT-4o | Gemini 2.5 Flash | Claude Sonnet |
 |------|--------|:------:|:----------------:|:-------------:|
 | Nick Crash | 3rd-person, distant | 2 | 4 | 4 |
-| Colin Hill | 3rd-person, mid | 2 | 2 ⚠️ | 7 |
+| Colin Hill | 3rd-person, mid | 2 | 4 | 7 |
 | Fall Bulgario | POV | 4 | 8 | 9 |
 | Clutch Scream Hill | POV | 5 | 10 | 10 |
 | Jimbo Crash | POV | 5 | 8 | 7 |
-| Mark Crash | 3rd-person, close | 9 | 3 ⚠️ | 11 |
+| Mark Crash | 3rd-person, close | 9 | 9 | 11 |
 | Long Hill | POV | 7 | 10 | 8 |
 | Steep Hill Bail | POV | 10 | 11 | 11 |
-| **Total** | | **44 / 96** | **56 / 96** | **67 / 96** |
-| **%** | | **45.8%** | **58.3%** | **69.8%** |
+| **Total** | | **44 / 96** | **64 / 96** | **67 / 96** |
+| **%** | | **45.8%** | **66.7%** | **69.8%** |
 
-⚠️ Gemini truncation: colin-hill = 80 tokens (non-standard 1920×3412 frame dimensions likely cause), mark-crash = 113 tokens. Scores reflect available content only; Gemini capability cannot be fully assessed for these clips.
+> ℹ️ Gemini colin-hill and mark-crash re-scored from complete re-runs after the thinking token bug was fixed (2026-04-12). Previous scores (2/12 and 3/12) reflected truncated responses of 80 and 113 tokens respectively; revised scores (4/12 and 9/12) reflect complete 447 and 453-token responses. The +8 point swing closes most of the gap with Claude.
 
 **Gemini parser bug:** jimbo-crash, long-hill, steep-hill-bail, and clutch-scream-hill all have empty `response_parsed` fields despite complete `response_raw` content. The script's section extractor does not match Gemini's markdown list formatting. Scored from `response_raw` directly.
 
@@ -496,7 +496,7 @@ Cells = total score out of 12. Rows ordered by clip difficulty (hardest first).
 
 ### Finding 1 — Claude leads across all clip types
 
-Claude 69.8% > Gemini 58.3% > GPT-4o 45.8%. The gap is consistent — Claude is not just winning on one clip type. Gemini's score would likely be higher if the two truncated clips (colin-hill and mark-crash) had complete responses.
+Claude 69.8% > Gemini 66.7% > GPT-4o 45.8%. After the thinking token bug fix, Gemini and Claude are separated by just 3 points (3/96). The gap between Gemini and GPT-4o is much larger (20 points). Claude's lead is now driven almost entirely by its advantage on the two hardest distant third-person clips (Nick Crash, Colin Hill) where its uncertainty handling outperforms Gemini's confident-but-wrong outcomes.
 
 ### Finding 2 — POV footage is qualitatively easier for all models
 
@@ -505,18 +505,19 @@ Clips sorted by average score across all three models:
 | Clip | Avg score | Camera type |
 |------|:---------:|-------------|
 | Steep Hill Bail | 10.7 | POV |
-| Mark Crash | 7.7 (note ⚠️) | 3rd-person close |
+| Mark Crash | 9.7 | 3rd-person close |
 | Clutch Scream Hill | 8.3 | POV |
 | Long Hill | 8.3 | POV |
 | Fall Bulgario | 7.0 | POV |
 | Jimbo Crash | 6.7 | POV |
-| Colin Hill | 3.7 | 3rd-person mid |
+| Colin Hill | 4.3 | 3rd-person mid |
 | Nick Crash | 3.3 | 3rd-person distant |
 
 POV clips (5 clips) average: **8.1/12** across all models.
-Third-person distant clips (Nick Crash, Colin Hill) average: **3.5/12** across all models.
+Third-person close clips (Mark Crash) average: **9.7/12** — competitive with POV once the thinking bug was fixed.
+Third-person mid/distant clips (Nick Crash, Colin Hill) average: **3.8/12** across all models.
 
-The correlation between filming distance and score is stronger than the correlation between model choice and score. **The footage type is a larger variable than the model.**
+Mark Crash rises to second place overall (9.7) after the Gemini re-run, which confirms what the ground truth stated: "nothing unclear — short clip with clear visibility throughout." The real filming distance/difficulty axis runs: distant (3.3) → mid-distance (4.3) → close/POV (8–10). **The footage geometry is a larger variable than the model.**
 
 ### Finding 3 — GPT-4o fills ambiguity with plausible fabrications
 
@@ -530,9 +531,13 @@ On clear, short clips (Mark Crash, Steep Hill Bail), GPT-4o performs well (9/12,
 
 ### Finding 4 — Gemini shows strong perception when output is complete
 
-On the five POV clips where Gemini produced complete responses, its average was **9.4/12** — the highest of any model on that subset. Gemini's terrain descriptions are consistently the most detailed (2/2 terrain scores on 6/8 clips). Its main weaknesses:
+On the five POV clips where Gemini produced complete responses, its average was **9.4/12** — the highest of any model on that subset. Gemini's terrain descriptions are consistently the most detailed (2/2 terrain scores on 6/8 clips). After the thinking token bug fix, both truncated clips (colin-hill and mark-crash) now have complete responses. The re-scored totals:
 
-- **Truncation persists on specific clips:** Colin Hill (80 tokens, 1920×3412 non-standard frames) and Mark Crash (113 tokens) remain truncated after the `maxOutputTokens` fix. This is clip-specific, not a global config issue.
+- **colin-hill:** 2/12 (truncated, 80 tokens) → 4/12 (full, 447 tokens). Gemini now gives a coherent description but still misses the bail outcome and hallucinates the rider staying on the bike.
+- **mark-crash:** 3/12 (truncated, 113 tokens) → 9/12 (full, 453 tokens). Gemini correctly identifies the crash, event sequence, and post-crash state. The +6 jump is the largest single-clip revision in the dataset.
+
+Remaining weaknesses after the bug fix:
+- **Bail detection on colin-hill:** Gemini confidently asserts the rider stays on the bike throughout — the same failure mode as GPT-4o (ambiguity resolved by confabulation rather than hedging). This is a model-level gap on third-person footage at mid-distance, not a configuration issue.
 - **Parser bug:** The section extractor fails on Gemini's numbered list markdown format — `response_parsed` is empty on 4/8 clips. Gemini's raw output is complete; the bug is in the script.
 
 ### Finding 5 — Bail outcomes are structurally invisible from third-person footage
@@ -555,7 +560,7 @@ Claude misreads the final frames of Long Hill as a possible lean or fall (outcom
 | Bail missed on Colin Hill | **Structural** — all models failed | Dismount not visible in 16 frames at this filming distance |
 | Jump track not identified on Nick Crash | **Structural** — all models failed | Features too small at this scale |
 | GPT-4o confident false outcomes | **Model-specific** — GPT-4o only | GPT-4o resolves ambiguity by confabulation; pattern on ambiguous clips only |
-| Gemini truncation on colin-hill and mark-crash | **Configuration / clip-specific** | 80 and 113 tokens despite fix; likely tied to frame dimensions or specific image properties |
+| Gemini confabulated outcome on colin-hill | **Model-specific** — Gemini and GPT-4o | Both confidently assert rider stays on bike; bail not detectable at this filming distance — resolved by hedging (Claude) or confabulated (Gemini, GPT-4o) |
 | Gemini parser bug (empty response_parsed) | **Script bug** | Section extractor does not match Gemini's numbered list format; response_raw is complete |
 | Claude false-negative on Long Hill | **Model-specific** — Claude only | Over-analysis of camera angle change; interprets normal terrain-riding as possible fall |
 
@@ -564,9 +569,248 @@ Claude misreads the final frames of Long Hill as a possible lean or fall (outcom
 | Question | Answer |
 |---|---|
 | Is any model reliably perceiving riding events? | On POV clips: all three models, with Gemini and Claude at ~69–94% on the POV subset. On distant third-person: no model is reliable. |
-| Route perception to best model? | **Claude Sonnet** for general use — lowest hallucination risk on ambiguous clips, best overall score. **Gemini** as a secondary terrain reader once truncation and parser bugs are fixed. |
-| Is Gemini viable? | On POV clips after config/parser fixes: yes — competitive with Claude. Fix the script first. |
+| Route perception to best model? | **Claude Sonnet** for general use — lowest hallucination risk on ambiguous clips, best overall score (69.8%). **Gemini** is now essentially tied on POV clips (9.4/12 avg) and provides more detailed terrain descriptions. For a pipeline that uses both, Gemini could handle terrain/feature detection (where it excels) and Claude handle outcome/sequence on ambiguous footage. |
+| Is Gemini viable? | Yes — after the thinking token bug fix, Gemini scores 66.7% overall vs Claude's 69.8%. On POV footage the two models are effectively equal. Gemini's remaining gap is confabulated outcomes on mid-distance 3rd-person footage. Fix the parser bug (section extractor for numbered list format) before further Gemini integration. |
 | Rethink frame strategy? | Yes — 16 frames from distant third-person clips are insufficient for crash/bail detection regardless of model. |
 | Need CV layer before further pipeline work? | Not immediately. POV clips work well with current models. Define minimum footage standards (POV or near-POV, rider/bike occupying meaningful frame area) as a hard input gate. |
 
-**Recommended next step:** Fix the Gemini parser bug (section extractor needs to handle numbered list format), re-run Gemini on colin-hill with reduced frame dimensions or higher token allowance, then establish minimum footage standards as a pipeline input gate.
+**Recommended next step:** Fix the Gemini parser bug (section extractor needs to handle numbered list format), then establish minimum footage standards as a pipeline input gate. The colin-hill re-run confirms the bail outcome failure is a model-level perception gap on mid-distance 3rd-person footage, not a configuration issue — no further re-runs needed.
+
+---
+
+## Gemini Video Comparison
+
+**Date added:** 2026-04-12
+**Method:** Full video file uploaded to Gemini 2.5 Flash via Files API — no frame extraction; Gemini receives the video directly and processes audio + video together.
+**Audio:** Available — Gemini can hear the clip.
+**Prompt version:** perception_v1 (identical prompt text)
+**Token note:** Video token counts are determined by Gemini's internal frame sampling, not by the script. Short clips (mark-crash) may yield only 3 effective frames (~1,579 input tokens vs 4,232 for the 16-frame approach). Long clips (long-hill, clutch-scream-hill) yield proportionally more.
+
+---
+
+### Per-clip scorecards — Gemini Video
+
+---
+
+#### Nick Crash × Gemini Video
+
+> ℹ️ **694 output tokens, all 6 sections present.** Gemini processed only 2 frames showing the rider (00:00–00:01) before the camera panned away. No crash audio cue reported. Honest unknown on outcome — no fabricated successful landing.
+
+| # | Criterion | Score | Evidence note |
+|---|-----------|:-----:|---------------|
+| 1 | Rider objective | **1** | "Attempting a jump over a raised section of the track" — jump intent captured; sandy terrain, tabletop track structure, and third-person distance framing absent |
+| 2 | Outcome | **0** | "Landing and subsequent actions not captured in the provided sequence" — honest unknown; crash not identified because camera panned away before landing |
+| 3 | Event sequence | **1** | 00:00: airborne after jump, front wheel slightly higher. 00:01: still airborne, nose-down attitude. 00:02+: rider not visible — camera panned right before landing |
+| 4 | Terrain / features | **1** | "Rolling hills, numerous dirt tracks, some rocky patches" — partial; sandy terrain and tabletop jump structure absent |
+| 5 | Visibility handling | **2** | Explicitly flags: "whether the rider successfully landed the jump" and "rider's location or status after frame 00:01" — correctly names the core observability challenge |
+| 6 | Hallucination | **2** | No fabricated outcome; does not assert a successful landing; appropriately hedged throughout |
+| | **Total** | **7 / 12** | |
+
+---
+
+#### Colin Hill × Gemini Video
+
+> ⚠️ **561 output tokens, all 6 sections present. Systematic directional hallucination throughout.** Gemini describes the entire clip as a descent ("downhill", "descending") when the rider is climbing a hill. End state is captured but the whole framing is inverted.
+
+| # | Criterion | Score | Evidence note |
+|---|-----------|:-----:|---------------|
+| 1 | Rider objective | **0** | "Navigating a steep, rocky, and dusty **downhill** section of a trail" — rider is attempting an uphill hill climb; directional hallucination throughout all sections |
+| 2 | Outcome | **1** | "Motorcycle has fallen onto its side on the trail. The rider is standing next to the fallen motorcycle." — end state is bail-consistent; partial credit for correct physical outcome despite inverted context |
+| 3 | Event sequence | **1** | Describes descent with dust build-up → dust intensifies → bike on side; partially maps to events with direction reversed; berm, paddling, and bail mechanism absent |
+| 4 | Terrain / features | **1** | Rocky, loose dirt, small rocks, pine trees correct; "downhill slope" wrong; berm and tree roots absent |
+| 5 | Visibility handling | **1** | Standard limits noted (facial expression, cause, white object in 00:02); clip-specific tree occlusion not identified |
+| 6 | Hallucination | **0** | "Navigating a downhill section / rider continues to descend / moving downhill" — repeated across all event timestamps; the entire clip is an uphill climb |
+| | **Total** | **4 / 12** | |
+
+---
+
+#### Mark Crash × Gemini Video
+
+> ℹ️ **489 output tokens, 3 frames sampled from short clip.** Input tokens: 1,579 vs 4,232 for the 16-frame approach — Gemini's video sampler only captured 3 effective frames. Jump/airborne phase falls between sampled frames and is entirely absent.
+
+| # | Criterion | Score | Evidence note |
+|---|-----------|:-----:|---------------|
+| 1 | Rider objective | **1** | "Off-road riding event or practice, slopes and flat sections" — event context partially correct; descent-into-jump framing absent |
+| 2 | Outcome | **2** | "Rider and motorcycle have fallen to the ground. Motorcycle on its left side, rider lying next to it." — crash correctly identified |
+| 3 | Event sequence | **1** | Frame 1: descending slope. Frame 2: motorcycle tipping left, rider falling. Frame 3: bike and rider on ground. Jump/airborne phase entirely absent — fell between the 3 sampled frames |
+| 4 | Terrain / features | **1** | "Loose dirt/gravel, slopes, mounds, rocky, spectators on distant ridge, flags" — consistent with terrain; shaley hill and jump at bottom not named |
+| 5 | Visibility handling | **1** | Speed, condition, event type hedged; ground truth says nothing is unclear so this over-hedges |
+| 6 | Hallucination | **2** | No false claims; "front wheel turned sharply left" and "leaning slightly forward" are reasonable visual observations |
+| | **Total** | **8 / 12** | |
+
+---
+
+#### Steep Hill Bail × Gemini Video
+
+> ℹ️ **344 output tokens, all 6 sections present.** 206-second processing time. Less output detail than the 16-frame version despite having full video — Gemini's frame sampler captures fewer effective frames from this clip than the static 16-frame approach.
+
+| # | Criterion | Score | Evidence note |
+|---|-----------|:-----:|---------------|
+| 1 | Rider objective | **1** | "Navigate the trail and ascend a hill" — uphill direction correct; dense wintery forest context and POV framing absent |
+| 2 | Outcome | **2** | "Motorcycle lying on its left side on leaf-covered ground, rider no longer on motorcycle, rider's left hand visible near handlebars" — bail/fall correctly identified |
+| 3 | Event sequence | **1** | "Ascending steep leaf-covered incline → loses traction/momentum → front wheel lifts → falls to left side" — ascending and fall captured; path-becoming-unclear and bike shooting forward absent |
+| 4 | Terrain / features | **1** | "Dry leaves, dry grass, winding, ascending, bare trees, late autumn/winter" — correct general description; branches and small logs across trail (key navigation obstacles) absent |
+| 5 | Visibility handling | **1** | Cause not visible, rider not visible; uniform colour palette (the clip's specific challenge) not flagged |
+| 6 | Hallucination | **1** | "Front wheel lifts off the ground" — minor inaccuracy; ground truth has the bike shooting forward after rider falls off, not a front-wheel-lift stall |
+| | **Total** | **7 / 12** | |
+
+---
+
+#### Clutch Scream Hill × Gemini Video
+
+> ℹ️ **446 output tokens, all 6 sections present.** 276-second processing time. Audio partially used: "sound of engine" referenced, but key spoken audio ("which way should I go?") missed. Audio misinterpreted as restart attempt rather than directional confusion.
+
+| # | Criterion | Score | Evidence note |
+|---|-----------|:-----:|---------------|
+| 1 | Rider objective | **1** | "Enduro or trail riding, navigating challenging terrain" — genre correct; POV framing and explicit technical hill climb absent |
+| 2 | Outcome | **2** | "Motorcycle has fallen over on its side, rider is no longer on it" — correct end state |
+| 3 | Event sequence | **1** | Gets: uphill POV, another rider visible further up slope, rider stops, motorcycle falls to side; misses fallen tree at ~6 sec, large fallen tree higher up, "which way should I go?" directional confusion moment |
+| 4 | Terrain / features | **1** | "Dense pine forest, pine needles, fallen leaves, scattered branches and twigs, uphill, tire tracks" — correct general description; fallen tree obstacles as specific navigation hazards absent |
+| 5 | Visibility handling | **2** | Cause not visible, rider condition not visible, other rider identities not visible; appropriate for this clip |
+| 6 | Hallucination | **1** | "Rider attempts to restart the motorcycle, as indicated by the sound of the engine" — audio misinterpreted; rider was stopped and confused about direction, not restarting; the spoken "which way should I go?" missed entirely |
+| | **Total** | **8 / 12** | |
+
+---
+
+#### Fall Bulgario × Gemini Video
+
+> ℹ️ **619 output tokens, all 6 sections present.** 254-second processing time. Most detailed timeline of any video run — timestamped events through 00:32 including rider attempting to lift bike after fall.
+
+| # | Criterion | Score | Evidence note |
+|---|-----------|:-----:|---------------|
+| 1 | Rider objective | **1** | "Preparing to ride or having just ridden on a dirt track" — weak framing; muddy hill climb attempt absent |
+| 2 | Outcome | **2** | "Motorcycle has fallen on its side on the uphill section. The rider is attempting to lift it." — correct and detailed end state |
+| 3 | Event sequence | **2** | Timestamps: stationary at start (00:00–00:05) → POV activates (00:06) → steep muddy rocky incline (00:06–00:15) → loses momentum/control and falls (00:16–00:17) → on side (00:18–00:20) → rider off motorcycle (00:21) → rider attempting to lift (00:23–00:32); tree root deflection as specific cause absent but overall sequence accurate |
+| 4 | Terrain / features | **2** | "Muddy and rocky, uphill, forest, tire tracks, mixed trees with early spring foliage, fallen leaves, some moss" — muddy explicitly stated; accurate and detailed |
+| 5 | Visibility handling | **1** | "Exact cause of the motorcycle falling is not explicitly visible" — over-hedges; ground truth says nothing particularly hard to see |
+| 6 | Hallucination | **2** | GasGas motorcycle correctly identified; neon yellow LEATT glove detail accurate; all claims well-grounded |
+| | **Total** | **10 / 12** | |
+
+---
+
+#### Jimbo Crash × Gemini Video
+
+> ℹ️ **663 output tokens, all 6 sections present.** Detailed frame-by-frame events: left-arm tree contact specifically identified at 00:03 with camera drop at 00:04 confirming crash.
+
+| # | Criterion | Score | Evidence note |
+|---|-----------|:-----:|---------------|
+| 1 | Rider objective | **1** | "Navigating a downhill section" — descent correct; off-camber slope and POV framing absent |
+| 2 | Outcome | **1** | "Motorcycle stops between two trees after rider's left arm makes contact with a tree" — tree contact identified; framed as stop rather than crash; "rider remains on motorcycle" is uncertain and likely wrong |
+| 3 | Event sequence | **2** | 00:03: rider's left arm extended, bracing against tree trunk. 00:04: view shifts downward rapidly (impact in progress), front fender visible. 00:05: still low, hand near trunk. 00:06–00:07: upright again, stationary between two trees. 00:08–00:12: stationary. Closely matches crash impact sequence |
+| 4 | Terrain / features | **1** | "Leafy trail, many fallen brown leaves, forest, descending, bare lichen-covered trees, green moss patches" — correct general description; off-camber slope character absent |
+| 5 | Visibility handling | **1** | "Renthal branding visible, contact with tree is evident"; low resolution and front wheel occlusion (clip-specific limits) not flagged |
+| 6 | Hallucination | **2** | "Renthal" is a real handlebar brand; "contact with tree is evident" is accurate; all claims appropriately hedged |
+| | **Total** | **8 / 12** | |
+
+---
+
+#### Long Hill × Gemini Video
+
+> ℹ️ **367 output tokens, all 6 sections present.** 315-second processing time (longest clip). Audio channel pays off: engine revving and group context used. Correctly identifies the successful outcome that Claude frames got wrong (0/2 outcome score).
+
+| # | Criterion | Score | Evidence note |
+|---|-----------|:-----:|---------------|
+| 1 | Rider objective | **2** | "Attempting to ascend a steep, leaf-covered incline in a forest" — matches ground truth closely |
+| 2 | Outcome | **2** | "The rider successfully ascends the steep, leaf-covered incline" — correct; audio + visual used for determination |
+| 3 | Event sequence | **1** | "Three riders on dirt road → rider turns onto steep incline → ascends through trees with engine revving" — group context and lane-to-forest transition correctly captured; momentum dip/recovery and cheering audio absent |
+| 4 | Terrain / features | **2** | "Steep dry brown leaves, scattered rocks and branches, narrow worn path, dense forest, wider dirt road at bottom, distant hills in background" — accurate; wider road = the lane before the climb |
+| 5 | Visibility handling | **2** | Standard limits noted; audio correctly used for outcome determination |
+| 6 | Hallucination | **2** | "Three riders gathered on a dirt road" consistent with group context; "sound of motorcycle engine revving" accurate; no false claims |
+| | **Total** | **11 / 12** | |
+
+---
+
+### Four-track comparison table
+
+Cells = total score out of 12. Clips ordered by Gemini video score (hardest first at top).
+
+| Clip | Camera | GPT-4o<br>frames | Gemini<br>frames | Claude<br>frames | Gemini<br>video | Video<br>delta |
+|------|--------|:----------------:|:----------------:|:----------------:|:---------------:|:--------------:|
+| Colin Hill | 3rd-person, mid | 2 | 4 | 7 | 4 | = |
+| Nick Crash | 3rd-person, distant | 2 | 4 | 4 | 7 | **+3** |
+| Steep Hill Bail | POV | 10 | 11 | 11 | 7 | **−4** |
+| Clutch Scream Hill | POV | 5 | 10 | 10 | 8 | **−2** |
+| Jimbo Crash | POV | 5 | 8 | 7 | 8 | = |
+| Mark Crash | 3rd-person, close | 9 | 9 | 11 | 8 | −1 |
+| Fall Bulgario | POV | 4 | 8 | 9 | 10 | **+2** |
+| Long Hill | POV | 7 | 10 | 8 | 11 | **+1** |
+| **Total** | | **44 / 96** | **64 / 96** | **67 / 96** | **63 / 96** | **−1** |
+| **%** | | **45.8%** | **66.7%** | **69.8%** | **65.6%** | |
+
+> Video delta = Gemini video score minus Gemini frames score for each clip.
+
+---
+
+### Borderline clip analysis
+
+#### Nick Crash (video: 7/12, frames: 4/12) — **video wins by +3**
+
+The video approach fixes the failure mode that plagued the frames approach. Gemini frames fabricated "no observable incident"; Gemini video correctly hedges with "landing and subsequent actions not captured in the provided sequence." The crash is still not identified (C2=0 on both) but the video version avoids the hallucination (C6: 2 vs 0). The improvement is entirely in uncertainty handling — the structural problem (rider too small, camera pans away before landing) is not solved.
+
+#### Colin Hill (video: 4/12, frames: 4/12) — **tie, different failure modes**
+
+Frames: confabulates the rider staying on the bike (confident false positive).
+Video: confabulates the entire clip as a descent when the rider is climbing (systematic directional hallucination).
+Both fail at 4/12 via different routes. Neither approach can identify the bail. The structural limit — bail from mid-distance third-person footage, no clear dismount frame — holds for both modalities.
+
+#### Mark Crash (video: 8/12, frames: 9/12) — **frames win by −1**
+
+The video approach processes only 3 effective frames from this short clip (1,579 input tokens vs 4,232). The jump/airborne phase falls between sampled frames and is entirely absent from the video response. The frames approach sampled the jump airborne phase (frames 6–7) and captured the full sequence. On very short clips, higher frame density beats continuous video.
+
+---
+
+### Key findings — Gemini video
+
+**Finding V1 — Video is essentially tied with frames overall (65.6% vs 66.7%)**
+
+The audio channel provides real benefit on two clips:
+- **Long Hill:** video correctly identifies successful completion (2/2 outcome); frames correctly identifies it too (1/2) but with less confidence and less context on the group/lane start
+- **Nick Crash:** video avoids hallucination on outcome; frames fabricate success
+
+The frame-density advantage of the 16-frame static approach provides real benefit on three clips:
+- **Steep Hill Bail:** frames 11/12 → video 7/12 (−4); frames captured the bike-on-side sequence in fine detail
+- **Clutch Scream Hill:** frames 10/12 → video 8/12 (−2); frames captured more of the event sequence structure
+- **Mark Crash:** frames 9/12 → video 8/12 (−1); fewer effective frames sampled from short clip
+
+**Finding V2 — Audio helps most on outcome classification, not event sequencing**
+
+On Long Hill, the audio (engine revving, group context) confidently produces the correct success outcome. On Clutch Scream Hill, the audio ("which way should I go?") was potentially available but misinterpreted as a restart attempt rather than directional confusion. Audio contribution is higher-level (outcome classification) than fine-grained (event sequence reconstruction).
+
+**Finding V3 — Colin Hill is categorically unsolvable by any current approach**
+
+Third run of this clip with a different approach (video vs frames), same score (4/12), different failure mode. The bail outcome has now failed under: Gemini frames (confabulated success), Gemini video (confabulated descent direction), GPT-4o frames (confabulated continued riding), Claude frames (foot off peg detected but outcome not concluded). Approaching this as a prompt or modality engineering problem is the wrong framing. The bail is structurally undetectable from available camera geometry + any model.
+
+**Finding V4 — Gemini's video frame sampler disadvantages short clips**
+
+Mark Crash (short clip, ~5 seconds): video sampler produced only 3 effective frames. The static 16-frame approach provides 5× the visual coverage on this clip. This is not a Gemini capability issue — it's a sampling arithmetic issue. For clips under ~10 seconds, the static frame approach is likely always better than video-native due to frame density.
+
+**Finding V5 — No single approach dominates across all clip types**
+
+| Clip type | Best approach |
+|---|---|
+| Long POV climbs (audio-confirmable success) | Video (audio channel) |
+| Distant third-person crashes | Video (avoids hallucination) but still fails on crash detection |
+| Short clear clips (Mark Crash) | Frames (frame density beats video sampler) |
+| Long POV with specific obstacles (Steep Hill Bail, Clutch Scream Hill) | Frames (16-frame density captures obstacle detail) |
+| Medium-duration POV (Fall Bulgario, Jimbo Crash) | Roughly equal |
+
+---
+
+### Perception approach recommendation
+
+**Primary recommendation: 16-frame static approach, Claude Sonnet, for pipeline integration.**
+
+Rationale:
+- Highest overall score: 69.8% (Claude frames) vs 66.7% (Gemini frames) vs 65.6% (Gemini video)
+- Best uncertainty handling on ambiguous clips — avoids fabrication on distant third-person footage
+- Frame density advantage on short clips and obstacle-dense POV footage
+- Predictable input size (16 frames = fixed token cost)
+
+**Secondary recommendation: add Gemini video as a parallel perception track for audio-confirmable clips.**
+
+The audio channel provides real signal on outcome classification (Long Hill success, Clutch Scream Hill crash direction). A dual-track approach — Claude frames for primary event sequencing + Gemini video for outcome/audio cross-check — would outperform either alone. This is a pipeline architecture question for a future stage, not a blocker now.
+
+**Immediate next steps before pipeline integration:**
+1. Fix the Gemini parser bug (section extractor for numbered list format) — applies to both frames and video runs
+2. Define minimum footage standard: POV or near-POV, rider/bike occupying ≥20% of frame area; distant third-person clips (Nick Crash geometry) flagged as `observability_limited: true` at Stage 2
+3. Do not invest further in Colin Hill outcome detection — it is a structural camera geometry problem, not a perception problem

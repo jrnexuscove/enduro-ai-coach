@@ -1,0 +1,25 @@
+{
+  "clip": "colin-hill",
+  "model": "gemini-2.5-flash",
+  "model_id": "gemini-2.5-flash",
+  "frames_extracted": 0,
+  "frame_dimensions": "1920x1080",
+  "prompt_version": "perception_v1",
+  "response_raw": "Here is a visual description of the frames:\n\n1. Rider objective & context\nA single rider on an off-road motorcycle is navigating a steep, rocky, and dusty downhill section of a trail in a forested area.\n\n2. Rider\nThe rider is wearing a red helmet, a black and blue jersey, and black and grey pants. They are positioned on the motorcycle, leaning with the bike as it descends. In later frames, the rider is seen dismounting and standing next to the motorcycle.\n\n3. Terrain & environment\nThe terrain is a steep downhill slope covered in loose dirt, small rocks, and larger stones. There are numerous pine trees with tall, straight trunks lining the left side of the trail, forming a dense forest. The right side of the trail is a steep, rocky embankment with some sparse, dry vegetation and bare branches. The sky is overcast or hazy.\n\n4. Events\n- **Frame 00:00 - 00:01:** The rider is on the motorcycle, descending the rocky slope.\n- **Frame 00:02:** The camera perspective changes briefly, showing a close-up of the rider and motorcycle from a lower angle, with a white object (possibly another helmet or part of a camera rig) in the foreground.\n- **Frame 00:03 - 00:06:** The rider continues to descend, kicking up a significant amount of dust from the loose terrain. The motorcycle appears to be sliding or drifting as it moves downhill.\n- **Frame 00:07 - 00:11:** The dust cloud intensifies, partially obscuring the rider and motorcycle. The motorcycle is still moving downhill.\n- **Frame 00:12 - 00:16:** The motorcycle is no longer upright. The rider is standing next to the motorcycle, which is lying on its side on the trail. The dust cloud is still visible around them.\n- **Frame 00:17 - 00:19:** The dust begins to settle, and the rider and motorcycle are visible, with the motorcycle still on its side.\n\n5. Outcome\nThe motorcycle has fallen onto its side on the trail. The rider is standing next to the fallen motorcycle.\n\n6. Unclear or not visible\n- The exact cause of the motorcycle falling is not explicitly visible in the frames.\n- The rider's facial expression is not visible due to the helmet.\n- Any injuries to the rider are not visible.\n- The full extent of the trail beyond the visible section is not clear.\n- The white object in the foreground of frame 00:02 is not clearly identifiable.",
+  "response_parsed": {
+    "rider_objective_context": "A single rider on an off-road motorcycle is navigating a steep, rocky, and dusty downhill section of a trail in a forested area.",
+    "rider": "The rider is wearing a red helmet, a black and blue jersey, and black and grey pants. They are positioned on the motorcycle, leaning with the bike as it descends. In later frames, the rider is seen dismounting and standing next to the motorcycle.",
+    "terrain_environment": "The terrain is a steep downhill slope covered in loose dirt, small rocks, and larger stones. There are numerous pine trees with tall, straight trunks lining the left side of the trail, forming a dense forest. The right side of the trail is a steep, rocky embankment with some sparse, dry vegetation and bare branches. The sky is overcast or hazy.",
+    "events": "- **Frame 00:00 - 00:01:** The rider is on the motorcycle, descending the rocky slope.\n- **Frame 00:02:** The camera perspective changes briefly, showing a close-up of the rider and motorcycle from a lower angle, with a white object (possibly another helmet or part of a camera rig) in the foreground.\n- **Frame 00:03 - 00:06:** The rider continues to descend, kicking up a significant amount of dust from the loose terrain. The motorcycle appears to be sliding or drifting as it moves downhill.\n- **Frame 00:07 - 00:11:** The dust cloud intensifies, partially obscuring the rider and motorcycle. The motorcycle is still moving downhill.\n- **Frame 00:12 - 00:16:** The motorcycle is no longer upright. The rider is standing next to the motorcycle, which is lying on its side on the trail. The dust cloud is still visible around them.\n- **Frame 00:17 - 00:19:** The dust begins to settle, and the rider and motorcycle are visible, with the motorcycle still on its side.",
+    "outcome": "The motorcycle has fallen onto its side on the trail. The rider is standing next to the fallen motorcycle.",
+    "unclear_not_visible": "- The exact cause of the motorcycle falling is not explicitly visible in the frames.\n- The rider's facial expression is not visible due to the helmet.\n- Any injuries to the rider are not visible.\n- The full extent of the trail beyond the visible section is not clear.\n- The white object in the foreground of frame 00:02 is not clearly identifiable."
+  },
+  "duration_ms": 40600,
+  "token_usage": {
+    "input": 5709,
+    "output": 561,
+    "think_tokens": 0,
+    "finish_reason": "STOP"
+  },
+  "timestamp": "2026-04-12T20:41:38.525Z"
+}

@@ -1,0 +1,25 @@
+{
+  "clip": "mark-crash",
+  "model": "gemini-2.5-flash",
+  "model_id": "gemini-2.5-flash",
+  "frames_extracted": 0,
+  "frame_dimensions": "1920x1080",
+  "prompt_version": "perception_v1",
+  "response_raw": "Here is a description of the frames:\n\n### 1. Rider objective & context\nThe rider is operating an off-road motorcycle on a dirt track with varied terrain, including slopes and flat sections. The context appears to be an off-road riding event or practice.\n\n### 2. Rider\nThe rider is wearing a red helmet, a dark blue and red long-sleeved jersey, and dark pants. In the first frame, the rider is seated on the motorcycle, leaning slightly forward. In the second frame, the rider is falling to the left side, with their left arm extended towards the ground. In the third frame, the rider is lying on their left side on the ground, with their left arm still extended and their right arm bent at the elbow.\n\n### 3. Terrain & environment\nThe terrain is predominantly dirt and loose gravel, with patches of green moss and sparse vegetation. There are several mounds and slopes, indicating an uneven landscape. A pile of large rocks is visible on the right side of the frame. In the background, there are large, barren hills under a cloudy sky. A small tree is visible on one of the slopes. In the first frame, two figures are visible on a distant ridge. In the second frame, one figure is visible on a distant ridge. In the third frame, two figures are visible on a distant ridge.\n\n### 4. Events\n**Frame 1:** The rider is descending a dirt slope on an off-road motorcycle, turning slightly to the left.\n**Frame 2:** The motorcycle is tipping over to its left side, and the rider is in the process of falling off. The front wheel is turned sharply to the left.\n**Frame 3:** The motorcycle is lying on its left side on the ground, and the rider is also on the ground next to it, having fallen.\n\n### 5. Outcome\nThe rider and motorcycle have fallen to the ground. The motorcycle is on its left side, and the rider is lying next to it.\n\n### 6. Unclear or not visible\nThe exact speed of the motorcycle is not visible. The condition of the rider after the fall is not visible beyond their position on the ground. The full extent of any damage to the motorcycle is not visible. The specific type of event (e.g., race, practice, casual ride) is not explicitly visible.",
+  "response_parsed": {
+    "rider_objective_context": "The rider is operating an off-road motorcycle on a dirt track with varied terrain, including slopes and flat sections. The context appears to be an off-road riding event or practice.",
+    "rider": "The rider is wearing a red helmet, a dark blue and red long-sleeved jersey, and dark pants. In the first frame, the rider is seated on the motorcycle, leaning slightly forward. In the second frame, the rider is falling to the left side, with their left arm extended towards the ground. In the third frame, the rider is lying on their left side on the ground, with their left arm still extended and their right arm bent at the elbow.",
+    "terrain_environment": "The terrain is predominantly dirt and loose gravel, with patches of green moss and sparse vegetation. There are several mounds and slopes, indicating an uneven landscape. A pile of large rocks is visible on the right side of the frame. In the background, there are large, barren hills under a cloudy sky. A small tree is visible on one of the slopes. In the first frame, two figures are visible on a distant ridge. In the second frame, one figure is visible on a distant ridge. In the third frame, two figures are visible on a distant ridge.",
+    "events": "Frame 1:** The rider is descending a dirt slope on an off-road motorcycle, turning slightly to the left.\n**Frame 2:** The motorcycle is tipping over to its left side, and the rider is in the process of falling off. The front wheel is turned sharply to the left.\n**Frame 3:** The motorcycle is lying on its left side on the ground, and the rider is also on the ground next to it, having fallen.",
+    "outcome": "The rider and motorcycle have fallen to the ground. The motorcycle is on its left side, and the rider is lying next to it.",
+    "unclear_not_visible": "The exact speed of the motorcycle is not visible. The condition of the rider after the fall is not visible beyond their position on the ground. The full extent of any damage to the motorcycle is not visible. The specific type of event (e.g., race, practice, casual ride) is not explicitly visible."
+  },
+  "duration_ms": 44338,
+  "token_usage": {
+    "input": 1579,
+    "output": 489,
+    "think_tokens": 0,
+    "finish_reason": "STOP"
+  },
+  "timestamp": "2026-04-12T21:05:40.390Z"
+}

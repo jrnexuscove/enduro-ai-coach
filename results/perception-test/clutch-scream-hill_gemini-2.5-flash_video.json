@@ -1,0 +1,25 @@
+{
+  "clip": "clutch-scream-hill",
+  "model": "gemini-2.5-flash",
+  "model_id": "gemini-2.5-flash",
+  "frames_extracted": 0,
+  "frame_dimensions": "1920x1080",
+  "prompt_version": "perception_v1",
+  "response_raw": "Here's a description of the frames:\n\n**1. Rider objective & context**\nThe rider is participating in an off-road motorcycle activity, likely enduro or trail riding, in a forested, hilly area. The objective appears to be navigating the challenging terrain.\n\n**2. Rider**\nIn the initial frames, the rider is wearing a helmet, goggles, a black and yellow jacket, and black pants with red accents. They are riding a red dirt bike. In later frames, the rider is not visible, but their red boot is seen on the ground.\n\n**3. Terrain & environment**\nThe environment is a dense forest with numerous tall, slender trees, likely pines, with dark bark. The ground is covered in brown dirt, pine needles, fallen leaves, and scattered branches and twigs. There are visible tire tracks in the dirt, indicating a path or trail. The terrain is sloped uphill, with some rocks and small patches of green vegetation. The sky is overcast.\n\n**4. Events**\nThe clip begins with the rider on their motorcycle, moving uphill. Another rider is visible further up the slope. The camera, mounted on the rider's helmet, shows the perspective of riding up the hill. The rider then stops, and the camera view shifts to show the handlebars and the ground. The rider attempts to restart the motorcycle, as indicated by the sound of the engine and the movement of the handlebars. The motorcycle then falls to its side, and the rider's red boot is briefly visible on the ground. The camera remains on the ground, showing the fallen motorcycle and the surrounding forest.\n\n**5. Outcome**\nThe motorcycle has fallen over on its side, and the rider is no longer on it. The rider's boot is visible on the ground, suggesting they are also on the ground or dismounted.\n\n**6. Unclear or not visible**\nThe exact cause of the fall is not explicitly visible. The rider's full body and condition after the fall are not visible. The condition of the motorcycle after the fall is not fully visible, though it appears to be on its side. The identity of the other riders is not visible.",
+  "response_parsed": {
+    "rider_objective_context": "The rider is participating in an off-road motorcycle activity, likely enduro or trail riding, in a forested, hilly area. The objective appears to be navigating the challenging terrain.",
+    "rider": "In the initial frames, the rider is wearing a helmet, goggles, a black and yellow jacket, and black pants with red accents. They are riding a red dirt bike. In later frames, the rider is not visible, but their red boot is seen on the ground.",
+    "terrain_environment": "The environment is a dense forest with numerous tall, slender trees, likely pines, with dark bark. The ground is covered in brown dirt, pine needles, fallen leaves, and scattered branches and twigs. There are visible tire tracks in the dirt, indicating a path or trail. The terrain is sloped uphill, with some rocks and small patches of green vegetation. The sky is overcast.",
+    "events": "The clip begins with the rider on their motorcycle, moving uphill. Another rider is visible further up the slope. The camera, mounted on the rider's helmet, shows the perspective of riding up the hill. The rider then stops, and the camera view shifts to show the handlebars and the ground. The rider attempts to restart the motorcycle, as indicated by the sound of the engine and the movement of the handlebars. The motorcycle then falls to its side, and the rider's red boot is briefly visible on the ground. The camera remains on the ground, showing the fallen motorcycle and the surrounding forest.",
+    "outcome": "The motorcycle has fallen over on its side, and the rider is no longer on it. The rider's boot is visible on the ground, suggesting they are also on the ground or dismounted.",
+    "unclear_not_visible": "The exact cause of the fall is not explicitly visible. The rider's full body and condition after the fall are not visible. The condition of the motorcycle after the fall is not fully visible, though it appears to be on its side. The identity of the other riders is not visible."
+  },
+  "duration_ms": 276278,
+  "token_usage": {
+    "input": 15739,
+    "output": 446,
+    "think_tokens": 0,
+    "finish_reason": "STOP"
+  },
+  "timestamp": "2026-04-12T20:51:31.482Z"
+}

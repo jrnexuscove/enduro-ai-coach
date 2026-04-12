@@ -5,19 +5,21 @@
   "frames_extracted": 16,
   "frame_dimensions": "1920x1694",
   "prompt_version": "perception_v1",
-  "response_raw": "1. Rider objective & context\n   - The rider is navigating through a wooded area on an off-road motorcycle.\n\n2. Rider\n   - The rider is wearing gloves and is visible from a first-person perspective, suggesting a helmet-mounted camera.\n\n3. Terrain & environment\n   - The environment is a forested area with numerous trees and a dirt path covered in leaves.\n\n4. Events\n   - The motorcycle is moving through the forest, maneuvering between trees.\n   - At one point, the motorcycle appears to be stopped or slowed down between two trees.\n\n5. Outcome\n   - The motorcycle is positioned between two trees, with limited space for movement.\n\n6. Unclear or not visible\n   - The rider's full body and any facial expressions are not visible.\n   - The exact speed and control of the motorcycle are not clear.\n   - The final destination or goal of the rider is not visible.",
+  "response_raw": "1. Rider objective & context\n   - The rider is navigating through a wooded area on an off-road motorcycle.\n\n2. Rider\n   - The rider is wearing gloves and is visible from a first-person perspective, holding the handlebars of the motorcycle.\n\n3. Terrain & environment\n   - The environment is a forested area with numerous trees and a dirt path covered in leaves.\n\n4. Events\n   - The motorcycle is moving through the forest, maneuvering between trees.\n   - At one point, the motorcycle appears to be very close to a tree.\n\n5. Outcome\n   - The motorcycle comes to a stop between two trees, with the handlebars close to the tree trunks.\n\n6. Unclear or not visible\n   - The rider's full body and any facial expressions are not visible.\n   - The exact reason for stopping is not clear.",
   "response_parsed": {
     "rider_objective_context": "- The rider is navigating through a wooded area on an off-road motorcycle.",
-    "rider": "- The rider is wearing gloves and is visible from a first-person perspective, suggesting a helmet-mounted camera.",
+    "rider": "- The rider is wearing gloves and is visible from a first-person perspective, holding the handlebars of the motorcycle.",
     "terrain_environment": "- The environment is a forested area with numerous trees and a dirt path covered in leaves.",
-    "events": "- The motorcycle is moving through the forest, maneuvering between trees.\n   - At one point, the motorcycle appears to be stopped or slowed down between two trees.",
-    "outcome": "- The motorcycle is positioned between two trees, with limited space for movement.",
-    "unclear_not_visible": "- The rider's full body and any facial expressions are not visible.\n   - The exact speed and control of the motorcycle are not clear.\n   - The final destination or goal of the rider is not visible."
+    "events": "- The motorcycle is moving through the forest, maneuvering between trees.\n   - At one point, the motorcycle appears to be very close to a tree.",
+    "outcome": "- The motorcycle comes to a stop between two trees, with the handlebars close to the tree trunks.",
+    "unclear_not_visible": "- The rider's full body and any facial expressions are not visible.\n   - The exact reason for stopping is not clear."
   },
-  "duration_ms": 11435,
+  "duration_ms": 11440,
   "token_usage": {
     "input": 12345,
-    "output": 184
+    "output": 171,
+    "think_tokens": 0,
+    "finish_reason": "n/a"
   },
-  "timestamp": "2026-04-12T19:41:35.273Z"
+  "timestamp": "2026-04-12T20:57:28.854Z"
 }

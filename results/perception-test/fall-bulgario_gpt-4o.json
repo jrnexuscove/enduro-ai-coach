@@ -5,19 +5,21 @@
   "frames_extracted": 16,
   "frame_dimensions": "1920x1080",
   "prompt_version": "perception_v1",
-  "response_raw": "1. Rider objective & context\n   - The rider appears to be navigating an off-road trail on a motorcycle.\n\n2. Rider\n   - The rider is wearing a helmet, gloves, and protective gear. The motorcycle is red.\n\n3. Terrain & environment\n   - The environment is a forested area with a dirt trail. The trail is uneven with rocks and mud, surrounded by trees and bushes.\n\n4. Events\n   - The rider is seen on the motorcycle at the start of the sequence. The motorcycle is then shown on a steep, muddy incline. The rider appears to be handling the motorcycle on this terrain.\n\n5. Outcome\n   - The motorcycle is positioned on the incline, with the rider's hands visible on the handlebars in the later frames.\n\n6. Unclear or not visible\n   - The specific actions of the rider beyond holding the handlebars are not visible. The final position or movement of the motorcycle is not shown.",
+  "response_raw": "1. Rider objective & context\n   - The rider is on an off-road motorcycle, navigating a dirt trail through a forested area.\n\n2. Rider\n   - The rider is wearing a helmet, protective gear, and a backpack. They are on a red motorcycle.\n\n3. Terrain & environment\n   - The environment is a forest with a dirt trail. The trail is uneven, with rocks and patches of grass. Trees and bushes are visible on both sides.\n\n4. Events\n   - The rider is seen on the motorcycle, initially stationary, then moving along the trail. The motorcycle is ascending a steep, muddy hill.\n\n5. Outcome\n   - The motorcycle is positioned on the hill, with the rider appearing to have stopped partway up.\n\n6. Unclear or not visible\n   - The final position of the rider and motorcycle at the top of the hill is not visible. The rider's facial expressions or any specific actions are not clear.",
   "response_parsed": {
-    "rider_objective_context": "- The rider appears to be navigating an off-road trail on a motorcycle.",
-    "rider": "- The rider is wearing a helmet, gloves, and protective gear. The motorcycle is red.",
-    "terrain_environment": "- The environment is a forested area with a dirt trail. The trail is uneven with rocks and mud, surrounded by trees and bushes.",
-    "events": "- The rider is seen on the motorcycle at the start of the sequence. The motorcycle is then shown on a steep, muddy incline. The rider appears to be handling the motorcycle on this terrain.",
-    "outcome": "- The motorcycle is positioned on the incline, with the rider's hands visible on the handlebars in the later frames.",
-    "unclear_not_visible": "- The specific actions of the rider beyond holding the handlebars are not visible. The final position or movement of the motorcycle is not shown."
+    "rider_objective_context": "- The rider is on an off-road motorcycle, navigating a dirt trail through a forested area.",
+    "rider": "- The rider is wearing a helmet, protective gear, and a backpack. They are on a red motorcycle.",
+    "terrain_environment": "- The environment is a forest with a dirt trail. The trail is uneven, with rocks and patches of grass. Trees and bushes are visible on both sides.",
+    "events": "- The rider is seen on the motorcycle, initially stationary, then moving along the trail. The motorcycle is ascending a steep, muddy hill.",
+    "outcome": "- The motorcycle is positioned on the hill, with the rider appearing to have stopped partway up.",
+    "unclear_not_visible": "- The final position of the rider and motorcycle at the top of the hill is not visible. The rider's facial expressions or any specific actions are not clear."
   },
-  "duration_ms": 44440,
+  "duration_ms": 20716,
   "token_usage": {
     "input": 17785,
-    "output": 190
+    "output": 193,
+    "think_tokens": 0,
+    "finish_reason": "n/a"
   },
-  "timestamp": "2026-04-12T19:40:39.597Z"
+  "timestamp": "2026-04-12T20:52:25.447Z"
 }

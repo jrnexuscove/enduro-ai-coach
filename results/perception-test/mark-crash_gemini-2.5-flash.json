@@ -5,19 +5,21 @@
   "frames_extracted": 16,
   "frame_dimensions": "1920x1080",
   "prompt_version": "perception_v1",
-  "response_raw": "Here is a description of the visually observable elements in the sequential still frames:\n\n1.  **Rider objective & context**\n    An individual is operating an off-road motorcycle on a sloped, unpaved track. The track appears to be delineated by white markers (flags or tape) on the hillside. Other individuals are visible on a distant ridge in the background.\n\n",
+  "response_raw": "Here is a description of the visually observable events in the frames:\n\n### 1. Rider objective & context\nA rider on an off-road motorcycle is navigating a dirt track in a hilly, open environment. The track appears to be marked with white flags or markers. Other individuals are visible on a distant ridge, possibly observing.\n\n### 2. Rider\nThe rider is wearing a red helmet, dark blue and red riding gear, and gloves. The rider is positioned on an orange and white off-road motorcycle.\n\n### 3. Terrain & environment\nThe terrain is predominantly dark grey and brown, consisting of loose dirt, gravel, and some larger rocks. There are distinct tracks or ruts in the dirt. Patches of green moss and some sparse vegetation, including a small tree and some purple flowers, are visible. The background features large, barren-looking hills under a cloudy sky. An orange flag or marker is visible on the left side of the track in later frames.\n\n### 4. Events\nThe rider starts on a downhill slope, moving from right to left across the frames. The motorcycle's front wheel lifts off the ground in frames 6 and 7. In frame 8, the motorcycle is significantly tilted to its left side, with the front wheel still off the ground. The motorcycle then falls to its left side, with the rider still attached, in frame 9. The motorcycle and rider slide along the ground, coming to a stop in frame 13. The rider then raises their right arm in frames 14 and 15.\n\n### 5. Outcome\nThe rider and motorcycle fall to the ground and slide to a stop. The rider is lying on their left side next to the motorcycle, which is also on its left side. The rider then raises their right arm.\n\n### 6. Unclear or not visible\nThe exact speed of the motorcycle is not visible. The rider's facial expression is not visible due to the helmet. The condition of the motorcycle after the fall is not fully visible. The reason for the front wheel lifting and the subsequent fall is not visible. The full extent of the track or the rider's intended path is not visible.",
   "response_parsed": {
-    "rider_objective_context": "An individual is operating an off-road motorcycle on a sloped, unpaved track. The track appears to be delineated by white markers (flags or tape) on the hillside. Other individuals are visible on a distant ridge in the background.",
-    "rider": "",
-    "terrain_environment": "",
-    "events": "",
-    "outcome": "",
-    "unclear_not_visible": ""
+    "rider_objective_context": "A rider on an off-road motorcycle is navigating a dirt track in a hilly, open environment. The track appears to be marked with white flags or markers. Other individuals are visible on a distant ridge, possibly observing.",
+    "rider": "The rider is wearing a red helmet, dark blue and red riding gear, and gloves. The rider is positioned on an orange and white off-road motorcycle.",
+    "terrain_environment": "The terrain is predominantly dark grey and brown, consisting of loose dirt, gravel, and some larger rocks. There are distinct tracks or ruts in the dirt. Patches of green moss and some sparse vegetation, including a small tree and some purple flowers, are visible. The background features large, barren-looking hills under a cloudy sky. An orange flag or marker is visible on the left side of the track in later frames.",
+    "events": "The rider starts on a downhill slope, moving from right to left across the frames. The motorcycle's front wheel lifts off the ground in frames 6 and 7. In frame 8, the motorcycle is significantly tilted to its left side, with the front wheel still off the ground. The motorcycle then falls to its left side, with the rider still attached, in frame 9. The motorcycle and rider slide along the ground, coming to a stop in frame 13. The rider then raises their right arm in frames 14 and 15.",
+    "outcome": "The rider and motorcycle fall to the ground and slide to a stop. The rider is lying on their left side next to the motorcycle, which is also on its left side. The rider then raises their right arm.",
+    "unclear_not_visible": "The exact speed of the motorcycle is not visible. The rider's facial expression is not visible due to the helmet. The condition of the motorcycle after the fall is not fully visible. The reason for the front wheel lifting and the subsequent fall is not visible. The full extent of the track or the rider's intended path is not visible."
   },
-  "duration_ms": 13489,
+  "duration_ms": 6593,
   "token_usage": {
     "input": 4232,
-    "output": 77
+    "output": 453,
+    "think_tokens": 0,
+    "finish_reason": "STOP"
   },
-  "timestamp": "2026-04-12T20:23:07.638Z"
+  "timestamp": "2026-04-12T20:31:28.547Z"
 }

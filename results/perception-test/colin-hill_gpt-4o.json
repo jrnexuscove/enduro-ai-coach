@@ -3,21 +3,23 @@
   "model": "gpt-4o",
   "model_id": "gpt-4o",
   "frames_extracted": 16,
-  "frame_dimensions": "1920x3412",
+  "frame_dimensions": "1920x1080",
   "prompt_version": "perception_v1",
-  "response_raw": "1. Rider objective & context\n   - The rider is navigating an off-road trail through a forested area.\n\n2. Rider\n   - The rider is wearing a red helmet, protective gear, and is on a red off-road motorcycle.\n\n3. Terrain & environment\n   - The terrain is a rocky, dirt trail with a steep incline. The environment is densely forested with tall trees and some underbrush.\n\n4. Events\n   - The rider is seen ascending the rocky trail, creating dust as the motorcycle moves. The rider maintains a forward position on the bike while navigating the incline.\n\n5. Outcome\n   - The rider progresses up the trail, but at one point, the motorcycle appears to slow down or stop, and the rider is seen standing beside the bike.\n\n6. Unclear or not visible\n   - The exact reason for the motorcycle slowing or stopping is not visible. The final destination or continuation of the trail is not shown.",
+  "response_raw": "1. Rider objective & context\n   - The rider is navigating an off-road trail through a forested area.\n\n2. Rider\n   - The rider is wearing a red helmet, protective gear, and is on a red off-road motorcycle.\n\n3. Terrain & environment\n   - The terrain is rocky and uneven, with a dirt path winding through a forest of tall trees.\n\n4. Events\n   - The rider is seen progressing along the trail, moving uphill and creating dust as the motorcycle moves over the rocky surface.\n\n5. Outcome\n   - The rider continues to move forward along the trail, maintaining an upright position on the motorcycle.\n\n6. Unclear or not visible\n   - Specific details about the rider's facial expressions or any obstacles not directly visible in the frames are unclear.",
   "response_parsed": {
     "rider_objective_context": "- The rider is navigating an off-road trail through a forested area.",
     "rider": "- The rider is wearing a red helmet, protective gear, and is on a red off-road motorcycle.",
-    "terrain_environment": "- The terrain is a rocky, dirt trail with a steep incline. The environment is densely forested with tall trees and some underbrush.",
-    "events": "- The rider is seen ascending the rocky trail, creating dust as the motorcycle moves. The rider maintains a forward position on the bike while navigating the incline.",
-    "outcome": "- The rider progresses up the trail, but at one point, the motorcycle appears to slow down or stop, and the rider is seen standing beside the bike.",
-    "unclear_not_visible": "- The exact reason for the motorcycle slowing or stopping is not visible. The final destination or continuation of the trail is not shown."
+    "terrain_environment": "- The terrain is rocky and uneven, with a dirt path winding through a forest of tall trees.",
+    "events": "- The rider is seen progressing along the trail, moving uphill and creating dust as the motorcycle moves over the rocky surface.",
+    "outcome": "- The rider continues to move forward along the trail, maintaining an upright position on the motorcycle.",
+    "unclear_not_visible": "- Specific details about the rider's facial expressions or any obstacles not directly visible in the frames are unclear."
   },
-  "duration_ms": 29949,
+  "duration_ms": 14790,
   "token_usage": {
     "input": 17785,
-    "output": 192
+    "output": 159,
+    "think_tokens": 0,
+    "finish_reason": "n/a"
   },
-  "timestamp": "2026-04-12T19:36:04.000Z"
+  "timestamp": "2026-04-12T20:40:57.924Z"
 }

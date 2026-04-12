@@ -1,0 +1,25 @@
+{
+  "clip": "steep-hill-bail",
+  "model": "gemini-2.5-flash",
+  "model_id": "gemini-2.5-flash",
+  "frames_extracted": 0,
+  "frame_dimensions": "1920x1080",
+  "prompt_version": "perception_v1",
+  "response_raw": "Here's a description of the frames:\n\n### 1. Rider objective & context\nThe rider is operating an off-road motorcycle on a dirt trail through a wooded area. The objective appears to be to navigate the trail and ascend a hill.\n\n### 2. Rider\nThe rider is wearing red and black gloves and a white and black long-sleeved shirt. The rider's hands are visible on the handlebars in the initial frames. After the crash, the rider's left hand is visible near the motorcycle's handlebars.\n\n### 3. Terrain & environment\nThe terrain is a dirt trail covered with dry leaves and some patches of dry grass. The trail is winding and appears to be ascending a hill. The environment is a forest with numerous bare trees, suggesting a late autumn or winter season. The sky is overcast.\n\n### 4. Events\nThe motorcycle is initially moving along a dirt trail. The rider attempts to ascend a steep, leaf-covered incline. The motorcycle appears to lose traction or momentum, and the front wheel lifts off the ground. The motorcycle then falls to its left side.\n\n### 5. Outcome\nThe motorcycle is lying on its left side on the leaf-covered ground. The rider is no longer on the motorcycle. The rider's left hand is visible near the handlebars of the fallen motorcycle.\n\n### 6. Unclear or not visible\nThe rider's full body, face, and specific injuries (if any) are not visible. The exact cause of the motorcycle losing traction or momentum is not explicitly visible. The condition of the motorcycle after the fall is not fully visible, though it appears to be on its side.",
+  "response_parsed": {
+    "rider_objective_context": "The rider is operating an off-road motorcycle on a dirt trail through a wooded area. The objective appears to be to navigate the trail and ascend a hill.",
+    "rider": "The rider is wearing red and black gloves and a white and black long-sleeved shirt. The rider's hands are visible on the handlebars in the initial frames. After the crash, the rider's left hand is visible near the motorcycle's handlebars.",
+    "terrain_environment": "The terrain is a dirt trail covered with dry leaves and some patches of dry grass. The trail is winding and appears to be ascending a hill. The environment is a forest with numerous bare trees, suggesting a late autumn or winter season. The sky is overcast.",
+    "events": "The motorcycle is initially moving along a dirt trail. The rider attempts to ascend a steep, leaf-covered incline. The motorcycle appears to lose traction or momentum, and the front wheel lifts off the ground. The motorcycle then falls to its left side.",
+    "outcome": "The motorcycle is lying on its left side on the leaf-covered ground. The rider is no longer on the motorcycle. The rider's left hand is visible near the handlebars of the fallen motorcycle.",
+    "unclear_not_visible": "The rider's full body, face, and specific injuries (if any) are not visible. The exact cause of the motorcycle losing traction or momentum is not explicitly visible. The condition of the motorcycle after the fall is not fully visible, though it appears to be on its side."
+  },
+  "duration_ms": 206438,
+  "token_usage": {
+    "input": 9839,
+    "output": 344,
+    "think_tokens": 0,
+    "finish_reason": "STOP"
+  },
+  "timestamp": "2026-04-12T20:45:50.382Z"
+}
