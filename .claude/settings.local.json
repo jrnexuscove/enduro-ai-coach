@@ -15,7 +15,8 @@
       "Bash(cmd.exe /c \"type C:\\\\Users\\\\rigge\\\\.claude.json\")",
       "mcp__mempalace__mempalace_diary_read",
       "mcp__context7__resolve-library-id",
-      "mcp__mempalace__mempalace_search"
+      "mcp__mempalace__mempalace_search",
+      "mcp__context7__query-docs"
     ]
   }
 }

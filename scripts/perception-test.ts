@@ -399,7 +399,7 @@ async function callGeminiFrames(
         parts: [{ text: PROMPT_TEXT }, ...(frameParts as any[])],
       },
     ],
-    generationConfig: { temperature: 0, maxOutputTokens: 1500 },
+    generationConfig: { temperature: 0, maxOutputTokens: 2000 },
   });
 
   return {
@@ -479,7 +479,7 @@ async function callGeminiVideo(
         parts: [{ text: PROMPT_TEXT }, videoPart],
       },
     ],
-    generationConfig: { temperature: 0, maxOutputTokens: 1500 },
+    generationConfig: { temperature: 0, maxOutputTokens: 2000 },
   });
 
   return {

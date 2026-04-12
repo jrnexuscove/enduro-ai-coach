@@ -2,22 +2,24 @@
 
 **Status:** Active
 **Created:** 2026-04-01
-**Last updated:** 2026-04-10
+**Last updated:** 2026-04-12
 **Owner:** Jake (Nexus Cove)
 **Purpose:** Single source of truth for the next phase of RideMind development
 
-## Current Milestone Status (2026-04-10)
+## Current Milestone Status (2026-04-12)
 
 | Milestone | Status |
 |-----------|--------|
 | Gate 1 — Pipeline stages approved | PASSED (2026-04-01) |
 | Gate 2 — KB entry schemas approved | PASSED (2026-04-01) |
 | Gate 3 — Pipeline v1 implemented | PASSED (2026-04-09) — All 11 stages. T1 8-clip retest complete. |
-| S6/S7 prompt fixes | COMMITTED (36b1274, 2026-04-10) — regression test pending |
+| S6/S7 prompt fixes | COMMITTED (36b1274, 2026-04-10) — S6-REG complete (1/4 pass); S5S6-REG2 complete (1/4 pass) |
+| S5 stall/bail/completed disambiguation | COMMITTED (b48daf0, 2026-04-10) — positive-evidence rule, end-of-clip deceleration rule |
+| Perception viability experiment | IN PROGRESS — spec + ground truth complete; script not yet built |
 | UI v1 Milestone 1 | COMPLETE (4855734, 2026-04-10) — mock data, running at localhost:3000 |
 | UI v1 Milestone 2 | NOT STARTED — wire real pipeline (USE_MOCK = false), run 8 test clips |
 
-**Next action:** S6-REG regression test (Long Hill, Nick Crash, Colin Hill, Steep Hill Bail), then wire real pipeline into UI.
+**Next action:** PVE-1 — build `scripts/perception-test.ts` (3 clips × 3 models, no pipeline, `perception_v1` prompt). After perception gate: UI-WIRE-1 (wire real pipeline into UI).
 
 ---
 
