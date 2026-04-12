@@ -89,6 +89,31 @@ const ALL_CLIPS: ClipDef[] = [
     label: "Steep Hill Bail",
     path: String.raw`C:\Users\rigge\OneDrive\Videos\Enduro ai coach test clips\steep hill bail in trees.mp4`,
   },
+  {
+    id: "clutch-scream-hill",
+    label: "Clutch Scream Hill",
+    path: String.raw`C:\Users\rigge\OneDrive\Videos\Enduro ai coach test clips\clutch scream hill.mp4`,
+  },
+  {
+    id: "fall-bulgario",
+    label: "Fall Bulgario",
+    path: String.raw`C:\Users\rigge\OneDrive\Videos\Enduro ai coach test clips\Fall bulgario muddy hill 1.mp4`,
+  },
+  {
+    id: "jimbo-crash",
+    label: "Jimbo Crash",
+    path: String.raw`C:\Users\rigge\OneDrive\Videos\Enduro ai coach test clips\jimbo crash.mp4`,
+  },
+  {
+    id: "long-hill",
+    label: "Long Hill",
+    path: String.raw`C:\Users\rigge\OneDrive\Videos\Enduro ai coach test clips\long hill.mp4`,
+  },
+  {
+    id: "mark-crash",
+    label: "Mark Crash",
+    path: String.raw`C:\Users\rigge\OneDrive\Videos\Enduro ai coach test clips\Mark crash.mp4`,
+  },
 ];
 
 // ---------------------------------------------------------------------------
