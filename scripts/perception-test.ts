@@ -158,7 +158,7 @@ interface PerceptionResult {
   response_raw: string;
   response_parsed: ParsedResponse;
   duration_ms: number;
-  token_usage: { input: number; output: number };
+  token_usage: { input: number; output: number; think_tokens: number; finish_reason: string };
   timestamp: string;
   error?: string;
 }
@@ -378,6 +378,8 @@ interface ModelCallResult {
   raw: string;
   input: number;
   output: number;
+  thinkTokens: number;
+  finishReason: string;
 }
 
 async function callGPT4o(openai: OpenAI, framePaths: string[]): Promise<ModelCallResult> {
@@ -402,9 +404,11 @@ async function callGPT4o(openai: OpenAI, framePaths: string[]): Promise<ModelCal
   });
 
   return {
-    raw:    response.choices[0]?.message.content ?? "",
-    input:  response.usage?.prompt_tokens ?? 0,
-    output: response.usage?.completion_tokens ?? 0,
+    raw:         response.choices[0]?.message.content ?? "",
+    input:       response.usage?.prompt_tokens ?? 0,
+    output:      response.usage?.completion_tokens ?? 0,
+    thinkTokens: 0,
+    finishReason: "n/a",
   };
 }
 
@@ -433,13 +437,17 @@ async function callGeminiFrames(
         parts: [{ text: PROMPT_TEXT }, ...(frameParts as any[])],
       },
     ],
-    generationConfig: { temperature: 0, maxOutputTokens: 2000 },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    generationConfig: { temperature: 0, maxOutputTokens: 2000, thinkingConfig: { thinkingBudget: 0 } } as any,
   });
 
   return {
-    raw:    response.response.text(),
-    input:  response.response.usageMetadata?.promptTokenCount ?? 0,
-    output: response.response.usageMetadata?.candidatesTokenCount ?? 0,
+    raw:          response.response.text(),
+    input:        response.response.usageMetadata?.promptTokenCount ?? 0,
+    output:       response.response.usageMetadata?.candidatesTokenCount ?? 0,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    thinkTokens:  (response.response.usageMetadata as any)?.thoughtsTokenCount ?? 0,
+    finishReason: response.response.candidates?.[0]?.finishReason ?? "unknown",
   };
 }
 
@@ -513,13 +521,17 @@ async function callGeminiVideo(
         parts: [{ text: PROMPT_TEXT }, videoPart],
       },
     ],
-    generationConfig: { temperature: 0, maxOutputTokens: 2000 },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    generationConfig: { temperature: 0, maxOutputTokens: 2000, thinkingConfig: { thinkingBudget: 0 } } as any,
   });
 
   return {
-    raw:    response.response.text(),
-    input:  response.response.usageMetadata?.promptTokenCount ?? 0,
-    output: response.response.usageMetadata?.candidatesTokenCount ?? 0,
+    raw:          response.response.text(),
+    input:        response.response.usageMetadata?.promptTokenCount ?? 0,
+    output:       response.response.usageMetadata?.candidatesTokenCount ?? 0,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    thinkTokens:  (response.response.usageMetadata as any)?.thoughtsTokenCount ?? 0,
+    finishReason: response.response.candidates?.[0]?.finishReason ?? "unknown",
   };
 }
 
@@ -555,8 +567,10 @@ async function callClaude(anthropic: Anthropic, framePaths: string[]): Promise<M
 
   return {
     raw,
-    input:  response.usage.input_tokens,
-    output: response.usage.output_tokens,
+    input:        response.usage.input_tokens,
+    output:       response.usage.output_tokens,
+    thinkTokens:  0,
+    finishReason: "n/a",
   };
 }
 
@@ -601,7 +615,7 @@ async function runPerception(
     }
 
     const duration_ms = Date.now() - startTime;
-    console.log(`     done — ${duration_ms}ms, tokens: ${result.input}in/${result.output}out`);
+    console.log(`     done — ${duration_ms}ms, tokens: ${result.input}in/${result.output}out, finish: ${result.finishReason}${result.thinkTokens ? `, think: ${result.thinkTokens}` : ""}`);
 
     return {
       clip:             clip.id,
@@ -613,7 +627,7 @@ async function runPerception(
       response_raw:     result.raw,
       response_parsed:  parseResponse(result.raw),
       duration_ms,
-      token_usage:      { input: result.input, output: result.output },
+      token_usage:      { input: result.input, output: result.output, think_tokens: result.thinkTokens, finish_reason: result.finishReason },
       timestamp:        new Date().toISOString(),
     };
   } catch (err: unknown) {
@@ -630,7 +644,7 @@ async function runPerception(
       response_raw:     "",
       response_parsed:  emptyParsed,
       duration_ms:      Date.now() - startTime,
-      token_usage:      { input: 0, output: 0 },
+      token_usage:      { input: 0, output: 0, think_tokens: 0, finish_reason: "error" },
       timestamp:        new Date().toISOString(),
       error:            message,
     };
