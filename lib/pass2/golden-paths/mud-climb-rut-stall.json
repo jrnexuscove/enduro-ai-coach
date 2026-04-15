@@ -1,0 +1,17 @@
+{
+  "coaching_required": true,
+  "title": "Maintaining Drive Through Rutted Mud Climbs",
+  "issue_priority": [
+    { "issue": "Loss of momentum due to rear wheel spin in low-traction mud", "importance": 1 },
+    { "issue": "Inconsistent throttle application causing drive interruption", "importance": 2 }
+  ],
+  "what_you_were_trying_to_do": "You were attempting to climb a steep, muddy hill through ruts while keeping enough momentum to reach the top.",
+  "what_actually_happened": "As you entered the rutted climb, the rear wheel began spinning and drive became inconsistent, causing repeated momentum loss until the bike stalled midway up.",
+  "why_it_went_wrong": "The rear_wheel_spin signal shows that traction was breaking down in the muddy ruts. On a steep climb, this reduces forward drive, and the drive_interruption then causes momentum to collapse. Without consistent drive, the bike cannot maintain forward motion, leading directly to a stall.",
+  "what_to_do_differently": "Focus on maintaining steady, progressive throttle through the rut to keep continuous drive. Enter the climb with enough momentum already built, then hold a smooth throttle rather than increasing or reducing it abruptly. Keep your body position forward enough to support traction while allowing the bike to track straight through the rut, so momentum is preserved all the way up.",
+  "drills_and_practice": [
+    { "drill_name": "Steady Throttle Climb Drill", "instructions": "Find a short muddy incline and ride it repeatedly while holding a constant throttle from entry to exit without surging or backing off.", "purpose": "Builds consistent throttle control to prevent drive interruption and maintain traction." },
+    { "drill_name": "Momentum Carry Repeats", "instructions": "Approach a small hill with controlled entry speed and focus on carrying that momentum through without adding extra throttle mid-climb.", "purpose": "Develops awareness of momentum preservation instead of relying on reactive inputs." }
+  ],
+  "closing": "You're close — once you smooth out the drive and keep that momentum consistent, these climbs will start coming together."
+}

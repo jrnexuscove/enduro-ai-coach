@@ -1,0 +1,16 @@
+{
+  "coaching_required": false,
+  "title": "Clean Completion on the Off-Camber Grass Section",
+  "issue_priority": [
+    {
+      "issue": "Minor line deviation observed during a clean completion",
+      "importance": 1
+    }
+  ],
+  "what_you_were_trying_to_do": "You were riding across a flat grass section with a moderate off-camber and aiming to stay balanced and complete the line cleanly.",
+  "what_actually_happened": "You completed the section cleanly. There was a visible line_deviation on the off-camber, but it did not lead to a stall, crash, or loss of completion.",
+  "why_it_went_wrong": null,
+  "what_to_do_differently": null,
+  "drills_and_practice": [],
+  "closing": "You got through the section cleanly and kept the ride together well."
+}

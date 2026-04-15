@@ -1,0 +1,147 @@
+{
+  "perception_summary": {
+    "surface_type": "rock",
+    "surface_condition": "dry",
+    "gradient": "steep_down",
+    "instability_signals": [
+      "front_end_light",
+      "weight_shift_rear"
+    ],
+    "outcome": "crash"
+  },
+  "terrain": {
+    "topic_id": "TERRAIN-03",
+    "title": "Rock — Terrain Profile",
+    "surface_type": "rock",
+    "traction_range": {
+      "dry": "moderate",
+      "damp": "low",
+      "wet": "low"
+    },
+    "failure_types": [
+      "technique",
+      "traction",
+      "line_choice",
+      "decision"
+    ],
+    "gradient_contexts": [
+      "flat",
+      "moderate_up",
+      "steep_up",
+      "very_steep_up",
+      "gentle_down",
+      "moderate_down",
+      "steep_down",
+      "very_steep_down"
+    ],
+    "common_misclassifications": [
+      "shale",
+      "gravel",
+      "hardpack"
+    ],
+    "tags": [
+      "rock",
+      "rocky",
+      "bedrock",
+      "boulder",
+      "rock-garden",
+      "slab",
+      "technical",
+      "deflection",
+      "traction",
+      "line-choice",
+      "pinch-flat",
+      "lichen",
+      "wet-rock"
+    ],
+    "technique_reference": "**Weight distribution** — Neutral to slightly rearward on rock, particularly on descents and through boulder sections. Rearward bias allows the front wheel to rise slightly over rock edges rather than driving directly into them. However, extreme rearward bias on flat or uphill rock lifts the front wheel and eliminates its traction entirely — the bike is balancing on the rear wheel on a surface where the rear wheel is also at traction risk. Neutral standing weight through the pegs, with the…",
+    "technique_reference_truncated": true
+  },
+  "features": [
+    {
+      "topic_id": "FEATURE-03",
+      "title": "Drop Features — Feature Profile",
+      "feature_type": "drop",
+      "feature_class": "single_event",
+      "severity_tier": "moderate",
+      "severity_description": "Drop 0.5–1.5m with defined edge; requires deliberate body position and speed management; poor technique produces nose-dive, hard front landing, or OTB risk",
+      "failure_types": [
+        "technique",
+        "decision",
+        "momentum"
+      ],
+      "crash_types": [
+        "otb",
+        "ejection"
+      ],
+      "tags": [
+        "drop",
+        "ledge-drop",
+        "step-down-drop",
+        "rolloff",
+        "blind-drop",
+        "vertical",
+        "descent",
+        "nose-dive",
+        "otb",
+        "landing",
+        "commitment",
+        "freefall",
+        "edge"
+      ],
+      "technique_reference": "Drop 0.5–1.5m with defined edge; requires deliberate body position and speed management; poor technique produces nose-dive, hard front landing, or OTB risk",
+      "technique_reference_truncated": false
+    }
+  ],
+  "dynamics": [
+    {
+      "topic_id": "DYNAMICS-04",
+      "title": "Weight Transfer Under Acceleration and Braking",
+      "tags": [
+        "weight transfer",
+        "acceleration",
+        "braking",
+        "pitch",
+        "front",
+        "rear",
+        "load",
+        "enduro"
+      ],
+      "related_topics": [
+        "DYNAMICS-05",
+        "DYNAMICS-08",
+        "BIOMECH-02",
+        "CONTROL-04",
+        "CONTROL-11",
+        "HILL-05"
+      ],
+      "technique_reference": "### Principle 1: Inertia — The Physics Behind Weight Transfer\nWhen a motorcycle accelerates, its mass tends to stay behind — this creates a rearward pitching moment around the rear axle. The result is increased load on the rear tyre and reduced load on the front. When braking, the opposite occurs — the mass tends to continue forward while the bike decelerates, creating a forward pitching moment. The magnitude of weight transfer is proportional to: the rate of acceleration or deceleration…",
+      "technique_reference_truncated": true,
+      "match_reason": "failure:technique@0.75; co_signal:technique@0.70; terrain:descent gradient; outcome:crash"
+    },
+    {
+      "topic_id": "DYNAMICS-05",
+      "title": "Chassis Pitch — Front and Rear Bias",
+      "tags": [
+        "chassis",
+        "pitch",
+        "front bias",
+        "rear bias",
+        "balance",
+        "throttle",
+        "braking",
+        "setup"
+      ],
+      "related_topics": [
+        "DYNAMICS-04",
+        "DYNAMICS-08",
+        "CONTROL-04",
+        "CONTROL-11",
+        "SETUP-01"
+      ],
+      "technique_reference": "### Principle 1: Every Input Changes Pitch State\nThere is no neutral input that preserves pitch. Throttle creates rearward pitch (nose-up). Braking creates forward pitch (nose-down). Even no input has a pitch consequence: engine braking on a four-stroke creates mild nose-down pitch as the drivetrain decelerates the rear wheel. The only way to maintain neutral pitch is through a balanced, continuously-adjusted combination of throttle, brake, and body position that offsets these forces as terrain…",
+      "technique_reference_truncated": true,
+      "match_reason": "failure:technique@0.75; co_signal:technique@0.70; outcome:crash"
+    }
+  ]
+}

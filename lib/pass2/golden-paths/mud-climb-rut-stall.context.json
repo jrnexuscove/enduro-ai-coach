@@ -1,0 +1,152 @@
+{
+  "perception_summary": {
+    "surface_type": "mud",
+    "surface_condition": "wet",
+    "gradient": "steep_up",
+    "instability_signals": [
+      "rear_wheel_spin",
+      "drive_interruption"
+    ],
+    "outcome": "stall"
+  },
+  "terrain": {
+    "topic_id": "TERRAIN-01",
+    "title": "Mud — Terrain Profile",
+    "surface_type": "mud",
+    "traction_range": {
+      "wet": "low",
+      "saturated": "very_low",
+      "damp": "moderate",
+      "frozen": "variable"
+    },
+    "failure_types": [
+      "traction",
+      "momentum",
+      "technique",
+      "line_choice"
+    ],
+    "gradient_contexts": [
+      "flat",
+      "gentle_up",
+      "moderate_up",
+      "steep_up",
+      "very_steep_up",
+      "gentle_down",
+      "moderate_down",
+      "steep_down",
+      "very_steep_down"
+    ],
+    "common_misclassifications": [
+      "loam",
+      "clay",
+      "wet_grass"
+    ],
+    "tags": [
+      "mud",
+      "traction",
+      "ruts",
+      "churned",
+      "bog",
+      "slop",
+      "wet",
+      "saturated",
+      "momentum",
+      "traction-loss",
+      "low-grip",
+      "clag"
+    ],
+    "technique_reference": "**Weight distribution** in mud sits marginally rearward of neutral compared to normal riding. Excessive front weight causes the front tyre to cut into the surface, reducing steering authority and increasing the risk of front-end push. However, extreme rear bias causes the front wheel to float, reducing directional stability and line precision. The correct position is a standing posture with weight distributed through the pegs, allowing the bike to track without the rider adding asymmetric…",
+    "technique_reference_truncated": true
+  },
+  "features": [
+    {
+      "topic_id": "FEATURE-07",
+      "title": "Rut — Feature Profile",
+      "feature_type": "rut",
+      "feature_class": "continuous",
+      "severity_tier": "moderate",
+      "severity_description": "Channel 15–30cm deep with narrowing sections or directional changes; handlebar clearance to rut walls becomes relevant; wet or soft base possible; two or more feasible approaches (ride in, ride beside, cross); consequence of tracking error is handlebar strike on rut wall, forced stop, or uncontrolled rut exit",
+      "failure_types": [
+        "technique",
+        "momentum",
+        "line_choice",
+        "decision",
+        "traction"
+      ],
+      "crash_types": [
+        "tip_over",
+        "lowside"
+      ],
+      "tags": [
+        "rut",
+        "channel",
+        "tyre-track",
+        "confinement",
+        "handlebar-strike",
+        "tracking",
+        "wheel-trap",
+        "clay-rut",
+        "wet-rut",
+        "off-camber-rut",
+        "braking-rut",
+        "cross-rut",
+        "committed-line",
+        "mud-channel"
+      ],
+      "technique_reference": "Channel 15–30cm deep with narrowing sections or directional changes; handlebar clearance to rut walls becomes relevant; wet or soft base possible; two or more feasible approaches (ride in, ride beside, cross); consequence of tracking error is handlebar strike on rut wall, forced stop, or uncontrolled rut exit",
+      "technique_reference_truncated": false
+    }
+  ],
+  "dynamics": [
+    {
+      "topic_id": "DYNAMICS-01",
+      "title": "Traction Generation and Loss",
+      "tags": [
+        "traction",
+        "grip",
+        "front wheel",
+        "rear wheel",
+        "physics",
+        "slip ratio",
+        "traction circle",
+        "enduro"
+      ],
+      "related_topics": [
+        "DYNAMICS-02",
+        "DYNAMICS-03",
+        "DYNAMICS-04",
+        "BIOMECH-02",
+        "CONTROL-04",
+        "CONTROL-11"
+      ],
+      "technique_reference": "### Principle 1: The Traction Circle — A Finite Grip Budget\nAt any instant, a tyre can produce a maximum total friction force in any combination of directions. Visualise this as a circle: the radius is the total grip available, and every demand — longitudinal (braking/acceleration) and lateral (cornering) — is a vector drawn from the centre. When the combined vector reaches the circle's edge, the tyre is at its limit. Exceed the circle and the tyre slides. A rider braking hard has used most of…",
+      "technique_reference_truncated": true,
+      "match_reason": "failure:traction@0.80; terrain:low-traction surface; outcome:stall"
+    },
+    {
+      "topic_id": "DYNAMICS-02",
+      "title": "Wheel Slip vs Drive Dynamics",
+      "tags": [
+        "wheel slip",
+        "drive",
+        "slip ratio",
+        "productive slip",
+        "spin",
+        "traction",
+        "rear wheel",
+        "power delivery"
+      ],
+      "related_topics": [
+        "DYNAMICS-01",
+        "DYNAMICS-05",
+        "CONTROL-04",
+        "CONTROL-08",
+        "TERRAIN-01",
+        "TERRAIN-02"
+      ],
+      "technique_reference": "### Principle 1: Slip Ratio Defined\nSlip ratio is the ratio of the difference between wheel rotational speed and actual forward vehicle speed, expressed as a percentage. At 0% slip, the wheel rolls exactly at ground speed. At 100% slip (full wheel spin), the wheel rotates but the bike is stationary. The formula: slip ratio = (wheel speed − ground speed) / ground speed × 100. In practice, a rider cannot measure this directly, but they can feel and hear it. The productive zone for most off-road…",
+      "technique_reference_truncated": true,
+      "match_reason": "failure:traction@0.80; terrain:low-traction surface; outcome:stall"
+    }
+  ]
+}

@@ -32,7 +32,10 @@
       "Bash(timeout 20 npx next dev)",
       "Bash(npx next *)",
       "Bash(python3 -c ' *)",
-      "Bash(git restore *)"
+      "Bash(git restore *)",
+      "Bash(npx ts-node *)",
+      "Bash(npx tsx *)",
+      "Bash(node -e \"const m = require\\('./node_modules/tsx/package.json'\\); console.log\\(m.version\\)\")"
     ]
   }
 }

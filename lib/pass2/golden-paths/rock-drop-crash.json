@@ -1,0 +1,31 @@
+{
+  "coaching_required": true,
+  "title": "Controlling Front-End Load on Steep Rock Drops",
+  "issue_priority": [
+    {
+      "issue": "Rearward weight shift causing front-end instability on drop",
+      "importance": 1
+    },
+    {
+      "issue": "Uncontrolled front-end lightness leading to loss of balance on descent",
+      "importance": 2
+    }
+  ],
+  "what_you_were_trying_to_do": "You were attempting to descend a steep rocky section and roll a moderate drop while staying balanced and in control.",
+  "what_actually_happened": "As you approached and went over the drop, the front end became unstable and you were thrown forward, resulting in a crash over the bars.",
+  "why_it_went_wrong": "The front_end_light and weight_shift_rear signals show that your weight moved too far back on the steep descent. This unloads the front wheel at the point of the drop, and when it reconnects with the ground, the load transfers abruptly forward. That sudden shift in weight causes the front to dive, which leads directly to an over-the-bars crash.",
+  "what_to_do_differently": "Approach the drop with controlled speed and keep your body position centred with a slight forward bias rather than shifting back. As you reach the edge, allow the bike to move beneath you while maintaining balanced pressure through both wheels. Focus on keeping the front end stable by staying neutral and composed, so the landing is controlled rather than forcing a sudden forward load.",
+  "drills_and_practice": [
+    {
+      "drill_name": "Neutral Position Drop Practice",
+      "instructions": "Find a small, safe drop and practice rolling it while maintaining a centred body position, avoiding excessive rearward movement as you go over the edge.",
+      "purpose": "Builds control of weight distribution to prevent front-end instability on drops."
+    },
+    {
+      "drill_name": "Controlled Descent Drill",
+      "instructions": "Ride a short downhill section focusing on steady braking and balanced body position, keeping pressure consistent through both wheels.",
+      "purpose": "Improves stability and control on steep descents by managing weight transfer effectively."
+    }
+  ],
+  "closing": "That kind of crash is common on drops — once you stabilise your body position and control the load through the front, you'll feel much more confident and in control."
+}

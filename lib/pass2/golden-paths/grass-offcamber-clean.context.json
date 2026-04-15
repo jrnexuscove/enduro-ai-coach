@@ -1,0 +1,97 @@
+[KB] Terrain KB loaded: 10 entries
+[KB] Feature KB loaded: 14 entries
+{
+  "terrain": {
+    "topic_id": "TERRAIN-04",
+    "title": "Grass — Terrain Profile",
+    "surface_type": "grass",
+    "traction_range": {
+      "dry": "moderate_to_high",
+      "damp": "moderate",
+      "wet": "low",
+      "frozen": "very_low"
+    },
+    "failure_types": [
+      "traction",
+      "line_choice",
+      "decision"
+    ],
+    "gradient_contexts": [
+      "flat",
+      "gentle_up",
+      "moderate_up",
+      "steep_up",
+      "gentle_down",
+      "moderate_down",
+      "steep_down"
+    ],
+    "common_misclassifications": [
+      "loam",
+      "mud",
+      "hardpack"
+    ],
+    "tags": [
+      "grass",
+      "wet-grass",
+      "off-camber",
+      "frost",
+      "hidden-hazard",
+      "traction-loss",
+      "overconfidence",
+      "lowside",
+      "field-crossing"
+    ],
+    "technique_reference": "**Off-camber positioning** — Off-camber wet grass is the highest-consequence grass scenario and requires specific technique emphasis. Body weight should be on the outside peg, the bike leaning against the camber with the rider's body providing the counter-lean that keeps the tyres loaded. Any tendency to lean into the slope (toward the downhill side) transfers weight away from the uphill tyre and directly onto the traction surface already at its limit. See BIOMECH-03 for peg-weighting technique…",
+    "technique_reference_truncated": true
+  },
+  "features": [
+    {
+      "topic_id": "FEATURE-02",
+      "title": "Off-Camber / Side Slope — Feature Profile",
+      "feature_type": "off_camber",
+      "feature_class": "continuous",
+      "severity_tier": "moderate",
+      "severity_description": "Lateral slope 10–20° on a surface with reduced traction (wet grass, damp clay, loose gravel); sustained weight discipline required throughout the section; traction loss produces committed lateral drift with limited recovery window",
+      "failure_types": [
+        "traction",
+        "line_choice",
+        "technique",
+        "decision"
+      ],
+      "crash_types": [
+        "lowside",
+        "tip_over"
+      ],
+      "tags": [
+        "off-camber",
+        "side-slope",
+        "camber",
+        "lateral",
+        "lean",
+        "traction",
+        "lowside",
+        "wet",
+        "grass",
+        "clay",
+        "peg-weighting",
+        "fall-line",
+        "traverse",
+        "exposure",
+        "continuous"
+      ],
+      "technique_reference": "Lateral slope 10–20° on a surface with reduced traction (wet grass, damp clay, loose gravel); sustained weight discipline required throughout the section; traction loss produces committed lateral drift with limited recovery window",
+      "technique_reference_truncated": false
+    }
+  ],
+  "dynamics": [],
+  "perception_summary": {
+    "surface_type": "grass",
+    "gradient": "flat",
+    "surface_condition": "dry",
+    "traction_estimate": "moderate",
+    "outcome": "completed",
+    "instability_signals": [
+      "line_deviation"
+    ]
+  }
+}
