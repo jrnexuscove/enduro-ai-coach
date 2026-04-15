@@ -1,9 +1,14 @@
+export const runtime = 'nodejs';
+
 import { NextRequest, NextResponse } from 'next/server';
 import type { AnalysisResult } from '@/lib/types';
+import type { GatedPipelineResult, PipelineResult } from '@/pipeline/types';
+import { runFullPipeline } from '@/pipeline/runner';
+import { formatResult } from '@/lib/format-result';
 
 // ─── Mock flag ───────────────────────────────────────────────────────────────
-// Set USE_MOCK = false and implement runPipeline() when pipeline is wired up.
-const USE_MOCK = true;
+// Set USE_MOCK = true to bypass the real pipeline during development.
+const USE_MOCK = false;
 
 // ─── Mock path ───────────────────────────────────────────────────────────────
 // Simulates a steep hill bail result — the T1 reference clip.
@@ -35,16 +40,31 @@ async function runMock(_video: File, _riderNote: string | null): Promise<Analysi
 }
 
 // ─── Real pipeline path ──────────────────────────────────────────────────────
-// Uncomment and implement when pipeline integration is ready:
-//
-// import { runFullPipeline } from '@/pipeline/runner';
-// import { formatResult } from '@/lib/format-result';
-//
-// async function runPipeline(video: File, riderNote: string | null): Promise<AnalysisResult> {
-//   const bytes = Buffer.from(await video.arrayBuffer());
-//   const pipeline = await runFullPipeline(bytes, riderNote ?? undefined);
-//   return formatResult(pipeline);
-// }
+
+function formatGatedResult(gated: GatedPipelineResult): AnalysisResult {
+  return {
+    summary: {
+      intent: 'Unable to analyse',
+      terrain: '—',
+      failureType: '—',
+      confidence: 0,
+    },
+    coaching: {
+      title: 'This clip couldn\'t be processed',
+      message: gated.stage0.user_guidance.message,
+    },
+    supporting: gated.stage0.user_guidance.filming_tips.slice(0, 3),
+  };
+}
+
+async function runRealPipeline(video: File, riderNote: string | null): Promise<AnalysisResult> {
+  const bytes = Buffer.from(await video.arrayBuffer());
+  const pipeline = await runFullPipeline(bytes, riderNote ?? undefined, video.name);
+  if ('gated' in pipeline) {
+    return formatGatedResult(pipeline as GatedPipelineResult);
+  }
+  return formatResult(pipeline as PipelineResult);
+}
 
 // ─── Route handler ───────────────────────────────────────────────────────────
 export async function POST(req: NextRequest) {
@@ -73,8 +93,7 @@ export async function POST(req: NextRequest) {
     if (USE_MOCK) {
       result = await runMock(video, noteStr);
     } else {
-      // Replace with: result = await runPipeline(video, noteStr);
-      throw new Error('Real pipeline not yet connected — set USE_MOCK = true');
+      result = await runRealPipeline(video, noteStr);
     }
     return NextResponse.json(result);
   } catch (err) {
