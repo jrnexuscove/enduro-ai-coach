@@ -4,12 +4,15 @@
 > **Authority:** This document defines the contract for every pipeline stage. No implementation begins until Gate 2 (KB schemas) also passes.
 > **Milestone clips:** Colin Hill (first), Mark Crash (second)
 > **Model strategy:** Single-model pipeline for v1. Multi-model verification deferred to post-pipeline-validation.
+> **Related:** `docs/vision-layer-spec-v1.md` — Stage 0 Observability Gate full spec (Vision Layer MVP)
 
 ---
 
 ## Architecture Overview
 
-The pipeline has 11 stages. Each stage receives defined inputs, produces a strict JSON output, and passes that output downstream. Stages are sequential — each stage may use outputs from any prior stage.
+The pipeline has 12 stages (Stage 0 through Stage 11). Each stage receives defined inputs, produces a strict JSON output, and passes that output downstream. Stages are sequential — each stage may use outputs from any prior stage.
+
+Stage 0 is a hard gate that runs before Stage 1. If Stage 0 rejects the clip, no downstream stages run.
 
 Audio analysis is a **cross-cutting input**, not a separate stage. Raw audio features (engine sound, rider speech, impact sounds, environmental audio) are extracted once during ingestion and made available to stages 3, 4, 5, 6, 7, and 8 as part of their input contract.
 
@@ -19,6 +22,11 @@ Runtime verification and observation resolution (described in the system executi
 Ingestion (frames + audio extraction)
        │
        ▼
+┌─────────────────────────────────┐
+│ 0. Observability Gate           │  ← gate=fail: stops here, returns user guidance
+└──────────────┬──────────────────┘
+               │ gate=pass / gate=degrade (trust envelope applied downstream)
+               ▼
 ┌─────────────────────────────────┐
 │ 1. Camera Perspective Detection │
 └──────────────┬──────────────────┘
@@ -101,6 +109,101 @@ Audio is extracted once during ingestion and made available as a structured obje
 ```
 
 **Note:** This schema is aspirational for structured extraction. In v1 implementation, audio may be provided as a freeform text description from the model, with structured fields populated where the model can reliably extract them. The contract ensures downstream stages know what to look for.
+
+---
+
+## Stage 0 — Observability Gate
+
+**Purpose:** Determine whether submitted footage is usable before the reasoning pipeline runs. Stage 0 is a hard gate — it stops unusable clips before any downstream token spend. It also defines the trust envelope (confidence ceilings and coaching specificity constraints) that all downstream stages must obey.
+
+**Relationship to Stage 2:** Stage 0 answers "should we run?" Stage 2 answers "given we're running, what can we trust?". Stage 0 is clip-level and binary (run / stop). Stage 2 is frame-level and continuous (element-by-element visibility assessment). Stage 2 only runs if Stage 0 passes.
+
+**Model:** `claude-sonnet-4-6` via the standard `ModelProvider` interface (MVP Route A — Claude only).
+
+### Input
+
+- Raw video frames (same extraction as Stages 1–11)
+- Video metadata: `filename`, `duration_seconds`, `resolution` (width × height), `fps`, `file_size_bytes`
+
+### Output Schema
+
+```json
+{
+  "stage": "observability_gate",
+  "gate": "string — pass | fail | degrade",
+  "failure_mode": "string | null — unusable_no_content | unusable_no_riding | unusable_distance | unusable_obstruction | unusable_motion | degraded_low_visibility | degraded_short_duration | degraded_low_resolution",
+  "observability": {
+    "primary_subject_detected": "string — rider | bike | both | none",
+    "rider_visibility": "string — clear | partial | minimal | none",
+    "terrain_visibility": "string — clear | partial | minimal | none",
+    "outcome_observability": "string — clear | partial | ambiguous | not_visible",
+    "motion_quality": "string — stable | moderate_shake | severe_shake | unusable",
+    "frame_usability_ratio": "number — 0.0 to 1.0"
+  },
+  "confidence_ceilings": {
+    "max_observation_confidence": "number — 0.0 to 1.0. Hard cap applied to all downstream stage confidence fields.",
+    "max_coaching_specificity": "string — full | general | cautious_only"
+  },
+  "user_guidance": {
+    "message": "string — human-readable explanation of the gate decision",
+    "filming_tips": ["string"],
+    "retry_recommended": "boolean"
+  },
+  "metrics": {
+    "failure_mode": "string | null",
+    "gate": "string — pass | fail | degrade",
+    "frame_usability_ratio": "number — 0.0 to 1.0",
+    "outcome_observability": "string — clear | partial | ambiguous | not_visible"
+  },
+  "debug": {
+    "reasoning": "string",
+    "confidence_factors": ["string"]
+  }
+}
+```
+
+**Note:** `observability` and `confidence_ceilings` are `null` when `gate === "fail"`.
+
+### Rules
+
+- `gate === "fail"` → pipeline stops immediately. Return Stage 0 output only (`gated: true`). No Stages 1–11 run.
+- `gate === "degrade"` → pipeline runs with constrained trust envelope. Invariants: `max_observation_confidence` ≤ 0.5; `max_coaching_specificity` ≠ `"full"`.
+- `gate === "pass"` → pipeline runs normally. Trust envelope reflects actual observability.
+- `failure_mode` must be `null` when `gate === "pass"`.
+- `failure_mode` must be set when `gate === "fail"` or `gate === "degrade"`.
+- `max_observation_confidence` is enforced in `runner.ts` as a hard cap on every downstream stage's top-level `confidence` field after each stage call.
+- `max_coaching_specificity === "cautious_only"` → Stage 10 must not recommend increased speed or commitment; must use hedged language ("it appears", "if visible correctly"); must prefix with observability caveat.
+- `max_coaching_specificity === "general"` → Stage 10 must not reference fine detail (hand position, lever fingers, exact body angles); broad principles only.
+
+**Failure mode → gate mapping:**
+
+| Failure mode | Gate |
+|---|---|
+| `unusable_no_content` | `fail` |
+| `unusable_no_riding` | `fail` |
+| `unusable_distance` | `fail` |
+| `unusable_obstruction` | `fail` |
+| `unusable_motion` | `fail` |
+| `degraded_low_visibility` | `degrade` |
+| `degraded_short_duration` | `degrade` |
+| `degraded_low_resolution` | `degrade` |
+| None | `pass` |
+
+**Coaching specificity mapping (degrade only):**
+
+| Failure mode | `max_coaching_specificity` |
+|---|---|
+| `degraded_low_visibility` | `"general"` |
+| `degraded_short_duration` | `"cautious_only"` |
+| `degraded_low_resolution` | `"general"` |
+
+### Thresholds (MVP defaults — tunable)
+
+- **Riding activity:** `primary_subject_detected === "none"` across usable frames → `unusable_no_riding`
+- **Rider visibility:** `rider_visibility === "none"` across all frames → `unusable_distance`
+- **Frame usability:** `frame_usability_ratio` < 0.2 → `unusable_motion` or `unusable_obstruction`
+- **Duration:** `duration_seconds` < 2.0 → `degraded_short_duration`
+- **Degrade ceiling:** `max_observation_confidence` capped at 0.5 when `gate === "degrade"`
 
 ---
 

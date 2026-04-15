@@ -5,6 +5,7 @@
 
 import {
   type ModelProvider,
+  type Stage0Output,
   type Stage1Output,
   type Stage2Output,
   type Stage3Output,
@@ -19,6 +20,7 @@ import {
   requireKeys,
   executeStageCall,
 } from "./types.js";
+import { buildCoachingSpecificityConstraint } from "./stage0-gate.js";
 
 const STAGE_LABEL = "Stage 10 (Coaching Generation)";
 
@@ -274,7 +276,8 @@ function buildUserPrompt(
   stage6: Stage6Output,
   stage7: Stage7Output | null,
   stage8: Stage8Output,
-  stage9: Stage9Output
+  stage9: Stage9Output,
+  specificityConstraint: string | null
 ): string {
   // Precompute observability flags from Stage 2 ceilings.
   // Note: Stage2Output.confidence_ceilings has body_position_max_confidence, terrain_max_confidence,
@@ -287,8 +290,12 @@ function buildUserPrompt(
     overall_specificity_limited: (stage2.overall_confidence ?? 1) < 0.65,
   };
 
-  return `Generate Stage 10 coaching from the following structured evidence pack.
+  const constraintBlock = specificityConstraint
+    ? `\n${specificityConstraint}\n`
+    : "";
 
+  return `Generate Stage 10 coaching from the following structured evidence pack.
+${constraintBlock}
 OBSERVABILITY FLAGS (precomputed from Stage 2 ceilings)
 ${JSON.stringify(observability_flags, null, 2)}
 
@@ -513,13 +520,15 @@ export async function runStage10(
   stage6: Stage6Output,
   stage7: Stage7Output | null,
   stage8: Stage8Output,
-  stage9: Stage9Output
+  stage9: Stage9Output,
+  stage0?: Stage0Output  // Optional — injects coaching specificity constraint when present
 ): Promise<Stage10Output> {
+  const specificityConstraint = buildCoachingSpecificityConstraint(stage0);
   return executeStageCall(
     model,
     [], // Stage 10 reasons from structured JSON only — no frames
     SYSTEM_PROMPT,
-    buildUserPrompt(stage1, stage2, stage3, stage4, stage5, stage6, stage7, stage8, stage9),
+    buildUserPrompt(stage1, stage2, stage3, stage4, stage5, stage6, stage7, stage8, stage9, specificityConstraint),
     STAGE_LABEL,
     (raw) => validateAndNormalize(raw, stage9)
   );

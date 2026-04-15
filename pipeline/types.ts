@@ -585,10 +585,91 @@ export interface Stage11Output {
 }
 
 // ————————————————————————————————————————————
+// Stage 0 — Observability Gate
+// ————————————————————————————————————————————
+
+export type Stage0FailureMode =
+  | "unusable_no_content"
+  | "unusable_no_riding"
+  | "unusable_distance"
+  | "unusable_obstruction"
+  | "unusable_motion"
+  | "degraded_low_visibility"
+  | "degraded_short_duration"
+  | "degraded_low_resolution";
+
+export interface Stage0Input {
+  frames: Buffer[];
+  metadata: {
+    filename: string;
+    duration_seconds: number;
+    resolution: { width: number; height: number };
+    fps: number;
+    file_size_bytes: number;
+  };
+}
+
+export interface Stage0Output {
+  stage: "observability_gate";
+
+  // Gate decision
+  gate: "pass" | "fail" | "degrade";
+
+  // Failure classification (populated when gate !== "pass")
+  failure_mode: Stage0FailureMode | null;
+
+  // Observability map (null when gate === "fail")
+  observability: {
+    primary_subject_detected: "rider" | "bike" | "both" | "none";
+    rider_visibility: "clear" | "partial" | "minimal" | "none";
+    terrain_visibility: "clear" | "partial" | "minimal" | "none";
+    outcome_observability: "clear" | "partial" | "ambiguous" | "not_visible";
+    motion_quality: "stable" | "moderate_shake" | "severe_shake" | "unusable";
+    frame_usability_ratio: number;  // 0.0–1.0
+  } | null;
+
+  // Trust envelope (null when gate === "fail")
+  confidence_ceilings: {
+    max_observation_confidence: number;  // 0.0–1.0 hard cap for all downstream stages
+    max_coaching_specificity: "full" | "general" | "cautious_only";
+  } | null;
+
+  // User-facing guidance (always populated)
+  user_guidance: {
+    message: string;
+    filming_tips: string[];
+    retry_recommended: boolean;
+  };
+
+  // Analytics
+  metrics: {
+    failure_mode: Stage0FailureMode | null;
+    gate: "pass" | "fail" | "degrade";
+    frame_usability_ratio: number;
+    outcome_observability: "clear" | "partial" | "ambiguous" | "not_visible";
+  };
+
+  debug: {
+    reasoning: string;
+    confidence_factors: string[];
+  };
+}
+
+// ————————————————————————————————————————————
 // Pipeline Result
 // ————————————————————————————————————————————
 
+/**
+ * Returned when Stage 0 gates the clip (gate === "fail").
+ * No downstream stages run.
+ */
+export interface GatedPipelineResult {
+  stage0: Stage0Output;
+  gated: true;
+}
+
 export interface PipelineResult {
+  stage0?: Stage0Output;  // Present when Stage 0 ran and gate !== "fail"
   stage1: Stage1Output;
   stage2: Stage2Output;
   stage3: Stage3Output;
