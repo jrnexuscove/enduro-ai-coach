@@ -119,6 +119,31 @@
 | E13 | Wire full pipeline (Stages 1–11) into test runner CLI | **COMPLETE** — all stages wired in pipeline/run-test.ts | — |
 | PERC-1 | Multi-model perception layer design — audio/dynamics sensing for clutch detection (gpt-4o-audio-preview or dedicated audio stage), Gemini integration for body position confidence, signal fusion into Stages 5/6; eliminates remaining perception gaps identified in three-clip discriminator test | Not started | Gate 3 ✓ |
 
+### Pipeline — Rider Context Threading
+
+### RIDER-NOTE-1 — Wire riderNote into Stage 3 and Stage 10
+
+**Status:** Not started
+**Priority:** P1 (post UI-TEST-1)
+**Blocked by:** UI-TEST-1 completion
+
+**Goal:** Thread the user's rider note from the upload form into the pipeline stages that benefit from rider context.
+
+**Scope:**
+- Stage 3 (rider intent): inject riderNote into the user prompt so intent detection accounts for what the rider says they were attempting
+- Stage 10 (coaching generation): inject riderNote so coaching tone and framing reflect rider self-reported confidence and context
+- runner.ts: pass riderNote through to both stages
+
+**Not in scope:**
+- Changing the upload form or API route (riderNote is already captured and passed to runFullPipeline)
+- Other stages (S1, S2, S4–S9, S11 do not need rider note)
+
+**Acceptance criteria:**
+- Stage 3 output reflects rider-stated intent when provided
+- Stage 10 coaching adapts to rider-stated confidence/context when provided
+- Pipeline still works correctly when riderNote is empty/undefined
+- Re-run at least 2 clips with and without riderNote to measure delta
+
 ### Testing & Evaluation
 
 | ID | Task | Status | Blocked By |
