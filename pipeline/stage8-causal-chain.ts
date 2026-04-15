@@ -21,7 +21,7 @@ import {
   parseJsonResponse,
   requireKeys,
   executeStageCall,
-} from "./types.js";
+} from "./types";
 
 const STAGE_LABEL = "Stage 8 (Causal Chain Construction)";
 

@@ -19,8 +19,8 @@ import {
   parseJsonResponse,
   requireKeys,
   executeStageCall,
-} from "./types.js";
-import { buildCoachingSpecificityConstraint } from "./stage0-gate.js";
+} from "./types";
+import { buildCoachingSpecificityConstraint } from "./stage0-gate";
 
 const STAGE_LABEL = "Stage 10 (Coaching Generation)";
 

@@ -13,7 +13,7 @@ import {
   parseJsonResponse,
   requireKeys,
   executeStageCall,
-} from "./types.js";
+} from "./types";
 
 const STAGE_LABEL = "Stage 5 (Event Sequencing)";
 

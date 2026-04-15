@@ -15,7 +15,7 @@ import {
   parseJsonResponse,
   requireKeys,
   executeStageCall,
-} from "./types.js";
+} from "./types";
 
 const STAGE_LABEL = "Stage 11 (Safety Validation)";
 

@@ -10,7 +10,7 @@ import {
   parseJsonResponse,
   requireKeys,
   executeStageCall,
-} from "./types.js";
+} from "./types";
 
 // ————————————————————————————————————————————
 // Prompts

@@ -7,7 +7,7 @@ import {
   parseJsonResponse,
   requireKeys,
   executeStageCall,
-} from "./types.js";
+} from "./types";
 
 const STAGE_LABEL = "Stage 1 (Camera Perspective)";
 

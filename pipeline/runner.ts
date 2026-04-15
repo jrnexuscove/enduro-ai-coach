@@ -1,8 +1,10 @@
 // RideMind Pipeline — Runner
-// Chains Stage 0 (Observability Gate) + Stages 1–4 sequentially.
+// Chains Stage 0 (Observability Gate) + Stages 1–11 sequentially.
 // Stage 0 defines the trust envelope; Stages 1–4 operate within it.
 
 import path from "path";
+import os from "os";
+import crypto from "crypto";
 import fs from "fs";
 import ffmpeg from "fluent-ffmpeg";
 import {
@@ -10,13 +12,22 @@ import {
   type PipelineResult,
   type GatedPipelineResult,
   type Stage0Output,
+  type Stage7Output,
 } from "./types.js";
-import { extractFrames } from "./frame-extractor.js";
-import { runStage0 } from "./stage0-gate.js";
-import { runStage1 } from "./stage1-camera.js";
-import { runStage2 } from "./stage2-observability.js";
-import { runStage3 } from "./stage3-intent.js";
-import { runStage4 } from "./stage4-terrain-feature.js";
+import { ClaudeProvider } from "./model-provider";
+import { extractFrames } from "./frame-extractor";
+import { runStage0 } from "./stage0-gate";
+import { runStage1 } from "./stage1-camera";
+import { runStage2 } from "./stage2-observability";
+import { runStage3 } from "./stage3-intent";
+import { runStage4 } from "./stage4-terrain-feature";
+import { runStage5 } from "./stage5-event-sequencing";
+import { runStage6 } from "./stage6-failure-type";
+import { runStage7 } from "./stage7-crash-type";
+import { runStage8 } from "./stage8-causal-chain";
+import { runStage9 } from "./stage9-coaching-decision";
+import { runStage10 } from "./stage10-coaching-generation";
+import { runStage11 } from "./stage11-safety-validation";
 
 // ————————————————————————————————————————————
 // Trust envelope enforcement
@@ -82,18 +93,25 @@ function probeVideoMetadata(videoPath: string): Promise<VideoMetadata> {
 // ————————————————————————————————————————————
 
 /**
- * Runs the full pipeline: Stage 0 gate + Stages 1–4 perception.
+ * Runs the full pipeline: Stage 0 gate + Stages 1–11.
  *
  * Returns GatedPipelineResult (stage0 only) when Stage 0 rejects the clip.
- * Returns PipelineResult (stage0 + stages 1–4) when Stage 0 passes or degrades.
+ * Returns PipelineResult (stage0 + stages 1–11) when Stage 0 passes or degrades.
  *
  * Trust envelope enforcement (field-aware):
  * - Stage 1: confidence capped via applyS0Cap
  * - Stage 2: overall_confidence capped via applyS0Cap
  * - Stage 3: confidence capped via applyS0Cap
  * - Stage 4: surface.confidence + each features_detected[].confidence capped via applyS0Cap
- * - Stage 10: pass stage0 to runStage10 — buildCoachingSpecificityConstraint injects
- *   the specificity constraint into the Stage 10 user prompt.
+ * - Stage 10: stage0 passed in — buildCoachingSpecificityConstraint injects the specificity
+ *   constraint into the Stage 10 user prompt.
+ *
+ * Stage 7 skip rule (S7-FIX 36b1274):
+ * Stage 7 runs when any of the following are true:
+ *   - stage6.failure_occurred (Stage 6 CRASH OVERRIDE forces true on any crash/fall/impact)
+ *   - stage5.outcome.result is "crash", "bail", or "stuck"
+ *   - any segment has balance_state "fallen" or "losing_balance"
+ * When skipped, stage7 is null — stage8, stage10, and stage11 accept Stage7Output | null.
  */
 export async function runPipeline(
   videoPath: string,
@@ -185,13 +203,142 @@ export async function runPipeline(
   console.log(`  → gradient: ${stage4.gradient.overall} / camber: ${stage4.gradient.camber}`);
   console.log(`  → features detected: ${stage4.features_detected.length}\n`);
 
-  // Stage 10 coaching specificity constraint — wired via runStage10's stage0 parameter.
-  // When Stages 5–11 are added to this runner, call:
-  //   runStage10(model, stage1, stage2, stage3, stage4, stage5, stage6, stage7, stage8, stage9, stage0)
-  // runStage10 passes stage0 to buildCoachingSpecificityConstraint (stage0-gate.ts) and injects
-  // the constraint block into the user prompt before the evidence pack.
+  // Stage 5 — Event Sequencing
+  console.log("[Stage 5] Event Sequencing...");
+  console.time("stage5");
+  const stage5 = await runStage5(model, frames, stage1, stage2, stage3, stage4);
+  console.timeEnd("stage5");
+  console.log(`  → outcome: ${stage5.outcome.result} (confidence: ${stage5.outcome.confidence.toFixed(2)})`);
+  console.log(`  → segments: ${stage5.segments.length}, critical moment: segment ${stage5.critical_moment.segment_id}\n`);
+
+  // Stage 6 — Failure Type Classification
+  console.log("[Stage 6] Failure Type Classification...");
+  console.time("stage6");
+  const stage6 = await runStage6(model, stage1, stage2, stage3, stage4, stage5);
+  console.timeEnd("stage6");
+  console.log(`  → failure_occurred: ${stage6.failure_occurred}`);
+  console.log(`  → failure_type: ${stage6.failure_type} (confidence: ${stage6.confidence.toFixed(2)})\n`);
+
+  // Stage 7 — Crash Type Classification (conditional)
+  // Run when Stage 6 or Stage 5 signals a physical incident:
+  //   stage6.failure_occurred — Stage 6 CRASH OVERRIDE forces this true on any crash/fall/impact
+  //   stage5.outcome.result "crash" | "bail" | "stuck" — broadened trigger (S7-FIX 36b1274)
+  //   segment balance_state "fallen" | "losing_balance" — broadened trigger (S7-FIX 36b1274)
+  const shouldRunStage7 =
+    stage6.failure_occurred ||
+    stage5.outcome.result === "crash" ||
+    stage5.outcome.result === "bail" ||
+    stage5.outcome.result === "stuck" ||
+    stage5.segments.some(
+      (s) =>
+        s.rider_state.balance_state === "fallen" ||
+        s.rider_state.balance_state === "losing_balance"
+    );
+
+  let stage7: Stage7Output | null = null;
+  if (shouldRunStage7) {
+    console.log("[Stage 7] Crash Type Classification...");
+    console.time("stage7");
+    stage7 = await runStage7(model, stage1, stage2, stage3, stage4, stage5, stage6);
+    console.timeEnd("stage7");
+    console.log(`  → crash_occurred: ${stage7.crash_occurred}`);
+    console.log(`  → crash_type: ${stage7.crash_type} (severity: ${stage7.severity_estimate})\n`);
+  } else {
+    console.log("[Stage 7] Skipped — no crash/bail/fall indicators in Stage 5/6 outputs.\n");
+  }
+
+  // Stage 8 — Causal Chain Construction
+  // stage7 may be null — runStage8 accepts Stage7Output | null
+  console.log("[Stage 8] Causal Chain Construction...");
+  console.time("stage8");
+  const stage8 = await runStage8(model, stage1, stage2, stage3, stage4, stage5, stage6, stage7);
+  console.timeEnd("stage8");
+  console.log(`  → primary_cause: ${stage8.primary_cause.failure_type} (confidence: ${stage8.primary_cause.confidence.toFixed(2)})`);
+  console.log(`  → outcome_status: ${stage8.outcome_status}\n`);
+
+  // Stage 9 — Coaching Decision Engine
+  console.log("[Stage 9] Coaching Decision Engine...");
+  console.time("stage9");
+  const stage9 = await runStage9(model, stage2, stage3, stage4, stage8);
+  console.timeEnd("stage9");
+  console.log(`  → coaching_required: ${stage9.coaching_required}`);
+  if (stage9.primary_focus) {
+    console.log(`  → primary_focus: ${stage9.primary_focus.coaching_domain} (confidence: ${stage9.primary_focus.confidence.toFixed(2)})\n`);
+  } else {
+    console.log(`  → primary_focus: null\n`);
+  }
+
+  // Stage 10 — Coaching Generation
+  // stage0 passed in to inject coaching specificity constraint via buildCoachingSpecificityConstraint
+  // stage7 may be null — runStage10 accepts Stage7Output | null
+  console.log("[Stage 10] Coaching Generation...");
+  console.time("stage10");
+  const stage10 = await runStage10(
+    model, stage1, stage2, stage3, stage4, stage5, stage6, stage7, stage8, stage9, stage0
+  );
+  console.timeEnd("stage10");
+  console.log(`  → coaching_required: ${stage10.coaching_required}`);
+  if (stage10.primary_focus) {
+    console.log(`  → primary_focus: "${stage10.primary_focus.title}"\n`);
+  } else {
+    console.log(`  → primary_focus: null\n`);
+  }
+
+  // Stage 11 — Safety Validation
+  // stage7 may be null — runStage11 accepts Stage7Output | null
+  console.log("[Stage 11] Safety Validation...");
+  console.time("stage11");
+  const stage11 = await runStage11(model, stage2, stage6, stage7, stage8, stage9, stage10);
+  console.timeEnd("stage11");
+  console.log(`  → safe: ${stage11.safe}`);
+  console.log(`  → flags: speed_risk=${stage11.flags.speed_risk}, contradiction=${stage11.flags.contradiction}, severity_mismatch=${stage11.flags.severity_mismatch}, observability_overreach=${stage11.flags.observability_overreach}\n`);
 
   console.log("[Pipeline] Complete.\n");
 
-  return { stage0, stage1, stage2, stage3, stage4 };
+  return {
+    stage0,
+    stage1,
+    stage2,
+    stage3,
+    stage4,
+    stage5,
+    stage6,
+    stage7: stage7 ?? undefined,  // PipelineResult.stage7 is Stage7Output | undefined
+    stage8,
+    stage9,
+    stage10,
+    stage11,
+  };
+}
+
+// ————————————————————————————————————————————
+// High-level entry point (for API route)
+// ————————————————————————————————————————————
+
+/**
+ * Accepts raw video bytes from an upload, writes them to a temp file,
+ * instantiates ClaudeProvider, and runs the full pipeline.
+ *
+ * The temp file is deleted after the pipeline completes (or throws).
+ *
+ * @param videoBytes  - Raw video file buffer from the upload
+ * @param riderNote   - Optional rider context note (reserved for Stage 10 — not yet wired)
+ * @param originalFilename - Original filename; used to preserve the file extension for ffmpeg
+ */
+export async function runFullPipeline(
+  videoBytes: Buffer,
+  riderNote?: string,
+  originalFilename?: string
+): Promise<GatedPipelineResult | PipelineResult> {
+  const ext = originalFilename ? path.extname(originalFilename) || ".mp4" : ".mp4";
+  const tempPath = path.join(os.tmpdir(), `ridemind-${crypto.randomUUID()}${ext}`);
+
+  await fs.promises.writeFile(tempPath, videoBytes);
+
+  try {
+    const provider = new ClaudeProvider();
+    return await runPipeline(tempPath, provider);
+  } finally {
+    await fs.promises.unlink(tempPath).catch(() => {});
+  }
 }
