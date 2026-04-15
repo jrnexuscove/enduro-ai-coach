@@ -1,6 +1,6 @@
 # CLAUDE.md — RideMind Project Context
 
-**Last updated:** 2026-04-12 (PVE complete; Claude Sonnet locked as primary perception model; Vision Layer MVP spec next)
+**Last updated:** 2026-04-15 (VISION-LAYER-1 complete; Stage 0 gate + trust envelope implemented; claude-sonnet-4-6 locked as perception model; UI-WIRE-1 next)
 
 ## What is RideMind?
 
@@ -51,7 +51,9 @@ RideMind is a **physics-aware, terrain-aware, machine-aware riding intelligence 
 - **Gemini thinkingBudget:** Gemini 2.5 Flash thinking should be disabled for structured observation tasks. `thinkingBudget: 0` is the correct setting — thinking tokens consume output budget without improving structured output.
 - **Monthly landscape review — ESTABLISHED.** First review complete 2026-04-12 at `docs/landscape-review.md`. Scanned: GPT-5.4, Gemini 2.5/3.1, TwelveLabs Pegasus 1.2, YOLO26, Qwen3-VL. Next review due 2026-05-12.
 - **User filming guidance is a product requirement.** "POV or close-range preferred" belongs on the upload screen, backed by empirical PVE data (POV avg 8.1/12 vs distant 3rd-person 3.5/12 across all models).
-- **Next action:** Vision Layer MVP spec — design Stage 0 observability gating with Claude Sonnet as default perception model; define route A (Claude only) vs route B (Gemini audio-check on uncertain outcomes). Then UI-WIRE-1.
+- **VISION-LAYER-1 — COMPLETE (2026-04-15).** Vision Layer MVP spec written, cross-reviewed (ChatGPT, 7 fixes + 2 nits applied), locked. Stage 0 added as explicit pipeline stage with trust envelope enforcement — hard-gates unusable clips before burning tokens on 11 reasoning stages. Observability map and downstream confidence ceilings defined. Route A (Claude only) vs Route B (Gemini audio-check on uncertain outcomes) specified. Filming guidance requirement formalised. Spec at `docs/vision-layer-spec-v1.md`.
+- **Perception model — LOCKED to `claude-sonnet-4-6`.** Sonnet 4 is deprecated and retires 2026-06-15. All new pipeline code must use `claude-sonnet-4-6` model ID explicitly.
+- **Next action:** UI-WIRE-1 — wire real pipeline into UI API route (`app/api/analyze/route.ts`); set `USE_MOCK = false`; connect `runFullPipeline` + `formatResult`; use `claude-sonnet-4-6` as perception model.
 - **Domain 16 architecture — LOCKED:** Stock bike data only. Rider modifications belong on the user profile layer. For MVP, both in one file with clear separation. **Schema 4 added to `docs/kb-schemas-v1.md` (v1.3, 2026-04-03).** File naming locked: stock = `[mfr]-[model]-[year].md`, rider-layer = `[mfr]-[model]-[year]--[rider].md`. Machine KB entries are factual reference only — no coaching, no pipeline logic, no rider psychology, no improvement language.
 
 ### Perception Viability Experiment — COMPLETE (2026-04-12)

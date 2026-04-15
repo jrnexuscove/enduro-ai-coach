@@ -1,6 +1,6 @@
 # RideMind — Backlog
 
-**Last updated:** 2026-04-12 (PVE complete; Claude Sonnet locked as primary perception model; Vision Layer spec next)
+**Last updated:** 2026-04-15 (VISION-LAYER-1 complete; Stage 0 gate + trust envelope locked; UI-WIRE-1 unblocked)
 **Current phase:** Phase 3 — Reasoning Pipeline + KB Build
 **Master plan:** `docs/ridemind-phase3-master-plan-v1.md`
 
@@ -29,8 +29,8 @@
 | S7-RECALL | Pipeline | Stage 7 crash recall fix — trigger broadened to include bail/stuck/tip_over outcomes and fallen/losing_balance segment states. | **COMMITTED (36b1274, 2026-04-10)** | S6-PATCH ✓ |
 | S6-REG | Pipeline | Regression test S6 patch on Long Hill, Nick Crash, Colin Hill, Steep Hill Bail. | **COMPLETE (2026-04-10) — 1/4 pass** (after S6 Rules 9-12). Long Hill PASS (outcome gate held). Nick Crash FAIL (S3+S5 missed crash). Colin Hill FAIL (bail misread as stall → S6 momentum logically correct on bad input). Steep Hill Bail FAIL (line_choice plausible but expectation gap). Root finding: S6 Rules 9-12 working correctly — failures are S5 perception errors. | S6-PATCH ✓ |
 | S5S6-REG2 | Pipeline | Regression after S5/S6 outcome semantics redesign (completed/stall/bail/crash/stuck/unknown; progress_assessment; control_assessment). | **COMPLETE (2026-04-10) — 1/4 pass.** Long Hill **PASS** (S5=completed, outcome gate held). Nick Crash **FAIL** (perception limit — models cannot see crash-after-jumps from still frames). Colin Hill **FAIL** (S3→S5 stall bias — dismount misread as stall, making S6 momentum correct on bad input). Steep Hill Bail **mixed** (crash correctly detected; S6 taxonomy gap — technique vs unknown across runs). **Conclusion: S5/S6 prompt iteration PAUSED — diminishing returns at prompt layer. Bottleneck is model perception, not reasoning logic.** | S6-REG ✓ |
-| VISION-LAYER-1 | Pipeline | Vision Layer MVP spec — Stage 0 observability gating; Claude Sonnet as default perception model; route A (Claude only) vs route B (Gemini audio-check on uncertain outcomes); filming guidance requirement | Not started | PVE-GATE ✓ |
-| UI-WIRE-1 | UI | Wire real pipeline into UI API route — set USE_MOCK = false, connect `runFullPipeline` + `formatResult` in `app/api/analyze/route.ts`; use Claude Sonnet as perception model | Not started | VISION-LAYER-1 |
+| VISION-LAYER-1 | Pipeline | Vision Layer MVP spec — Stage 0 observability gating; Claude Sonnet as default perception model; route A (Claude only) vs route B (Gemini audio-check on uncertain outcomes); filming guidance requirement | **COMPLETE (2026-04-15)** — spec locked at `docs/vision-layer-spec-v1.md`; cross-reviewed (ChatGPT); Stage 0 trust envelope defined; `claude-sonnet-4-6` model ID locked (Sonnet 4 retires 2026-06-15) | PVE-GATE ✓ |
+| UI-WIRE-1 | UI | Wire real pipeline into UI API route — set USE_MOCK = false, connect `runFullPipeline` + `formatResult` in `app/api/analyze/route.ts`; use `claude-sonnet-4-6` as perception model | **UNBLOCKED** — not started | VISION-LAYER-1 ✓ |
 | UI-TEST-1 | UI | Run all 8 known test clips through the UI and evaluate coaching output as a rider | Not started | UI-WIRE-1 |
 
 ---
@@ -309,6 +309,7 @@
 | S7-RECALL | S7 trigger broadened (36b1274) — bail/stuck/tip_over outcomes and fallen/losing_balance states added | 2026-04-10 |
 | S3-ANTI | S3 anti-refusal block committed (36b1274) — crash/incident legitimacy framing added | 2026-04-10 |
 | UI-M1 | UI v1 Milestone 1 (mock data) — page.tsx state machine, API route, 4 components, lib/types.ts, lib/format-result.ts, docs/ui-standards.md; running at localhost:3000 | 2026-04-10 |
+| VISION-LAYER-1 | Vision Layer MVP spec locked — Stage 0 observability gate, trust envelope, route A/B, filming guidance, `claude-sonnet-4-6` model lock. Spec at `docs/vision-layer-spec-v1.md` | 2026-04-15 |
 
 ---
 
