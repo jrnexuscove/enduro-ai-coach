@@ -1,6 +1,6 @@
 # RideMind — Backlog
 
-**Last updated:** 2026-04-15 (VISION-LAYER-1 complete; Stage 0 gate + trust envelope locked; UI-WIRE-1 unblocked)
+**Last updated:** 2026-04-15 (UI-WIRE-1 complete; UI-TEST-1 partial 3/8 clips; Stage 9 fix committed; KB-WIRE-1 + S1-S4-PARALLEL added as next P0)
 **Current phase:** Phase 3 — Reasoning Pipeline + KB Build
 **Master plan:** `docs/ridemind-phase3-master-plan-v1.md`
 
@@ -30,8 +30,11 @@
 | S6-REG | Pipeline | Regression test S6 patch on Long Hill, Nick Crash, Colin Hill, Steep Hill Bail. | **COMPLETE (2026-04-10) — 1/4 pass** (after S6 Rules 9-12). Long Hill PASS (outcome gate held). Nick Crash FAIL (S3+S5 missed crash). Colin Hill FAIL (bail misread as stall → S6 momentum logically correct on bad input). Steep Hill Bail FAIL (line_choice plausible but expectation gap). Root finding: S6 Rules 9-12 working correctly — failures are S5 perception errors. | S6-PATCH ✓ |
 | S5S6-REG2 | Pipeline | Regression after S5/S6 outcome semantics redesign (completed/stall/bail/crash/stuck/unknown; progress_assessment; control_assessment). | **COMPLETE (2026-04-10) — 1/4 pass.** Long Hill **PASS** (S5=completed, outcome gate held). Nick Crash **FAIL** (perception limit — models cannot see crash-after-jumps from still frames). Colin Hill **FAIL** (S3→S5 stall bias — dismount misread as stall, making S6 momentum correct on bad input). Steep Hill Bail **mixed** (crash correctly detected; S6 taxonomy gap — technique vs unknown across runs). **Conclusion: S5/S6 prompt iteration PAUSED — diminishing returns at prompt layer. Bottleneck is model perception, not reasoning logic.** | S6-REG ✓ |
 | VISION-LAYER-1 | Pipeline | Vision Layer MVP spec — Stage 0 observability gating; Claude Sonnet as default perception model; route A (Claude only) vs route B (Gemini audio-check on uncertain outcomes); filming guidance requirement | **COMPLETE (2026-04-15)** — spec locked at `docs/vision-layer-spec-v1.md`; cross-reviewed (ChatGPT); Stage 0 trust envelope defined; `claude-sonnet-4-6` model ID locked (Sonnet 4 retires 2026-06-15) | PVE-GATE ✓ |
-| UI-WIRE-1 | UI | Wire real pipeline into UI API route — set USE_MOCK = false, connect `runFullPipeline` + `formatResult` in `app/api/analyze/route.ts`; use `claude-sonnet-4-6` as perception model | **UNBLOCKED** — not started | VISION-LAYER-1 ✓ |
-| UI-TEST-1 | UI | Run all 8 known test clips through the UI and evaluate coaching output as a rider | Not started | UI-WIRE-1 |
+| UI-WIRE-1 | UI | Wire real pipeline into UI API route — set USE_MOCK = false, connect `runFullPipeline` + `formatResult` in `app/api/analyze/route.ts`; use `claude-sonnet-4-6` as perception model | **COMPLETE (2026-04-15)** — ClaudeProvider added; runFullPipeline wired Stages 0–11; 5 build fixes (Turbopack import resolution, serverExternalPackages, nodejs runtime, JPEG magic bytes, model ID). Key files: `pipeline/model-provider.ts`, `pipeline/runner.ts`, `app/api/analyze/route.ts`, `next.config.ts` | VISION-LAYER-1 ✓ |
+| S9-FIX | Pipeline | Stage 9 normalizer + prompt fix — `isClean` three-condition AND gate; Rule 8 replaced to allow coaching on clean-with-instability clips | **COMPLETE (96b3846, 2026-04-15)** — normalizer bug fixed; Rule 8 replaced; user prompt context updated; tsc clean | UI-WIRE-1 ✓ |
+| UI-TEST-1 | UI | Run all 8 known test clips through the UI and evaluate coaching output as a rider | **PARTIAL (3/8 clips, 2026-04-15)** — Mark Crash (coaching produced, 9.3 min), Long Hill (no coaching on clean clip — fixed by S9-FIX), Colin Hill (post-fix produces coaching). 5 clips remain. Scoring sheet v2 committed (`19f717e`). Known issues: latency 7–9 min, KB not connected, POV clean clips produce no coaching, Stage 0 may over-degrade on 3rd-person, Stage 3 ~1m30s. | UI-WIRE-1, S9-FIX |
+| KB-WIRE-1 | Pipeline | Wire KB retrieval into Stage 10 placeholder — map Stage 4 terrain/feature output to KB entries; assemble compact context pack; inject into Stage 10 prompt; re-run 8 clips and measure coaching quality delta | Not started — **next P0 after UI-TEST-1 complete** | UI-TEST-1 |
+| S1-S4-PARALLEL | Pipeline | Parallelise Stages 1–4 with Promise.all — no contract changes needed; each stage is independent given the same frame input; expected to cut 2–3 min from total latency | Not started | UI-TEST-1 |
 
 ---
 
@@ -61,6 +64,9 @@
 
 | ID | Task | Status | Blocked By |
 |----|------|--------|------------|
+| COACHING-FW-V2 | Design coaching framework v2 — three-part structure (Situation → Breakdown → Correction); KB as deterministic retrieval not LLM re-derivation; target architecture: Perceive → KB lookup → Reason → Coach. Do NOT start until KB-WIRE-1 proves the hypothesis — if KB retrieval does not materially improve coaching quality, a framework redesign would be premature. | Not started | KB-WIRE-1 |
+| STAGE0-TUNE | Stage 0 threshold tuning — Colin Hill 3rd-person gets `degrade` despite 0.97 camera confidence; investigate whether degrade threshold is too aggressive for usable 3rd-person clips | Not started | UI-TEST-1 |
+| S3-LATENCY | Stage 3 latency investigation — ~1m30s for intent detection alone; investigate whether prompt complexity, frame count, or model choice can be reduced without quality loss | Not started | UI-TEST-1 |
 | COACH-1 | Define RideMind coaching persona and philosophy — Three Pillars framework (Balance, Body Position, Power Delivery & Collection) as foundational coaching model. Principles: fundamentals mastered on flat ground before terrain; pillars are interconnected; "deliver and collect" — speed of transition between max and min power is the skill. Shapes coaching tone, skill prioritisation, drill sequencing, progression logic, and Stage 10 framing. Voice rules embedded directly in Stage 10 prompt for v1. Standalone persona doc deferred until voice consistency tuning across full product. | **DEFERRED (post-MVP)** | — |
 | SKILL-1 | Design skill tag taxonomy: map failure types to skill tags (e.g. balance_low_speed, momentum_control, line_commitment). Taxonomy lives in types.ts SkillTag enum for v1. Standalone reference doc may be useful later but not blocking. | **DEFERRED (post-MVP)** | — |
 | A2 | Design database schema for all KBs | Not started | Gate 1 |
@@ -314,6 +320,8 @@
 | D16-2 | MACHINE-01 committed: `gasgas-ec300-tpi-2023--jake.md` (0655cc9) | 2026-04-03 |
 | D16-3 | MACHINE-01 rewritten to Schema 4 — PDS corrected to linkage, cause→effect discipline applied | 2026-04-03 |
 | D16-4 | MACHINE-02 committed: `gasgas-ec300-tbi-2024.md`, stock-only Gate 3 test bike profile (ca20c46) | 2026-04-03 |
+| UI-WIRE-1 | Wire real pipeline into UI API route — ClaudeProvider, runFullPipeline Stages 0–11, USE_MOCK false, 5 build fixes | 2026-04-15 |
+| S9-FIX | Stage 9 normalizer isClean three-condition gate + Rule 8 replaced (clean-with-instability now coachable) | 2026-04-15 |
 | K1 | Write Terrain KB — 10 core surface files (Domain 17, TERRAIN-01 to TERRAIN-10) | 2026-04-02 |
 | K0a | Generate terrain-01_rock KB entry (included in K1) | 2026-04-02 |
 | K4 | Define KB entry schemas for all 3 new KBs (Gate 2) | 2026-04-01 |
