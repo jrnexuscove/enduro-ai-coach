@@ -4,6 +4,8 @@
 **Pipeline:** Stages 0–11
 **Model:** `claude-sonnet-4-6-20250514`
 **Purpose:** First end-to-end validation of perception → reasoning → coaching → safety through UI
+**KB Status:** Not connected. Stage 10 uses model knowledge only — no KB retrieval.
+Coaching scores reflect baseline model quality, not final product quality.
 
 ---
 
