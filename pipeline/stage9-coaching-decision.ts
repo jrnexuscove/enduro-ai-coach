@@ -101,7 +101,11 @@ CRITICAL RULES:
 5. Maximum two secondary points. Secondary points must reinforce the primary focus or stay within the same causal domain. No duplicate coaching_domain values across primary and secondary points.
 6. Actionability filter: exclude any factor the rider cannot change on their next attempt. Exclude terrain features, weather, fixed obstacles, and factors outside rider control.
 7. No rider-facing coaching prose. Keep all text fields short, diagnostic, and non-instructional. problem_mechanism is a diagnostic label. change_goal is a direction, not an instruction.
-8. Clean completions = no coaching required. If Stage 8 outcome_status is "clean" and primary_cause.failure_type is "none", set coaching_required: false and output null/empty for all other fields.
+8. Clean completions with no instability signals and no meaningful optimisation opportunity: set coaching_required: false and output null/empty for all other fields.
+   Clean completions WITH instability signals or visible optimisation opportunities: set coaching_required: true. Instability signals include foot dabs, balance corrections, visible traction loss, near-miss moments, line disruption, momentum fade, recoveries, or other instability events captured in Stage 8's causal chain or contributing factors.
+   High-risk terrain or feature combinations (from Stage 4) may still warrant coaching even if no confirmed failure occurs.
+   If Stage 5 outcome is "unknown", do not default to coaching_required: false just because the ending is uncertain. Unknown outcome clips may still be coachable based on observed terrain, rider behaviour, instability signals, or risk signals present in Stage 8 or Stage 4.
+   For clean-but-coachable cases, keep coaching bounded to what was actually observed. Prefer optimisation / improvement framing over failure-correction framing. Do not invent failures that were not observed.
 9. Observability soft gate using Stage 2 confidence ceilings: below 0.4 = strong exclusion candidate (only include if clearly essential); 0.4–0.6 = include but mark observability_limited true and cap confidence at 0.6; 0.6 and above = normal use.
 10. Safety pre-flag: if any coaching point could lead to a dangerous outcome if misapplied or if wrong, add a safety_flag. Stage 11 does the full safety check — Stage 9 pre-flags obvious risks only.
 11. Stage 8 counterfactual is the DEFAULT candidate for the primary focus, not the mandatory answer. Choose a different expression of the same primary cause if actionability, observability, or safety makes another aspect more coachable.
@@ -220,8 +224,11 @@ function buildUserPrompt(
   if (isClean) {
     contextNote =
       `Stage 8 outcome_status is "clean" and primary_cause.failure_type is "none". ` +
-      `Set coaching_required: false and output null for primary_focus, empty arrays for all other fields. ` +
-      `Do not construct a coaching decision — the clip is a clean completion.`;
+      `Review Stage 8 causal data (causal_summary, contributing_factors, counterfactual) for any instability signals, recoveries, or near-miss events. ` +
+      `Review Stage 4 terrain and feature context for complexity that represents a meaningful optimisation opportunity even without a confirmed failure. ` +
+      `If no instability signals are present and no meaningful optimisation opportunity exists, set coaching_required: false and output null/empty for all other fields. ` +
+      `If instability signals or optimisation opportunities are present, set coaching_required: true and select a coaching focus bounded to what was observed. ` +
+      `Prefer optimisation / improvement framing over failure-correction framing. Do not invent failures that were not observed.`;
   } else {
     const cfKey = stage8.counterfactual.key_variable;
     const cfCategory = stage8.counterfactual.variable_category;
@@ -301,9 +308,15 @@ function validateAndNormalize(raw: string, stage8: Stage8Output, stage2: Stage2O
   output.coaching_required = Boolean(output.coaching_required);
 
   // ——— Clean gate ———
+  // Clean-wipe gate: driven by structural upstream evidence AND model agreement.
+  // `!output.coaching_required` alone must NOT trigger wipe — that was the original bug.
+  // `stage8` structural check alone is insufficient: Fix 2 allows clean clips with instability
+  // to produce coaching_required: true, and the normalizer must not override that.
+  // All three conditions must be true before wiping is safe.
   const isClean =
-    !output.coaching_required ||
-    (stage8.outcome_status === "clean" && stage8.primary_cause.failure_type === "none");
+    stage8.outcome_status === "clean" &&
+    stage8.primary_cause.failure_type === "none" &&
+    !output.coaching_required;
 
   if (isClean) {
     output.coaching_required = false;
