@@ -1,3 +1,26 @@
+# Enduro AI Coach — ARCHIVED
+
+This repository is archived as of 16 April 2026.
+
+Active development for RideMind has moved to:
+**https://github.com/RigomiLtd/RideMind**
+
+This repo is preserved as a reference record of:
+- The original local pipeline architecture (Stages S0–S11, 11-stage implementation)
+- Phase 2 multi-model benchmark testing (GPT-4o, Claude Sonnet, Gemini)
+- PVE (Perception Viability Experiment) — 32 runs, 3 models, 8 clips
+- ARCH-V2 spec evolution (v1.0 → v1.1.1)
+
+All intellectual property is owned by Rigomi Limited.
+
+For current work, see the new repository: https://github.com/RigomiLtd/RideMind
+
+---
+
+*Original README content preserved below.*
+
+---
+
 # RideMind
 
 ## Overview
@@ -56,69 +79,17 @@ Including controlled video input early allows us to:
 
 ---
 
-## Current Status
+## Current Status (as of archive — April 2026)
 
-* Repository and development environment set up
-* Core project structure defined
-* MVP scope being formalised before development begins
-
----
-
-## Project Structure
-
-* `/docs` → product, planning, and architecture documents
-* `/app` → application code (Next.js App Router)
-* `/public` → static assets
-* `.claude/` → Claude skills and behaviour configuration
-* `CLAUDE.md` → instructions for AI-assisted development
-```
-
-**Step 2 — Commit everything**
-```
-git add .
-```
-```
-git commit -m "Scaffold Next.js project with TypeScript and App Router"
-```
-```
-git push
-
----
-
-## Approach
-
-This project follows a **build small → validate → iterate** approach:
-
-* Start with a simple, focused MVP
-* Prove value quickly using real scenarios
-* Expand based on actual user feedback and data
-
----
-
-## Long-Term Vision
-
-* Integration of ride telemetry (IMUs, sensors)
-* Video + sensor fusion analysis
-* Real-time and post-ride coaching
-* AI models trained on expert/pro rider data
-* Expansion into MTB, motocross, and other disciplines
-
-### Advanced Coaching Experience
-
-A key long-term goal is for the application to generate a **virtual playback of the ride scenario**, including:
-
-* A reconstructed view of what the system believes happened during the ride
-* Identification of mistakes or inefficiencies in rider technique
-* A simulated version of how the rider *should* approach the same scenario
-* Suggested adjustments for the next attempt
-
-This creates a coaching experience closer to:
-
-> “See what you did → see what you should do → try again”
+* ARCH-V2 pipeline spec locked (v1.1.1)
+* Stages S0–S11 implemented and validated (11-stage reasoning pipeline)
+* Phase 2 multi-model benchmark complete
+* Perception Viability Experiment complete — Claude Sonnet selected as primary model
+* Active development moved to Lovable (production platform) at RigomiLtd/RideMind
 
 ---
 
 ## Author
 
 Jake Rigby
-Nexus Cove
+Rigomi Limited
