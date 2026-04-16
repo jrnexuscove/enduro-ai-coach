@@ -1,6 +1,6 @@
 # RideMind — Backlog
 
-**Last updated:** 2026-04-15 (strategic pivot: S0–S11 demoted to benchmark/debug; ARCH-V2 three-pass architecture with KB retrieval is now the product path)
+**Last updated:** 2026-04-16 (doc hygiene patch — Track 1/2 split locked; ARCH-V2 split into 7 items; KB-WIRE-1 done; Track 2 items added)
 **Current phase:** Phase 3 — Reasoning Pipeline + KB Build
 **Master plan:** `docs/ridemind-phase3-master-plan-v1.md`
 
@@ -33,8 +33,15 @@
 | UI-WIRE-1 | UI | Wire real pipeline into UI API route — set USE_MOCK = false, connect `runFullPipeline` + `formatResult` in `app/api/analyze/route.ts`; use `claude-sonnet-4-6` as perception model | **COMPLETE (2026-04-15)** — ClaudeProvider added; runFullPipeline wired Stages 0–11; 5 build fixes (Turbopack import resolution, serverExternalPackages, nodejs runtime, JPEG magic bytes, model ID). Key files: `pipeline/model-provider.ts`, `pipeline/runner.ts`, `app/api/analyze/route.ts`, `next.config.ts` | VISION-LAYER-1 ✓ |
 | S9-FIX | Pipeline | Stage 9 normalizer + prompt fix — `isClean` three-condition AND gate; Rule 8 replaced to allow coaching on clean-with-instability clips | **COMPLETE (96b3846, 2026-04-15)** — normalizer bug fixed; Rule 8 replaced; user prompt context updated; tsc clean | UI-WIRE-1 ✓ |
 | UI-TEST-1 | UI | Run all 8 known test clips through the UI and evaluate coaching output as a rider | **PARTIAL (3/8 clips, 2026-04-15) — DEFERRED.** Remaining 5 clips deprioritised. Continuing to test through S0–S11 (7–9 min, no KB, no bike data) tests generic model capability, not RideMind's product. Resume after ARCH-V2 benchmark — at that point S0–S11 becomes the reference baseline. Scoring sheet v2 committed (`19f717e`). | UI-WIRE-1, S9-FIX |
-| ARCH-V2 | Architecture | Design and implement condensed three-pass architecture with KB retrieval built in. (1) Spec: perception output schema, KB retrieval interface, coaching output schema (Situation/Breakdown/Correction), safety validation rules — **spec before code**. (2) KB retrieval layer: function mapping perception output → terrain KB, feature KB, machine KB entries; deterministic, no LLM. (3) Pass 1: single combined vision call replacing S0–S4, target 30–45 sec. (4) Pass 2: coaching synthesis from perception + KB pack + rider note, target 15–30 sec. (5) Safety: rules-based on output. Total target: under 90 sec. S0–S11 retained as benchmark/debug baseline. | **NEXT P0** — S9-FIX ✓, UI-WIRE-1 ✓ |
-| KB-WIRE-1 | Pipeline | Build KB retrieval layer — function mapping perception output (terrain, features, intent) to relevant KB entries; assemble compact context pack with constraints, common errors, required techniques, machine-specific effects. Reusable regardless of final architecture. Interface defined in ARCH-V2 spec. | Not started | ARCH-V2 spec |
+| ARCH-V2 | Architecture | Design and implement condensed three-pass architecture with KB retrieval built in. (1) Spec: perception output schema, KB retrieval interface, coaching output schema (Situation/Breakdown/Correction), safety validation rules — **spec before code**. (2) KB retrieval layer: function mapping perception output → terrain KB, feature KB, machine KB entries; deterministic, no LLM. (3) Pass 1: single combined vision call replacing S0–S4, target 30–45 sec. (4) Pass 2: coaching synthesis from perception + KB pack + rider note, target 15–30 sec. (5) Safety: rules-based on output. Total target: under 90 sec. S0–S11 retained as benchmark/debug baseline. | **SUPERSEDED (2026-04-16)** — Split into 7 items: ARCH-V2-SPEC, PASS1-SCHEMA, PASS1-IMPL, PASS2-PROMPT, PASS2-IMPL, AMEND-2-3-7-RESOLVE, BENCHMARK-ARCH-V2. Implementation partially built before spec (0987fa6). | — |
+| KB-WIRE-1 | Pipeline | Build KB retrieval layer — function mapping perception output (terrain, features, intent) to relevant KB entries; assemble compact context pack with constraints, common errors, required techniques, machine-specific effects. Reusable regardless of final architecture. Interface defined in ARCH-V2 spec. | **COMPLETE (2026-04-15, commit 0987fa6)** — implemented in `lib/retrieval/` (deterministic context pack, `buildContextPack`, `fromStage4` adapter, full artifact interfaces in `types.ts`) | — |
+| ARCH-V2-SPEC | Architecture | Write `docs/arch-v2-spec.md` as parent spec for ARCH-V2-AMENDMENTS_1.md — reconstructed from existing code in `lib/retrieval/`, `lib/validation/`, `lib/safety/`, `lib/benchmark/`, `lib/pass2/`. In progress in chat — separate commit to follow. | In progress (2026-04-16) | — |
+| PASS1-SCHEMA | Architecture | Design Pass 1 output schema. Replaces `fromStage4()` adapter in `lib/retrieval/types.ts`. Blocks Pass 1 implementation, Pass 2 design, and full ARCH-V2 benchmark runs. | Not started | ARCH-V2-SPEC |
+| PASS1-IMPL | Pipeline | Single combined vision call replacing S0–S4. Target: 30–45 sec. Structured output matched to Pass 1 schema. | Not started | PASS1-SCHEMA |
+| PASS2-PROMPT | Pipeline | Author full Pass 2 prompt against existing output schema in `lib/pass2/prompt.md`. Situation / Breakdown / Correction coaching framework. | Not started | PASS1-SCHEMA |
+| PASS2-IMPL | Pipeline | Pass 2 LLM call implementation — perception output + KB pack + rider note → coaching output. | Not started | PASS2-PROMPT |
+| AMEND-2-3-7-RESOLVE | Architecture | Decide: enforce, defer with explicit reason, or drop Amendments 2 (KB sweep), 3 (retrieval ranking), 7 (quality bar). Lock before ARCH-V2.1 final lock. | Not started | ARCH-V2-SPEC |
+| BENCHMARK-ARCH-V2 | Testing | Full 8-clip benchmark run — compare coaching quality + latency vs S0–S11 baseline. S0–S11 is retained as the reference baseline. | Not started | PASS1-IMPL, PASS2-IMPL |
 | S1-S4-PARALLEL | Pipeline | ~~Parallelise Stages 1–4 with Promise.all~~ — **SUPERSEDED by ARCH-V2 Pass 1.** S1–S4 are being collapsed into a single vision call, not parallelised. Close this task once ARCH-V2 Pass 1 is implemented. | Superseded | ARCH-V2 |
 
 ---
@@ -231,6 +238,15 @@
 | T4 | Expand test corpus to 20+ clips | Not started | T3 |
 | A4 | Decide model assignment per pipeline stage | Not started | T2 |
 
+### Track 2 — Research Agent (not blocking Track 1)
+
+| ID | Task | Status | Blocked By |
+|----|------|--------|------------|
+| COACH-VOICE-SEED-1 | Author `docs/coach-voice-seed-v1.md` — define RideMind coaching voice, language patterns, and tone rules. Required gate before any Track 2 ingest runs. | Not started | — |
+| RESEARCH-CORPUS-SCHEMA-1 | Spec the structured output schema for research agent ingestion (source URL, creator, transcript ref, extracted claims, frameworks, language patterns, timestamps, confidence, target KB domain, proposal status). Forward-compatible with future SQLite/vector retrieval. | Not started | COACH-VOICE-SEED-1 |
+| RESEARCH-AGENT-IMPL-1 | Build research agent — ingest YouTube transcripts and external coaching content into Research Corpus. | Not started | COACH-VOICE-SEED-1, RESEARCH-CORPUS-SCHEMA-1 |
+| PROPOSAL-LAYER-SPEC-1 | Spec the proposal-to-canonical promotion gate — human review gate before any write to Canonical KB. | Not started | RESEARCH-CORPUS-SCHEMA-1 |
+
 ---
 
 ## P3 — Non-Blocking Improvements
@@ -344,6 +360,7 @@
 | S3-ANTI | S3 anti-refusal block committed (36b1274) — crash/incident legitimacy framing added | 2026-04-10 |
 | UI-M1 | UI v1 Milestone 1 (mock data) — page.tsx state machine, API route, 4 components, lib/types.ts, lib/format-result.ts, docs/ui-standards.md; running at localhost:3000 | 2026-04-10 |
 | VISION-LAYER-1 | Vision Layer MVP spec locked — Stage 0 observability gate, trust envelope, route A/B, filming guidance, `claude-sonnet-4-6` model lock. Spec at `docs/vision-layer-spec-v1.md` | 2026-04-15 |
+| KB-WIRE-1 | KB retrieval layer — `lib/retrieval/` deterministic context pack, `buildContextPack`, `fromStage4` adapter, artifact interfaces, outputValidator + enduroSafetyRules + benchmarkHarness, 3 golden-path fixtures passing (0987fa6) | 2026-04-15 |
 
 ---
 

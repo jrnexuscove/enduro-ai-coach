@@ -2,11 +2,13 @@
 
 **Status:** Active
 **Created:** 2026-04-01
-**Last updated:** 2026-04-12
+**Last updated:** 2026-04-16
 **Owner:** Jake (Nexus Cove)
 **Purpose:** Single source of truth for the next phase of RideMind development
 
-## Current Milestone Status (2026-04-12)
+> **Note (2026-04-16):** S0–S11 pipeline is now retained as benchmark/regression baseline only. Product path is ARCH-V2 (two-pass + deterministic retrieval). See `CLAUDE.md` for current state.
+
+## Current Milestone Status (2026-04-16)
 
 | Milestone | Status |
 |-----------|--------|
@@ -17,9 +19,15 @@
 | S5 stall/bail/completed disambiguation | COMMITTED (b48daf0, 2026-04-10) — positive-evidence rule, end-of-clip deceleration rule |
 | Perception viability experiment | COMPLETE (2026-04-12) — 32 runs; Claude 69.8%, Gemini frames 66.7%, Gemini video 65.6%, GPT-4o 45.8%. Decision: Claude Sonnet primary. |
 | UI v1 Milestone 1 | COMPLETE (4855734, 2026-04-10) — mock data, running at localhost:3000 |
-| UI v1 Milestone 2 | NOT STARTED — wire real pipeline (USE_MOCK = false), run 8 test clips |
+| UI v1 Milestone 2 | COMPLETE (2026-04-15) — USE_MOCK = false, real pipeline path active |
+| VISION-LAYER-1 | COMPLETE (2026-04-15) — spec locked at `docs/vision-layer-spec-v1.md`; Stage 0 trust envelope; routes A/B; filming guidance |
+| UI-WIRE-1 | COMPLETE (2026-04-15) — real pipeline wired; `claude-sonnet-4-6`; 5 build fixes |
+| Stage 9 coaching decision fix | COMPLETE (2026-04-15, commit 96b3846) — `isClean` three-condition gate; Rule 8 replaced |
+| ARCH-V2 strategic pivot | DECIDED (2026-04-15, commit b6cc1cd) — S0–S11 demoted to benchmark/regression baseline |
+| ARCH-V2 retrieval + validator + safety + benchmark | IMPLEMENTED (2026-04-15, commit 0987fa6) — `lib/retrieval/`, `lib/validation/`, `lib/safety/`, `lib/benchmark/`, 3 golden paths passing |
+| UI-TEST-1 | DEFERRED — 3/8 clips complete; remaining deferred until ARCH-V2 benchmark |
 
-**Next action:** VISION-LAYER-1 — Vision Layer MVP spec (Stage 0 observability gating, Claude Sonnet default, route A/B). Then UI-WIRE-1 (wire real pipeline, Claude as perception model).
+**Next action (2026-04-16):** ARCH-V2-SPEC (in progress) → PASS1-SCHEMA → PASS1-IMPL → PASS2-PROMPT → PASS2-IMPL → AMEND-2-3-7-RESOLVE → BENCHMARK-ARCH-V2.
 
 ---
 
