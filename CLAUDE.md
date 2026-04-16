@@ -1,10 +1,10 @@
 # CLAUDE.md — RideMind Project Context
 
-**Last updated:** 2026-04-16 (session 2 — workflow redefinition, Lovable migration decision, expanded Claude role)
+**Last updated:** 2026-04-16 (session 2 — workflow redefinition, Lovable migration decision, expanded Claude role, repo migration to RigomiLtd/RideMind)
 
 ## What is RideMind?
 
-RideMind (ridemind.ai) is an AI-powered off-road motorcycle coaching platform. It analyses ride footage and provides structured, actionable coaching feedback. Built by Jake under Nexus Cove.
+RideMind (ridemind.ai) is an AI-powered off-road motorcycle coaching platform. It analyses ride footage and provides structured, actionable coaching feedback. Built by Jake under Rigomi Limited.
 
 RideMind is a **physics-aware, terrain-aware, machine-aware riding intelligence system** — not a generic video analysis tool.
 
@@ -20,6 +20,7 @@ RideMind is a **physics-aware, terrain-aware, machine-aware riding intelligence 
 - Perception model locked to `claude-sonnet-4-6` for all new pipeline code.
 - **Lovable adopted as production platform** — Next.js local dev becomes pipeline/AI dev environment only. See `docs/adr-lovable-migration.md`.
 - **Claude role expanded** — Claude (chat) now holds CTO, PM, Program Manager, and product trajectory functions in addition to architecture review. See `docs/adr-claude-role.md`.
+- **Repo migrated to RigomiLtd/RideMind** — active development now at https://github.com/RigomiLtd/RideMind (private). Old repo at https://github.com/jrnexuscove/enduro-ai-coach archived as provenance record. See `docs/adr-repo-migration.md`.
 
 **P0:** PASS1-SCHEMA — design Pass 1 output schema; replaces `fromStage4()` adapter; blocks Pass 1 impl, Pass 2 design, full ARCH-V2 benchmark. See `docs/arch-v2-spec.md`.
 **P1:** PASS1-IMPL — single combined vision call replacing S0–S4, target 30–45 sec. Blocked on PASS1-SCHEMA.
@@ -86,8 +87,10 @@ This framework will shape: coaching tone, skill prioritisation, skill tag taxono
 
 ## Project Structure
 
+> **Note:** This local Next.js app is the **AI pipeline development environment only** — not the production product. Production UI is Lovable (see `docs/adr-lovable-migration.md`). Active repo: https://github.com/RigomiLtd/RideMind
+
 ```
-app/                    # Next.js app (App Router, not src/app/)
+app/                    # Next.js app (App Router, not src/app/) — pipeline dev env only
   api/analyze/          # POST handler — pipeline entry point (USE_MOCK flag)
   page.tsx              # Single-page state machine: idle→ready→processing→result→error
   layout.tsx            # Root layout

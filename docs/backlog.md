@@ -1,6 +1,6 @@
 # RideMind — Backlog
 
-**Last updated:** 2026-04-16 (session close 2 — workflow redefinition, Lovable migration decision, expanded Claude role. Lovable migration phases A–G added. Road map, workflow docs, and ADRs committed.)
+**Last updated:** 2026-04-16 (session close 2 — workflow redefinition, Lovable migration decision, expanded Claude role. Lovable migration phases A–G added. Road map, workflow docs, and ADRs committed. Repo migrated to RigomiLtd/RideMind.)
 **Current phase:** Phase 3 — Reasoning Pipeline + KB Build (Track 1) / Lovable Migration Phase A (Platform)
 **Master plan:** `docs/ridemind-phase3-master-plan-v1.md`
 **Road map:** `docs/roadmap.md` (first draft — Phase A–G)
@@ -17,6 +17,7 @@ These phases track the migration from local Next.js dev to Lovable as the produc
 
 | ID | Task | Status | Notes |
 |----|------|--------|-------|
+| REPO-MIGRATION | Migrate active development to RigomiLtd/RideMind — copy docs, KB, CLAUDE.md; archive jrnexuscove/enduro-ai-coach; commit and push both repos | **COMPLETE (2026-04-16)** | ADR at `docs/adr-repo-migration.md` |
 | LOVABLE-A1 | Claude chat produces Lovable handover brief — exact spec for Phase A Lovable build | Not started | First task next session |
 | LOVABLE-A2 | Lovable project setup — new project, design system, upload page, branding | Not started | After LOVABLE-A1 |
 | LOVABLE-A3 | Pipeline API deployment — deploy ARCH-V2 pipeline (Pass 1 + Pass 2 + safety) as callable API endpoint | Not started | After PASS1-IMPL, PASS2-IMPL |

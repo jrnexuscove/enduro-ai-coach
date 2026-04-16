@@ -3,7 +3,7 @@
 **Status:** FIRST DRAFT — for Claude (chat) review and refinement
 **Author:** Claude Code, session-close capture
 **Date:** 2026-04-16
-**Owner:** Jake (Nexus Cove)
+**Owner:** Jake (Rigomi Limited)
 
 > **Note:** This is a first-pass road map drafted at session close. It should be reviewed by Claude (chat) at the start of the next session and refined before any phase work begins. Phase durations are estimates only — they reflect working sessions, not calendar weeks.
 

@@ -3,7 +3,7 @@
 **Status:** Active
 **Created:** 2026-04-01
 **Last updated:** 2026-04-16 (session close)
-**Owner:** Jake (Nexus Cove)
+**Owner:** Jake (Rigomi Limited)
 **Purpose:** Single source of truth for the next phase of RideMind development
 
 > **Note (2026-04-16):** S0–S11 pipeline is now retained as benchmark/regression baseline only. Product path is ARCH-V2 (two-pass + deterministic retrieval). See `CLAUDE.md` for current state.

@@ -2,7 +2,7 @@
 
 **Status:** DECIDED
 **Date:** 2026-04-16
-**Owner:** Jake (Nexus Cove)
+**Owner:** Jake (Rigomi Limited)
 
 ---
 

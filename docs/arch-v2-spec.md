@@ -1,7 +1,7 @@
 # ARCH-V2 — RideMind Perception and Coaching Architecture
 
 **Status:** v1.1.1 LOCKED — parent spec for ARCH-V2 implementation
-**Owner:** Jake (Nexus Cove)
+**Owner:** Jake (Rigomi Limited)
 
 | Version | Date | Notes |
 |---|---|---|

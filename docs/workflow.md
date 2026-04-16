@@ -2,7 +2,7 @@
 
 **Status:** v1.0 — first formal definition
 **Decided:** 2026-04-16
-**Owner:** Jake (Nexus Cove)
+**Owner:** Jake (Rigomi Limited)
 
 ---
 
