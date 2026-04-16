@@ -1,8 +1,100 @@
 # RideMind — Backlog
 
-**Last updated:** 2026-04-16 (session close — ARCH-V2-SPEC COMPLETE; COACH-VOICE-SEED-1 ready to land; PASS1-SCHEMA is active P0)
-**Current phase:** Phase 3 — Reasoning Pipeline + KB Build
+**Last updated:** 2026-04-16 (session close 2 — workflow redefinition, Lovable migration decision, expanded Claude role. Lovable migration phases A–G added. Road map, workflow docs, and ADRs committed.)
+**Current phase:** Phase 3 — Reasoning Pipeline + KB Build (Track 1) / Lovable Migration Phase A (Platform)
 **Master plan:** `docs/ridemind-phase3-master-plan-v1.md`
+**Road map:** `docs/roadmap.md` (first draft — Phase A–G)
+
+---
+
+## Lovable Migration — Phases A–G
+
+These phases track the migration from local Next.js dev to Lovable as the production platform, and the full product journey from working pipeline to scale. Defined 2026-04-16. See `docs/roadmap.md` for full phase specs including exit criteria, durations, and dependencies.
+
+### Phase A — Foundation
+
+**Goal:** Lovable project running with ARCH-V2 pipeline connected end-to-end, one clip producing real coaching output.
+
+| ID | Task | Status | Notes |
+|----|------|--------|-------|
+| LOVABLE-A1 | Claude chat produces Lovable handover brief — exact spec for Phase A Lovable build | Not started | First task next session |
+| LOVABLE-A2 | Lovable project setup — new project, design system, upload page, branding | Not started | After LOVABLE-A1 |
+| LOVABLE-A3 | Pipeline API deployment — deploy ARCH-V2 pipeline (Pass 1 + Pass 2 + safety) as callable API endpoint | Not started | After PASS1-IMPL, PASS2-IMPL |
+| LOVABLE-A4 | Wire Lovable → pipeline API — upload → API call → coaching result displayed in Lovable UI | Not started | After LOVABLE-A2, LOVABLE-A3 |
+| LOVABLE-A5 | End-to-end test: one real clip through Lovable → pipeline → coaching result | Not started | After LOVABLE-A4 |
+| DOCS-MIGRATION-1 | Audit which docs live in this repo vs should be referenced from Lovable project | Not started | — |
+| WORKFLOW-DOCS-1 | Confirm `docs/workflow.md` is current after first Lovable session | Not started | After LOVABLE-A1 |
+| ROADMAP-1 | Claude (chat) reviews `docs/roadmap.md` first draft and refines Phase A–G criteria | Not started | First task for Claude chat next session |
+
+### Phase B — Validation
+
+**Goal:** All 8 benchmark clips passing in Lovable end-to-end. ARCH-V2 benchmark baseline established.
+
+| ID | Task | Status | Notes |
+|----|------|--------|-------|
+| LOVABLE-B1 | Run all 8 benchmark clips through Lovable → pipeline | Not started | After LOVABLE-A5 |
+| LOVABLE-B2 | Score 8-clip results against ARCH-V2 benchmark criteria | Not started | After LOVABLE-B1 |
+| LOVABLE-B3 | Fix any pipeline failures surfaced during 8-clip run | Not started | After LOVABLE-B2 |
+| LOVABLE-B4 | Phase B review — gate decision: are 8 clips passing at acceptable quality? | Not started | Jake approves |
+
+### Phase C — Novel Clip Testing
+
+**Goal:** 15–20 new clips (not benchmark clips) tested. Failure types catalogued. Coaching quality gaps identified.
+
+| ID | Task | Status | Notes |
+|----|------|--------|-------|
+| LOVABLE-C1 | Collect 15–20 new ride clips (different riders, terrain, conditions) | Not started | Jake sources |
+| LOVABLE-C2 | Run new clips through pipeline; document failures and gaps | Not started | After LOVABLE-C1 |
+| LOVABLE-C3 | Catalogue failure types — what the pipeline gets wrong and why | Not started | After LOVABLE-C2 |
+| LOVABLE-C4 | KB and prompt improvements from failure catalogue | Not started | After LOVABLE-C3 |
+| LOVABLE-C5 | Phase C review — gate decision: coaching quality sufficient for first users? | Not started | Jake approves |
+
+### Phase D — First Users
+
+**Goal:** 5 real riders using RideMind. Feedback loop established.
+
+| ID | Task | Status | Notes |
+|----|------|--------|-------|
+| LOVABLE-D1 | Identify 5 rider beta testers (Jake's network) | Not started | After LOVABLE-C5 |
+| LOVABLE-D2 | Lovable onboarding flow — simple enough for non-technical riders | Not started | — |
+| LOVABLE-D3 | Feedback capture mechanism — structured way for riders to report what was right/wrong | Not started | — |
+| LOVABLE-D4 | Run first 5 riders through the product; collect feedback | Not started | After LOVABLE-D2, LOVABLE-D3 |
+| LOVABLE-D5 | Phase D review — what did riders say? What must change before broader release? | Not started | Jake approves |
+
+### Phase E — Iterate
+
+**Goal:** Prompt and KB improvements from rider feedback. Coaching quality meaningfully improved over Phase D baseline.
+
+| ID | Task | Status | Notes |
+|----|------|--------|-------|
+| LOVABLE-E1 | Synthesise Phase D rider feedback into improvement backlog | Not started | After LOVABLE-D5 |
+| LOVABLE-E2 | Prioritise improvements: what changes most improve coaching quality? | Not started | Claude chat |
+| LOVABLE-E3 | Implement top priority prompt / KB improvements | Not started | After LOVABLE-E2 |
+| LOVABLE-E4 | Re-test with original 5 riders: has quality improved? | Not started | After LOVABLE-E3 |
+| LOVABLE-E5 | Phase E review — gate decision: ready for broader release? | Not started | Jake approves |
+
+### Phase F — Scale Prep
+
+**Goal:** Rate limiting, Stripe integration, public onboarding. Ready for broader release beyond 5 riders.
+
+| ID | Task | Status | Notes |
+|----|------|--------|-------|
+| LOVABLE-F1 | Rate limiting — prevent abuse, manage API costs | Not started | — |
+| LOVABLE-F2 | Stripe integration — basic payment / subscription model | Not started | — |
+| LOVABLE-F3 | Public onboarding flow — sign-up, what RideMind is, how to upload | Not started | — |
+| LOVABLE-F4 | Cost per analysis tracked and within unit economics target | Not started | — |
+| LOVABLE-F5 | Phase F review — gate decision: ready for public release? | Not started | Jake approves |
+
+### Phase G — Moat Building
+
+**Goal:** Computer vision layer, IMU hardware integration, physical location coaching. Product moat established.
+
+| ID | Task | Status | Notes |
+|----|------|--------|-------|
+| LOVABLE-G1 | CV layer PoC — YOLO or equivalent for deterministic rider pose and terrain detection | Not started | Long-term |
+| LOVABLE-G2 | IMU hardware integration — RideLinc or TwoNav data as structured pipeline input | Not started | Long-term |
+| LOVABLE-G3 | Physical location coaching — identify riding locations, attach location-specific terrain context | Not started | Long-term |
+| LOVABLE-G4 | Drill feedback loop — analyse → prescribe → practise → re-analyse closed loop | Not started | Long-term |
 
 ---
 

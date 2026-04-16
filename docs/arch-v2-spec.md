@@ -1,12 +1,13 @@
 # ARCH-V2 — RideMind Perception and Coaching Architecture
 
-**Status:** v1.1 LOCKED — parent spec for ARCH-V2 implementation
+**Status:** v1.1.1 LOCKED — parent spec for ARCH-V2 implementation
 **Owner:** Jake (Nexus Cove)
 
 | Version | Date | Notes |
 |---|---|---|
 | 1.0 | 2026-04-16 | Initial draft — two-pass architecture, all 7 amendments folded |
 | 1.1 | 2026-04-16 | Schema versioning contract (§7.5); empty-ContextPack handling fixed (§11); wording fixes per ChatGPT review |
+| 1.1.1 | 2026-04-16 | Amendment 2 format rules (§5) and Pass 2 usage constraint (§6.1) folded in from ARCH-V2-AMENDMENTS_1.md. No design change. |
 
 ---
 
@@ -202,6 +203,20 @@ interface ContextPack {
 
 **DynamicsArtifact** — bike dynamics entry: technique reference (≤500 chars — Amendment 2), `match_reason` explaining why this entry was selected for this input.
 
+### technique_reference format rules (Amendment 2)
+
+All `technique_reference` fields across artifact types must conform to:
+
+```
+technique_reference:
+  max_length: 500 characters
+  format: single paragraph, no line breaks
+  must_not_contain: multiple examples, step-by-step instructions, or sub-headings
+  purpose: natural language support for structured fields — not a reasoning input
+```
+
+KB build agents MUST validate `technique_reference` length on write. Any entry exceeding 500 characters MUST be truncated or rewritten before merge. See §14.2 for sweep status.
+
 ### Dynamics retrieval ranking (Amendment 3)
 
 Four-criteria ranking, applied deterministically:
@@ -245,6 +260,8 @@ KB retrieval targets <1 sec. In practice it is negligible relative to model call
 - `PerceptionOutput` — structured perception facts from Pass 1
 - `ContextPack` — terrain, features, dynamics artifacts from KB retrieval
 - `rider_note` (optional) — freeform rider context ("first time on this hill", "new tyres")
+
+**KB input constraint (Amendment 2):** Pass 2 MUST NOT reason from `technique_reference` fields in the ContextPack — they are context only. Coaching reasoning must be grounded in the structured fields defined in §4 (perception) and §5 (context pack). The `technique_reference` string provides natural language support; it is not a reasoning source.
 
 ### 6.2 Output schema
 
@@ -676,7 +693,7 @@ KB entries follow the compression discipline from `docs/feature-kb-consistency-s
 
 ## 14. Amendment Status
 
-All 7 amendments from `docs/ARCH-V2-AMENDMENTS_1.md` are folded into this spec. These amendments must not be maintained as a sidecar — this spec is the canonical contract.
+All 7 amendments from `docs/archive/ARCH-V2-AMENDMENTS_1.md` are folded into this spec. These amendments must not be maintained as a sidecar — this spec is the canonical contract.
 
 | # | Amendment | Status | Notes |
 |---|---|---|---|

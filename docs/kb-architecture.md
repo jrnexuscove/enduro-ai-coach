@@ -49,7 +49,7 @@ None of these are present today. Any one of them is a signal to reopen, not a gu
 ## Related
 
 - `docs/arch-v2-spec.md` (in progress) — the Track 1 architecture
-- `docs/ARCH-V2-AMENDMENTS_1.md` — pre-lock amendments to ARCH-V2
+- `docs/archive/ARCH-V2-AMENDMENTS_1.md` — pre-lock amendments to ARCH-V2 (archived — folded into arch-v2-spec.md v1.1.1)
 - `lib/retrieval/` — the deterministic context pack implementation
 - `docs/coach-voice-seed-v1.md` (TBD) — required gate before Track 2 ingest
 - `docs/research-corpus-schema-v1.md` (TBD) — Track 2 ingest schema
