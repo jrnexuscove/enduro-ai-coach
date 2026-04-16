@@ -2,7 +2,7 @@
 
 **Status:** Active
 **Created:** 2026-04-01
-**Last updated:** 2026-04-16
+**Last updated:** 2026-04-16 (session close)
 **Owner:** Jake (Nexus Cove)
 **Purpose:** Single source of truth for the next phase of RideMind development
 
@@ -26,8 +26,12 @@
 | ARCH-V2 strategic pivot | DECIDED (2026-04-15, commit b6cc1cd) — S0–S11 demoted to benchmark/regression baseline |
 | ARCH-V2 retrieval + validator + safety + benchmark | IMPLEMENTED (2026-04-15, commit 0987fa6) — `lib/retrieval/`, `lib/validation/`, `lib/safety/`, `lib/benchmark/`, 3 golden paths passing |
 | UI-TEST-1 | DEFERRED — 3/8 clips complete; remaining deferred until ARCH-V2 benchmark |
+| Doc hygiene patch | COMPLETE (2026-04-16, commit 982fdaa) — dead arch-v2/src/ deleted; CLAUDE.md, backlog, master plan synced; four-layer KB ADR |
+| Four-layer KB ADR | DECIDED (2026-04-16, commit 982fdaa) — Canonical KB / Research Corpus / Proposal Layer / Runtime Retrieval Pack; spec at `docs/kb-architecture.md` |
+| ARCH-V2-SPEC v1.1 | LOCKED (2026-04-16, commit b94719c) — `docs/arch-v2-spec.md` (748 lines); all 7 amendments folded; §11 empty-ContextPack structured failure rule; §7.5 schema versioning; Pass 2 schema redesign deferred with revisit trigger |
+| Coach Voice Seed v0.2 | READY — held in Claude.ai chat (2026-04-16); to land as `docs/coach-voice-seed-v1.md` next session; gates Track 2 research ingest |
 
-**Next action (2026-04-16):** ARCH-V2-SPEC (in progress) → PASS1-SCHEMA → PASS1-IMPL → PASS2-PROMPT → PASS2-IMPL → AMEND-2-3-7-RESOLVE → BENCHMARK-ARCH-V2.
+**Next action (2026-04-16):** PASS1-SCHEMA — design Pass 1 output schema. Blocks PASS1-IMPL, PASS2-PROMPT, full ARCH-V2 benchmark. Full P0 sequence: ✓ ARCH-V2-SPEC → PASS1-SCHEMA → PASS1-IMPL → PASS2-PROMPT → PASS2-IMPL → AMEND-2-RESOLVE → BENCHMARK-ARCH-V2.
 
 ---
 
@@ -822,3 +826,4 @@ Single-page state machine running at localhost:3000 with mock data. Architecture
 | 1.5 | 2026-04-09 | Major update: Section 6 and 7 rewritten to reflect current state. Feature KB complete (14/14). Pipeline Stages 1–8 built, tested, validated. Stage 9 built (not yet tested). Prompt tuning backlog added. Pre-requisites for remaining stages added. Backlog items updated with completion status. |
 | 1.6 | 2026-04-09 | Session 2 update: All 11 pipeline stages complete. Stage 9 validated (three discriminator clips). Stage 10 implemented (coaching generation, voice rules in prompt). Stage 11 implemented (validator-only, hard fail conditions). COACH-1/SKILL-1 deferred to post-MVP. T1 unblocked. Section 6 status and backlog updated. |
 | 1.7 | 2026-04-10 | T1 complete — full 8-clip retest (32.9 min), S11 8/8 safe. S11-FIX and S11-CON closed. T1 findings: S6 momentum default on 5/8 clips, S7 trigger too narrow. S6-PATCH and S7-RECALL added as P0. T1 findings table and next-actions added to Section 6. |
+| 1.8 | 2026-04-16 | Session close. ARCH-V2-SPEC v1.1 LOCKED (b94719c, 748 lines). Four-layer KB ADR decided (982fdaa). Coach Voice Seed v0.2 complete in chat, to land next session. Milestone table updated; next action updated to PASS1-SCHEMA; document control row added. |
